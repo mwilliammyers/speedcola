@@ -80,7 +80,7 @@ xdg_error() {
 
 do_backup() {
   # if [ -e "$1" ] || [ -e "$2" ] || [ -e "$3" ]; then
-  info "Backing up your original vim configuration."
+  info "Backing up your original vim configuration"
   today=`date +%Y-%m-%d_%s`
   for i in "$@"; do
     [[ -e "$i" ]] && mv -v "$i" "$i.$today"
@@ -266,7 +266,7 @@ else
 
    install_go_deps
 
-   isntall_plugins "${VIM_CONFIG_HOME}/Plug.vim"
+   install_plugins "${VIM_CONFIG_HOME}/Plug.vim"
 
    create_local_files "${LOCAL_VIMRC_FILES}"
 
