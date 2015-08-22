@@ -75,9 +75,9 @@ xdg_error() {
 [[ -z $XDG_DATA_HOME ]] && xdg_error "XDG_DATA_HOME" && should_die=1
 [[ $should_die -eq 1 ]] && exit 1
 
-mkdir -vp "$XDG_CONFIG_HOME/vim"
-mkdir -vp "$XDG_CACHE_HOME/vim/{undo,swap,backup}"
-mkdir -vp "$XDG_DATA_HOME/vim/{sessions,snippets}"
+mkdir -vp "${XDG_CONFIG_HOME}/vim"
+mkdir -vp "${XDG_CACHE_HOME}/vim/{undo,swap,backup}"
+mkdir -vp "${XDG_DATA_HOME}/vim/{sessions,snippets}"
 
 if hash gvim &>/dev/null; then
   FILES_TO_LINK="vimrc gvimrc"
@@ -96,13 +96,13 @@ if [[ "$DIR" != "$HOME/.vim" ]]; then
   dot_file=$HOME/.vim
   if [[ ! -e $dot_file ]]; then
     echo "Detected clone outside of ~/.vim, symlinking"
-    ln -s $DIR $dot_file
+    ln -sf $DIR $dot_file
   fi
 fi
 
 if which nvim > /dev/null; then
-  ln -s $DIR $HOME/.nvim
-  ln -s $DIR/vimrc $HOME/.nvimrc
+  ln -sf $DIR $HOME/.nvim
+  ln -sf $DIR/vimrc $HOME/.nvimrc
 fi
 
 pushd $DIR
@@ -111,13 +111,13 @@ if [[ -e $DIR/bundle ]]; then
   rm -rf $DIR/bundle
 fi
 
-curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
+curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # git submodule update --init --recursive
 
 for file in $LOCALS; do
-   dot_file="$XDG_CONFIG_HOME/vim/$file"
+   dot_file="${XDG_CONFIG_HOME}/vim/${file}"
    touch $dot_file
 done
 
