@@ -33,29 +33,35 @@ done
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
+BLUE='\033[0;34m'
 YELLOW='\033[0;33m'
+#BOLD='\033[0;1m'
 BOLD=`tput bold`
 NORMAL=`tput sgr0`
-END_COLOR='\033[0;m'
+RESET='\033[0;m'
+
+info() {
+  echo -e "${BLUE}${BOLD}==>${NORMAL}${BOLD} ${1}"
+}
 
 warn() {
-  echo -e "${YELLOW}Warning:${END_COLOR} ${NORMAL}${1}"
+  echo -e "${YELLOW}${BOLD}Warning:${NORMAL} ${1}"
 }
 
 error() {
-  echo -e "${RED}Error:${END_COLOR} ${NORMAL}${1}"
+  echo -e "${RED}${BOLD}Error:${NORMAL} ${1}"
 }
 
 die() {
-  echo -e "${RED}Error:${END_COLOR} ${NORMAL}${1}"
+  error "${1}"
   exit 1
 }
 
 if [[ -e "$HOME/.zshrc" ]]; then
   shell_startup="$HOME/.zshrc"
-elif [[ -e "$HOME/.bashrc" ]]; then 
+elif [[ -e "$HOME/.bashrc" ]]; then
   shell_startup="$HOME/.bashrc"
-fi 
+fi
 
 xdg_error() {
   if [[ $1 == "XDG_CONFIG_HOME" ]]; then
@@ -121,7 +127,7 @@ if [[ "$OSTYPE" =~ ^(darwin)+ ]]; then
   VIM_UPDATE_PATH=${XDG_BIN_HOME:-"/usr/local/bin"}
 elif [[ "$OSTYPE" =~ ^(linux)+ ]]; then
   VIM_UPDATE_PATH=${XDG_BIN_HOME:-"$HOME/.local/bin"}
-else 
+else
   die "Unsupported OS. Only OS X and Linux are supported."
 fi
 
@@ -135,7 +141,7 @@ if [[ ! -L "${VIM_UPDATE_PATH}/vim-update" ]]; then
 fi
 
 if hash go &>/dev/null; then
-  echo -e "${YELLOW}INSTALL${END_COLOR} ${BOLD}golang${NORMAL} dependencies..."
+  echo -e "${YELLOW}INSTALL${RESET} ${BOLD}golang${NORMAL} dependencies..."
   gopackages="\
     github.com/golang/lint/golint \
     github.com/jstemmer/gotags \
@@ -149,12 +155,12 @@ if hash go &>/dev/null; then
     "
 
   for p in $gopackages; do
-    echo -e "\t${YELLOW}INSTALL${END_COLOR} ${BOLD}${p}${NORMAL}..."
+    echo -e "\t${YELLOW}INSTALL${RESET} ${BOLD}${p}${NORMAL}..."
     go get -f -u $p
-    echo -e "\t${GREEN}DONE${END_COLOR}    ${BOLD}${p}${NORMAL}"
+    echo -e "\t${GREEN}DONE${RESET}    ${BOLD}${p}${NORMAL}"
   done
   ln -sf "${DIR}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
-  echo -e "${GREEN}DONE${END_COLOR}    ${BOLD}golang${NORMAL} dependencies"
+  echo -e "${GREEN}DONE${RESET}    ${BOLD}golang${NORMAL} dependencies"
 fi
 
 vim -u "${DIR}/Plug.vim" +'silent! PlugClean!|' +'qall!' > /dev/null
