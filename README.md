@@ -30,11 +30,12 @@ __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-v
 ### Runtime configuration
 **Files loaded in this order:**
 - `~/.vimrc`
-- `$XDG_CONFIG_HOME/vim/vimrc.before`
+- `$XDG_CONFIG_HOME/vim/vimrc.local.before`
 - `~/.vim/Plug.vim`
-- `$XDG_CONFIG_HOME/vim/vimrc.after`
+- `$XDG_CONFIG_HOME/vim/vimrc.local.plugins` *coming soon*
 - `~/.vim/config/*.vim`
 - `~/.vim/config/plugin/*.vim`
+- `$XDG_CONFIG_HOME/vim/vimrc.local`
 **Settings:**
 - `viminfo=n$XDG_CACHE_HOME/vim/viminfo`
 - `undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp`
@@ -84,8 +85,8 @@ See [Plug.vim] for a list of currently bundled plugins
 ## Accessorize
 #### User config files:
 - `$XDG_CONFIG_HOME/vim/vimrc.before` 
-- `$XDG_CONFIG_HOME/vim/vimrc.after`
-- `$XDG_CONFIG_HOME/vim/vimrc.bundles` coming soon!
+- `$XDG_CONFIG_HOME/vim/vimrc.local`
+- `$XDG_CONFIG_HOME/vim/vimrc.plugins` *coming soon*
 
 ```
 " will save automatically when leaving the buffer
@@ -102,7 +103,7 @@ let g:neocomplcache_enable_at_startup = 0 " disable the fallback version when no
 #### Colors!
 Included color schemes:
 - [flazz/vim-colorschemes]
-screenshots coming soon!
+- screenshots *coming soon*
 
 ## Notes
 Be sure to always edit the vimrc using `,vi`, which opens the vimrc in the .vim folder. Vim has a nasty habit of overriding symlinks.
