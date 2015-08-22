@@ -48,15 +48,15 @@ print_usage() {
 }
 
 info() {
-  echo -e "${BLUE}${BOLD}==>${NORMAL}${BOLD} ${1}"
+  printf "\n${BLUE}${BOLD}==>${NORMAL}${BOLD} ${1}${RESET}"
 }
 
 warn() {
-  echo -e "${YELLOW}${BOLD}Warning:${NORMAL} ${1}"
+  printf "\n${YELLOW}${BOLD}Warning:${NORMAL} ${1}${RESET}"
 }
 
 error() {
-  echo -e "${RED}${BOLD}Error:${NORMAL} ${1}"
+  printf "\n${RED}${BOLD}Error:${NORMAL} ${1}${RESET}"
 }
 
 die() {
@@ -83,7 +83,7 @@ do_backup() {
   info "Backing up your original vim configuration."
   today=`date +%Y-%m-%d_%s`
   for i in "$@"; do
-    [ -e "$i" ] && [ ! -L "$i" ] && mv -v "$i" "$i.$today";
+    [ -e "$i" ] && mv -v "$i" "$i.$today";
   done
   # fi
 }
