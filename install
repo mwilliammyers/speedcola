@@ -147,10 +147,8 @@ install_go_deps() {
     for p in $gopackages; do
       echo "Installing ${p}..."
       go get -f -u $p
-      # echo -e "\t${GREEN}DONE${RESET}    ${BOLD}${p}${NORMAL}"
     done
     ln -sf "${VIM_CONFIG_HOME}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
-    # echo -e "${GREEN}DONE${RESET}    ${BOLD}golang${NORMAL} dependencies"
   fi
 }
 
