@@ -157,18 +157,18 @@ install_go_deps() {
 install_plugins() {
   local vimrc="$1"
   local vimcmd="$2"
-  vim -u "${vimrc}" +"$vimcmd|" +'qall!'
+  vim +"$vimcmd|" +'qall!'
   if hash nvim &>/dev/null; then
-      nvim -u "${vimrc}" +"$vimcmd|" +'qall!'
+      nvim +"$vimcmd|" +'qall!'
   fi
 }
 
 bootstrap_plugins() {
   info "Installing plugins & plugin dependencies"
   local vimrc="$1"
-  vim -u "$vimrc" +'silent! PlugClean!|' +'qall!'
+  vim +'silent! PlugClean!|' +'qall!'
   if hash nvim &>/dev/null; then
-    nvim -u "$vimrc" +'silent! PlugClean!|' +'qall!'
+    nvim +'silent! PlugClean!|' +'qall!'
   fi
   install_plugins "${vimrc}" "silent! PlugInstall!|silent! GoInstallBinaries!"
 }
