@@ -20,21 +20,23 @@ let g:mapleader=","
 " Runtime Configuration
 " ----------------------------------------
 
-" Files loaded in this order:
-" ~/.vimrc
-" Plug.vim
-" User config: $XDG_CONFIG_HOME/vim/vimrc.{before, after}
-" Anything matching: ~/.vim/config/*.vim
-" Anything matching: ~/.vim/config/plugin/*.vim
-"
-" Settings:
-" viminfo=n$XDG_CACHE_HOME/vim/viminfo
-" undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp
-" directory=$XDG_CACHE_HOME/vim/swap,~/,/tmp
-" backupdir=$XDG_CACHE_HOME/vim/backup,~/,/tmp
+" **Files loaded in this order:**
+" -`~/.vimrc`
+" -`$XDG_CONFIG_HOME/vim/vimrc.local.before`
+" -`~/.vim/Plug.vim`
+" -`$XDG_CONFIG_HOME/vim/vimrc.local.plugins` *coming soon*
+" -`~/.vim/config/*.vim`
+" -`~/.vim/config/plugin/*.vim`
+" -`$XDG_CONFIG_HOME/vim/vimrc.local`
 
-if filereadable($XDG_CONFIG_HOME . '/vim/vimrc.before')
-  source $XDG_CONFIG_HOME/vim/vimrc.before
+" **Settings:**
+" -`viminfo=n$XDG_CACHE_HOME/vim/viminfo`
+" -`undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp`
+" -`directory=$XDG_CACHE_HOME/vim/swap,~/,/tmp`
+" -`backupdir=$XDG_CACHE_HOME/vim/backup,~/,/tmp`
+
+if filereadable($XDG_CONFIG_HOME . '/vim/vimrc.local.before')
+  source $XDG_CONFIG_HOME/vim/vimrc.local.before
 endif
 
 runtime! Plug.vim
@@ -59,6 +61,6 @@ endif
 
 runtime! lib/*.vim
 
-if filereadable($XDG_CONFIG_HOME . '/vim/vimrc.after')
-  source $XDG_CONFIG_HOME/vim/vimrc.after
+if filereadable($XDG_CONFIG_HOME . '/vim/vimrc.local')
+  source $XDG_CONFIG_HOME/vim/vimrc.local
 endif
