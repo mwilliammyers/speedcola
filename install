@@ -226,6 +226,7 @@ done
 [[ -z $XDG_DATA_HOME ]] && xdg_error "XDG_DATA_HOME" && should_die=1
 [[ $should_die -eq 1 ]] && exit 1
 
+[[ ! -e "${XDG_CACHE_HOME}/vim" ]] && mkdir -p "${XDG_CACHE_HOME}/vim"
 mkdir -p "${XDG_CACHE_HOME}/vim/{undo,swap,backup}"
 mkdir -p "${XDG_DATA_HOME}/vim/{sessions,snippets}"
 
@@ -268,7 +269,7 @@ else
 
    install_plugins "${VIM_CONFIG_HOME}/Plug.vim"
 
-   create_local_files "${LOCAL_VIMRC_FILES}"
 fi
+create_local_files "${LOCAL_VIMRC_FILES}"
 
 link_files "${FILES_TO_LINK}"
