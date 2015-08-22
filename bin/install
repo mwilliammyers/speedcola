@@ -141,7 +141,7 @@ if [[ ! -L "${VIM_UPDATE_PATH}/vim-update" ]]; then
 fi
 
 if hash go &>/dev/null; then
-  echo -e "${YELLOW}INSTALL${RESET} ${BOLD}golang${NORMAL} dependencies..."
+  info "Installing golang dependencies..."
   gopackages="\
     github.com/golang/lint/golint \
     github.com/jstemmer/gotags \
@@ -155,12 +155,12 @@ if hash go &>/dev/null; then
     "
 
   for p in $gopackages; do
-    echo -e "\t${YELLOW}INSTALL${RESET} ${BOLD}${p}${NORMAL}..."
+    info "Installing ${p}..."
     go get -f -u $p
-    echo -e "\t${GREEN}DONE${RESET}    ${BOLD}${p}${NORMAL}"
+    # echo -e "\t${GREEN}DONE${RESET}    ${BOLD}${p}${NORMAL}"
   done
   ln -sf "${DIR}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
-  echo -e "${GREEN}DONE${RESET}    ${BOLD}golang${NORMAL} dependencies"
+  # echo -e "${GREEN}DONE${RESET}    ${BOLD}golang${NORMAL} dependencies"
 fi
 
 vim -u "${DIR}/Plug.vim" +'silent! PlugClean!|' +'qall!' > /dev/null
