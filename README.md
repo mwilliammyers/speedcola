@@ -103,13 +103,13 @@ Be sure to always edit the vimrc using `,vi`, which opens the vimrc in the .vim 
 
 Here's some tips if you've never used VIM before:
 
-### Tutorials
+#### Tutorials
 
 * Type `vimtutor` into a shell to go through a brief interactive
   tutorial inside VIM.
 * Read the slides at [VIM: Walking Without Crutches](https://walking-without-crutches.heroku.com/#1).
 
-### Modes
+#### Modes
 
 * VIM has two (common) modes:
   * insert mode- stuff you type is added to the buffer
@@ -117,7 +117,7 @@ Here's some tips if you've never used VIM before:
 * To enter insert mode, hit `i`
 * To exit insert mode, hit `<ESC>`
 
-### Useful commands
+#### Useful commands
 
 * Use `:q` to exit vim
 * Certain commands are prefixed with a `<Leader>` key, which by default maps to `\` xdg-vim uses `let mapleader = ","` to change this to `,` which is in a consistent and convenient location.
