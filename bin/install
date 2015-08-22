@@ -58,22 +58,21 @@ elif [[ -e "$HOME/.bashrc" ]]; then
 fi 
 
 xdg_error() {
-  if [[ $1 == "XDG_CONFIG_HOME" ]]; then 
-    export_msg="\ntry: echo \"export XDG_CONFIG_HOME=$HOME/.config >> $shell_startup\""
+  if [[ $1 == "XDG_CONFIG_HOME" ]]; then
+    export_msg="try: echo \"export XDG_CONFIG_HOME=$HOME/.config\" >> $shell_startup"
   elif [[ $1 == "XDG_DATA_HOME" ]]; then
-    export_msg="\ntry: echo \"export XDG_DATA_HOME=$HOME/.local/share >> $shell_startup\""
-  elif [[ $1 == "XDG_CACHE_HOME" ]]; then 
-    export_msg="\ntry: echo \"export XDG_CACHE_HOME=$HOME/.cache >> $shell_startup\""
-  fi 
-  
-  error "\$$1 must be set to use these vim config files. \ 
-  \n$export_msg \
+    export_msg="try: echo \"export XDG_DATA_HOME=$HOME/.local/share\" >> $shell_startup"
+  elif [[ $1 == "XDG_CACHE_HOME" ]]; then
+    export_msg="try: echo \"export XDG_CACHE_HOME=$HOME/.cache\" >> $shell_startup"
+  fi
+
+  error "\$$1 must be set to use these vim config files. \n$export_msg \
   \nSee: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html"
 }
 
-[ -z $XDG_CONFIG_HOME ] && xdg_error "XDG_CONFIG_HOME" && should_die=1  
+[ -z $XDG_CONFIG_HOME ] && xdg_error "XDG_CONFIG_HOME" && should_die=1
 [ -z $XDG_CACHE_HOME ] && xdg_error "XDG_CACHE_HOME" && should_die=1
-[ -z $XDG_DATA_HOME ] && xdg_die "XDG_DATA_HOME" && should_die=1
+[ -z $XDG_DATA_HOME ] && xdg_error "XDG_DATA_HOME" && should_die=1
 [ $should_die -eq 1 ] && exit 1
 
 mkdir -p $XDG_CONFIG_HOME/vim
