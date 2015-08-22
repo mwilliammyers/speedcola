@@ -25,7 +25,7 @@ fi
 repo_vimrc_files="vimrc"
 hash gvim &>/dev/null && repo_vimrc_files="vimrc gvimrc"
 
-local_vimrc_files="vimrc.local vimrc.local.before vimrc.local.plugins"
+local_vimrc_files="vimrc.local vimrc.local.before"
 
 # TODO: verify against $PATH
 if [[ "$OSTYPE" =~ ^(darwin)+ ]]; then
@@ -166,10 +166,6 @@ install_plugins() {
 bootstrap_plugins() {
   info "Installing plugins & plugin dependencies"
   local vimrc="$1"
-  # vim -u "$vimrc" +'silent! PlugClean!|' +'qall!'
-  # if hash nvim &>/dev/null; then
-  #   nvim -u "$vimrc" +'silent! PlugClean!|' +'qall!'
-  # fi
   install_plugins "${vimrc}" "silent! PlugInstall!|silent! GoInstallBinaries!|"
 }
 
@@ -213,20 +209,11 @@ else
              "${VIM_REPO_BRANCH}" \
              "$app_name"
 
-  #  git submodule update --init --recursive "${VIM_CONFIG_HOME}"
+  install_vim_plug "${VIM_CONFIG_HOME}"
 
-   install_vim_plug "${VIM_CONFIG_HOME}"
+  install_go_deps
 
-   # [[ -L "${VIM_UPDATE_PATH}/vim-update" ]] && rm -f "${VIM_UPDATE_PATH}/vim-update"
-   #
-   # if [[ ! -L "${VIM_UPDATE_PATH}/vim-update" ]]; then
-   #   mkdir -p "${VIM_UPDATE_PATH}"
-   #   ln -s "${VIM_CONFIG_HOME}/bin/update" "${VIM_UPDATE_PATH}/vim-update"
-   # fi
-
-  #  install_go_deps
-
-   bootstrap_plugins "${VIM_CONFIG_HOME}/Plug.vim"
+  bootstrap_plugins "${VIM_CONFIG_HOME}/Plug.vim"
 fi
 
 create_local_files "${local_vimrc_files}"
