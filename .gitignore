@@ -6,6 +6,7 @@
 bundle/
 sessions/
 tags
-plugged/
+plugged/*
+!plugged/vim-colorschemes
 autoload/
 config/local/
