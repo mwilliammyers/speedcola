@@ -111,6 +111,17 @@ if which nvim > /dev/null; then
   ln -sf "${DIR}/vimrc" "${HOME}/.nvimrc"
 fi
 
+pushd "${DIR}"
+
+if [[ -e "${DIR}/bundle" ]]; then
+  rm -rf "${DIR}/bundle"
+fi
+
+curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+git submodule update --init --recursive
+
 for file in $LOCALS; do
    dot_file="${XDG_CONFIG_HOME}/vim/${file}"
    touch "${dot_file}"
@@ -122,17 +133,6 @@ for file in $FILES_TO_LINK; do
     ln -s "${DIR}/${file}" "${dot_file}"
   fi
 done
-
-pushd "${DIR}"
-
-if [[ -e "${DIR}/bundle" ]]; then
-  rm -rf "${DIR}/bundle"
-fi
-
-curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-git submodule update --init --recursive
 
 ls -a "$DIR/plugged"
 
