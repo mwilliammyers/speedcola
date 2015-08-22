@@ -166,18 +166,17 @@ install_plugins() {
 bootstrap_plugins() {
   info "Installing plugins & plugin dependencies"
   local vimrc="$1"
-  vim -u "$vimrc" --cmd 'silent! PlugClean!|' --cmd 'qall!'
+  vim -u "$vimrc" --cmd 'silent! PlugClean!' --cmd 'qall!'
   if hash nvim &>/dev/null; then
-    nvim -u "$vimrc" --cmd 'silent! PlugClean!|' --cmd 'qall!'
+    nvim -u "$vimrc" --cmd 'silent! PlugClean!' --cmd 'qall!'
   fi
-  install_plugins "${vimrc}" "silent! PlugInstall!|silent! GoInstallBinaries!|"
+  install_plugins "${vimrc}" "silent! PlugInstall!|silent! GoInstallBinaries!"
 }
 
 update_plugins() {
   info "Updating plugins & plugin dependencies"
   install_plugins "$1" "silent! PlugUpdate!|"
 }
-
 
 ############################ MAIN()
 [[ -z $XDG_CONFIG_HOME ]] && xdg_error "XDG_CONFIG_HOME" && should_die=1
