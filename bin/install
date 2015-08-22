@@ -111,6 +111,18 @@ if which nvim > /dev/null; then
   ln -sf "${DIR}/vimrc" "${HOME}/.nvimrc"
 fi
 
+for file in $LOCALS; do
+   dot_file="${XDG_CONFIG_HOME}/vim/${file}"
+   touch "${dot_file}"
+done
+
+for file in $FILES_TO_LINK; do
+  dot_file="${HOME}/.${file}"
+  if [ ! -e "${dot_file}" ]; then
+    ln -s "${DIR}/${file}" "${dot_file}"
+  fi
+done
+
 pushd "${DIR}"
 
 if [[ -e "${DIR}/bundle" ]]; then
@@ -163,10 +175,10 @@ if hash go &>/dev/null; then
   # echo -e "${GREEN}DONE${RESET}    ${BOLD}golang${NORMAL} dependencies"
 fi
 
-vim -u "${DIR}/Plug.vim" +'silent! PlugClean!|' +'qall!' > /dev/null
+vim +'silent! PlugClean!|' +'qall!' > /dev/null
 
 if hash nvim &>/dev/null; then
-  nvim -u "${DIR}/Plug.vim" +'silent! PlugClean!|' +'qall!' > /dev/null
+  nvim +'silent! PlugClean!|' +'qall!' > /dev/null
 fi
 
 
@@ -186,22 +198,10 @@ fi
 
 if hash nvim &>/dev/null; then
   if [[ $INTERACTIVE == 1 ]]; then
-    nvim -u "${DIR}/Plug.vim" +"$vimcmd" +'qall!'
+    nvim +"$vimcmd" +'qall!'
   else
-    nvim -u "${DIR}/Plug.vim" +"$vimcmd" +'qall!' > /dev/null
+    nvim +"$vimcmd" +'qall!' > /dev/null
   fi
 fi
-
-for file in $LOCALS; do
-   dot_file="${XDG_CONFIG_HOME}/vim/${file}"
-   touch "${dot_file}"
-done
-
-for file in $FILES_TO_LINK; do
-  dot_file="${HOME}/.${file}"
-  if [ ! -e "${dot_file}" ]; then
-    ln -s "${DIR}/${file}" "${dot_file}"
-  fi
-done
 
 popd
