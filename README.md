@@ -73,15 +73,37 @@ brew install ctags-fishman --HEAD
 *exuberant-ctags* from your OS is generally enough for most things, but if you want more CSS, ruby and other goodnesses you will need to manually compile and replace your ctags installation with: https://github.com/fishman/ctags
 
 ## Plugins
-All plugins are managed by [vim-plug]
+
+**All plugins are managed by [vim-plug]**
 
 See [Plug.vim] for a list of currently bundled plugins
 
-#### Requirements
+### Requirements
  * [Fugitive] requires Git
  * [ag.vim] requires [ag]
  * [ack.vim] requires [ack]
  * [Tagbar] requires [exuberant-ctags]
+
+### Meet the plugins
+
+### [Undotree]
+
+If you undo changes and then make a new change, in most editors the changes you undid are gone forever, as their undo-history is a simple list.
+Since version 7.0 vim uses an undo-tree instead. If you make a new change after undoing changes, a new branch is created in that tree.
+Combined with persistent undo, this is nearly as flexible and safe as git ;-)
+
+Undotree makes that feature more accessible by creating a visual representation of said undo-tree.
+
+**QuickStart** Launch using `<Leader>u`
+
+### [NERDTree]
+
+NERDTree is a file explorer plugin that provides "project drawer"
+functionality to your vim editing.  You can learn more about it with
+`:help NERDTree`.
+
+**QuickStart** Launch using `\`
+
 
 ## Accessorize
 #### User config files:
