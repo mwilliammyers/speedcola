@@ -1,15 +1,196 @@
 #!/usr/bin/env bash
 
+############################  SETUP PARAMETERS
+app_name="xdg-vimrc"
+[ -z "$VIM_CONFIG_HOME" ] && VIM_CONFIG_HOME="$HOME/.vim"
+[ -z "$REPO_URI" ] && REPO_URI='https://github.com/mkwmms/xdg-vimrc'
+[ -z "$REPO_BRANCH" ] && REPO_BRANCH='master'
+
+VIM_PLUG_URI='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+INTERACTIVE=1
+UPDATE=0
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+YELLOW='\033[0;33m'
+BOLD=`tput bold`
+NORMAL=`tput sgr0`
+RESET='\033[0;m'
+
+if [[ -e "$HOME/.zshrc" ]]; then
+  shell_startup="$HOME/.zshrc"
+elif [[ -e "$HOME/.bashrc" ]]; then
+  shell_startup="$HOME/.bashrc"
+fi
+
+FILES_TO_LINK="vimrc"
+[[ hash gvim &>/dev/null ]] && FILES_TO_LINK="vimrc gvimrc"
+
+LOCAL_VIMRC_FILES="vimrc.local vimrc.local.before vimrc.local.plugins"
+
+# TODO: verify against $PATH
+if [[ "$OSTYPE" =~ ^(darwin)+ ]]; then
+  VIM_UPDATE_PATH=${XDG_BIN_HOME:-"/usr/local/bin"}
+elif [[ "$OSTYPE" =~ ^(linux)+ ]]; then
+  VIM_UPDATE_PATH=${XDG_BIN_HOME:-"$HOME/.local/bin"}
+else
+  die "Unsupported OS. Only OS X and Linux are supported."
+fi
+
+############################ BASIC TOOLS
 print_usage() {
-  echo -e "Unsupported option: $@"
+  error "Unsupported option: $@"
   echo -e "Supported options:"
   echo -e "\t-u, --update          \tUpdate all plugins."
   echo -e "\t-n, --non-interactive \tDon't show vim while installing plugins."
 }
 
-INTERACTIVE=1
-UPDATE=0
+info() {
+  echo -e "${BLUE}${BOLD}==>${NORMAL}${BOLD} ${1}"
+}
 
+warn() {
+  echo -e "${YELLOW}${BOLD}Warning:${NORMAL} ${1}"
+}
+
+error() {
+  echo -e "${RED}${BOLD}Error:${NORMAL} ${1}"
+}
+
+die() {
+  error "${1}"
+  exit 1
+}
+
+############################ FUNCTIONS
+xdg_error() {
+  if [[ $1 == "XDG_CONFIG_HOME" ]]; then
+    export_msg="try: echo \"export XDG_CONFIG_HOME=$HOME/.config\" >> $shell_startup"
+  elif [[ $1 == "XDG_DATA_HOME" ]]; then
+    export_msg="try: echo \"export XDG_DATA_HOME=$HOME/.local/share\" >> $shell_startup"
+  elif [[ $1 == "XDG_CACHE_HOME" ]]; then
+    export_msg="try: echo \"export XDG_CACHE_HOME=$HOME/.cache\" >> $shell_startup"
+  fi
+
+  error "\$$1 must be set to use these vim config files. \n$export_msg \
+  \nSee: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html"
+}
+
+do_backup() {
+  # if [ -e "$1" ] || [ -e "$2" ] || [ -e "$3" ]; then
+  info "Backing up your original vim configuration."
+  today=`date +%Y-%m-%d_%s`
+  for i in "$@"; do
+    [ -e "$i" ] && [ ! -L "$i" ] && mv -v "$i" "$i.$today";
+  done
+  # fi
+}
+
+sync_repo() {
+  local repo_path="$1"
+  local repo_uri="$2"
+  local repo_branch="$3"
+  local repo_name="$4"
+
+  info "Updating $repo_name"
+
+  if [ ! -e "$repo_path" ]; then
+    mkdir -p "$repo_path"
+    git clone -b "$repo_branch" "$repo_uri" "$repo_path"
+    # ret="$?"
+    # success "Successfully cloned $repo_name."
+  else
+    cd "$repo_path" && git pull origin "$repo_branch"
+    # ret="$?"
+    # success "Successfully updated $repo_name"
+  fi
+}
+
+install_vim_plug() {
+  [[ -e "${1}/bundle" ]] && rm -rf "${1}/bundle"
+
+  curl -fLo "${1}/autoload/plug.vim" --create-dirs "${VIM_PLUG_URI}"
+}
+
+create_local_files() {
+  for file in $1; do
+    dot_file="${XDG_CONFIG_HOME}/vim/${file}"
+    touch "${dot_file}"
+  done
+}
+
+link_files() {
+  for file in $1; do
+    dot_file="${HOME}/.${file}"
+    if [ ! -e "${dot_file}" ]; then
+      ln -s "${VIM_CONFIG_HOME}/${file}" "${dot_file}"
+    fi
+  done
+
+  if which nvim > /dev/null; then
+    ln -sf "${VIM_CONFIG_HOME}" "${HOME}/.nvim"
+    ln -sf "${VIM_CONFIG_HOME}/vimrc" "${HOME}/.nvimrc"
+  fi
+}
+
+install_go_deps() {
+  if hash go &>/dev/null; then
+    info "Installing golang dependencies..."
+    gopackages="\
+      github.com/golang/lint/golint \
+      github.com/jstemmer/gotags \
+      github.com/kisielk/errcheck \
+      github.com/nsf/gocode \
+      golang.org/x/tools/cmd/godoc \
+      golang.org/x/tools/cmd/goimports \
+      golang.org/x/tools/cmd/gorename \
+      golang.org/x/tools/cmd/oracle \
+      golang.org/x/tools/cmd/vet \
+      "
+
+    for p in $gopackages; do
+      echo -e "Installing ${p}..."
+      go get -f -u $p
+      # echo -e "\t${GREEN}DONE${RESET}    ${BOLD}${p}${NORMAL}"
+    done
+    ln -sf "${VIM_CONFIG_HOME}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
+    # echo -e "${GREEN}DONE${RESET}    ${BOLD}golang${NORMAL} dependencies"
+  fi
+}
+
+update_plugins() {
+  vim +'silent! PlugClean!|' +'qall!' > /dev/null
+
+  if hash nvim &>/dev/null; then
+    nvim +'silent! PlugClean!|' +'qall!' > /dev/null
+  fi
+
+  vimcmd=""
+  if [[ $UPDATE == 1 ]]; then
+    vimcmd=$vimcmd"silent! PlugUpdate!|"
+  else
+    vimcmd=$vimcmd"silent! PlugInstall!|"
+  fi
+  vimcmd=$vimcmd"silent! GoInstallBinaries!|"
+
+  if [[ $INTERACTIVE == 1 ]] ; then
+    vim +"$vimcmd" +'qall!'
+  else
+    vim +"$vimcmd" +'qall!' > /dev/null
+  fi
+
+  if hash nvim &>/dev/null; then
+    if [[ $INTERACTIVE == 1 ]]; then
+      nvim +"$vimcmd" +'qall!'
+    else
+      nvim +"$vimcmd" +'qall!' > /dev/null
+    fi
+  fi
+}
+
+############################ MAIN()
 while [[ $# > 0 ]]
 do
   key="$1"
@@ -31,179 +212,38 @@ do
   shift
 done
 
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-BLUE='\033[0;34m'
-YELLOW='\033[0;33m'
-#BOLD='\033[0;1m'
-BOLD=`tput bold`
-NORMAL=`tput sgr0`
-RESET='\033[0;m'
-
-info() {
-  echo -e "${BLUE}${BOLD}==>${NORMAL}${BOLD} ${1}"
-}
-
-warn() {
-  echo -e "${YELLOW}${BOLD}Warning:${NORMAL} ${1}"
-}
-
-error() {
-  echo -e "${RED}${BOLD}Error:${NORMAL} ${1}"
-}
-
-die() {
-  error "${1}"
-  exit 1
-}
-
-if [[ -e "$HOME/.zshrc" ]]; then
-  shell_startup="$HOME/.zshrc"
-elif [[ -e "$HOME/.bashrc" ]]; then
-  shell_startup="$HOME/.bashrc"
-fi
-
-xdg_error() {
-  if [[ $1 == "XDG_CONFIG_HOME" ]]; then
-    export_msg="try: echo \"export XDG_CONFIG_HOME=$HOME/.config\" >> $shell_startup"
-  elif [[ $1 == "XDG_DATA_HOME" ]]; then
-    export_msg="try: echo \"export XDG_DATA_HOME=$HOME/.local/share\" >> $shell_startup"
-  elif [[ $1 == "XDG_CACHE_HOME" ]]; then
-    export_msg="try: echo \"export XDG_CACHE_HOME=$HOME/.cache\" >> $shell_startup"
-  fi
-
-  error "\$$1 must be set to use these vim config files. \n$export_msg \
-  \nSee: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html"
-}
-
 [[ -z $XDG_CONFIG_HOME ]] && xdg_error "XDG_CONFIG_HOME" && should_die=1
 [[ -z $XDG_CACHE_HOME ]] && xdg_error "XDG_CACHE_HOME" && should_die=1
 [[ -z $XDG_DATA_HOME ]] && xdg_error "XDG_DATA_HOME" && should_die=1
 [[ $should_die -eq 1 ]] && exit 1
 
-mkdir -vp "${XDG_CONFIG_HOME}/vim"
-mkdir -vp "${XDG_CACHE_HOME}/vim/{undo,swap,backup}"
-mkdir -vp "${XDG_DATA_HOME}/vim/{sessions,snippets}"
+do_backup "${HOME}/.vim" \
+          "${HOME}/.vimrc" \
+          "${HOME}/.gvimrc"
 
-if hash gvim &>/dev/null; then
-  FILES_TO_LINK="vimrc gvimrc"
-else
-  FILES_TO_LINK="vimrc"
-fi
+sync_repo "${VIM_CONFIG_HOME}" \
+          "${REPO_URI}" \
+          "${REPO_BRANCH}" \
+          "$app_name"
 
-LOCALS="vimrc.local vimrc.local.before vimrc.local.plugins"
+git submodule update --init --recursive "${VIM_CONFIG_HOME}"
 
-DIR=$(cd $(dirname $0) && pwd)
-if [[ $(basename "${DIR}") == "bin" ]]; then
-  DIR=$(cd "${DIR}"/..&& pwd)
-fi
+install_vim_plug "${VIM_CONFIG_HOME}"
 
-if [[ "${DIR}" != "${HOME}/.vim" ]]; then
-  dot_file="${HOME}/.vim"
-  if [[ ! -e "${dot_file}" ]]; then
-    echo "Detected clone outside of ~/.vim, symlinking"
-    ln -sf "${DIR}" "${dot_file}"
-  fi
-fi
+mkdir -p "${XDG_CACHE_HOME}/vim/{undo,swap,backup}"
+mkdir -p "${XDG_DATA_HOME}/vim/{sessions,snippets}"
 
-if which nvim > /dev/null; then
-  ln -sf "${DIR}" "${HOME}/.nvim"
-  ln -sf "${DIR}/vimrc" "${HOME}/.nvimrc"
-fi
-
-pushd "${DIR}"
-
-if [[ -e "${DIR}/bundle" ]]; then
-  rm -rf "${DIR}/bundle"
-fi
-
-curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-git submodule update --init --recursive
-
-for file in $LOCALS; do
-   dot_file="${XDG_CONFIG_HOME}/vim/${file}"
-   touch "${dot_file}"
-done
-
-for file in $FILES_TO_LINK; do
-  dot_file="${HOME}/.${file}"
-  if [ ! -e "${dot_file}" ]; then
-    ln -s "${DIR}/${file}" "${dot_file}"
-  fi
-done
-
-ls -a "$DIR/plugged"
-
-# TODO: verify against $PATH
-if [[ "$OSTYPE" =~ ^(darwin)+ ]]; then
-  VIM_UPDATE_PATH=${XDG_BIN_HOME:-"/usr/local/bin"}
-elif [[ "$OSTYPE" =~ ^(linux)+ ]]; then
-  VIM_UPDATE_PATH=${XDG_BIN_HOME:-"$HOME/.local/bin"}
-else
-  die "Unsupported OS. Only OS X and Linux are supported."
-fi
-
-if [[ -L "${VIM_UPDATE_PATH}/vim-update" ]]; then
-  rm -f "${VIM_UPDATE_PATH}/vim-update"
-fi
+[[ -L "${VIM_UPDATE_PATH}/vim-update" ]] && rm -f "${VIM_UPDATE_PATH}/vim-update"
 
 if [[ ! -L "${VIM_UPDATE_PATH}/vim-update" ]]; then
   mkdir -p "${VIM_UPDATE_PATH}"
-  ln -s "${DIR}/bin/update" "${VIM_UPDATE_PATH}/vim-update"
+  ln -s "${VIM_CONFIG_HOME}/bin/update" "${VIM_UPDATE_PATH}/vim-update"
 fi
 
-if hash go &>/dev/null; then
-  info "Installing golang dependencies..."
-  gopackages="\
-    github.com/golang/lint/golint \
-    github.com/jstemmer/gotags \
-    github.com/kisielk/errcheck \
-    github.com/nsf/gocode \
-    golang.org/x/tools/cmd/godoc \
-    golang.org/x/tools/cmd/goimports \
-    golang.org/x/tools/cmd/gorename \
-    golang.org/x/tools/cmd/oracle \
-    golang.org/x/tools/cmd/vet \
-    "
+create_local_files "${LOCAL_VIMRC_FILES}"
 
-  for p in $gopackages; do
-    info "Installing ${p}..."
-    go get -f -u $p
-    # echo -e "\t${GREEN}DONE${RESET}    ${BOLD}${p}${NORMAL}"
-  done
-  ln -sf "${DIR}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
-  # echo -e "${GREEN}DONE${RESET}    ${BOLD}golang${NORMAL} dependencies"
-fi
+link_files "${FILES_TO_LINK}"
 
-vim +'silent! PlugClean!|' +'qall!' > /dev/null
+install_go_deps
 
-if hash nvim &>/dev/null; then
-  nvim +'silent! PlugClean!|' +'qall!' > /dev/null
-fi
-
-
-vimcmd=""
-if [[ $UPDATE == 1 ]]; then
-  vimcmd=$vimcmd"silent! PlugUpdate!|"
-else
-  vimcmd=$vimcmd"silent! PlugInstall!|"
-fi
-vimcmd=$vimcmd"silent! GoInstallBinaries!|"
-
-if [[ $INTERACTIVE == 1 ]] ; then
-  vim -u "${DIR}/vimrc" +"$vimcmd" +'qall!'
-else
-  vim -u "${DIR}/vimrc" +"$vimcmd" +'qall!' > /dev/null
-fi
-
-if hash nvim &>/dev/null; then
-  if [[ $INTERACTIVE == 1 ]]; then
-    nvim +"$vimcmd" +'qall!'
-  else
-    nvim +"$vimcmd" +'qall!' > /dev/null
-  fi
-fi
-
-popd
+update_plugins
