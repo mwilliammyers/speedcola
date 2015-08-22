@@ -134,6 +134,8 @@ curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
 
 git submodule update --init --recursive
 
+ls -a "$DIR/plugged"
+
 # TODO: verify against $PATH
 if [[ "$OSTYPE" =~ ^(darwin)+ ]]; then
   VIM_UPDATE_PATH=${XDG_BIN_HOME:-"/usr/local/bin"}
