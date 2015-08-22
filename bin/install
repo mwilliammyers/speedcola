@@ -1,0 +1,183 @@
+#!/usr/bin/env bash
+
+print_usage() {
+  echo -e "Unsupported option: $@"
+  echo -e "Supported options:"
+  echo -e "\t-u, --update          \tUpdate all plugins."
+  echo -e "\t-n, --non-interactive \tDon't show vim while installing plugins."
+}
+
+INTERACTIVE=1
+UPDATE=0
+
+while [[ $# > 0 ]]
+do
+  key="$1"
+
+  case $key in
+    -n|--non-interactive)
+      INTERACTIVE=0
+      shift
+      ;;
+    -u|--update)
+      UPDATE=1
+      shift
+      ;;
+    *)
+      print_usage $key
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+BOLD=`tput bold`
+NORMAL=`tput sgr0`
+END_COLOR='\033[0;m'
+
+warn() {
+  echo -e "${YELLOW}Warning:${END_COLOR} ${NORMAL}${1}"
+}
+
+error() {
+  echo -e "${RED}Error:${END_COLOR} ${NORMAL}${1}"
+}
+
+die() {
+  echo -e "${RED}Error:${END_COLOR} ${NORMAL}${1}"
+  exit 1
+}
+
+xdg_error() {
+   "\$$1 must be set to use these vim config files. \ 
+  \ntry: echo \"export  
+  \nSee: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html"
+}
+
+[ -z $XDG_CONFIG_HOME ] && xdg_error "XDG_CONFIG_HOME" && should_die=1  
+[ -z $XDG_CACHE_HOME ] && xdg_error "XDG_CACHE_HOME" && should_die=1
+[ -z $XDG_DATA_HOME ] && xdg_die "XDG_DATA_HOME" && should_die=1
+[ $should_die -eq 1 ] && exit 1
+
+mkdir -p $XDG_CACHE_HOME/vim/{undo,swap,backup}
+mkdir -p $XDG_DATA_HOME/vim/{sessions,snippets}
+
+if hash gvim &>/dev/null; then
+  FILES_TO_LINK="vimrc gvimrc"
+else
+  FILES_TO_LINK="vimrc"
+fi
+
+# LOCALS=".vimrc.local.before .vimrc.local .vimrc.local.plugins"
+
+DIR=$(cd $(dirname $0) && pwd)
+if [ $(basename $DIR) == "bin" ]; then
+  DIR=$(cd ${DIR}/..&& pwd)
+fi
+
+if [ "$DIR" != "$HOME/.vim" ]; then
+  dot_file=$HOME/.vim
+  if [ ! -e $dot_file ]; then
+    echo "Detected clone outside of ~/.vim, symlinking"
+    ln -s $DIR $dot_file
+  fi
+fi
+
+if which nvim > /dev/null; then
+  ln -s $DIR $HOME/.nvim
+  ln -s $DIR/vimrc $HOME/.nvimrc
+fi
+
+pushd $DIR
+
+if [ -e $DIR/bundle ]; then
+  rm -rf $DIR/bundle
+fi
+
+curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+git submodule update --init --recursive
+
+# for file in $LOCALS; do
+#   dot_file=$HOME/$file
+#   touch $dot_file
+# done
+
+for file in $FILES_TO_LINK; do
+  dot_file=$HOME/.$file
+  if [ ! -e $dot_file ]; then
+    ln -s $DIR/$file $dot_file
+  fi
+done
+
+if [ "$(uname)" == "Darwin" ]; then
+  VIM_UPDATE_PATH=${XDG_BIN_HOME:-"/usr/local/bin"}
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  VIM_UPDATE_PATH=${XDG_BIN_HOME:-"$HOME/.local/bin"}
+fi
+
+if [ -L $VIM_UPDATE_PATH/vim-update ]; then
+  rm -f $VIM_UPDATE_PATH/vim-update
+fi
+
+if [ ! -L $VIM_UPDATE_PATH/vim-update ]; then
+  mkdir -p $VIM_UPDATE_PATH
+  ln -s $DIR/bin/update $VIM_UPDATE_PATH/vim-update
+fi
+
+if hash go &>/dev/null; then
+  echo -e "${YELLOW}INSTALL${END_COLOR} ${BOLD}golang${NORMAL} dependencies..."
+  gopackages="\
+    github.com/golang/lint/golint \
+    github.com/jstemmer/gotags \
+    github.com/kisielk/errcheck \
+    github.com/nsf/gocode \
+    golang.org/x/tools/cmd/godoc \
+    golang.org/x/tools/cmd/goimports \
+    golang.org/x/tools/cmd/gorename \
+    golang.org/x/tools/cmd/oracle \
+    golang.org/x/tools/cmd/vet \
+    "
+
+  for p in $gopackages; do
+    echo -e "\t${YELLOW}INSTALL${END_COLOR} ${BOLD}${p}${NORMAL}..."
+    go get -f -u $p
+    echo -e "\t${GREEN}DONE${END_COLOR}    ${BOLD}${p}${NORMAL}"
+  done
+  ln -s $DIR/snippets/go.snip $XDG_DATA_HOME/vim/snippets
+  echo -e "${GREEN}DONE${END_COLOR}    ${BOLD}golang${NORMAL} dependencies"
+fi
+
+vim +'silent! PlugClean!|' +'qall!'
+
+if hash nvim &>/dev/null; then
+  nvim +'silent! PlugClean!|' +'qall!'
+fi
+
+vimcmd=""
+if [ $UPDATE == 1 ]; then
+  vimcmd=$vimcmd"silent! PlugUpdate!|"
+else
+  vimcmd=$vimcmd"silent! PlugInstall!|"
+fi
+vimcmd=$vimcmd"silent! GoInstallBinaries!|"
+
+if [ $INTERACTIVE == 1 ] ; then
+  vim +"$vimcmd" +'qall!'
+else
+  vim +"$vimcmd" +'qall!' > /dev/null
+fi
+
+if hash nvim &>/dev/null; then
+  if [ $INTERACTIVE == 1 ] ; then
+    nvim +"$vimcmd" +'qall!'
+  else
+    nvim +"$vimcmd" +'qall!' > /dev/null
+  fi
+fi
+
+popd
