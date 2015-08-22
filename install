@@ -232,6 +232,7 @@ mkdir -p "${XDG_DATA_HOME}/vim/{sessions,snippets}"
 
 if [[ -e "${VIM_CONFIG_HOME}" ]]; then
   cd "${VIM_CONFIG_HOME}"
+  should_update_repo=false
   [[ `git remote -v` =~ "${VIM_REPO_URI}" ]] && should_update_repo=true
 else
   should_update_repo=false
@@ -267,6 +268,7 @@ else
 
    install_go_deps
 
+   ls -a "${VIM_CONFIG_HOME}/Plug.vim"
    bootstrap_plugins "${VIM_CONFIG_HOME}/Plug.vim"
 fi
 
