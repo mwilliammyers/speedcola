@@ -13,7 +13,7 @@ map <silent><F4> :ColorsToggleBG<cr>
 
 set background=dark
 
-if exists('g:xvimrc_color_scheme')
+if exists('g:color_scheme')
   silent! execute "colorscheme " . g:color_scheme
 else
   colorscheme Tomorrow-Night
