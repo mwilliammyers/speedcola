@@ -51,9 +51,23 @@ die() {
   exit 1
 }
 
+if [[ -e "$HOME/.zshrc" ]]; then
+  shell_startup="$HOME/.zshrc"
+elif [[ -e "$HOME/.bashrc" ]]; then 
+  shell_startup="$HOME/.bashrc"
+fi 
+
 xdg_error() {
-   "\$$1 must be set to use these vim config files. \ 
-  \ntry: echo \"export  
+  if [[ $1 == "XDG_CONFIG_HOME" ]]; then 
+    export_msg="\ntry: echo \"export XDG_CONFIG_HOME=$HOME/.config >> $shell_startup\""
+  elif [[ $1 == "XDG_DATA_HOME" ]]; then
+    export_msg="\ntry: echo \"export XDG_DATA_HOME=$HOME/.local/share >> $shell_startup\""
+  elif [[ $1 == "XDG_CACHE_HOME" ]]; then 
+    export_msg="\ntry: echo \"export XDG_CACHE_HOME=$HOME/.cache >> $shell_startup\""
+  fi 
+  
+  error "\$$1 must be set to use these vim config files. \ 
+  \n$export_msg \
   \nSee: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html"
 }
 
@@ -62,6 +76,7 @@ xdg_error() {
 [ -z $XDG_DATA_HOME ] && xdg_die "XDG_DATA_HOME" && should_die=1
 [ $should_die -eq 1 ] && exit 1
 
+mkdir -p $XDG_CONFIG_HOME/vim
 mkdir -p $XDG_CACHE_HOME/vim/{undo,swap,backup}
 mkdir -p $XDG_DATA_HOME/vim/{sessions,snippets}
 
@@ -71,7 +86,7 @@ else
   FILES_TO_LINK="vimrc"
 fi
 
-# LOCALS=".vimrc.local.before .vimrc.local .vimrc.local.plugins"
+LOCALS=".vimrc.local.before .vimrc.local .vimrc.local.plugins"
 
 DIR=$(cd $(dirname $0) && pwd)
 if [ $(basename $DIR) == "bin" ]; then
@@ -100,12 +115,12 @@ fi
 curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-git submodule update --init --recursive
+# git submodule update --init --recursive
 
-# for file in $LOCALS; do
-#   dot_file=$HOME/$file
-#   touch $dot_file
-# done
+for file in $LOCALS; do
+   dot_file=$XDG_CONFIG_HOME/vim/$file
+   touch $dot_file
+done
 
 for file in $FILES_TO_LINK; do
   dot_file=$HOME/.$file
