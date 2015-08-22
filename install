@@ -230,6 +230,6 @@ else
    bootstrap_plugins "${VIM_CONFIG_HOME}/Plug.vim"
 fi
 
-create_local_files "${LOCAL_VIMRC_FILES}"
+create_local_files ${LOCAL_VIMRC_FILES}
 
-link_files "${FILES_TO_LINK}"
+link_files ${FILES_TO_LINK}
