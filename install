@@ -169,16 +169,16 @@ install_plugins() {
   local vimcmd="$2"
 
   if [[ $INTERACTIVE == 1 ]] ; then
-    vim -u "$vimrc" +"$vimcmd" +'qall!'
+    vim -u "$vimrc" --cmd "$vimcmd" --cmd "qall!"
   else
-    vim -u "$vimrc" +"$vimcmd" +'qall!' > /dev/null
+    vim -u "$vimrc" --cmd "$vimcmd" --cmd "qall!" > /dev/null
   fi
 
   if hash nvim &>/dev/null; then
     if [[ $INTERACTIVE == 1 ]]; then
-      nvim -u "$vimrc" +"$vimcmd" +'qall!'
+      nvim -u "$vimrc" --cmd "$vimcmd" --cmd "qall!"
     else
-      nvim -u "$vimrc" +"$vimcmd" +'qall!' > /dev/null
+      nvim -u "$vimrc" --cmd "$vimcmd" --cmd "qall!" > /dev/null
     fi
   fi
 }
@@ -188,10 +188,10 @@ bootstrap_plugins() {
 
   local vimrc="$1"
 
-  vim -u "$vimrc" +'silent! PlugClean!|' +'qall!' > /dev/null
+  vim -u "$vimrc" --cmd 'silent! PlugClean!|' --cmd 'qall!' > /dev/null
 
   if hash nvim &>/dev/null; then
-    nvim -u "$vimrc" +'silent! PlugClean!|' +'qall!' > /dev/null
+    nvim -u "$vimrc" --cmd 'silent! PlugClean!|' --cmd 'qall!' > /dev/null
   fi
 
   install_plugins "${vimrc}" "silent! PlugInstall!|silent! GoInstallBinaries!|"
