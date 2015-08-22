@@ -5,8 +5,7 @@ __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-v
 
 ## Installation
 
-1. `git clone http://github.com/mkwmms/xdg-vimrc.git ~/.vim`
-1. `~/.vim/install`
+1. `curl -Lo- https://raw.githubusercontent.com/mkwmms/xdg-vimrc/master/install | bash`
 1. Enjoy
 
 ##### How the install works
@@ -16,9 +15,10 @@ __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-v
 
 *TL;DR*
 
-1. symlink `.vimrc` 
-2. symlink `.gvimrc` if you have gvim on your `$PATH`.
-1. install `golang`'s tools if you have golang on your `$PATH`.
+1. Symlink `~/.vim/vimrc` to `~/.vimrc` 
+1. Symlink `~/.vim/gvimrc` to `~/.gvimrc`  if you have gvim on your `$PATH`.
+1. Install `golang`'s tools if you have golang on your `$PATH`.
+1. Install or update (it will decide automagically for you) all of your plugins and their dependencies
 
 
 ##### Requirements
