@@ -70,10 +70,10 @@ xdg_error() {
   \nSee: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html"
 }
 
-[ -z $XDG_CONFIG_HOME ] && xdg_error "XDG_CONFIG_HOME" && should_die=1
-[ -z $XDG_CACHE_HOME ] && xdg_error "XDG_CACHE_HOME" && should_die=1
-[ -z $XDG_DATA_HOME ] && xdg_error "XDG_DATA_HOME" && should_die=1
-[ $should_die -eq 1 ] && exit 1
+[[ -z $XDG_CONFIG_HOME ]] && xdg_error "XDG_CONFIG_HOME" && should_die=1
+[[ -z $XDG_CACHE_HOME ]] && xdg_error "XDG_CACHE_HOME" && should_die=1
+[[ -z $XDG_DATA_HOME ]] && xdg_error "XDG_DATA_HOME" && should_die=1
+[[ $should_die -eq 1 ]] && exit 1
 
 mkdir -p $XDG_CONFIG_HOME/vim
 mkdir -p $XDG_CACHE_HOME/vim/{undo,swap,backup}
@@ -88,13 +88,13 @@ fi
 LOCALS="vimrc.local vimrc.local.before vimrc.local.plugins"
 
 DIR=$(cd $(dirname $0) && pwd)
-if [ $(basename $DIR) == "bin" ]; then
+if [[ $(basename $DIR) == "bin" ]]; then
   DIR=$(cd ${DIR}/..&& pwd)
 fi
 
-if [ "$DIR" != "$HOME/.vim" ]; then
+if [[ "$DIR" != "$HOME/.vim" ]]; then
   dot_file=$HOME/.vim
-  if [ ! -e $dot_file ]; then
+  if [[ ! -e $dot_file ]]; then
     echo "Detected clone outside of ~/.vim, symlinking"
     ln -s $DIR $dot_file
   fi
@@ -107,7 +107,7 @@ fi
 
 pushd $DIR
 
-if [ -e $DIR/bundle ]; then
+if [[ -e $DIR/bundle ]]; then
   rm -rf $DIR/bundle
 fi
 
@@ -128,17 +128,19 @@ for file in $FILES_TO_LINK; do
   fi
 done
 
-if [ "$(uname)" == "Darwin" ]; then
+if [[ "$OSTYPE" =~ ^(darwin)+ ]]; then
   VIM_UPDATE_PATH=${XDG_BIN_HOME:-"/usr/local/bin"}
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+elif [[ "$OSTYPE" =~ ^(linux)+ ]]; then
   VIM_UPDATE_PATH=${XDG_BIN_HOME:-"$HOME/.local/bin"}
+else 
+  die "Unsupported OS. Only OS X and Linux are supported."
 fi
 
-if [ -L $VIM_UPDATE_PATH/vim-update ]; then
+if [[ -L $VIM_UPDATE_PATH/vim-update ]]; then
   rm -f $VIM_UPDATE_PATH/vim-update
 fi
 
-if [ ! -L $VIM_UPDATE_PATH/vim-update ]; then
+if [[ ! -L $VIM_UPDATE_PATH/vim-update ]]; then
   mkdir -p $VIM_UPDATE_PATH
   ln -s $DIR/bin/update $VIM_UPDATE_PATH/vim-update
 fi
@@ -173,21 +175,21 @@ if hash nvim &>/dev/null; then
 fi
 
 vimcmd=""
-if [ $UPDATE == 1 ]; then
+if [[ $UPDATE == 1 ]]; then
   vimcmd=$vimcmd"silent! PlugUpdate!|"
 else
   vimcmd=$vimcmd"silent! PlugInstall!|"
 fi
 vimcmd=$vimcmd"silent! GoInstallBinaries!|"
 
-if [ $INTERACTIVE == 1 ] ; then
+if [[ $INTERACTIVE == 1 ]] ; then
   vim +"$vimcmd" +'qall!'
 else
   vim +"$vimcmd" +'qall!' > /dev/null
 fi
 
 if hash nvim &>/dev/null; then
-  if [ $INTERACTIVE == 1 ] ; then
+  if [[ $INTERACTIVE == 1 ]] ; then
     nvim +"$vimcmd" +'qall!'
   else
     nvim +"$vimcmd" +'qall!' > /dev/null
