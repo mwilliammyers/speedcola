@@ -36,6 +36,7 @@ __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-v
 - `~/.vim/config/*.vim`
 - `~/.vim/config/plugin/*.vim`
 - `$XDG_CONFIG_HOME/vim/vimrc.local`
+
 **Settings:**
 - `viminfo=n$XDG_CACHE_HOME/vim/viminfo`
 - `undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp`
