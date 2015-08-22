@@ -88,24 +88,24 @@ do_backup() {
   # fi
 }
 
-sync_repo() {
+clone_repo() {
   local repo_path="$1"
   local repo_uri="$2"
   local repo_branch="$3"
   local repo_name="$4"
 
+  info "Installing $repo_name"
+  mkdir -p "$repo_path"
+  git clone -b "$repo_branch" "$repo_uri" "$repo_path"
+}
+
+update_repo() {
+  local repo_path="$1"
+  local repo_branch="$2"
+
   info "Updating $repo_name"
 
-  if [ ! -e "$repo_path" ]; then
-    mkdir -p "$repo_path"
-    git clone -b "$repo_branch" "$repo_uri" "$repo_path"
-    # ret="$?"
-    # success "Successfully cloned $repo_name."
-  else
-    cd "$repo_path" && git pull origin "$repo_branch"
-    # ret="$?"
-    # success "Successfully updated $repo_name"
-  fi
+  cd "$repo_path" && git pull origin "$repo_branch"
 }
 
 install_vim_plug() {
@@ -163,8 +163,8 @@ install_go_deps() {
 }
 
 update_plugins() {
-  info "Updating plugins"
-  
+  info "Updating plugins & plugin dependencies"
+
   vim -u "$1" +'silent! PlugClean!|' +'qall!' > /dev/null
 
   if hash nvim &>/dev/null; then
@@ -221,14 +221,25 @@ done
 [[ -z $XDG_DATA_HOME ]] && xdg_error "XDG_DATA_HOME" && should_die=1
 [[ $should_die -eq 1 ]] && exit 1
 
-do_backup "${HOME}/.vim" \
-          "${HOME}/.vimrc" \
-          "${HOME}/.gvimrc"
+if [[ -e "${VIM_CONFIG_HOME}" ]]; then
+  cd "${VIM_CONFIG_HOME}"
+  [[ `git remote -v` =~ "${VIM_REPO_URI}" ]] && should_update_repo=true
+else
+  should_update_repo=false
+fi
 
-sync_repo "${VIM_CONFIG_HOME}" \
-          "${VIM_REPO_URI}" \
-          "${VIM_REPO_BRANCH}" \
-          "$app_name"
+if $should_update_repo; then
+  update_repo "${VIM_CONFIG_HOME}"
+else
+  do_backup "${HOME}/.vim" \
+            "${HOME}/.vimrc" \
+            "${HOME}/.gvimrc"
+
+  clone_repo "${VIM_CONFIG_HOME}" \
+             "${VIM_REPO_URI}" \
+             "${VIM_REPO_BRANCH}" \
+             "$app_name"
+fi
 
 git submodule update --init --recursive "${VIM_CONFIG_HOME}"
 
@@ -237,12 +248,12 @@ install_vim_plug "${VIM_CONFIG_HOME}"
 mkdir -p "${XDG_CACHE_HOME}/vim/{undo,swap,backup}"
 mkdir -p "${XDG_DATA_HOME}/vim/{sessions,snippets}"
 
-[[ -L "${VIM_UPDATE_PATH}/vim-update" ]] && rm -f "${VIM_UPDATE_PATH}/vim-update"
-
-if [[ ! -L "${VIM_UPDATE_PATH}/vim-update" ]]; then
-  mkdir -p "${VIM_UPDATE_PATH}"
-  ln -s "${VIM_CONFIG_HOME}/bin/update" "${VIM_UPDATE_PATH}/vim-update"
-fi
+# [[ -L "${VIM_UPDATE_PATH}/vim-update" ]] && rm -f "${VIM_UPDATE_PATH}/vim-update"
+#
+# if [[ ! -L "${VIM_UPDATE_PATH}/vim-update" ]]; then
+#   mkdir -p "${VIM_UPDATE_PATH}"
+#   ln -s "${VIM_CONFIG_HOME}/bin/update" "${VIM_UPDATE_PATH}/vim-update"
+# fi
 
 install_go_deps
 
