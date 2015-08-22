@@ -155,17 +155,13 @@ way of double curlies for things like jinja and twig.
 - `$XDG_CONFIG_HOME/vim/vimrc.local`
 - `$XDG_CONFIG_HOME/vim/vimrc.plugins` *coming soon*
 
-```
-" will save automatically when leaving the buffer
-" 0 or 1, defaults 0
-let g:autosave = 1
-```
-
 To disable the neocomplete autocomplete popup:
 ```
 let g:neocomplete#enable_at_startup = 0   " disable neocomplete
 let g:neocomplcache_enable_at_startup = 0 " disable the fallback version when no LUA
 ```
+
+*more coming soon*
 
 #### Colors!
 - Default color scheme: `Tomorrow-Night`
@@ -184,27 +180,27 @@ Here's some tips if you've never used VIM before:
 
 #### Tutorials
 
-* Type `vimtutor` into a shell to go through a brief interactive
+- Type `vimtutor` into a shell to go through a brief interactive
   tutorial inside VIM.
-* Read the slides at [VIM: Walking Without Crutches](https://walking-without-crutches.heroku.com/#1).
+- Read the slides at [VIM: Walking Without Crutches](https://walking-without-crutches.heroku.com/#1).
 
 #### Modes
 
-* VIM has two (common) modes:
-  * insert mode- stuff you type is added to the buffer
-  * normal mode- keys you hit are interpreted as commands
-* To enter insert mode, hit `i`
-* To exit insert mode, hit `<ESC>`
+- VIM has two (common) modes:
+  - insert mode- stuff you type is added to the buffer
+  - normal mode- keys you hit are interpreted as commands
+- To enter insert mode, hit `i`
+- To exit insert mode, hit `<ESC>`
 
 #### Useful commands
 
-* Use `:q` to exit vim
-* Certain commands are prefixed with a `<Leader>` key, which by default maps to `\` xdg-vim uses `let mapleader = ","` to change this to `,` which is in a consistent and convenient location.
-* [keyboard cheat sheet](https://walking-without-crutches.heroku.com/image/images/vi-vim-cheat-sheet.png).
+- Use `:q` to exit vim
+- Certain commands are prefixed with a `<Leader>` key, which by default maps to `\` we use `let mapleader = ","` to change this to `,` which is in a consistent and convenient location.
+- [keyboard cheat sheet](https://walking-without-crutches.heroku.com/image/images/vi-vim-cheat-sheet.png).
 
 ## Acknowledgements
-- Luan Santos'  [vimfiles]
 - [spf13-vim] legendary vim distribution
+- Luan Santos' [vimfiles]
 
 [Git]:http://git-scm.com
 [Curl]:http://curl.haxx.se
