@@ -157,10 +157,10 @@ if hash go &>/dev/null; then
   echo -e "${GREEN}DONE${END_COLOR}    ${BOLD}golang${NORMAL} dependencies"
 fi
 
-vim -u "${DIR}/vimrc" +'silent! PlugClean!|' +'qall!'
+vim -u "${DIR}/vimrc" +'silent! PlugClean!|' +'qall!' &> /dev/null
 
 if hash nvim &>/dev/null; then
-  nvim -u "${DIR}/vimrc" +'silent! PlugClean!|' +'qall!'
+  nvim -u "${DIR}/vimrc" +'silent! PlugClean!|' +'qall!' &> /dev/null
 fi
 
 vimcmd=""
@@ -174,14 +174,14 @@ vimcmd=$vimcmd"silent! GoInstallBinaries!|"
 if [[ $INTERACTIVE == 1 ]] ; then
   vim -u "${DIR}/vimrc" +"$vimcmd" +'qall!'
 else
-  vim -u "${DIR}/vimrc" +"$vimcmd" +'qall!' > /dev/null
+  vim -u "${DIR}/vimrc" +"$vimcmd" +'qall!' &> /dev/null
 fi
 
 if hash nvim &>/dev/null; then
   if [[ $INTERACTIVE == 1 ]]; then
     nvim -u "${DIR}/vimrc" +"$vimcmd" +'qall!'
   else
-    nvim -u "${DIR}/vimrc" +"$vimcmd" +'qall!' > /dev/null
+    nvim -u "${DIR}/vimrc" +"$vimcmd" +'qall!' &> /dev/null
   fi
 fi
 
