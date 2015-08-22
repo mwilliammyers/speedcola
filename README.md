@@ -6,7 +6,7 @@ __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-v
 ## Installation
 
 1. `git clone http://github.com/mkwmms/xdg-vimrc.git ~/.vim`
-1. `~/.vim/install` [more...](https://github.com/mkwmms/xdg-vimrc/blob/master/bin/install)
+1. `~/.vim/install`
 1. Enjoy
 
 ##### How the install works
