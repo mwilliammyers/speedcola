@@ -3,8 +3,8 @@
 ############################  SETUP PARAMETERS
 app_name="xdg-vimrc"
 [ -z "$VIM_CONFIG_HOME" ] && VIM_CONFIG_HOME="$HOME/.vim"
-[ -z "$REPO_URI" ] && REPO_URI='https://github.com/mkwmms/xdg-vimrc'
-[ -z "$REPO_BRANCH" ] && REPO_BRANCH='master'
+[ -z "$VIM_REPO_URI" ] && VIM_REPO_URI='https://github.com/mkwmms/xdg-vimrc'
+[ -z "$VIM_REPO_BRANCH" ] && VIM_REPO_BRANCH='master'
 
 VIM_PLUG_URI='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
@@ -163,6 +163,8 @@ install_go_deps() {
 }
 
 update_plugins() {
+  info "Updating plugins"
+  
   vim -u "$1" +'silent! PlugClean!|' +'qall!' > /dev/null
 
   if hash nvim &>/dev/null; then
@@ -224,8 +226,8 @@ do_backup "${HOME}/.vim" \
           "${HOME}/.gvimrc"
 
 sync_repo "${VIM_CONFIG_HOME}" \
-          "${REPO_URI}" \
-          "${REPO_BRANCH}" \
+          "${VIM_REPO_URI}" \
+          "${VIM_REPO_BRANCH}" \
           "$app_name"
 
 git submodule update --init --recursive "${VIM_CONFIG_HOME}"
