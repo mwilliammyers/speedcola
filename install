@@ -22,10 +22,10 @@ elif [[ -e "$HOME/.bashrc" ]]; then
   shell_startup="$HOME/.bashrc"
 fi
 
-FILES_TO_LINK="vimrc"
-hash gvim &>/dev/null && FILES_TO_LINK="vimrc gvimrc"
+repo_vimrc_files=("vimrc")
+hash gvim &>/dev/null && repo_vimrc_files=("vimrc" "gvimrc")
 
-LOCAL_VIMRC_FILES="vimrc.local vimrc.local.before vimrc.local.plugins"
+local_vimrc_files=("vimrc.local" "vimrc.local.before" "vimrc.local.plugins")
 
 # TODO: verify against $PATH
 if [[ "$OSTYPE" =~ ^(darwin)+ ]]; then
@@ -109,14 +109,14 @@ install_vim_plug() {
 }
 
 create_local_files() {
-  for file in $1; do
+  for file in "${1[@]}"; do
     dot_file="${XDG_CONFIG_HOME}/vim/${file}"
     touch "${dot_file}"
   done
 }
 
 link_files() {
-  for file in $1; do
+  for file in "${1[@]}"; do
     dot_file="${HOME}/.${file}"
     if [ ! -e "${dot_file}" ]; then
       ln -s "${VIM_CONFIG_HOME}/${file}" "${dot_file}"
@@ -230,6 +230,6 @@ else
    bootstrap_plugins "${VIM_CONFIG_HOME}/Plug.vim"
 fi
 
-create_local_files ${LOCAL_VIMRC_FILES}
+create_local_files "${local_vimrc_files}"
 
-link_files ${FILES_TO_LINK}
+link_files "${repo_vimrc_files}"
