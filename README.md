@@ -9,10 +9,17 @@ __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-v
 1. `~/.vim/install` [more...](https://github.com/mkwmms/xdg-vimrc/blob/master/bin/install)
 1. Enjoy
 
-`~/.vim/install` will:
+##### How the install works
 
-1. symlink `.vimrc` and `.gvimrc` (if you have gvim on your `$PATH`).
-1. `golang`'s tools if you have golang on your `$PATH`.
+*Full disclosure:*
+[the install script](https://github.com/mkwmms/xdg-vimrc/blob/master/bin/install)
+
+*TL;DR*
+
+1. symlink `.vimrc` 
+2. symlink `.gvimrc` if you have gvim on your `$PATH`.
+1. install `golang`'s tools if you have golang on your `$PATH`.
+
 
 ##### Requirements
 
