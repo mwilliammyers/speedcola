@@ -226,6 +226,9 @@ done
 [[ -z $XDG_DATA_HOME ]] && xdg_error "XDG_DATA_HOME" && should_die=1
 [[ $should_die -eq 1 ]] && exit 1
 
+mkdir -p "${XDG_CACHE_HOME}/vim/{undo,swap,backup}"
+mkdir -p "${XDG_DATA_HOME}/vim/{sessions,snippets}"
+
 if [[ -e "${VIM_CONFIG_HOME}" ]]; then
   cd "${VIM_CONFIG_HOME}"
   [[ `git remote -v` =~ "${VIM_REPO_URI}" ]] && should_update_repo=true
@@ -253,9 +256,6 @@ else
   #  git submodule update --init --recursive "${VIM_CONFIG_HOME}"
 
    install_vim_plug "${VIM_CONFIG_HOME}"
-
-   mkdir -p "${XDG_CACHE_HOME}/vim/{undo,swap,backup}"
-   mkdir -p "${XDG_DATA_HOME}/vim/{sessions,snippets}"
 
    # [[ -L "${VIM_UPDATE_PATH}/vim-update" ]] && rm -f "${VIM_UPDATE_PATH}/vim-update"
    #
