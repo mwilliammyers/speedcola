@@ -114,7 +114,7 @@ fi
 curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# git submodule update --init --recursive
+git submodule update --init --recursive
 
 # TODO: verify against $PATH
 if [[ "$OSTYPE" =~ ^(darwin)+ ]]; then
