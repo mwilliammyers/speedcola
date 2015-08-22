@@ -116,18 +116,6 @@ curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
 
 # git submodule update --init --recursive
 
-for file in $LOCALS; do
-   dot_file="${XDG_CONFIG_HOME}/vim/${file}"
-   touch "${dot_file}"
-done
-
-for file in $FILES_TO_LINK; do
-  dot_file="${HOME}/.${file}"
-  if [ ! -e "${dot_file}" ]; then
-    ln -s "${DIR}/${file}" "${dot_file}"
-  fi
-done
-
 # TODO: verify against $PATH
 if [[ "$OSTYPE" =~ ^(darwin)+ ]]; then
   VIM_UPDATE_PATH=${XDG_BIN_HOME:-"/usr/local/bin"}
@@ -169,10 +157,10 @@ if hash go &>/dev/null; then
   echo -e "${GREEN}DONE${END_COLOR}    ${BOLD}golang${NORMAL} dependencies"
 fi
 
-vim +'silent! PlugClean!|' +'qall!'
+vim -u "${DIR}/vimrc" +'silent! PlugClean!|' +'qall!'
 
 if hash nvim &>/dev/null; then
-  nvim +'silent! PlugClean!|' +'qall!'
+  nvim -u "${DIR}/vimrc" +'silent! PlugClean!|' +'qall!'
 fi
 
 vimcmd=""
@@ -184,17 +172,29 @@ fi
 vimcmd=$vimcmd"silent! GoInstallBinaries!|"
 
 if [[ $INTERACTIVE == 1 ]] ; then
-  vim -s +"$vimcmd" +'qall!'
+  vim -u "${DIR}/vimrc" +"$vimcmd" +'qall!'
 else
-  vim -s +"$vimcmd" +'qall!' > /dev/null
+  vim -u "${DIR}/vimrc" +"$vimcmd" +'qall!' > /dev/null
 fi
 
 if hash nvim &>/dev/null; then
   if [[ $INTERACTIVE == 1 ]]; then
-    nvim -s +"$vimcmd" +'qall!'
+    nvim -u "${DIR}/vimrc" +"$vimcmd" +'qall!'
   else
-    nvim -s +"$vimcmd" +'qall!' > /dev/null
+    nvim -u "${DIR}/vimrc" +"$vimcmd" +'qall!' > /dev/null
   fi
 fi
+
+for file in $LOCALS; do
+   dot_file="${XDG_CONFIG_HOME}/vim/${file}"
+   touch "${dot_file}"
+done
+
+for file in $FILES_TO_LINK; do
+  dot_file="${HOME}/.${file}"
+  if [ ! -e "${dot_file}" ]; then
+    ln -s "${DIR}/${file}" "${dot_file}"
+  fi
+done
 
 popd
