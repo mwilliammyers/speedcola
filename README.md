@@ -11,7 +11,7 @@ __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-v
 ##### How the install works
 
 *Full disclosure:*
-[the install script](https://github.com/mkwmms/xdg-vimrc/blob/master/bin/install)
+[the install script](https://github.com/mkwmms/xdg-vimrc/blob/master/install)
 
 *TL;DR*
 
