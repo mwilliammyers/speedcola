@@ -1,7 +1,7 @@
 # Vim Configuration 
 [![Build Status](https://travis-ci.org/mkwmms/xdg-vimrc.svg)](https://travis-ci.org/mkwmms/xdg-vimrc)
 
-__WIP__: checkout the key-bindings [cheat sheet](#wiki/Cheat-Sheet).
+__WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-vimrc/wiki/Cheat-Sheet).
 
 ## Installation
 
