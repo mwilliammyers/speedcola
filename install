@@ -109,7 +109,7 @@ install_vim_plug() {
 }
 
 create_local_files() {
-  for file in "${1}"; do
+  for file in $1; do
     dot_file="${XDG_CONFIG_HOME}/vim/${file}"
     touch "${dot_file}"
   done
