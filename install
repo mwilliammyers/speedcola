@@ -166,9 +166,9 @@ install_plugins() {
 bootstrap_plugins() {
   info "Installing plugins & plugin dependencies"
   local vimrc="$1"
-  vim -u "$vimrc" +'silent! PlugClean!' +'qall!'
+  vim -u "$vimrc" +'silent! PlugClean!' +'qall!' > /dev/null
   if hash nvim &>/dev/null; then
-    nvim -u "$vimrc" +'silent! PlugClean!' +'qall!'
+    nvim -u "$vimrc" +'silent! PlugClean!' +'qall!' > /dev/null
   fi
   install_plugins "${vimrc}" "silent! PlugInstall!|silent! GoInstallBinaries!"
 }
