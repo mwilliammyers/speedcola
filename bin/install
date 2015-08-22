@@ -88,27 +88,27 @@ fi
 LOCALS="vimrc.local vimrc.local.before vimrc.local.plugins"
 
 DIR=$(cd $(dirname $0) && pwd)
-if [[ $(basename $DIR) == "bin" ]]; then
-  DIR=$(cd ${DIR}/..&& pwd)
+if [[ $(basename "${DIR}") == "bin" ]]; then
+  DIR=$(cd "${DIR}"/..&& pwd)
 fi
 
-if [[ "$DIR" != "$HOME/.vim" ]]; then
-  dot_file=$HOME/.vim
-  if [[ ! -e $dot_file ]]; then
+if [[ "${DIR}" != "${HOME}/.vim" ]]; then
+  dot_file="${HOME}/.vim"
+  if [[ ! -e "${dot_file}" ]]; then
     echo "Detected clone outside of ~/.vim, symlinking"
-    ln -sf $DIR $dot_file
+    ln -sf "${DIR}" "${dot_file}"
   fi
 fi
 
 if which nvim > /dev/null; then
-  ln -sf $DIR $HOME/.nvim
-  ln -sf $DIR/vimrc $HOME/.nvimrc
+  ln -sf "${DIR}" "${HOME}/.nvim"
+  ln -sf "${DIR}/vimrc" "${HOME}/.nvimrc"
 fi
 
-pushd $DIR
+pushd "${DIR}"
 
-if [[ -e $DIR/bundle ]]; then
-  rm -rf $DIR/bundle
+if [[ -e "${DIR}/bundle" ]]; then
+  rm -rf "${DIR}/bundle"
 fi
 
 curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
@@ -118,13 +118,13 @@ curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
 
 for file in $LOCALS; do
    dot_file="${XDG_CONFIG_HOME}/vim/${file}"
-   touch $dot_file
+   touch "${dot_file}"
 done
 
 for file in $FILES_TO_LINK; do
-  dot_file=$HOME/.$file
-  if [ ! -e $dot_file ]; then
-    ln -s $DIR/$file $dot_file
+  dot_file="${HOME}/.${file}"
+  if [ ! -e "${dot_file}" ]; then
+    ln -s "${DIR}/${file}" "${dot_file}"
   fi
 done
 
@@ -137,13 +137,13 @@ else
   die "Unsupported OS. Only OS X and Linux are supported."
 fi
 
-if [[ -L $VIM_UPDATE_PATH/vim-update ]]; then
-  rm -f $VIM_UPDATE_PATH/vim-update
+if [[ -L "${VIM_UPDATE_PATH}/vim-update" ]]; then
+  rm -f "${VIM_UPDATE_PATH}/vim-update"
 fi
 
-if [[ ! -L $VIM_UPDATE_PATH/vim-update ]]; then
-  mkdir -p $VIM_UPDATE_PATH
-  ln -s $DIR/bin/update $VIM_UPDATE_PATH/vim-update
+if [[ ! -L "${VIM_UPDATE_PATH}/vim-update" ]]; then
+  mkdir -p "${VIM_UPDATE_PATH}"
+  ln -s "${DIR}/bin/update" "${VIM_UPDATE_PATH}/vim-update"
 fi
 
 if hash go &>/dev/null; then
@@ -165,7 +165,7 @@ if hash go &>/dev/null; then
     go get -f -u $p
     echo -e "\t${GREEN}DONE${END_COLOR}    ${BOLD}${p}${NORMAL}"
   done
-  ln -s $DIR/snippets/go.snip $XDG_DATA_HOME/vim/snippets
+  ln -sf "${DIR}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
   echo -e "${GREEN}DONE${END_COLOR}    ${BOLD}golang${NORMAL} dependencies"
 fi
 
@@ -184,16 +184,16 @@ fi
 vimcmd=$vimcmd"silent! GoInstallBinaries!|"
 
 if [[ $INTERACTIVE == 1 ]] ; then
-  vim +"$vimcmd" +'qall!'
+  vim -s +"$vimcmd" +'qall!'
 else
-  vim +"$vimcmd" +'qall!' > /dev/null
+  vim -s +"$vimcmd" +'qall!' > /dev/null
 fi
 
 if hash nvim &>/dev/null; then
   if [[ $INTERACTIVE == 1 ]]; then
-    nvim +"$vimcmd" +'qall!'
+    nvim -s +"$vimcmd" +'qall!'
   else
-    nvim +"$vimcmd" +'qall!' > /dev/null
+    nvim -s +"$vimcmd" +'qall!' > /dev/null
   fi
 fi
 
