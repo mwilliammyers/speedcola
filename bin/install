@@ -109,6 +109,8 @@ sync_repo() {
 }
 
 install_vim_plug() {
+  info "Installing vim-plug"
+
   [[ -e "${1}/bundle" ]] && rm -rf "${1}/bundle"
 
   curl -fLo "${1}/autoload/plug.vim" --create-dirs "${VIM_PLUG_URI}"
@@ -151,7 +153,7 @@ install_go_deps() {
       "
 
     for p in $gopackages; do
-      printf "Installing ${p}..."
+      echo "Installing ${p}..."
       go get -f -u $p
       # echo -e "\t${GREEN}DONE${RESET}    ${BOLD}${p}${NORMAL}"
     done
@@ -161,10 +163,10 @@ install_go_deps() {
 }
 
 update_plugins() {
-  vim +'silent! PlugClean!|' +'qall!' > /dev/null
+  vim -u "$1" +'silent! PlugClean!|' +'qall!' > /dev/null
 
   if hash nvim &>/dev/null; then
-    nvim +'silent! PlugClean!|' +'qall!' > /dev/null
+    nvim -u "$1" +'silent! PlugClean!|' +'qall!' > /dev/null
   fi
 
   vimcmd=""
@@ -176,16 +178,16 @@ update_plugins() {
   vimcmd=$vimcmd"silent! GoInstallBinaries!|"
 
   if [[ $INTERACTIVE == 1 ]] ; then
-    vim +"$vimcmd" +'qall!'
+    vim -u "$1" +"$vimcmd" +'qall!'
   else
-    vim +"$vimcmd" +'qall!' > /dev/null
+    vim -u "$1" +"$vimcmd" +'qall!' > /dev/null
   fi
 
   if hash nvim &>/dev/null; then
     if [[ $INTERACTIVE == 1 ]]; then
-      nvim +"$vimcmd" +'qall!'
+      nvim -u "$1" +"$vimcmd" +'qall!'
     else
-      nvim +"$vimcmd" +'qall!' > /dev/null
+      nvim -u "$1" +"$vimcmd" +'qall!' > /dev/null
     fi
   fi
 }
@@ -240,10 +242,10 @@ if [[ ! -L "${VIM_UPDATE_PATH}/vim-update" ]]; then
   ln -s "${VIM_CONFIG_HOME}/bin/update" "${VIM_UPDATE_PATH}/vim-update"
 fi
 
+install_go_deps
+
+update_plugins "${VIM_CONFIG_HOME}/Plug.vim"
+
 create_local_files "${LOCAL_VIMRC_FILES}"
 
 link_files "${FILES_TO_LINK}"
-
-install_go_deps
-
-update_plugins
