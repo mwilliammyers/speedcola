@@ -26,7 +26,7 @@ elif [[ -e "$HOME/.bashrc" ]]; then
 fi
 
 FILES_TO_LINK="vimrc"
-[[ hash gvim &>/dev/null ]] && FILES_TO_LINK="vimrc gvimrc"
+hash gvim &>/dev/null && FILES_TO_LINK="vimrc gvimrc"
 
 LOCAL_VIMRC_FILES="vimrc.local vimrc.local.before vimrc.local.plugins"
 
