@@ -85,7 +85,7 @@ else
   FILES_TO_LINK="vimrc"
 fi
 
-LOCALS=".vimrc.local.before .vimrc.local .vimrc.local.plugins"
+LOCALS="vimrc.local vimrc.local.before vimrc.local.plugins"
 
 DIR=$(cd $(dirname $0) && pwd)
 if [ $(basename $DIR) == "bin" ]; then
