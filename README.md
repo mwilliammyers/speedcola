@@ -2,11 +2,11 @@
 [![Build Status](https://travis-ci.org/mkwmms/xdg-vimrc.svg)](https://travis-ci.org/mkwmms/xdg-vimrc)
 
 __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-vimrc/wiki/Cheat-Sheet).
+For a complete list of keybindings type `:map` inside Vim
 
 ## Installation
 
-1. `curl -Lo- https://raw.githubusercontent.com/mkwmms/xdg-vimrc/master/install | bash`
-1. Enjoy
+`curl -Lo- https://raw.githubusercontent.com/mkwmms/xdg-vimrc/master/install | bash`
 
 ##### How the install works
 
@@ -22,8 +22,7 @@ __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-v
 
 
 ##### Requirements
-
-- Follow the [XDG] base directory spec by having `$XDG_CONFIG_HOME`, `$XDG_CONFIG_HOME` and `$XDG_CONFIG_HOME` environment variables set. This is *WIP*; end goal will be to force vim into following the [XDG] spec à la [vim-respect-xdg]
+Use the [XDG] base directory spec by having `$XDG_CONFIG_HOME`, `$XDG_CONFIG_HOME` and `$XDG_CONFIG_HOME` environment variables set. This is *WIP*; end goal will be to force vim into following the [XDG] spec à la [vim-respect-xdg]
 
 ## Recommended Setup (OSX/Linux)
 
@@ -86,7 +85,7 @@ See [Plug.vim] for a list of currently bundled plugins
 
 ### Meet the plugins
 
-### [Undotree]
+#### [Undotree]
 
 If you undo changes and then make a new change, in most editors the changes you undid are gone forever, as their undo-history is a simple list.
 Since version 7.0 vim uses an undo-tree instead. If you make a new change after undoing changes, a new branch is created in that tree.
@@ -96,7 +95,7 @@ Undotree makes that feature more accessible by creating a visual representation 
 
 **QuickStart** Launch using `<Leader>u`
 
-### [NERDTree]
+#### [NERDTree]
 
 NERDTree is a file explorer plugin that provides "project drawer"
 functionality to your vim editing.  You can learn more about it with
@@ -104,6 +103,51 @@ functionality to your vim editing.  You can learn more about it with
 
 **QuickStart** Launch using `\`
 
+#### [ctrlp]
+Ctrlp replaces the Command-T plugin with a 100% viml plugin. It provides an intuitive and fast mechanism to load files from the file system (with regex and fuzzy find), from open buffers, and from recently used files.
+
+**QuickStart** Launch using `<c-p>`.
+
+#### [Surround]
+
+This plugin is a tool for dealing with pairs of "surroundings."  Examples
+of surroundings include parentheses, quotes, and HTML tags.  They are
+closely related to what Vim refers to as text-objects.  Provided
+are mappings to allow for removing, changing, and adding surroundings.
+
+Details follow on the exact semantics, but first, consider the following
+examples.  An asterisk (*) is used to denote the cursor position.
+
+      Old text                  Command     New text ~
+      "Hello *world!"           ds"         Hello world!
+      [123+4*56]/2              cs])        (123+456)/2
+      "Look ma, I'm *HTML!"     cs"<q>      <q>Look ma, I'm HTML!</q>
+      if *x>3 {                 ysW(        if ( x>3 ) {
+      my $str = *whee!;         vllllS'     my $str = 'whee!';
+
+For instance, if the cursor was inside `"foo bar"`, you could type
+`cs"'` to convert the text to `'foo bar'`.
+
+There's a lot more, check it out at `:help surround`
+
+#### [neocomplete]
+
+Neocomplete is an amazing autocomplete plugin with additional support for snippets. It can complete simulatiously from the dictionary, buffer, omnicomplete and snippets. This is the one true plugin that brings Vim autocomplete on par with the best editors.
+
+**QuickStart** Just start typing, it will autocomplete where possible
+
+#### [Syntastic]
+
+Syntastic is a syntax checking plugin that runs buffers through external syntax
+checkers as they are saved and opened. If syntax errors are detected, the user
+is notified and is happy because they didn't have to compile their code or
+execute their script to find them.
+
+#### [AutoClose]
+
+AutoClose does what you expect. It's simple, if you open a bracket, paren, brace, quote,
+etc, it automatically closes it. It handles curlys correctly and doesn't get in the
+way of double curlies for things like jinja and twig.
 
 ## Accessorize
 #### User config files:
