@@ -23,8 +23,7 @@ __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-v
 
 ##### Requirements
 
-- **Requires** that you follow the [XDG] base directory spec by having `$XDG_CONFIG_HOME`, `$XDG_CONFIG_HOME` and `$XDG_CONFIG_HOME` environment variables set. 
-- **WIP** end goal will be to force vim into following the [XDG] spec à la [vim-respect-xdg]
+- Follow the [XDG] base directory spec by having `$XDG_CONFIG_HOME`, `$XDG_CONFIG_HOME` and `$XDG_CONFIG_HOME` environment variables set. This is *WIP*; end goal will be to force vim into following the [XDG] spec à la [vim-respect-xdg]
 
 ## Recommended Setup (OSX/Linux)
 
