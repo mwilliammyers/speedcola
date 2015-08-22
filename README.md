@@ -6,7 +6,7 @@ __WIP__: checkout the key-bindings [cheat sheet](#wiki/Cheat-Sheet).
 ## Installation
 
 1. `git clone http://github.com/mkwmms/vimfiles.git ~/.vim`
-1. `~/.vim/install` [more...](#install-script)
+1. `~/.vim/install` [more...](https://github.com/mkwmms/xdg-vimrc/blob/master/bin/install)
 1. Enjoy
 
 The directory contains a bash script named `install`. `install` will symlink `.vimrc` and `.gvimrc` (if you have gvim on your `$PATH`).
