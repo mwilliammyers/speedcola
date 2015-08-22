@@ -128,6 +128,7 @@ for file in $FILES_TO_LINK; do
   fi
 done
 
+# TODO: verify against $PATH
 if [[ "$OSTYPE" =~ ^(darwin)+ ]]; then
   VIM_UPDATE_PATH=${XDG_BIN_HOME:-"/usr/local/bin"}
 elif [[ "$OSTYPE" =~ ^(linux)+ ]]; then
@@ -189,7 +190,7 @@ else
 fi
 
 if hash nvim &>/dev/null; then
-  if [[ $INTERACTIVE == 1 ]] ; then
+  if [[ $INTERACTIVE == 1 ]]; then
     nvim +"$vimcmd" +'qall!'
   else
     nvim +"$vimcmd" +'qall!' > /dev/null
