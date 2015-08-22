@@ -225,7 +225,7 @@ else
    #   ln -s "${VIM_CONFIG_HOME}/bin/update" "${VIM_UPDATE_PATH}/vim-update"
    # fi
 
-   install_go_deps
+  #  install_go_deps
 
    bootstrap_plugins "${VIM_CONFIG_HOME}/Plug.vim"
 fi
