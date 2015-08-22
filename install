@@ -237,7 +237,7 @@ else
   should_update_repo=false
 fi
 
-if $should_update_repo; then
+if [[ $should_update_repo == true ]]; then
   update_repo "${VIM_CONFIG_HOME}" \
                "${VIM_REPO_URI}" \
                "${VIM_REPO_BRANCH}" \
@@ -268,8 +268,8 @@ else
    install_go_deps
 
    install_plugins "${VIM_CONFIG_HOME}/Plug.vim"
-
 fi
+
 create_local_files "${LOCAL_VIMRC_FILES}"
 
 link_files "${FILES_TO_LINK}"
