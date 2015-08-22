@@ -1,3 +1,0 @@
-[submodule "plugged/vim-colorschemes"]
-	path = plugged/vim-colorschemes
-	url = https://github.com/flazz/vim-colorschemes

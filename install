@@ -250,7 +250,7 @@ else
              "${VIM_REPO_BRANCH}" \
              "$app_name"
 
-   git submodule update --init --recursive "${VIM_CONFIG_HOME}"
+  #  git submodule update --init --recursive "${VIM_CONFIG_HOME}"
 
    install_vim_plug "${VIM_CONFIG_HOME}"
 
