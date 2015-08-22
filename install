@@ -269,6 +269,6 @@ else
    install_plugins "${VIM_CONFIG_HOME}/Plug.vim"
 
    create_local_files "${LOCAL_VIMRC_FILES}"
-
-   link_files "${FILES_TO_LINK}"
 fi
+
+link_files "${FILES_TO_LINK}"
