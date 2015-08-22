@@ -8,9 +8,6 @@ app_name="xdg-vimrc"
 
 VIM_PLUG_URI='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-INTERACTIVE=1
-UPDATE=0
-
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 BLUE='\033[0;34m'
@@ -40,13 +37,6 @@ else
 fi
 
 ############################ BASIC TOOLS
-print_usage() {
-  error "Unsupported option: $@"
-  echo -e "Supported options:"
-  echo -e "\t-u, --update          \tUpdate all plugins."
-  echo -e "\t-n, --non-interactive \tDon't show vim while installing plugins."
-}
-
 info() {
   printf "${BLUE}${BOLD}==>${NORMAL}${BOLD} ${1}${RESET}\n"
 }
@@ -167,33 +157,19 @@ install_go_deps() {
 install_plugins() {
   local vimrc="$1"
   local vimcmd="$2"
-
-  if [[ $INTERACTIVE == 1 ]] ; then
-    vim -u "$vimrc" --cmd "$vimcmd" --cmd "qall!"
-  else
-    vim -u "$vimrc" --cmd "$vimcmd" --cmd "qall!" > /dev/null
-  fi
-
+  vim -u "$vimrc" --cmd "$vimcmd" --cmd "qall!"
   if hash nvim &>/dev/null; then
-    if [[ $INTERACTIVE == 1 ]]; then
       nvim -u "$vimrc" --cmd "$vimcmd" --cmd "qall!"
-    else
-      nvim -u "$vimrc" --cmd "$vimcmd" --cmd "qall!" > /dev/null
-    fi
   fi
 }
 
 bootstrap_plugins() {
   info "Installing plugins & plugin dependencies"
-
   local vimrc="$1"
-
   vim -u "$vimrc" --cmd 'silent! PlugClean!|' --cmd 'qall!' > /dev/null
-
   if hash nvim &>/dev/null; then
     nvim -u "$vimrc" --cmd 'silent! PlugClean!|' --cmd 'qall!' > /dev/null
   fi
-
   install_plugins "${vimrc}" "silent! PlugInstall!|silent! GoInstallBinaries!|"
 }
 
@@ -204,23 +180,6 @@ update_plugins() {
 
 
 ############################ MAIN()
-while [[ $# > 0 ]]
-do
-  key="$1"
-
-  case $key in
-    -n|--non-interactive)
-      INTERACTIVE=0
-      shift
-      ;;
-    *)
-      print_usage $key
-      exit 1
-      ;;
-  esac
-  shift
-done
-
 [[ -z $XDG_CONFIG_HOME ]] && xdg_error "XDG_CONFIG_HOME" && should_die=1
 [[ -z $XDG_CACHE_HOME ]] && xdg_error "XDG_CACHE_HOME" && should_die=1
 [[ -z $XDG_DATA_HOME ]] && xdg_error "XDG_DATA_HOME" && should_die=1
