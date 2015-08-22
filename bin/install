@@ -48,15 +48,15 @@ print_usage() {
 }
 
 info() {
-  printf "\n${BLUE}${BOLD}==>${NORMAL}${BOLD} ${1}${RESET}"
+  printf "${BLUE}${BOLD}==>${NORMAL}${BOLD} ${1}${RESET}\n"
 }
 
 warn() {
-  printf "\n${YELLOW}${BOLD}Warning:${NORMAL} ${1}${RESET}"
+  printf "${YELLOW}${BOLD}Warning:${NORMAL} ${1}${RESET}\n"
 }
 
 error() {
-  printf "\n${RED}${BOLD}Error:${NORMAL} ${1}${RESET}"
+  printf "${RED}${BOLD}Error:${NORMAL} ${1}${RESET}\n"
 }
 
 die() {
@@ -83,7 +83,7 @@ do_backup() {
   info "Backing up your original vim configuration."
   today=`date +%Y-%m-%d_%s`
   for i in "$@"; do
-    [ -e "$i" ] && mv -v "$i" "$i.$today";
+    [[ -e "$i" ]] && mv -v "$i" "$i.$today"
   done
   # fi
 }
@@ -151,7 +151,7 @@ install_go_deps() {
       "
 
     for p in $gopackages; do
-      echo -e "Installing ${p}..."
+      printf "Installing ${p}..."
       go get -f -u $p
       # echo -e "\t${GREEN}DONE${RESET}    ${BOLD}${p}${NORMAL}"
     done
