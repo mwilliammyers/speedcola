@@ -16,5 +16,6 @@ set background=dark
 if exists('g:color_scheme')
   silent! execute "colorscheme " . g:color_scheme
 else
-  colorscheme Tomorrow-Night
+  let g:hybrid_use_Xresources = 1
+  colorscheme hybrid 
 endif
