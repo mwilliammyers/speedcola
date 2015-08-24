@@ -61,7 +61,8 @@ call plug#begin('~/.vim/plugged')
   endfunction
 
   Plug 'Shougo/vimproc.vim',             { 'do': function('InstallVimProc') }
-  Plug 'tpope/vim-commentary'
+  Plug 'scrooloose/nerdcommenter'
+  " Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-fugitive'
   Plug 'gregsexton/gitv',                { 'on': 'Gitv'                  }
@@ -82,7 +83,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'maxbrunsfeld/vim-emacs-bindings'
   Plug 'mbbill/undotree'
   Plug 'vim-scripts/sessionman.vim'
-  "Plug 'scrooloose/nerdcommenter'
 " }}}
 
 " Automatic Helpers {{{

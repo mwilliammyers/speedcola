@@ -16,6 +16,9 @@ set background=dark
 if exists('g:color_scheme')
   silent! execute "colorscheme " . g:color_scheme
 else
+  " syntax enable
+  " set background=dark
+  " colorscheme solarized
   let g:hybrid_use_Xresources = 1
   colorscheme hybrid 
 endif
