@@ -185,5 +185,8 @@ map <leader>t :call RunTestFile()<cr>
 map <leader>T :call RunNearestTest()<cr>
 " }}}
 
-map <leader><space> :Vipe <CR>
-map <leader>p :VipePop <CR>
+"insert carraiage return from normal mode
+nmap '<CR> :a<CR><CR>.<CR>
+
+" map <leader><space> :Vipe <CR>
+" map <leader>p :VipePop <CR>
