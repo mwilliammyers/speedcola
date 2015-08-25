@@ -23,6 +23,8 @@ For a complete list of keybindings type `:map` inside Vim
 1. Install `golang`'s tools if you have golang on your `$PATH`.
 1. Install or update (it will decide automagically for you) all of your plugins and their dependencies
 
+##### Update
+`$XDG_CONFIG_HOME/vim/cola` or `curl -Lo- https://j.mp/speed-cola | bash`
 
 ##### Requirements
 Use the [XDG] base directory spec by having `$XDG_CONFIG_HOME`, `$XDG_CONFIG_HOME` and `$XDG_CONFIG_HOME` environment variables set. This is *WIP*; end goal will be to force vim into following the [XDG] spec à la [vim-respect-xdg]
