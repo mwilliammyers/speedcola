@@ -44,9 +44,9 @@ do_backup() {
   info "Backing up your original vim configuration"
   # msg=$(date +%Y-%m-%d_%s)
   msg="original"
-  for i in "${@}"; do
-    if [[ -e "${i}" ]] || [[ -L "${i}" ]]; then
-      mv -v "${i}" "${i}.${msg}"
+  for file in "${@}"; do
+    if [[ -e "${file}" ]] || [[ -L "${file}" ]]; then
+      mv -v "${file}" "${file}.${msg}"
     fi
   done
 }
@@ -82,24 +82,22 @@ install_vim_plug() {
 }
 
 create_local_files() {
-  for file in $1; do
-    dot_file="${XDG_CONFIG_HOME}/vim/${file}"
-    touch "${dot_file}"
+  for file in "${@}"; do
+    local_file="${XDG_CONFIG_HOME}/vim/${file}"
+    touch "${local_file}"
   done
 }
 
 link_files() {
-  for file in $1; do
+  for file in "${@}"; do
     dot_file="${HOME}/.${file}"
-    if [ ! -e "${dot_file}" ]; then
-      ln -sfh "${COLA_CONFIG_HOME}/${file}" "${dot_file}"
+    ln -s "${COLA_CONFIG_HOME}/${file}" "${dot_file}"
+    
+    if hash nvim &>/dev/null; then
+      ln -s "${COLA_CONFIG_HOME}" "${HOME}/.nvim"
+      ln -s "${COLA_CONFIG_HOME}/vimrc" "${HOME}/.nvimrc"
     fi
   done
-
-  if hash nvim &>/dev/null; then
-    ln -sfh "${COLA_CONFIG_HOME}" "${HOME}/.nvim"
-    ln -sfh "${COLA_CONFIG_HOME}/vimrc" "${HOME}/.nvimrc"
-  fi
 }
 
 install_go_deps() {
