@@ -5,8 +5,8 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 BLUE='\033[0;34m'
 YELLOW='\033[0;33m'
-BOLD=`tput bold`
-NORMAL=`tput sgr0`
+BOLD=$(tput bold)
+NORMAL=$(tput sgr0)
 RESET='\033[0;m'
 
 info() {
@@ -43,9 +43,11 @@ xdg_error() {
 do_backup() {
   # if [ -e "$1" ] || [ -e "$2" ] || [ -e "$3" ]; then
   info "Backing up your original vim configuration"
-  today=`date +%Y-%m-%d_%s`
+  today=$(date +%Y-%m-%d_%s)
   for i in "$@"; do
-    [[ -e "$i" ]] && mv -v "$i" "$i.$today"
+    if [[ -e "$i" ]] || [[ -L "$i" ]]; then
+      mv -v "$i" "$i.$today"
+    fi
   done
   # fi
 }
@@ -118,7 +120,7 @@ install_go_deps() {
 
     for p in $gopackages; do
       echo "Installing ${p}..."
-      go get -f -u $p
+      go get -f -u "${p}"
     done
     ln -sfh "${COLA_CONFIG_HOME}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
   fi
@@ -178,7 +180,7 @@ mkdir -p "${XDG_DATA_HOME}"/vim/{sessions,snippets} &>/dev/null
 if [[ -e "${COLA_CONFIG_HOME}" ]]; then
   cd "${COLA_CONFIG_HOME}"
   should_update_repo=false
-  [[ `git remote -v` =~ "${COLA_REPO_URI}" ]] && should_update_repo=true
+  [[ $(git remote -v) =~ "${COLA_REPO_URI}" ]] && should_update_repo=true
 else
   should_update_repo=false
 fi
@@ -196,6 +198,7 @@ else
             "${HOME}/.gvimrc" \
             "${HOME}/.nvimrc" \
             "${HOME}/.nvim" \
+            "${XDG_CONFIG_HOME}/nvim" \
             "${COLA_CONFIG_HOME}"
 
   clone_repo "${COLA_CONFIG_HOME}" \
