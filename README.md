@@ -1,5 +1,8 @@
-# Vim Configuration 
-[![Build Status](https://travis-ci.org/mkwmms/speed-cola.svg)](https://travis-ci.org/mkwmms/speed-cola)
+# speed-cola [![Build Status](https://travis-ci.org/mkwmms/speed-cola.svg)](https://travis-ci.org/mkwmms/speed-cola)
+
+#### Ultra fast vim configuration; powered by vim-plug, infused with XDG and a little speed-cola
+
+"Just take a sip, you will move faster. Just try it now! And speed is mastered! Press those lips against the only one that really moves you. Speed Cola speeds up your life!"
 
 __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-vimrc/wiki/Cheat-Sheet).
 For a complete list of keybindings type `:map` inside Vim
