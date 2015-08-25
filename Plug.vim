@@ -1,4 +1,4 @@
-call plug#begin($XDG_CONFIG_HOME . '/vim/plugged')
+call plug#begin($XDG_DATA_HOME . '/vim/plugged')
 
 " TODO: mhinz/vim-startify
 
