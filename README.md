@@ -1,17 +1,17 @@
 # Vim Configuration 
-[![Build Status](https://travis-ci.org/mkwmms/xdg-vimrc.svg)](https://travis-ci.org/mkwmms/xdg-vimrc)
+[![Build Status](https://travis-ci.org/mkwmms/speed-cola.svg)](https://travis-ci.org/mkwmms/speed-cola)
 
 __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-vimrc/wiki/Cheat-Sheet).
 For a complete list of keybindings type `:map` inside Vim
 
 ## Installation
 
-`curl -Lo- https://raw.githubusercontent.com/mkwmms/xdg-vimrc/master/install | bash`
+`curl -Lo- https://j.mp/speed-cola | bash`
 
 ##### How the install works
 
 *Full disclosure:*
-[the install script](https://github.com/mkwmms/xdg-vimrc/blob/master/install)
+[the install script](https://github.com/mkwmms/speed-cola/blob/master/cola)
 
 *TL;DR*
 

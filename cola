@@ -91,13 +91,13 @@ link_files() {
   for file in $1; do
     dot_file="${HOME}/.${file}"
     if [ ! -e "${dot_file}" ]; then
-      ln -sfh "${VIM_CONFIG_HOME}/${file}" "${dot_file}"
+      ln -sfh "${COLA_CONFIG_HOME}/${file}" "${dot_file}"
     fi
   done
 
   if hash nvim &>/dev/null; then
-    ln -sfh "${VIM_CONFIG_HOME}" "${HOME}/.nvim"
-    ln -sfh "${VIM_CONFIG_HOME}/vimrc" "${HOME}/.nvimrc"
+    ln -sfh "${COLA_CONFIG_HOME}" "${HOME}/.nvim"
+    ln -sfh "${COLA_CONFIG_HOME}/vimrc" "${HOME}/.nvimrc"
   fi
 }
 
@@ -120,7 +120,7 @@ install_go_deps() {
       echo "Installing ${p}..."
       go get -f -u $p
     done
-    ln -sfh "${VIM_CONFIG_HOME}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
+    ln -sfh "${COLA_CONFIG_HOME}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
   fi
 }
 
@@ -151,10 +151,10 @@ update_plugins() {
 [[ -z $XDG_DATA_HOME ]] && xdg_error "XDG_DATA_HOME" && should_die=1
 [[ $should_die -eq 1 ]] && exit 1
 
-app_name="xdg-vimrc"
-[ -z "$VIM_CONFIG_HOME" ] && VIM_CONFIG_HOME="${XDG_CONFIG_HOME}/vim"
-[ -z "$VIM_REPO_URI" ] && VIM_REPO_URI="https://github.com/mkwmms/${app_name}"
-[ -z "$VIM_REPO_BRANCH" ] && VIM_REPO_BRANCH='master'
+COLA_APP_NAME="speed-cola"
+[[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="${XDG_CONFIG_HOME}/vim"
+[[ -z "$COLA_REPO_URI" ]] && COLA_REPO_URI="https://github.com/mkwmms/speed-cola"
+[[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
 
 VIM_PLUG_URI='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
@@ -175,37 +175,37 @@ mkdir -p "${XDG_CONFIG_HOME}"/vim &>/dev/null
 mkdir -p "${XDG_CACHE_HOME}"/vim/{undo,swap,backup} &>/dev/null
 mkdir -p "${XDG_DATA_HOME}"/vim/{sessions,snippets} &>/dev/null
 
-if [[ -e "${VIM_CONFIG_HOME}" ]]; then
-  cd "${VIM_CONFIG_HOME}"
+if [[ -e "${COLA_CONFIG_HOME}" ]]; then
+  cd "${COLA_CONFIG_HOME}"
   should_update_repo=false
-  [[ `git remote -v` =~ "${VIM_REPO_URI}" ]] && should_update_repo=true
+  [[ `git remote -v` =~ "${COLA_REPO_URI}" ]] && should_update_repo=true
 else
   should_update_repo=false
 fi
 
 if [[ $should_update_repo == true ]]; then
-  update_repo "${VIM_CONFIG_HOME}" \
-               "${VIM_REPO_URI}" \
-               "${VIM_REPO_BRANCH}" \
-               "$app_name"
+  update_repo "${COLA_CONFIG_HOME}" \
+               "${COLA_REPO_URI}" \
+               "${COLA_REPO_BRANCH}" \
+               "$COLA_APP_NAME"
 
-  update_plugins "${VIM_CONFIG_HOME}/vimrc"
+  update_plugins "${COLA_CONFIG_HOME}/vimrc"
 else
   do_backup "${HOME}/.vim" \
             "${HOME}/.vimrc" \
             "${HOME}/.gvimrc" \
-            "${VIM_CONFIG_HOME}"
+            "${COLA_CONFIG_HOME}"
 
-  clone_repo "${VIM_CONFIG_HOME}" \
-             "${VIM_REPO_URI}" \
-             "${VIM_REPO_BRANCH}" \
-             "$app_name"
+  clone_repo "${COLA_CONFIG_HOME}" \
+             "${COLA_REPO_URI}" \
+             "${COLA_REPO_BRANCH}" \
+             "$COLA_APP_NAME"
 
-  install_vim_plug "${VIM_CONFIG_HOME}"
+  install_vim_plug "${COLA_CONFIG_HOME}"
 
   install_go_deps
 
-  bootstrap_plugins "${VIM_CONFIG_HOME}/Plug.vim"
+  bootstrap_plugins "${COLA_CONFIG_HOME}/Plug.vim"
 fi
 
 # create_local_files "${local_vimrc_files}"
