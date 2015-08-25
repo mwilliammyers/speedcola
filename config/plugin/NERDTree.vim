@@ -1,7 +1,7 @@
 " ---------------
 " NERDTree
 " ---------------
-let g:NERDTreeBookmarksFile = $XDG_DATA_HOME . '/vim/NERDTreeBookmarks'
+let g:NERDTreeBookmarksFile = g:vim_data_home . 'NERDTreeBookmarks'
 nnoremap <leader>nn :NERDTreeToggle<CR>
 nnoremap \ :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>

@@ -1,4 +1,6 @@
-call plug#begin('~/.vim/plugged')
+call plug#begin(g:vim_data_home . 'plugged')
+
+" TODO: mhinz/vim-startify
 
 " Defaults {{{
   Plug 'tpope/vim-sensible'
@@ -12,15 +14,20 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'junegunn/fzf', { 'do': 'yes \| ./install'  }
   if !has('nvim')
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'FelikZ/ctrlp-py-matcher'
+    Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
+    if has('python')
+      Plug 'FelikZ/ctrlp-py-matcher'
+    endif
   endif
 " }}}
 
 " UI Additions {{{
   " Colors {{{
-    Plug 'chriskempson/base16-vim'
+    Plug 'xolox/vim-misc' | Plug 'xolox/vim-colorscheme-switcher', 
+      \ { 'on': ['NextColorScheme', 'PrevColorScheme', 'RandomColorScheme'] }
     Plug 'flazz/vim-colorschemes'
+    " Plug 'noah/vim256-color'
+    " Plug 'chriskempson/base16-vim'
     "Plug 'altercation/vim-colors-solarized'
   " }}}
 
@@ -72,7 +79,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'godlygeek/tabular'
   Plug 'mileszs/ack.vim',                { 'on': 'Ack'                   }
   Plug 'rking/ag.vim',                   { 'on': 'Ag'                    }
-  Plug 'luan/vipe',                      { 'do': function('InstallVipe') }
+  " Plug 'luan/vipe',                      { 'do': function('InstallVipe') }
   if has('nvim')
     Plug 'benekastah/neomake'
   else
@@ -82,7 +89,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'maxbrunsfeld/vim-emacs-bindings'
   Plug 'mbbill/undotree'
-  Plug 'vim-scripts/sessionman.vim'
+  Plug 'xolox/vim-session'
 " }}}
 
 " Automatic Helpers {{{
@@ -95,8 +102,8 @@ call plug#begin('~/.vim/plugged')
 
   if has('nvim')
     Plug 'Shougo/deoplete.nvim'
-  elseif !(has('lua') && (v:version > 703 || v:version == 703 && has('patch885')))
-    Plug 'Shougo/neocomplcache.vim'
+  " elseif !(has('lua') && (v:version > 703 || v:version == 703 && has('patch885')))
+    " Plug 'Shougo/neocomplcache.vim'
   else
     Plug 'Shougo/neocomplete.vim'
   endif

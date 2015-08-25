@@ -18,4 +18,5 @@ let g:tagbar_type_ruby = {
     \ ]
     \ }
 
-nmap <F8> :TagbarToggle<CR>
+nnoremap <silent> <leader>tt :TagbarToggle<CR>
+" nmap <F8> :TagbarToggle<CR>
