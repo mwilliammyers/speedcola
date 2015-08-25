@@ -207,7 +207,7 @@ else
   clone_repo "${COLA_CONFIG_HOME}" \
              "${COLA_REPO_URI}" \
              "${COLA_REPO_BRANCH}" \
-             "$COLA_APP_NAME"
+             "${COLA_APP_NAME}"
 
   install_vim_plug "${COLA_CONFIG_HOME}"
 
