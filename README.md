@@ -9,7 +9,7 @@ For a complete list of keybindings type `:map` inside Vim
 
 ## Installation
 
-`curl -Lo- https://j.mp/speed-cola | bash`
+`curl -Lo- https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola | bash`
 
 ##### How the install works
 
