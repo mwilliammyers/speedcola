@@ -9,3 +9,4 @@ tags
 plugged/*
 autoload/
 config/local/
+vimrc.local.*

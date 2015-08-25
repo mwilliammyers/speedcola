@@ -3,21 +3,10 @@
 " ----------------------------------------
 
 " Config {{{
-set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
-"set runtimepath+=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
-"let g:netrw_home=expand("$XDG_CACHE_HOME") . "/vim"
-"let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+set undofile
 
-if has('persistent_undo')
-  set undofile
-  set undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp
-endif
-" }}}
+set swapfile         " Keep swapfiles
 
-" Backups {{{
-set swapfile                    " Keep swapfiles
-set directory=$XDG_CACHE_HOME/vim/swap,~/,/tmp
-set backupdir=$XDG_CACHE_HOME/vim/backup,~/,/tmp
 " }}}
 
 " UI {{{
