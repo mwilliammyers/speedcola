@@ -160,7 +160,6 @@ COLA_APP_NAME="speed-cola"
 
 VIM_PLUG_URI='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-
 if [[ -e "$HOME/.zshrc" ]]; then
   shell_startup="$HOME/.zshrc"
 elif [[ -e "$HOME/.bashrc" ]]; then
@@ -173,10 +172,6 @@ hash gvim &>/dev/null && repo_vimrc_files="vimrc gvimrc"
 local_vimrc_files="vimrc.local vimrc.local.before"
 
 ############################ MAIN()
-mkdir -p "${XDG_CONFIG_HOME}"/vim &>/dev/null
-mkdir -p "${XDG_CACHE_HOME}"/vim/{undo,swap,backup} &>/dev/null
-mkdir -p "${XDG_DATA_HOME}"/vim/{sessions,snippets} &>/dev/null
-
 if [[ -e "${COLA_CONFIG_HOME}" ]]; then
   cd "${COLA_CONFIG_HOME}"
   should_update_repo=false
@@ -186,10 +181,14 @@ else
 fi
 
 if [[ $should_update_repo == true ]]; then
+  mkdir -p "${XDG_CONFIG_HOME}"/vim &>/dev/null
+  mkdir -p "${XDG_CACHE_HOME}"/vim/{undo,swap,backup} &>/dev/null
+  mkdir -p "${XDG_DATA_HOME}"/vim/{sessions,snippets} &>/dev/null
+  
   update_repo "${COLA_CONFIG_HOME}" \
-               "${COLA_REPO_URI}" \
-               "${COLA_REPO_BRANCH}" \
-               "$COLA_APP_NAME"
+              "${COLA_REPO_URI}" \
+              "${COLA_REPO_BRANCH}" \
+              "${COLA_APP_NAME}"
 
   update_plugins "${COLA_CONFIG_HOME}/vimrc"
 else
@@ -200,6 +199,10 @@ else
             "${HOME}/.nvim" \
             "${XDG_CONFIG_HOME}/nvim" \
             "${COLA_CONFIG_HOME}"
+
+  mkdir -p "${XDG_CONFIG_HOME}"/vim &>/dev/null
+  mkdir -p "${XDG_CACHE_HOME}"/vim/{undo,swap,backup} &>/dev/null
+  mkdir -p "${XDG_DATA_HOME}"/vim/{sessions,snippets} &>/dev/null
 
   clone_repo "${COLA_CONFIG_HOME}" \
              "${COLA_REPO_URI}" \
