@@ -182,12 +182,12 @@ if [[ $should_update_repo == true ]]; then
   mkdir -p "${XDG_CACHE_HOME}"/vim/{undo,swap,backup} &>/dev/null
   mkdir -p "${XDG_DATA_HOME}"/vim/{sessions,snippets} &>/dev/null
   
-  # update_repo "${COLA_CONFIG_HOME}" \
-              # "${COLA_REPO_URI}" \
-              # "${COLA_REPO_BRANCH}" \
-              # "${COLA_APP_NAME}"
+  update_repo "${COLA_CONFIG_HOME}" \
+              "${COLA_REPO_URI}" \
+              "${COLA_REPO_BRANCH}" \
+              "${COLA_APP_NAME}"
 
-  # update_plugins "${COLA_CONFIG_HOME}/vimrc"
+  update_plugins "${COLA_CONFIG_HOME}/vimrc"
 else
   do_backup "${HOME}/.vim" \
             "${HOME}/.vimrc" \
