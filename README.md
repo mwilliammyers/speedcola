@@ -30,17 +30,20 @@ Use the [XDG] base directory spec by having `$XDG_CONFIG_HOME`, `$XDG_CONFIG_HOM
 **Files loaded in this order:**
 - `~/.vimrc`
 - `$XDG_CONFIG_HOME/vim/vimrc.local.before`
-- `~/.vim/Plug.vim`
+- `$XDG_CONFIG_HOME/vim/Plug.vim`
 - `$XDG_CONFIG_HOME/vim/vimrc.local.plugins` *coming soon*
-- `~/.vim/config/*.vim`
-- `~/.vim/config/plugin/*.vim`
+- `$XDG_CONFIG_HOME/vim/config/*.vim`
+- `$XDG_CONFIG_HOME/vim/config/plugin/*.vim`
 - `$XDG_CONFIG_HOME/vim/vimrc.local`
 
-**Settings:**
-- `viminfo=n$XDG_CACHE_HOME/vim/viminfo`
+**Directories/settings:**
+- Plugins are downloaded to: `$VIM_DATA_HOME/vim/plugged`
+- <plugin name> cache directory: `$VIM_CACHE_HOME/vim/<plugin name>`
+- Session directory: `$VIM_DATA_HOME/sessions`
 - `undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp`
 - `directory=$XDG_CACHE_HOME/vim/swap,~/,/tmp`
 - `backupdir=$XDG_CACHE_HOME/vim/backup,~/,/tmp`
+- `viminfo=n$XDG_CACHE_HOME/vim/viminfo`
 
 ### Faster and better autocomplete
 
@@ -104,7 +107,7 @@ functionality to your vim editing.  You can learn more about it with
 **QuickStart** Launch using `\`
 
 #### [ctrlp]
-Ctrlp replaces the Command-T plugin with a 100% viml plugin. It provides an intuitive and fast mechanism to load files from the file system (with regex and fuzzy find), from open buffers, and from recently used files.
+Ctrlp provides an intuitive and fast mechanism to load files from the file system (with regex and fuzzy find), from open buffers, and from recently used files.
 
 **QuickStart** Launch using `<c-p>`.
 
