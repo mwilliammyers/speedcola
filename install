@@ -91,13 +91,13 @@ link_files() {
   for file in $1; do
     dot_file="${HOME}/.${file}"
     if [ ! -e "${dot_file}" ]; then
-      ln -s "${VIM_CONFIG_HOME}/${file}" "${dot_file}"
+      ln -sfh "${VIM_CONFIG_HOME}/${file}" "${dot_file}"
     fi
   done
 
   if hash nvim &>/dev/null; then
-    ln -s "${VIM_CONFIG_HOME}" "${HOME}/.nvim"
-    ln -s "${VIM_CONFIG_HOME}/vimrc" "${HOME}/.nvimrc"
+    ln -sfh "${VIM_CONFIG_HOME}" "${HOME}/.nvim"
+    ln -sfh "${VIM_CONFIG_HOME}/vimrc" "${HOME}/.nvimrc"
   fi
 }
 
@@ -120,7 +120,7 @@ install_go_deps() {
       echo "Installing ${p}..."
       go get -f -u $p
     done
-    ln -s "${VIM_CONFIG_HOME}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
+    ln -sfh "${VIM_CONFIG_HOME}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
   fi
 }
 
