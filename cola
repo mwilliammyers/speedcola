@@ -194,6 +194,8 @@ else
   do_backup "${HOME}/.vim" \
             "${HOME}/.vimrc" \
             "${HOME}/.gvimrc" \
+            "${HOME}/.nvimrc" \
+            "${HOME}/.nvim" \
             "${COLA_CONFIG_HOME}"
 
   clone_repo "${COLA_CONFIG_HOME}" \
