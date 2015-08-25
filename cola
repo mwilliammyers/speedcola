@@ -41,15 +41,14 @@ xdg_error() {
 }
 
 do_backup() {
-  # if [ -e "$1" ] || [ -e "$2" ] || [ -e "$3" ]; then
   info "Backing up your original vim configuration"
-  today=$(date +%Y-%m-%d_%s)
-  for i in "$@"; do
-    if [[ -e "$i" ]] || [[ -L "$i" ]]; then
-      mv -v "$i" "$i.$today"
+  # msg=$(date +%Y-%m-%d_%s)
+  msg="original"
+  for i in "${@}"; do
+    if [[ -e "${i}" ]] || [[ -L "${i}" ]]; then
+      mv -v "${i}" "${i}.${msg}"
     fi
   done
-  # fi
 }
 
 clone_repo() {
