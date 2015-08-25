@@ -174,7 +174,7 @@ let g:neocomplcache_enable_at_startup = 0 " disable the fallback version when no
 #### Colors!
 - Default color scheme: `Tomorrow-Night`
 - Use a different color scheme: 
-  - `echo "let g:color_scheme='solarized'" >> "$XDG_CONFIG_HOME/vim/vimrc.local.before"` 
+  - `echo "let g:cola_colorscheme='solarized'" >> "$XDG_CONFIG_HOME/vim/vimrc.local.before"` 
   - Note: You *must* put this in `vimrc.local.before` and not `vimrc.local` 
 - List of available color schemes: [flazz/vim-colorschemes]
 - screenshots *coming soon*
