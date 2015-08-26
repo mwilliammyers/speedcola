@@ -8,14 +8,12 @@ end
 
 if !exists('g:airline_powerline_fonts')
   " Use the default set of separators with a few customizations
-  " let g:airline_left_sep='›'  " Slightly fancier than '>'
-  " let g:airline_right_sep='‹' " Slightly fancier than '<'
-  let g:airline_left_sep = ""
-  let g:airline_left_alt_sep = ""
-  let g:airline_right_sep = ""
-  let g:airline_right_alt_sep = ""
-endif
-if !g:airline_powerline_fonts
+  let g:airline_left_sep='›'  " Slightly fancier than '>'
+  let g:airline_right_sep='‹' " Slightly fancier than '<'
+  " let g:airline_left_sep = ""
+  " let g:airline_left_alt_sep = ""
+  " let g:airline_right_sep = ""
+  " let g:airline_right_alt_sep = ""
 endif
 
 let g:airline#extensions#syntastic#enabled = 1
