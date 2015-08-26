@@ -1,6 +1,6 @@
 call plug#begin($XDG_DATA_HOME . '/vim/plugged')
 
-" TODO: mhinz/vim-startify
+" TODO: 'mhinz/vim-startify' 'svermeulen/vim-easyclip'
 
 " Defaults {{{
   Plug 'tpope/vim-sensible'
