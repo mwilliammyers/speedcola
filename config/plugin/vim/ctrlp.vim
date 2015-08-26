@@ -22,16 +22,16 @@ nnoremap [ctrlp]b :CtrlPBuffer<cr>
 " nnoremap <leader>b :CtrlPBuffer<cr>
 
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_clear_cache_on_exit=1
+let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:10,results:50'
-let g:ctrlp_max_height=40
-let g:ctrlp_show_hidden=0
-let g:ctrlp_follow_symlinks=1
-let g:ctrlp_max_files=20000
-let g:ctrlp_cache_dir=g:vim_cache_home . '/ctrlp'
+let g:ctrlp_max_height = 40
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_max_files = 20000
+let g:ctrlp_cache_dir = $XDG_CACHE_HOME . '/vim/ctrlp'
 let g:ctrlp_switch_buffer = '1'
-let g:ctrlp_reuse_window='startify'
-let g:ctrlp_extensions=['funky']
+let g:ctrlp_reuse_window = 'startify'
+let g:ctrlp_extensions = ['funky']
 let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/]\.(git|hg|svn|idea)$',
     \ 'file': '\v[\/]\.(DS_Store|pdf|jpg|jpg|gif|mp4|m4v|pyc|so|dll)$'

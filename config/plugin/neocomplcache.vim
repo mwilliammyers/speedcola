@@ -7,7 +7,7 @@ let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory = g:vim_data_home . 'snippets'
+let g:neosnippet#snippets_directory = $XDG_DATA_HOME . '/vim/snippets'
 
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplcache#undo_completion()
