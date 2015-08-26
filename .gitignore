@@ -1,0 +1,12 @@
+.DS_Store
+.cache
+.netrwhist
+.rake_tasks~
+.undo/*
+bundle/
+sessions/
+tags
+plugged/*
+autoload/
+config/local/
+vimrc.local.*
