@@ -167,6 +167,8 @@ set directory=\$XDG_CACHE_HOME/vim,~/,/tmp
 set backupdir=\$XDG_CACHE_HOME/vim,~/,/tmp
 set undodir=\$XDG_CACHE_HOME/vim/undo,~/,/tmp
 
+let g:session_autosave = 'no'
+
 source \$XDG_CONFIG_HOME/vim/Plug.vim
 EOF
 }
