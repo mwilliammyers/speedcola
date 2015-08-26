@@ -213,5 +213,5 @@ else
 
   install_go_deps
 
-  bootstrap_plugins "${COLA_CONFIG_HOME}/vimrc"
+  bootstrap_plugins "${COLA_CONFIG_HOME}/Plug.vim"
 fi

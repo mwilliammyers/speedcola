@@ -18,21 +18,16 @@ let g:mapleader = ","
 
 " Environment
 if empty("$XDG_CACHE_HOME")
-  let $XDG_CACHE_HOME="$HOME/.cache"
+  let $XDG_CACHE_HOME = "$HOME/.cache"
 endif
 
 if empty("$XDG_CONFIG_HOME")
-  let $XDG_CONFIG_HOME="$HOME/.config"
+  let $XDG_CONFIG_HOME = "$HOME/.config"
 endif
 
 if empty("$XDG_DATA_HOME")
-  let $XDG_DATA_HOME="$HOME/.local/share"
+  let $XDG_DATA_HOME = "$HOME/.local/share"
 endif
-
-" Global variables used throughout this config
-let g:vim_config_home = $XDG_CONFIG_HOME . '/vim/'
-let g:vim_data_home   = $XDG_DATA_HOME . '/vim/'
-let g:vim_cache_home  = $XDG_CACHE_HOME . '/vim/'
 
 " ----------------------------------------
 " Runtime Configuration
@@ -45,8 +40,8 @@ set undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp
 set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_DATA_HOME/vim/plugged,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 " let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc
 
-if filereadable(g:vim_config_home . 'vimrc.local.before')
-  source g:vim_config_home . 'vimrc.local.before'
+if filereadable($XDG_CONFIG_HOME . '/vim/vimrc.local.before')
+  source $XDG_CONFIG_HOME/vim/vimrc.local.before
 endif
 
 runtime! Plug.vim
@@ -71,6 +66,6 @@ endif
 
 runtime! lib/*.vim
 
-if filereadable(g:vim_config_home . 'vimrc.local')
-  source g:vim_config_home . 'vimrc.local'
+if filereadable($XDG_CONFIG_HOME . '/vim/vimrc.local')
+  source $XDG_CONFIG_HOME/vim/vimrc.local
 endif
