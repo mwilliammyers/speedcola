@@ -8,8 +8,11 @@ __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-v
 For a complete list of keybindings type `:map` inside Vim
 
 ## Installation
+bash,  zsh etc. (bash-compatible shell):
+`sh <(curl https://j.mp/go-speed-cola -L)`
 
-`curl -Lo- https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola | bash`
+fish:
+`curl https://j.mp/go-speed-cola -L > speed-cola.sh; and sh speed-cola.sh; and rm speed-cola.sh`
 
 ##### How the install works
 
@@ -24,10 +27,13 @@ For a complete list of keybindings type `:map` inside Vim
 1. Install or update (it will decide automagically for you) all of your plugins and their dependencies
 
 ##### Update
-`$XDG_CONFIG_HOME/vim/cola` or `curl -Lo- https://j.mp/speed-cola | bash`
+`$XDG_CONFIG_HOME/vim/cola` or follow 
 
 ##### Requirements
-Use the [XDG] base directory spec by having `$XDG_CONFIG_HOME`, `$XDG_CONFIG_HOME` and `$XDG_CONFIG_HOME` environment variables set. This is *WIP*; end goal will be to force vim into following the [XDG] spec à la [vim-respect-xdg]
+- Linux, *nix, or OS X
+- Git 1.7+
+- Vim 7.3+
+- Use the [XDG] base directory spec by having `$XDG_CONFIG_HOME`, `$XDG_CONFIG_HOME` and `$XDG_CONFIG_HOME` environment variables set. This is *WIP*; end goal will be to force vim into following the [XDG] spec à la [vim-respect-xdg]
 
 ## Recommended Setup (OSX/Linux)
 
