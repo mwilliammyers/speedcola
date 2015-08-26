@@ -119,7 +119,8 @@ install_go_deps() {
       echo "Installing ${p}..."
       go get -f -u "${p}"
     done
-    ln -sfh "${COLA_CONFIG_HOME}/snippets/go.snip" "${XDG_DATA_HOME}/vim/snippets"
+    ln -s "${COLA_CONFIG_HOME}/snippets/go.snip" \ 
+      "${XDG_DATA_HOME}/vim/snippets/go.snip"
   fi
 }
 
@@ -246,5 +247,5 @@ else
   bootstrap_vimrc="/tmp/vimrc.bootstrap"
   write_bootstrap_config "${bootstrap_vimrc}"
   bootstrap_plugins "${bootstrap_vimrc}"
-  #rm -rf "${bootstrap_vimrc}"
+  rm -f "${bootstrap_vimrc}"
 fi
