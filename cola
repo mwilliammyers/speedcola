@@ -146,11 +146,26 @@ update_plugins() {
 
 write_bootstrap_config() {
   cat >"${1}" <<EOF
+if !has('nvim')
+  set nocompatible
+endif
+
+if empty("$XDG_CACHE_HOME")
+  let $XDG_CACHE_HOME = "$HOME/.cache"
+endif
+
+if empty("$XDG_CONFIG_HOME")
+  let $XDG_CONFIG_HOME = "$HOME/.config"
+endif
+
+if empty("$XDG_DATA_HOME")
+  let $XDG_DATA_HOME = "$HOME/.local/share"
+endif
+
+set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_DATA_HOME/vim/plugged,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME 
 set directory=$XDG_CACHE_HOME/vim,~/,/tmp
 set backupdir=$XDG_CACHE_HOME/vim,~/,/tmp
-set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp
-set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_DATA_HOME/vim/plugged,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME 
 
 source $XDG_CONFIG_HOME/vim/Plug.vim
 EOF
