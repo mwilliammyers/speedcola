@@ -124,8 +124,11 @@ install_go_deps() {
 }
 
 install_plugins() {
-  local vimrc="$1"
-  local vimcmd="$2"
+  local vimrc="${1}"
+  local vimcmd="${2}"
+  echo "INSTALL PLUGINS"
+  echo $vimrc
+  echo $vimcmd
   vim -u "${vimrc}" +"$vimcmd" +'qall!'
   if hash nvim &>/dev/null; then
     nvim -u "${vimrc}" +"$vimcmd" +'qall!'
