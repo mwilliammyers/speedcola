@@ -52,10 +52,10 @@ do_backup() {
 }
 
 clone_repo() {
-  local repo_path="$1"
-  local repo_uri="$2"
-  local repo_branch="$3"
-  local repo_name="$4"
+  local repo_path="${1}"
+  local repo_uri="${2}"
+  local repo_branch="${3}"
+  local repo_name="${4}"
 
   info "Installing $repo_name"
   mkdir -p "$repo_path"
@@ -63,14 +63,14 @@ clone_repo() {
 }
 
 update_repo() {
-  local repo_path="$1"
-  local repo_uri="$2"
-  local repo_branch="$3"
-  local repo_name="$4"
+  local repo_path="${1}"
+  local repo_uri="${2}"
+  local repo_branch="${3}"
+  local repo_name="${4}"
 
-  info "Updating $repo_name"
+  info "Updating ${repo_name}"
 
-  cd "$repo_path" && git pull origin "$repo_branch"
+  cd "${repo_path}" && git pull origin "${repo_branch}"
 }
 
 install_vim_plug() {
@@ -140,8 +140,7 @@ bootstrap_plugins() {
 
 update_plugins() {
   info "Updating plugins & plugin dependencies"
-  install_plugins "$1" "silent! PlugUpgrade!|"
-  install_plugins "$1" "silent! PlugClean!|PlugUpdate!|"
+  install_plugins "${1}" "silent! PlugUpgrade!|PlugClean!|PlugUpdate!|"
 }
 
 write_bootstrap_config() {
@@ -151,15 +150,15 @@ if !has('nvim')
 endif
 
 if empty("\$XDG_CACHE_HOME")
-  let \$XDG_CACHE_HOME = "$HOME/.cache"
+  let \$XDG_CACHE_HOME = "${HOME}/.cache"
 endif
 
 if empty("\$XDG_CONFIG_HOME")
-  let \$XDG_CONFIG_HOME = "$HOME/.config"
+  let \$XDG_CONFIG_HOME = "${HOME}/.config"
 endif
 
 if empty("\$XDG_DATA_HOME")
-  let \$XDG_DATA_HOME = "$HOME/.local/share"
+  let \$XDG_DATA_HOME = "${HOME}/.local/share"
 endif
 
 set runtimepath=\$XDG_CONFIG_HOME/vim,\$XDG_DATA_HOME/vim/plugged,\$XDG_CONFIG_HOME/vim/after,\$VIM,\$VIMRUNTIME 
@@ -174,22 +173,22 @@ EOF
 }
 
 ############################  SETUP PARAMETERS
-[[ -z $XDG_CONFIG_HOME ]] && xdg_error "XDG_CONFIG_HOME" && should_die=1
-[[ -z $XDG_CACHE_HOME ]] && xdg_error "XDG_CACHE_HOME" && should_die=1
-[[ -z $XDG_DATA_HOME ]] && xdg_error "XDG_DATA_HOME" && should_die=1
-[[ $should_die -eq 1 ]] && exit 1
+[[ -z "${XDG_CONFIG_HOME}" ]] && xdg_error "XDG_CONFIG_HOME" && should_die=1
+[[ -z "${XDG_CACHE_HOME}" ]] && xdg_error "XDG_CACHE_HOME" && should_die=1
+[[ -z "${XDG_DATA_HOME}" ]] && xdg_error "XDG_DATA_HOME" && should_die=1
+[[ "${should_die}" -eq 1 ]] && exit 1
 
 COLA_APP_NAME="speed-cola"
-[[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="${XDG_CONFIG_HOME}/vim"
-[[ -z "$COLA_REPO_URI" ]] && COLA_REPO_URI="https://github.com/mkwmms/speed-cola"
-[[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
+[[ -z "${COLA_CONFIG_HOME}" ]] && COLA_CONFIG_HOME="${XDG_CONFIG_HOME}/vim"
+[[ -z "${COLA_REPO_URI}" ]] && COLA_REPO_URI="https://github.com/mkwmms/speed-cola"
+[[ -z "${COLA_REPO_BRANCH}" ]] && COLA_REPO_BRANCH='master'
 
 VIM_PLUG_URI='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-if [[ -e "$HOME/.zshrc" ]]; then
-  shell_startup="$HOME/.zshrc"
-elif [[ -e "$HOME/.bashrc" ]]; then
-  shell_startup="$HOME/.bashrc"
+if [[ -e "${HOME}/.zshrc" ]]; then
+  shell_startup="${HOME}/.zshrc"
+elif [[ -e "${HOME}/.bashrc" ]]; then
+  shell_startup="${HOME}/.bashrc"
 fi
 
 repo_vimrc_files="vimrc"
@@ -206,7 +205,7 @@ else
   should_update_repo=false
 fi
 
-if [[ $should_update_repo == true ]]; then
+if [[ "${should_update_repo}" == true ]]; then
   mkdir -p "${XDG_CONFIG_HOME}"/vim &>/dev/null
   mkdir -p "${XDG_CACHE_HOME}"/vim/{undo,swap,backup} &>/dev/null
   mkdir -p "${XDG_DATA_HOME}"/vim/{sessions,snippets} &>/dev/null
@@ -246,5 +245,5 @@ else
   bootstrap_vimrc="/tmp/vimrc.bootstrap"
   write_bootstrap_config "${bootstrap_vimrc}"
   bootstrap_plugins "${bootstrap_vimrc}"
-  rm -rf "${bootstrap_vimrc}"
+  rm "${bootstrap_vimrc}"
 fi
