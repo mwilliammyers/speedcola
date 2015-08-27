@@ -1,4 +1,4 @@
-# speed-cola [![Build Status]
+# speed-cola
 
 #### Ultra fast vim configuration; powered by vim-plug, infused with XDG and a little speed-cola
 
