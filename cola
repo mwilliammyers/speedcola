@@ -246,5 +246,5 @@ else
   bootstrap_vimrc="/tmp/vimrc.bootstrap"
   write_bootstrap_config "${bootstrap_vimrc}"
   bootstrap_plugins "${bootstrap_vimrc}"
-  #rm -rf "${bootstrap_vimrc}"
+  rm -rf "${bootstrap_vimrc}"
 fi

@@ -15,8 +15,6 @@ if !exists('g:airline_powerline_fonts')
   let g:airline_right_sep = ""
   let g:airline_right_alt_sep = ""
 endif
-if !g:airline_powerline_fonts
-endif
 
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
