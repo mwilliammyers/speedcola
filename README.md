@@ -9,9 +9,11 @@ For a complete list of keybindings type `:map` inside Vim
 
 ## Installation
 bash,  zsh etc. (bash-compatible shell):
+
 `sh <(curl https://j.mp/go-speed-cola -L)`
 
 fish:
+
 `curl https://j.mp/go-speed-cola -L > speed-cola.sh; and sh speed-cola.sh; and rm speed-cola.sh`
 
 ##### How the install works
@@ -27,7 +29,7 @@ fish:
 1. Install or update (it will decide automagically for you) all of your plugins and their dependencies
 
 ##### Update
-`$XDG_CONFIG_HOME/vim/cola` or the same method you used to install speed-cola (using curl)
+`$XDG_CONFIG_HOME/vim/cola` *or* the same method you used to install speed-cola (using curl)
 
 ##### Requirements
 - Linux, *nix, or OS X
