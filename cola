@@ -75,9 +75,7 @@ update_repo() {
 
 install_vim_plug() {
   info "Installing vim-plug"
-
   [[ -e "${1}/bundle" ]] && rm -rf "${1}/bundle"
-
   curl -fLo "${1}/autoload/plug.vim" --create-dirs "${VIM_PLUG_URI}"
 }
 
@@ -126,24 +124,21 @@ install_go_deps() {
 install_plugins() {
   local vimrc="${1}"
   local vimcmd="${2}"
-  echo "INSTALL PLUGINS"
-  echo $vimrc
-  echo $vimcmd
-  vim -u "${vimrc}" +"$vimcmd" +'qall!'
+  vim -u "${vimrc}" +"${vimcmd}" +'qall!'
   if hash nvim &>/dev/null; then
-    nvim -u "${vimrc}" +"$vimcmd" +'qall!'
+    nvim -u "${vimrc}" +"${vimcmd}" +'qall!'
   fi
 }
 
 bootstrap_plugins() {
   info "Installing plugins & plugin dependencies"
-  local vimrc="$1"
+  local vimrc="${1}"
   install_plugins "${vimrc}" "silent! PlugInstall!|silent! GoInstallBinaries!|"
 }
 
 update_plugins() {
   info "Updating plugins & plugin dependencies"
-  install_plugins "${1}" "silent! PlugUpgrade!|PlugClean!|PlugUpdate!|"
+  install_plugins "${1}" "PlugUpgrade|silent! PlugClean!|silent! PlugUpdate|"
 }
 
 write_bootstrap_config() {
