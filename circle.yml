@@ -17,11 +17,8 @@ dependencies:
 
 test:
   pre:
-    - printf "Physical processors: "
     - grep "physical id" /proc/cpuinfo | sort -u | wc -l
-    - printf "Physical cores per CPU: "
     - grep "cpu cores" /proc/cpuinfo |sort -u |cut -d":" -f2
-    - printf "Logical cores per CPU: "
     - grep -c "processor" /proc/cpuinfo
     - sh /tmp/speed-cola.sh
   override:
