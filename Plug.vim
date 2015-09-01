@@ -1,3 +1,9 @@
+if empty($XDG_CONFIG_HOME . '/vim/autoload/plug.vim')
+  silent !curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+
 call plug#begin($XDG_DATA_HOME . '/vim/plugged')
 
 " Defaults {{{
@@ -11,7 +17,7 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
   Plug 'bogado/file-line'
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
 
-  Plug 'junegunn/fzf', { 'do': 'yes \| ./install'  }
+  " Plug 'junegunn/fzf', { 'do': 'yes \| ./install'  }
   if !has('nvim')
     Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
     if has('python')
