@@ -9,8 +9,18 @@ env:
 install:
   - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
   - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
-  - cabal install shellcheck
-  - sh <(curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L)
+  - cabal install shellcheck -j16
+  - curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L > /tmp/speed-cola.sh
 script:
+  # Count the number of “physical processor(s)”
+  - printf "Physical processors: "
+  - grep "physical id" /proc/cpuinfo | sort -u | wc -l
+  # Count the number of “physical cores per CPU”
+  - printf "Physical cores per CPU: "
+  - grep "cpu cores" /proc/cpuinfo |sort -u |cut -d":" -f2
+  # Count the number of “logical cores ” (including multi-threading cores)
+  - printf "Logical cores per CPU: "
+  - grep -c "processor" /proc/cpuinfo
+  - sh /tmp/speed-cola.sh
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v vimrc *.vim config lib
   - shellcheck --shell=bash cola
