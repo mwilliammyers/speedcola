@@ -1,0 +1,15 @@
+sudo: false
+before_script:
+    - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
+    - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
+    - brew update
+    - brew install shell-check
+env:
+  XDG_CONFIG_HOME=$HOME/.config
+  XDG_DATA_HOME=$HOME/.local/share
+  XDG_CACHE_HOME=$HOME/.cache
+  GOPATH=$HOME/go
+script:
+  - sh <(https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L)
+  - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v vimrc *.vim config lib
+  - shellcheck --shell=bash cola
