@@ -10,4 +10,5 @@ install:
   - curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L > /tmp/speed-cola.sh
 script:
   - bash /tmp/speed-cola.sh
+  - $XDG_CONFIG_HOME/vim/cola
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v vimrc *.vim config lib
