@@ -1,7 +1,6 @@
 machine:
-  haskell:
-    version:
-      7.9
+  ghc:
+    version: 7.10.1
 
   environment:
     XDG_CONFIG_HOME: $HOME/.config
