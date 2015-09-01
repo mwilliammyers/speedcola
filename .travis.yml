@@ -12,13 +12,10 @@ install:
   - cabal install shellcheck -j16
   - curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L > /tmp/speed-cola.sh
 script:
-  # Count the number of “physical processor(s)”
   - printf "Physical processors: "
   - grep "physical id" /proc/cpuinfo | sort -u | wc -l
-  # Count the number of “physical cores per CPU”
   - printf "Physical cores per CPU: "
   - grep "cpu cores" /proc/cpuinfo |sort -u |cut -d":" -f2
-  # Count the number of “logical cores ” (including multi-threading cores)
   - printf "Logical cores per CPU: "
   - grep -c "processor" /proc/cpuinfo
   - sh /tmp/speed-cola.sh

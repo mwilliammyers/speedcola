@@ -30,7 +30,6 @@ set nojoinspaces           " Prevents inserting two spaces after punctuation on 
 " UI {{{ 
 syntax on        " Syntax highlighting
 " set list                                     " Show whitespace
-" set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace 
 set showmatch    " Show matching brackets.
 set nu           " Line numbers on
 set nowrap       " Line wrapping off
