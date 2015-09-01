@@ -7,16 +7,17 @@ machine:
 
 dependencies:
   pre:
-    - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
-    - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
-    - curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L > /tmp/speed-cola.sh
-    - sudo apt-get update; sudo apt-get install shellcheck
-
-test:
-  pre:
     - grep "physical id" /proc/cpuinfo | sort -u | wc -l
     - grep "cpu cores" /proc/cpuinfo |sort -u |cut -d":" -f2
     - grep -c "processor" /proc/cpuinfo
+    - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
+    - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
+    - curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L > /tmp/speed-cola.sh
+    - sudo apt-get update
+    - sudo apt-get install shellcheck
+
+test:
+  pre:
     - sh /tmp/speed-cola.sh
   override:
     - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v vimrc *.vim config lib
