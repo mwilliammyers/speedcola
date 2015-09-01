@@ -8,7 +8,7 @@ if has("autocmd")
 
   " Fix trailing whitespace in my most used programming langauges
   autocmd BufWritePre *.py,*.js,*.coffee,*.rb,*.c silent! :StripTrailingWhiteSpace
-  autocmd FileType vim set fdm=marker foldmarker={{{,}}}
+  autocmd FileType vim set fdm=marker foldmarker={{{,}}} foldenable
 
   if exists("g:autosave") && g:autosave == 1
     autocmd FocusLost * silent! wa
@@ -37,7 +37,7 @@ if has("autocmd")
     autocmd! FileType mkd setlocal syn=off
 
     " Input tabs for Make syntax
-    autocmd FileType make setlocal noexpandtab set list
+    autocmd FileType make setlocal noexpandtab list
 
     " Leave the return key alone when in command line windows, since it's used
     " to run commands there.
