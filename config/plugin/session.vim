@@ -14,4 +14,4 @@ let g:session_default_to_last = 1
 
 " every Vim instance without an explicit session loaded will 
 " overwrite the default session (the last Vim instance wins)
-" let g:session_default_overwrite = 1
+let g:session_default_overwrite = 1
