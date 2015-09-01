@@ -36,6 +36,9 @@ if has("autocmd")
     " Don't syntax highlight markdown because it's often wrong
     autocmd! FileType mkd setlocal syn=off
 
+    " Input tabs for Make syntax
+    autocmd FileType make setlocal noexpandtab set list
+
     " Leave the return key alone when in command line windows, since it's used
     " to run commands there.
     autocmd! CmdwinEnter * :unmap <cr>
