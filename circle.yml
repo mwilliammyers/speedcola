@@ -1,4 +1,7 @@
 machine:
+  ghc:
+    version: 7.10.1
+  
   environment:
     XDG_CONFIG_HOME: $HOME/.config
     XDG_DATA_HOME: $HOME/.local/share
@@ -12,9 +15,10 @@ dependencies:
     - grep -c "processor" /proc/cpuinfo
     - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
     - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
+    - git clone https://github.com/koalaman/shellcheck.git /tmp/shellcheck
     - curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L > /tmp/speed-cola.sh
-    - sudo apt-get update
-    - sudo apt-get install shellcheck
+  override: 
+    - cd /tmp/shellcheck && cabal install --jobs
 
 test:
   pre:
