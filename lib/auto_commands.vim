@@ -6,6 +6,9 @@ if has("autocmd")
   " No formatting on o key newlines
   autocmd BufNewFile,BufEnter * set formatoptions-=o
 
+  " Always switch to the current file directory
+  autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+
   " Fix trailing whitespace in my most used programming langauges
   autocmd BufWritePre *.py,*.js,*.coffee,*.rb,*.c silent! :StripTrailingWhiteSpace
   autocmd FileType vim set fdm=marker foldmarker={{{,}}} foldenable
