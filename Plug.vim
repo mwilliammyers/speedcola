@@ -9,7 +9,7 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
   Plug 'scrooloose/nerdtree'
   Plug 'tpope/vim-projectionist'
   Plug 'bogado/file-line'
-  Plug 'tpope/vim-repeat'| 'Plug 'easymotion/vim-easymotion'
+  Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
 
   Plug 'junegunn/fzf', { 'do': 'yes \| ./install'  }
   if !has('nvim')

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ############################ BASIC TOOLS
-GREEN='\033[0;32m'
+# GREEN='\033[0;32m'
 RED='\033[0;31m'
 BLUE='\033[0;34m'
 YELLOW='\033[0;33m'
@@ -10,15 +10,15 @@ NORMAL=$(tput sgr0)
 RESET='\033[0;m'
 
 info() {
-  printf "${BLUE}${BOLD}==>${NORMAL}${BOLD} ${1}${RESET}\n"
+  echo "${BLUE}${BOLD}==>${NORMAL}${BOLD} ${1}${RESET}"
 }
 
 warn() {
-  printf "${YELLOW}${BOLD}Warning:${NORMAL} ${1}${RESET}\n"
+  echo"${YELLOW}${BOLD}Warning:${NORMAL} ${1}${RESET}"
 }
 
 error() {
-  printf "${RED}${BOLD}Error:${NORMAL} ${1}${RESET}\n"
+  echo"${RED}${BOLD}Error:${NORMAL} ${1}${RESET}"
 }
 
 die() {
@@ -192,13 +192,13 @@ fi
 repo_vimrc_files="vimrc"
 hash gvim &>/dev/null && repo_vimrc_files="vimrc gvimrc"
 
-local_vimrc_files="vimrc.local vimrc.local.before"
+# local_vimrc_files="vimrc.local vimrc.local.before"
 
 ############################ MAIN()
 if [[ -e "${COLA_CONFIG_HOME}" ]]; then
   cd "${COLA_CONFIG_HOME}"
   should_update_repo=false
-  [[ $(git remote -v) =~ "${COLA_REPO_URI}" ]] && should_update_repo=true
+  [[ $(git remote -v) =~ ${COLA_REPO_URI} ]] && should_update_repo=true
 else
   should_update_repo=false
 fi
