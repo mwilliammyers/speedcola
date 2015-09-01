@@ -1,4 +1,4 @@
-#speed-cola [![Build Status](https://travis-ci.org/mkwmms/speed-cola.svg?branch=master)](https://travis-ci.org/mkwmms/speed-cola)
+#speed-cola [![Build Status](https://travis-ci.org/mkwmms/speed-cola.svg?branch=master)](https://travis-ci.org/mkwmms/speed-cola) [![Circle CI](https://circleci.com/gh/mkwmms/speed-cola.svg?style=svg)](https://circleci.com/gh/mkwmms/speed-cola)
 
 #### Ultra fast vim configuration; powered by vim-plug, infused with XDG and a little speed-cola
 
