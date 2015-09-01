@@ -18,7 +18,7 @@ dependencies:
     - git clone https://github.com/koalaman/shellcheck.git /tmp/shellcheck
     - curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L > /tmp/speed-cola.sh
   override: 
-    - [[ ! -e ~/.cabal/bin/shellcheck ]] && cd /tmp/shellcheck && cabal install --jobs=16 --disable-tests
+    - if [[ ! -e ~/.cabal/bin/shellcheck ]]; then cd /tmp/shellcheck && cabal install --jobs=16 --disable-tests; fi
 
 test:
   pre:
