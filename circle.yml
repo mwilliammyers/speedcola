@@ -7,21 +7,22 @@ machine:
     XDG_DATA_HOME: $HOME/.local/share
     XDG_CACHE_HOME: $HOME/.cache
     GOPATH: $HOME/go
+    PATH: $HOME/.cabal/bin/:$PATH
 
 dependencies:
   cache_directories:
-    - ~/.cabal
+    - $HOME/.cabal
   pre:
     - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
     - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
     - git clone https://github.com/koalaman/shellcheck.git /tmp/shellcheck
     - curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L > /tmp/speed-cola.sh
   override: 
-    - if [[ ! -e ~/.cabal/bin/shellcheck ]]; then cd /tmp/shellcheck && cabal install --jobs=16 --disable-tests; fi
+    - [[ ! -e ~/.cabal/bin/shellcheck ]] && cd /tmp/shellcheck && cabal install --jobs=16 --disable-tests
 
 test:
   pre:
-    - sh /tmp/speed-cola.sh
+    - bash /tmp/speed-cola.sh
   override:
     - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v vimrc *.vim config lib
-    - ~/.cabal/bin/shellcheck --shell=bash cola
+    - shellcheck --shell=bash cola
