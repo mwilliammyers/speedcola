@@ -1,4 +1,5 @@
 sudo: false
+language: haskell
 ghc: 7.10
 env:
   XDG_CONFIG_HOME=$HOME/.config
