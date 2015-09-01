@@ -9,13 +9,15 @@ machine:
     GOPATH: $HOME/go
 
 dependencies:
+  cache_directories:
+    - ~/.cabal
   pre:
     - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
     - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
     - git clone https://github.com/koalaman/shellcheck.git /tmp/shellcheck
     - curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L > /tmp/speed-cola.sh
   override: 
-    - cd /tmp/shellcheck && cabal install --jobs=16 --disable-tests
+    - if [[ ! -e ~/.cabal/bin/shellcheck ]]; then cd /tmp/shellcheck && cabal install --jobs=16 --disable-tests; fi
 
 test:
   pre:
