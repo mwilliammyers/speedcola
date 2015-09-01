@@ -10,9 +10,6 @@ machine:
 
 dependencies:
   pre:
-    - grep "physical id" /proc/cpuinfo | sort -u | wc -l
-    - grep "cpu cores" /proc/cpuinfo |sort -u |cut -d":" -f2
-    - grep -c "processor" /proc/cpuinfo
     - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
     - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
     - git clone https://github.com/koalaman/shellcheck.git /tmp/shellcheck
@@ -25,4 +22,4 @@ test:
     - sh /tmp/speed-cola.sh
   override:
     - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v vimrc *.vim config lib
-    - shellcheck --shell=bash cola
+    - ~/.cabal/bin/shellcheck --shell=bash cola
