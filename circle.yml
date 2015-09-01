@@ -11,7 +11,7 @@ machine:
 
 dependencies:
   cache_directories:
-    - $HOME/.cabal
+    - .cabal
   pre:
     - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
     - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
