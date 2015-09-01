@@ -1,6 +1,4 @@
 sudo: false
-language: haskell
-ghc: 7.4.1
 env:
   XDG_CONFIG_HOME=$HOME/.config
   XDG_DATA_HOME=$HOME/.local/share
