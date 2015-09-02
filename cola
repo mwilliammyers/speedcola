@@ -170,6 +170,58 @@ source \$XDG_CONFIG_HOME/vim/Plug.vim
 EOF
 }
 
+write_speed_cola_header() {
+  cat >>"${1}" <<EOF
+" =======================================
+" speed-cola
+" 
+" ultra fast vim configuration 
+" powered by vim-plug, infused with XDG and a little speed-cola
+"
+" Maintained By:
+" William Myers @mkwmms [http://github.com/mkwmms/speed-cola]
+"
+" Initially based on:
+" Luan Santos' vimfiles [https://github.com/luan/vimfiles]
+" Steve Francia's legendary vim distribution [https://github.com/spf13/spf13-vim]
+" ======================================= 
+EOF
+}
+
+write_local_vimrc_before() {
+  [[ -e "${1}" ]] && return 
+  write_speed_cola_header "${1}"
+  cat >>"${1}" <<EOF
+" This file will be sourced before anything else 
+" Use it to configure things that will be overridden 
+" =======================================
+
+" Uncomment this if you want the solarized color scheme
+" or replace solarized with a different color scheme from:
+" https://github.com/flazz/vim-colorschemes/tree/master/colors
+" let g:cola_colorscheme='solarized'
+EOF
+}
+
+write_local_vimrc_after() {
+  [[ -e "${1}" ]] && return 
+  write_speed_cola_header "${1}"
+  cat >>"${1}" <<EOF
+" This file will be sourced after everything else 
+" =======================================
+EOF
+}
+
+write_local_vimrc_plug() {
+  [[ -e "${1}" ]] && return 
+  write_speed_cola_header "${1}"
+  cat >>"${1}" <<EOF
+" Add non default plugins here
+" see: ${COLA_CONFIG_HOME}/Plug.vim for an example
+" =======================================
+EOF
+}
+
 ############################  SETUP PARAMETERS
 [[ -z "${XDG_CONFIG_HOME}" ]] && xdg_error "XDG_CONFIG_HOME" && should_die=1
 [[ -z "${XDG_CACHE_HOME}" ]] && xdg_error "XDG_CACHE_HOME" && should_die=1
