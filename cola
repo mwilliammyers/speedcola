@@ -29,9 +29,9 @@ warn_xdg() {
     shell_startup="$HOME/.bashrc"
   fi
 
-  warn "\$$xdg_dir should be set to use these vim config files. \
-  \ntry: echo \"export ${xdg_dir}=$xdg_default_dir\" >> $shell_startup \
-  \nIf \$$xdg_dir is not set, the default: $xdg_default_dir will be used \
+  warn "\$$xdg_dir should be set, \
+  otherwise vim will use the default: $xdg_default_dir \
+  \set it: echo \"export ${xdg_dir}=$xdg_default_dir\" >> $shell_startup \
   \nSee: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html"
 }
 
@@ -187,9 +187,16 @@ install_go_dep() {
 install_plugins() {
   local vimrc="$1"
   local vimcmd="$2"
-  vim -u "$vimrc" +"$vimcmd" +'qall!'
-  if is_installed "nvim"; then
-    nvim -u "$vimrc" +"$vimcmd" +'qall!'
+  if [[ "$COLA_INTERACTIVE" == true ]]; then
+    vim -u "$vimrc" +"$vimcmd" +'qall!'
+    if is_installed "nvim"; then
+      nvim -u "$vimrc" +"$vimcmd" +'qall!'
+    fi
+  else
+    vim -u "$vimrc" +"$vimcmd" +'qall!' > /dev/null
+    if is_installed "nvim"; then
+      nvim -u "$vimrc" +"$vimcmd" +'qall!' > /dev/null
+    fi
   fi
 }
 
@@ -229,10 +236,21 @@ update_repo() {
 }
 
 #######################################  SETUP
-COLA_APP_NAME="speed-cola"
+must_be_installed "vim" "git" "curl"
+validate_xdg_dirs
+
+[[ -z "$COLA_APP_NAME" ]] && COLA_APP_NAME="speed-cola"
 [[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="${XDG_CONFIG_HOME}/vim"
 [[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speed-cola"
 [[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
+if [[ -z "$COLA_INTERACTIVE" ]]; then
+  if [[ -z "$PS1" ]] || [[ -n "$CONTINUOUS_INTEGRATION" ]] || [[ -n "$CI" ]] \
+    || [[ -n "$TRAVIS" ]] || [[ -n "$CIRCLECI" ]]; then
+     COLA_INTERACTIVE=false
+  else
+    COLA_INTERACTIVE=true
+  fi
+fi
 
 plugin_url='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
@@ -240,10 +258,6 @@ repo_vimrc_files="vimrc"
 # hash gvim &>/dev/null && repo_vimrc_files="vimrc gvimrc"
 
 ####################################### MAIN()
-must_be_installed "vim" "git" "curl"
-
-validate_xdg_dirs
-
 if [[ -e "$COLA_CONFIG_HOME" ]]; then
   cd "$COLA_CONFIG_HOME"
   [[ $(git remote -v) =~ $COLA_REPO_URL ]] && should_update_repo=true
@@ -275,7 +289,7 @@ else
              "$COLA_REPO_BRANCH" \
              "$COLA_APP_NAME"
 
-  link_files "$repo_vimrc_files"
+  link_config "$repo_vimrc_files"
 
   install_vim_plug "$plugin_url" \
                    "$COLA_CONFIG_HOME"
