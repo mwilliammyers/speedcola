@@ -29,9 +29,8 @@ warn_xdg() {
     shell_startup="$HOME/.bashrc"
   fi
 
-  warn "\$$xdg_dir should be set, \
-  otherwise vim will use the default: $xdg_default_dir \
-  \set it: echo \"export ${xdg_dir}=$xdg_default_dir\" >> $shell_startup \
+  warn "If you don't set \$$xdg_dir vim will use the default: $xdg_default_dir \
+  \nset it: echo \"export ${xdg_dir}=$xdg_default_dir\" >> $shell_startup \
   \nSee: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html"
 }
 
@@ -115,17 +114,17 @@ dir_must_exist() {
 
 validate_xdg_dirs() {
   if [[ -z "$XDG_CONFIG_HOME" ]]; then
-    XDG_CONFIG_HOME="$HOME/.config"
+    export XDG_CONFIG_HOME="$HOME/.config"
     warn_xdg "XDG_CONFIG_HOME" "$XDG_CONFIG_HOME"
   fi
 
   if [[ -z "$XDG_CACHE_HOME" ]]; then
-    XDG_CACHE_HOME="$HOME/.cache"
+    export XDG_CACHE_HOME="$HOME/.cache"
     warn_xdg "XDG_CACHE_HOME" "$XDG_CACHE_HOME"
   fi
 
   if [[ -z "$XDG_DATA_HOME" ]]; then
-    XDG_DATA_HOME="$HOME/.local/share"
+    export XDG_DATA_HOME="$HOME/.local/share"
     warn_xdg "XDG_DATA_HOME" "$XDG_DATA_HOME"
   fi
 
@@ -180,8 +179,8 @@ install_go_dep() {
   for package in "$@"; do
     echo "Installing ${package}..."
     go get -f -u "$package"
-    link_snippet "go"
   done
+  link_snippet "go"
 }
 
 install_plugins() {
@@ -244,6 +243,7 @@ validate_xdg_dirs
 [[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speed-cola"
 [[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
 if [[ -z "$COLA_INTERACTIVE" ]]; then
+  [ -t 0 ] && echo "HELLO I AM INTERACTIVE"
   if [[ -z "$PS1" ]] || [[ -n "$CONTINUOUS_INTEGRATION" ]] || [[ -n "$CI" ]] \
     || [[ -n "$TRAVIS" ]] || [[ -n "$CIRCLECI" ]]; then
      COLA_INTERACTIVE=false
