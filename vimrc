@@ -1,7 +1,7 @@
 " =======================================
 " speed-cola
-" 
-" ultra fast vim configuration 
+"
+" ultra fast vim configuration
 " powered by vim-plug, infused with XDG and a little speed-cola
 "
 " Maintained By:
@@ -43,21 +43,33 @@ set directory=$XDG_CACHE_HOME/vim/swap,~/,/tmp
 set backupdir=$XDG_CACHE_HOME/vim/backup,~/,/tmp
 set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp
-set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_DATA_HOME/vim/plugged,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_DATA_HOME/vim/plugged,$VIM,$VIMRUNTIME
 " let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc
 
 " ----------------------------------------
 " Configuration
 " ----------------------------------------
-runtime! config/local/vimrc.before
+runtime! local/vimrc
 
+" Install vim-plug if it is not already installed
+if empty($XDG_CONFIG_HOME . '/vim/autoload/plug.vim')
+  silent !curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+
+call plug#begin($XDG_DATA_HOME . '/vim/plugged')
+runtime! config/local/Plug.vim
 runtime! Plug.vim
+call plug#end()
 
+runtime! local/config/*.vim
 runtime! config/*.vim
 
 " ----------------------------------------
 " Plugin configuration
 " ----------------------------------------
+runtime! local/config/plugin/*.vim
 runtime! config/plugin/*.vim
 if has('nvim')
   runtime! config/plugin/nvim/*.vim
@@ -68,12 +80,5 @@ endif
 " ----------------------------------------
 " Lib load path
 " ----------------------------------------
+" runtime! local/lib/*.vim
 runtime! lib/*.vim
-
-" ----------------------------------------
-" Local configuration
-" ----------------------------------------
-call plug#begin($XDG_DATA_HOME . '/vim/plugged')
-runtime! config/local/Plug.vim
-call plug#end()
-runtime! config/local/vimrc.after

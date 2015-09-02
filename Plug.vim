@@ -1,18 +1,10 @@
-if empty($XDG_CONFIG_HOME . '/vim/autoload/plug.vim')
-  silent !curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
-endif
-
-call plug#begin($XDG_DATA_HOME . '/vim/plugged')
-
 " Defaults {{{
   Plug 'tpope/vim-sensible'
 " }}}
 
 " Navigation {{{
   Plug 'majutsushi/tagbar'
-  Plug 'scrooloose/nerdtree'
+  Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
   Plug 'tpope/vim-projectionist'
   Plug 'bogado/file-line'
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
@@ -28,7 +20,7 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
 
 " UI Additions {{{
   " Colors {{{
-    Plug 'xolox/vim-misc' | Plug 'xolox/vim-colorscheme-switcher', 
+    Plug 'xolox/vim-misc' | Plug 'xolox/vim-colorscheme-switcher',
       \ { 'on': ['NextColorScheme', 'PrevColorScheme', 'RandomColorScheme'] }
     Plug 'flazz/vim-colorschemes'
     " Plug 'noah/vim256-color'
@@ -184,5 +176,3 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
     Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
   " }}}
 " }}}
-
-call plug#end()
