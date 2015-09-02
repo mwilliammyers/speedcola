@@ -18,31 +18,25 @@ warn() {
   echo "$YELLOW $BOLD Warning:$NORMAL $1 $RESET"
 }
 
-error() {
-  echo "$RED $BOLD Error:$NORMAL $1 $RESET"
-}
+warn_xdg() {
+  local xdg_dir=$1
+  local xdg_default_dir=$2
 
-xdg_error() {
   local shell_startup
-
   if [[ -e "$HOME/.zshrc" ]]; then
     shell_startup="$HOME/.zshrc"
   elif [[ -e "$HOME/.bashrc" ]]; then
     shell_startup="$HOME/.bashrc"
   fi
 
-  local xdg_dir=""
-  if [[ "$1" == "XDG_CONFIG_HOME" ]]; then
-    xdg_dir="XDG_CONFIG_HOME=\~/.config"
-  elif [[ "$1" == "XDG_DATA_HOME" ]]; then
-    xdg_dir="XDG_DATA_HOME=\~/.local/share"
-  elif [[ "$1" == "XDG_CACHE_HOME" ]]; then
-    xdg_dir="XDG_CACHE_HOME=\~/.cache"
-  fi
-  msg="try: echo \"export $xdg_dir\" >> $shell_startup"
-
-  error "\$$1 must be set to use these vim config files. \n$msg \
+  warn "\$$xdg_dir should be set to use these vim config files. \
+  \ntry: echo \"export ${xdg_dir}=$xdg_default_dir\" >> $shell_startup \
+  \nIf \$$xdg_dir is not set, the default: $xdg_default_dir will be used \
   \nSee: http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html"
+}
+
+error() {
+  echo "$RED $BOLD Error:$NORMAL $1 $RESET"
 }
 
 die() {
@@ -51,7 +45,19 @@ die() {
 }
 
 ####################################### FUNCTIONS
-############################# I/O
+############################# utilities
+mkdir_p() {
+  for dir in "$@"; do
+    mkdir -p "$dir" >/dev/null 2>&1
+  done
+}
+
+make_vim_dirs() {
+  mkdir_p "$XDG_CONFIG_HOME"/vim \
+          "$XDG_CACHE_HOME"/vim/{undo,swap,backup} \
+          "$XDG_DATA_HOME"/vim/{sessions,snippets}
+}
+
 write_bootstrap_config() {
 cat >"$1" <<EOF
 if !has('nvim')
@@ -81,23 +87,56 @@ source \$XDG_CONFIG_HOME/vim/Plug.vim
 EOF
 }
 
-mkdir_p() {
+############################# validation
+is_installed() {
+  local ret=0
+  hash $1 >/dev/null 2>&1 || ret=1
+  return "$ret"
+}
+
+must_be_installed() {
+  local not_installed=""
+  for app in "$@"; do
+    is_installed "$app" || not_installed="$app $not_installed"
+  done
+
+  [[ -n "$not_installed" ]] && die "Please install: $not_installed to continue."
+  return 0
+}
+
+dir_must_exist() {
   for dir in "$@"; do
-    mkdir -p "$dir" &>/dev/null
+    if [[ ! -d "$dir" ]]; then
+      warn "${dir} does not exist and is needed, creating it now..."
+      mkdir_p ${dir}
+    fi
   done
 }
 
-make_vim_dirs() {
-  mkdir_p "$XDG_CONFIG_HOME"/vim \
-          "$XDG_CACHE_HOME"/vim/{undo,swap,backup} \
-          "$XDG_DATA_HOME"/vim/{sessions,snippets}
+validate_xdg_dirs() {
+  if [[ -z "$XDG_CONFIG_HOME" ]]; then
+    XDG_CONFIG_HOME="$HOME/.config"
+    warn_xdg "XDG_CONFIG_HOME" "$XDG_CONFIG_HOME"
+  fi
+
+  if [[ -z "$XDG_CACHE_HOME" ]]; then
+    XDG_CACHE_HOME="$HOME/.cache"
+    warn_xdg "XDG_CACHE_HOME" "$XDG_CACHE_HOME"
+  fi
+
+  if [[ -z "$XDG_DATA_HOME" ]]; then
+    XDG_DATA_HOME="$HOME/.local/share"
+    warn_xdg "XDG_DATA_HOME" "$XDG_DATA_HOME"
+  fi
+
+  dir_must_exist "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME" "$XDG_DATA_HOME"
 }
 
 ############################# backup
 do_backup() {
   info "Backing up your original vim configuration"
   # msg=$(date +%Y-%m-%d_%s)
-  msg="original"
+  local msg="original"
   for file in "$@"; do
     if [[ -e "$file" ]] || [[ -L "$file" ]]; then
       mv -v "$file" "$file.$msg"
@@ -116,7 +155,7 @@ link_config() {
     link "$COLA_CONFIG_HOME/$file" "$HOME/.$file"
   done
 
-  if hash nvim &>/dev/null; then
+  if is_installed "nvim"; then
     link "$COLA_CONFIG_HOME" "$HOME/.nvim"
     link "$COLA_CONFIG_HOME/vimrc" "$HOME/.nvimrc"
   fi
@@ -149,7 +188,7 @@ install_plugins() {
   local vimrc="$1"
   local vimcmd="$2"
   vim -u "$vimrc" +"$vimcmd" +'qall!'
-  if hash nvim &>/dev/null; then
+  if is_installed "nvim"; then
     nvim -u "$vimrc" +"$vimcmd" +'qall!'
   fi
 }
@@ -190,11 +229,6 @@ update_repo() {
 }
 
 #######################################  SETUP
-[[ -z "$XDG_CONFIG_HOME" ]] && xdg_error "XDG_CONFIG_HOME" && should_die=1
-[[ -z "$XDG_CACHE_HOME" ]] && xdg_error "XDG_CACHE_HOME" && should_die=1
-[[ -z "$XDG_DATA_HOME" ]] && xdg_error "XDG_DATA_HOME" && should_die=1
-[[ "$should_die" -eq 1 ]] && exit 1
-
 COLA_APP_NAME="speed-cola"
 [[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="$XDG_CONFIG_HOME/vim"
 [[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speed-cola"
@@ -206,9 +240,12 @@ repo_vimrc_files="vimrc"
 # hash gvim &>/dev/null && repo_vimrc_files="vimrc gvimrc"
 
 ####################################### MAIN()
+must_be_installed "vim" "git" "curl"
+
+validate_xdg_dirs
+
 if [[ -e "$COLA_CONFIG_HOME" ]]; then
   cd "$COLA_CONFIG_HOME"
-  should_update_repo=false
   [[ $(git remote -v) =~ $COLA_REPO_URL} ]] && should_update_repo=true
 else
   should_update_repo=false
@@ -243,7 +280,7 @@ else
   install_vim_plug "$plugin_url" \
                    "$COLA_CONFIG_HOME"
 
-  if hash go &>/dev/null; then
+  if is_installed "go"; then
     install_go_dep "github.com/golang/lint/golint" \
                    "github.com/jstemmer/gotags" \
                    "github.com/kisielk/errcheck" \

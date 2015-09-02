@@ -37,7 +37,7 @@ if empty("$XDG_CACHE_HOME")
 endif
 
 " ----------------------------------------
-" Runtime configuration
+" Vim runtime
 " ----------------------------------------
 set directory=$XDG_CACHE_HOME/vim/swap,~/,/tmp
 set backupdir=$XDG_CACHE_HOME/vim/backup,~/,/tmp
@@ -47,10 +47,13 @@ set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_DATA_HOME/vim/plugged,$VIM,$VIMRUNTIME
 " let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc
 
 " ----------------------------------------
-" Configuration
+" Local configuration
 " ----------------------------------------
 runtime! local/vimrc
 
+" ----------------------------------------
+" Plugins
+" ----------------------------------------
 " Install vim-plug if it is not already installed
 if empty($XDG_CONFIG_HOME . '/vim/autoload/plug.vim')
   silent !curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs
@@ -63,12 +66,6 @@ runtime! config/local/Plug.vim
 runtime! Plug.vim
 call plug#end()
 
-runtime! local/config/*.vim
-runtime! config/*.vim
-
-" ----------------------------------------
-" Plugin configuration
-" ----------------------------------------
 runtime! local/config/plugin/*.vim
 runtime! config/plugin/*.vim
 if has('nvim')
@@ -76,6 +73,12 @@ if has('nvim')
 else
   runtime! config/plugin/vim/*.vim
 endif
+
+" ----------------------------------------
+" General configuration
+" ----------------------------------------
+runtime! local/config/*.vim
+runtime! config/*.vim
 
 " ----------------------------------------
 " Lib load path

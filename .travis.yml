@@ -1,8 +1,8 @@
 sudo: false
 env:
-  XDG_CONFIG_HOME=$HOME/.config
-  XDG_DATA_HOME=$HOME/.local/share
-  XDG_CACHE_HOME=$HOME/.cache
+  # XDG_CONFIG_HOME=$HOME/.config
+  # XDG_DATA_HOME=$HOME/.local/share
+  # XDG_CACHE_HOME=$HOME/.cache
   GOPATH=$HOME/go
 install:
   - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
