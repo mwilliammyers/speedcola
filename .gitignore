@@ -5,10 +5,7 @@
 .undo/*
 bundle/
 sessions/
-tags
-plugged/*
+tags/
+plugged/
 autoload/
-config/local/*
-vimrc.local.*
-spell
 spell/

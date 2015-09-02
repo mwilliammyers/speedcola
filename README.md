@@ -24,7 +24,7 @@ fish:
 *TL;DR*
 
 1. Backup your existing vim configuration if found (e.g.: `~/.vimrc` becomes `~/.vimrc.original`)
-1. Symlink `~/.vim/config/vimrc` to `~/.vimrc` 
+1. Symlink `~/.vim/config/vimrc` to `~/.vimrc`
 1. Symlink `~/.vim/config/gvimrc` to `~/.gvimrc`  if you have gvim on your `$PATH`.
 1. Install `golang`'s tools if you have golang on your `$PATH`.
 1. Install or update (it will decide automagically for you) all of your plugins and their dependencies
@@ -42,7 +42,7 @@ fish:
 
 ### Runtime configuration
 **Files loaded in this order:**
-- `~/.vimrc` -> `$XDG_CONFIG_HOME/vim/config/vimrc`
+- `~/.vimrc` -> `$XDG_CONFIG_HOME/vim/vimrc`
 - `$XDG_CONFIG_HOME/vim/config/local/vimrc`
 - `$XDG_CONFIG_HOME/vim/config/local/Plug.vim`
 - `$XDG_CONFIG_HOME/vim/config/Plug.vim`
@@ -52,8 +52,8 @@ fish:
 - `$XDG_CONFIG_HOME/vim/config/plugin/*.vim`
 
 **Directories/settings:**
-- Plugins are downloaded to: `$VIM_DATA_HOME/vim/plugged`
-- <plugin name> cache directory: `$VIM_CACHE_HOME/vim/<plugin name>`
+- Plugins are downloaded to: `$XDG_DATA_HOME/vim/plugged`
+- <plugin name> cache directory: `$XDG_CACHE_HOME/vim/<plugin name>`
 - Session directory: `$VIM_DATA_HOME/sessions`
 - `undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp`
 - `directory=$XDG_CACHE_HOME/vim/swap,~/,/tmp`
@@ -169,12 +169,12 @@ way of double curlies for things like jinja and twig.
 
 ## Accessorize
 #### User config files:
-- mimics the directory structure of speed-cola
+- mimics the directory structure of speed-cola (`$XDG_CONFIG_HOME/vim`)
 - loaded in this order:
-      - `$XDG_CONFIG_HOME/vim/config/local/vimrc` (override default settings from speed-cola)
-      - `$XDG_CONFIG_HOME/vim/config/local/*.vim` (misc/general configuration)
-      - `$XDG_CONFIG_HOME/vim/config/local/Plug.vim` (load non-default plugins)
-      - `$XDG_CONFIG_HOME/vim/config/local/plugin/*.vim` (configure non-default plugins)
+      - `$XDG_CONFIG_HOME/vim/local/vimrc` (override default settings from speed-cola)
+      - `$XDG_CONFIG_HOME/vim/local/config/*.vim` (misc/general configuration)
+      - `$XDG_CONFIG_HOME/vim/local/Plug.vim` (load non-default plugins)
+      - `$XDG_CONFIG_HOME/vim/local/config/plugin/*.vim` (configure non-default plugins)
 
 Put this in `$XDG_CONFIG_HOME/vim/config/local/vimrc` to disable the neocomplete autocomplete popup:
 ```
@@ -186,8 +186,8 @@ let g:neocomplcache_enable_at_startup = 0 " disable the fallback version when no
 
 #### Colors!
 - Default color scheme: `Tomorrow-Night`
-- Use a different color scheme: 
-  - `echo "let g:cola_colorscheme='solarized'" >> "$XDG_CONFIG_HOME/vim/config/local/vimrc"` 
+- Use a different color scheme:
+  - `echo "let g:cola_colorscheme='solarized'" >> "$XDG_CONFIG_HOME/vim/config/local/vimrc"`
 - List of available color schemes: [flazz/vim-colorschemes]
 - screenshots *coming soon*
 
