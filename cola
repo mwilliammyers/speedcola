@@ -11,11 +11,11 @@ RESET='\033[0;m'
 
 ############################# printing functions
 info() {
-  echo "$BLUE $BOLD ==>$NORMAL $BOLD $1 $RESET"
+  echo -e "${BLUE}${BOLD}==> ${NORMAL}${BOLD}${1}${RESET}"
 }
 
 warn() {
-  echo "$YELLOW $BOLD Warning:$NORMAL $1 $RESET"
+  echo -e "${YELLOW}${BOLD}Warning: ${NORMAL}${1}${RESET}"
 }
 
 warn_xdg() {
@@ -36,7 +36,7 @@ warn_xdg() {
 }
 
 error() {
-  echo "$RED $BOLD Error:$NORMAL $1 $RESET"
+  echo -e "${RED}${BOLD}Error: ${NORMAL}${1}${RESET}"
 }
 
 die() {
@@ -90,7 +90,7 @@ EOF
 ############################# validation
 is_installed() {
   local ret=0
-  hash $1 >/dev/null 2>&1 || ret=1
+  hash "$1" >/dev/null 2>&1 || ret=1
   return "$ret"
 }
 
@@ -108,7 +108,7 @@ dir_must_exist() {
   for dir in "$@"; do
     if [[ ! -d "$dir" ]]; then
       warn "${dir} does not exist and is needed, creating it now..."
-      mkdir_p ${dir}
+      mkdir_p "${dir}"
     fi
   done
 }
@@ -230,7 +230,7 @@ update_repo() {
 
 #######################################  SETUP
 COLA_APP_NAME="speed-cola"
-[[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="$XDG_CONFIG_HOME/vim"
+[[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="${XDG_CONFIG_HOME}/vim"
 [[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speed-cola"
 [[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
 
@@ -246,7 +246,7 @@ validate_xdg_dirs
 
 if [[ -e "$COLA_CONFIG_HOME" ]]; then
   cd "$COLA_CONFIG_HOME"
-  [[ $(git remote -v) =~ $COLA_REPO_URL} ]] && should_update_repo=true
+  [[ $(git remote -v) =~ $COLA_REPO_URL ]] && should_update_repo=true
 else
   should_update_repo=false
 fi
