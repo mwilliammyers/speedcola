@@ -108,7 +108,7 @@ brew install ctags-fishman --HEAD
 
 **All plugins are managed by [vim-plug]**
 
-See [Plug.vim] for a list of currently bundled plugins
+See [Plug.vim](Plug.vim) for a list of currently bundled plugins
 
 ### Requirements
  * [Fugitive] requires Git
@@ -243,7 +243,6 @@ Here's some tips if you've never used VIM before:
 [XDG]:http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 
 [vim-plug]:https://github.com/junegunn/vim-plug
-[Plug.vim]:https://github.com/mkwmms/vimfiles/blob/master/Plug.vim
 
 [ack]:http://betterthangrep.com/
 [ag]:https://github.com/ggreer/the_silver_searcher
