@@ -80,6 +80,7 @@ set directory=\$XDG_CACHE_HOME/vim/swap,~/,/tmp
 set backupdir=\$XDG_CACHE_HOME/vim/backup,~/,/tmp
 set undodir=\$XDG_CACHE_HOME/vim/undo,~/,/tmp
 
+let g:session_directory = $XDG_DATA_HOME . '/vim/sessions'
 let g:session_autosave = 'no'
 
 source \$XDG_CONFIG_HOME/vim/Plug.vim
@@ -244,8 +245,7 @@ validate_xdg_dirs
 [[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
 [[ -z "$COLA_BUILD_GO_DEPS" ]] && COLA_BUILD_GO_DEPS=true
 if [[ -z "$COLA_INTERACTIVE" ]]; then
-  if [[ -z "$PS1" ]] || [[ -n "$CONTINUOUS_INTEGRATION" ]] || [[ -n "$CI" ]] \
-    || [[ -n "$TRAVIS" ]] || [[ -n "$CIRCLECI" ]]; then
+  if [[ -n "$CONTINUOUS_INTEGRATION" ]] || [[ -n "$CI" ]]; then
      COLA_INTERACTIVE=false
   else
     COLA_INTERACTIVE=true
@@ -272,6 +272,8 @@ if [[ "$should_update_repo" == true ]]; then
               "$COLA_REPO_URL" \
               "$COLA_REPO_BRANCH" \
               "$COLA_APP_NAME"
+              
+  link_config "$repo_vimrc_files"
 
   update_plugins "$COLA_CONFIG_HOME/vimrc"
 else
