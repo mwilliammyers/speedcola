@@ -245,6 +245,7 @@ validate_xdg_dirs
 [[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speed-cola"
 [[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
 [[ -z "$COLA_GOLANG_DEPS" ]] && COLA_GOLANG_DEPS=true
+[[ -z "$COLA_DO_BACKUP" ]] && COLA_DO_BACKUP=true
 if [[ -z "$COLA_INTERACTIVE" ]]; then
   if [[ -n "$CONTINUOUS_INTEGRATION" ]] || [[ -n "$CI" ]]; then
      COLA_INTERACTIVE=false
@@ -278,12 +279,15 @@ if [[ "$should_update_repo" == true ]]; then
 
   update_plugins "$COLA_CONFIG_HOME/vimrc"
 else
-  do_backup "$HOME/.vim" \
-            "$HOME/.vimrc" \
-            "$HOME/.nvimrc" \
-            "$HOME/.nvim" \
-            "$XDG_CONFIG_HOME/nvim" \
-            "$COLA_CONFIG_HOME"
+
+  if [[ "$COLA_DO_BACKUP" == true ]]; then
+    do_backup "$HOME/.vim" \
+              "$HOME/.vimrc" \
+              "$HOME/.nvimrc" \
+              "$HOME/.nvim" \
+              "$XDG_CONFIG_HOME/nvim" \
+              "$COLA_CONFIG_HOME"
+  fi 
 
   make_vim_dirs
 
