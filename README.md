@@ -2,53 +2,66 @@
 
 #### Ultra fast vim configuration; powered by vim-plug, infused with XDG and a little speed-cola
 
-"Just take a sip, you will move faster. Just try it now! And speed is mastered! Press those lips against the only one that really moves you. Speed Cola speeds up your life!"
+"Just take a sip, you will move faster. Just try it now! And speed is mastered!
+Press those lips against the only one that really moves you.
+Speed Cola speeds up your life!"
 
 __WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-vimrc/wiki/Cheat-Sheet).
 For a complete list of keybindings type `:map` inside Vim
 
 ## Installation
-bash,  zsh etc. (bash-compatible shell):
+bash, zsh etc. (bash-compatible shell):
 
 `bash <(curl https://j.mp/go-speed-cola -L)`
 
 fish:
 
-`curl https://j.mp/go-speed-cola -L > speed-cola.sh; and sh speed-cola.sh; and rm speed-cola.sh`
+`curl https://j.mp/go-speed-cola -L > speed-cola.sh; and sh speed-cola.sh;
+and rm speed-cola.sh`
 
-##### How the install works
+#### How the install works
 
 *Full disclosure:*
 [the install script](https://github.com/mkwmms/speed-cola/blob/master/cola)
 
 *TL;DR*
 
-1. Backup your existing vim configuration if found (e.g.: `~/.vimrc` becomes `~/.vimrc.original`)
+1. Backup your existing vim configuration
 1. Symlink `~/.vim/config/vimrc` to `~/.vimrc`
-1. Symlink `~/.vim/config/gvimrc` to `~/.gvimrc`  if you have gvim on your `$PATH`.
-1. Install `golang`'s tools if you have golang on your `$PATH`.
-1. Install or update (it will decide automagically for you) all of your plugins and their dependencies
+1. Install `golang`'s tools if you have golang on your `$PATH`
+unless `$COLA_GOLANG_DEPS=false`.
+1. Install all of your plugins and their dependencies
 
-##### Update
-`$XDG_CONFIG_HOME/vim/cola` *or* the same method you used to install speed-cola (using curl)
+#### Update early and often!
+pretty much the same as the install except that it
+won't backup your configuration and it will go straight to updating your plugins
 
-##### Requirements
+**How?**
+
+take your pick:
+
+- `$XDG_CONFIG_HOME/vim/cola`
+- do a regular [install](https://github.com/mkwmms/speed-cola#installation)
+
+
+#### Requirements
 - Linux, *nix, or OS X
 - Git 1.7+
 - Vim 7.3+
-- Use the [XDG] base directory spec by having `$XDG_CONFIG_HOME`, `$XDG_CONFIG_HOME` and `$XDG_CONFIG_HOME` environment variables set. This is *WIP*; end goal will be to force vim into following the [XDG] spec à la [vim-respect-xdg]
+- Use the [XDG] base directory spec by having `$XDG_CONFIG_HOME`, `$XDG_CONFIG_HOME` and `$XDG_CONFIG_HOME` environment variables set. This is *WIP*;
+end goal will be to force vim into following the [XDG] spec à la [vim-respect-xdg]
 
-## Recommended Setup (OSX/Linux)
+## The Setup
 
 ### Runtime configuration
 **Files loaded in this order:**
-- `~/.vimrc` -> `$XDG_CONFIG_HOME/vim/vimrc`
+- `~/.vimrc` -> `$XDG_CONFIG_HOME/vim/vimrc` (just controls the load order and vim runtime)
 - `$XDG_CONFIG_HOME/vim/config/local/vimrc`
-- `$XDG_CONFIG_HOME/vim/config/local/Plug.vim`
+- `$XDG_CONFIG_HOME/vim/local/config/Plug.vim`
 - `$XDG_CONFIG_HOME/vim/config/Plug.vim`
-- `$XDG_CONFIG_HOME/vim/config/local/*.vim`
+- `$XDG_CONFIG_HOME/vim/local/config/*.vim`
 - `$XDG_CONFIG_HOME/vim/config/*.vim`
-- `$XDG_CONFIG_HOME/vim/config/local/plugin/*.vim`
+- `$XDG_CONFIG_HOME/vim/local/config/plugin/*.vim`
 - `$XDG_CONFIG_HOME/vim/config/plugin/*.vim`
 
 **Directories/settings:**
@@ -60,7 +73,9 @@ fish:
 - `backupdir=$XDG_CACHE_HOME/vim/backup,~/,/tmp`
 - `viminfo=n$XDG_CACHE_HOME/vim/viminfo`
 
-### Faster and better autocomplete
+### Recommended setup
+
+#### Faster and better autocomplete
 
 **OSX**
 
@@ -75,7 +90,7 @@ brew reinstall macvim --with-lua
 sudo apt-get install vim-nox
 ```
 
-### ctags
+#### ctags
 
 **OSX**
 
@@ -168,7 +183,7 @@ etc, it automatically closes it. It handles curlys correctly and doesn't get in 
 way of double curlies for things like jinja and twig.
 
 ## Accessorize
-#### User config files:
+### User config files:
 - mimics the directory structure of speed-cola (`$XDG_CONFIG_HOME/vim`)
 - loaded in this order:
       - `$XDG_CONFIG_HOME/vim/local/vimrc` (override default settings from speed-cola)
@@ -184,27 +199,25 @@ let g:neocomplcache_enable_at_startup = 0 " disable the fallback version when no
 
 *more coming soon*
 
-#### Colors!
+### Colors!
 - Default color scheme: `Tomorrow-Night`
 - Use a different color scheme:
   - `echo "let g:cola_colorscheme='solarized'" >> "$XDG_CONFIG_HOME/vim/config/local/vimrc"`
 - List of available color schemes: [flazz/vim-colorschemes]
 - screenshots *coming soon*
 
-## Notes
-Be sure to always edit the vimrc using `,vi`, which opens the vimrc in the .vim folder. Vim has a nasty habit of overriding symlinks.
-
 ## Intro to VIM
 
 Here's some tips if you've never used VIM before:
 
-#### Tutorials
+### Tutorials
 
 - Type `vimtutor` into a shell to go through a brief interactive
   tutorial inside VIM.
 - Read the slides at [VIM: Walking Without Crutches](https://walking-without-crutches.heroku.com/#1).
+- [keyboard cheat sheet](https://walking-without-crutches.heroku.com/image/images/vi-vim-cheat-sheet.png).
 
-#### Modes
+### Modes
 
 - VIM has two (common) modes:
   - insert mode- stuff you type is added to the buffer
@@ -212,11 +225,10 @@ Here's some tips if you've never used VIM before:
 - To enter insert mode, hit `i`
 - To exit insert mode, hit `<ESC>`
 
-#### Useful commands
+### Useful commands
 
 - Use `:q` to exit vim
 - Certain commands are prefixed with a `<Leader>` key, which by default maps to `\` we use `let mapleader = ","` to change this to `,` which is in a consistent and convenient location.
-- [keyboard cheat sheet](https://walking-without-crutches.heroku.com/image/images/vi-vim-cheat-sheet.png).
 
 ## Acknowledgements
 - [spf13-vim] legendary vim distribution
