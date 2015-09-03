@@ -10,7 +10,7 @@ For a complete list of keybindings type `:map` inside Vim
 ## Installation
 bash,  zsh etc. (bash-compatible shell):
 
-`sh <(curl https://j.mp/go-speed-cola -L)`
+`bash <(curl https://j.mp/go-speed-cola -L)`
 
 fish:
 
