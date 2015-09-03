@@ -80,7 +80,7 @@ set directory=\$XDG_CACHE_HOME/vim/swap,~/,/tmp
 set backupdir=\$XDG_CACHE_HOME/vim/backup,~/,/tmp
 set undodir=\$XDG_CACHE_HOME/vim/undo,~/,/tmp
 
-let g:session_directory = $XDG_DATA_HOME/vim/sessions
+let g:session_directory = \$XDG_DATA_HOME/vim/sessions
 let g:session_autosave = 'no'
 
 source \$XDG_CONFIG_HOME/vim/Plug.vim
