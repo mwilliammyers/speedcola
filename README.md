@@ -6,7 +6,7 @@
 Press those lips against the only one that really moves you.
 Speed Cola speeds up your life!"
 
-__WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/xdg-vimrc/wiki/Cheat-Sheet).
+__WIP__: checkout the key-bindings [cheat sheet](https://github.com/mkwmms/speed-cola/wiki/Cheat-Sheet).
 For a complete list of keybindings type `:map` inside Vim
 
 ## Installation
@@ -22,7 +22,7 @@ and rm speed-cola.sh`
 #### How the install works
 
 *Full disclosure:*
-[the install script](https://github.com/mkwmms/speed-cola/blob/master/cola)
+[cola](cola) (the install script)
 
 *TL;DR*
 
@@ -41,7 +41,7 @@ won't backup your configuration and it will go straight to updating your plugins
 take your pick:
 
 - `$XDG_CONFIG_HOME/vim/cola`
-- do a regular [install](https://github.com/mkwmms/speed-cola#installation)
+- do a regular [install](#installation)
 
 
 #### Requirements
