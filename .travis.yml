@@ -1,4 +1,7 @@
+notifications:
+  email: false
 sudo: true
+language: bash
 env:
   XDG_CONFIG_HOME=$HOME/.config
   XDG_DATA_HOME=$HOME/.local/share
@@ -16,5 +19,3 @@ script:
   - $XDG_CONFIG_HOME/vim/cola
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v vimrc *.vim config lib
   - bash /tmp/shellcheck/build.sh
-notifications:
-    email: false
