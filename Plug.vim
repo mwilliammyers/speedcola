@@ -1,3 +1,12 @@
+" Install vim-plug if it is not already installed
+if empty($XDG_CONFIG_HOME . '/vim/autoload/plug.vim')
+  silent !curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+
+call plug#begin($XDG_DATA_HOME . '/vim/plugged')
+
 " Defaults {{{
   Plug 'tpope/vim-sensible'
 " }}}
@@ -176,3 +185,5 @@
     Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
   " }}}
 " }}}
+
+call plug#end()
