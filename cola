@@ -242,6 +242,7 @@ validate_xdg_dirs
 [[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="${XDG_CONFIG_HOME}/vim"
 [[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speed-cola"
 [[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
+[[ -z "$COLA_BUILD_GO_DEPS" ]] && COLA_BUILD_GO_DEPS=true
 if [[ -z "$COLA_INTERACTIVE" ]]; then
   if [[ -z "$PS1" ]] || [[ -n "$CONTINUOUS_INTEGRATION" ]] || [[ -n "$CI" ]] \
     || [[ -n "$TRAVIS" ]] || [[ -n "$CIRCLECI" ]]; then
@@ -293,7 +294,7 @@ else
   install_vim_plug "$plugin_url" \
                    "$COLA_CONFIG_HOME"
 
-  if is_installed "go"; then
+  if is_installed "go" && [[ "$COLA_BUILD_GO_DEPS" == true ]]; then
     install_go_dep "github.com/golang/lint/golint" \
                    "github.com/jstemmer/gotags" \
                    "github.com/kisielk/errcheck" \

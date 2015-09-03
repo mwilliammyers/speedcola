@@ -4,6 +4,8 @@ env:
   XDG_DATA_HOME=$HOME/.local/share
   XDG_CACHE_HOME=$HOME/.cache
   GOPATH=$HOME/go
+  COLA_INTERACTIVE=true
+  COLA_BUILD_GO_DEPS=false
 install:
   - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
   - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
@@ -12,4 +14,4 @@ before_script:
   - bash /tmp/speed-cola.sh
 # - $XDG_CONFIG_HOME/vim/cola
 script:
-  - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v $XDG_CONFIG_HOME/vim/vimrc $XDG_CONFIG_HOME/vim/**/*.vim
+  - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v vimrc *.vim config lib
