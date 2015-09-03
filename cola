@@ -177,7 +177,7 @@ install_vim_plug() {
 install_go_dep() {
   info "Installing golang dependencies..."
   for package in "$@"; do
-    echo "Installing ${package}..."
+    echo "${package}"
     go get -f -u "$package"
   done
   link_snippet "go"
@@ -243,7 +243,6 @@ validate_xdg_dirs
 [[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speed-cola"
 [[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
 if [[ -z "$COLA_INTERACTIVE" ]]; then
-  [ -t 0 ] && echo "HELLO I AM INTERACTIVE"
   if [[ -z "$PS1" ]] || [[ -n "$CONTINUOUS_INTEGRATION" ]] || [[ -n "$CI" ]] \
     || [[ -n "$TRAVIS" ]] || [[ -n "$CIRCLECI" ]]; then
      COLA_INTERACTIVE=false
