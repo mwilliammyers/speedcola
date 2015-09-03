@@ -12,4 +12,4 @@ before_script:
   - bash /tmp/speed-cola.sh
 # - $XDG_CONFIG_HOME/vim/cola
 script:
-  - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v autoload
+  - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v $XDG_CONFIG_HOME/vim/vimrc $XDG_CONFIG_HOME/vim/**/*.vim
