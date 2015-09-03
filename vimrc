@@ -54,15 +54,16 @@ runtime! local/vimrc
 " ----------------------------------------
 " General configuration
 " ----------------------------------------
+" Load plugins
+runtime! config/local/Plug.vim
+runtime! Plug.vim
+
 runtime! local/config/*.vim
 runtime! config/*.vim
 
 " ----------------------------------------
-" Plugins
+" Plugin configuration
 " ----------------------------------------
-runtime! config/local/Plug.vim
-runtime! Plug.vim
-
 runtime! local/config/plugin/*.vim
 runtime! config/plugin/*.vim
 if has('nvim')
