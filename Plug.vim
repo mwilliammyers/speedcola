@@ -34,7 +34,7 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
     Plug 'flazz/vim-colorschemes'
     " Plug 'noah/vim256-color'
     " Plug 'chriskempson/base16-vim'
-    "Plug 'altercation/vim-colors-solarized'
+    " Plug 'altercation/vim-colors-solarized'
   " }}}
 
   Plug 'luochen1990/rainbow'
