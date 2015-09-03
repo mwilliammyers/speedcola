@@ -52,19 +52,16 @@ set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_DATA_HOME/vim/plugged,$VIM,$VIMRUNTIME
 runtime! local/vimrc
 
 " ----------------------------------------
+" General configuration
+" ----------------------------------------
+runtime! local/config/*.vim
+runtime! config/*.vim
+
+" ----------------------------------------
 " Plugins
 " ----------------------------------------
-" Install vim-plug if it is not already installed
-if empty($XDG_CONFIG_HOME . '/vim/autoload/plug.vim')
-  silent !curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
-endif
-
-call plug#begin($XDG_DATA_HOME . '/vim/plugged')
 runtime! config/local/Plug.vim
 runtime! Plug.vim
-call plug#end()
 
 runtime! local/config/plugin/*.vim
 runtime! config/plugin/*.vim
@@ -73,12 +70,6 @@ if has('nvim')
 else
   runtime! config/plugin/vim/*.vim
 endif
-
-" ----------------------------------------
-" General configuration
-" ----------------------------------------
-runtime! local/config/*.vim
-runtime! config/*.vim
 
 " ----------------------------------------
 " Lib load path
