@@ -244,7 +244,7 @@ validate_xdg_dirs
 [[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="${XDG_CONFIG_HOME}/vim"
 [[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speed-cola"
 [[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
-[[ -z "$COLA_BUILD_GO_DEPS" ]] && COLA_BUILD_GO_DEPS=true
+[[ -z "$COLA_GOLANG_DEPS" ]] && COLA_GOLANG_DEPS=true
 if [[ -z "$COLA_INTERACTIVE" ]]; then
   if [[ -n "$CONTINUOUS_INTEGRATION" ]] || [[ -n "$CI" ]]; then
      COLA_INTERACTIVE=false
@@ -256,7 +256,7 @@ fi
 plugin_url='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 repo_vimrc_files="vimrc"
-# hash gvim &>/dev/null && repo_vimrc_files="vimrc gvimrc"
+# is_installed "gvim" && repo_vimrc_files="vimrc gvimrc"
 
 ####################################### MAIN()
 if [[ -e "$COLA_CONFIG_HOME" ]]; then
@@ -297,7 +297,7 @@ else
   install_vim_plug "$plugin_url" \
                    "$COLA_CONFIG_HOME"
 
-  if is_installed "go" && [[ "$COLA_BUILD_GO_DEPS" == true ]]; then
+  if is_installed "go" && [[ "$COLA_GOLANG_DEPS" == true ]]; then
     install_go_dep "github.com/golang/lint/golint" \
                    "github.com/jstemmer/gotags" \
                    "github.com/kisielk/errcheck" \
