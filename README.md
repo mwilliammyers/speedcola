@@ -192,17 +192,19 @@ way of double curlies for things like jinja and twig.
       - `$XDG_CONFIG_HOME/vim/local/config/plugin/*.vim` (configure non-default plugins)
 
 Put this in `$XDG_CONFIG_HOME/vim/config/local/vimrc` to disable the neocomplete autocomplete popup:
-```
+```viml
 let g:neocomplete#enable_at_startup = 0   " disable neocomplete
 let g:neocomplcache_enable_at_startup = 0 " disable the fallback version when no LUA
 ```
 
-*more coming soon*
+If you have [fzf] installed you might want to do something like this:
+
+`echo "set rtp+=/usr/local/Cellar/fzf/0.10.2" >> "$XDG_CONFIG_HOME/vim/local/config/plugin/fzf.vim"`
 
 ### Colors!
 - Default color scheme: `Tomorrow-Night`
 - Use a different color scheme:
-  - `echo "let g:cola_colorscheme='solarized'" >> "$XDG_CONFIG_HOME/vim/config/local/vimrc"`
+  - `echo "let g:cola_colorscheme='solarized'" >> "$XDG_CONFIG_HOME/vim/local/config/vimrc"`
 - List of available color schemes: [flazz/vim-colorschemes]
 - screenshots *coming soon*
 
@@ -247,6 +249,7 @@ Here's some tips if you've never used VIM before:
 [ack]:http://betterthangrep.com/
 [ag]:https://github.com/ggreer/the_silver_searcher
 [exuberant-ctags]:https://github.com/fishman/ctags
+[fzf]:https://github.com/junegunn/fzf
 
 [Vundle]:https://github.com/gmarik/vundle
 [PIV]:https://github.com/spf13/PIV
