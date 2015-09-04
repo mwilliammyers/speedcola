@@ -16,7 +16,7 @@ set wildmode=list:longest  " use emacs-style tab completion when selecting files
 set hidden                 " Change buffer - without saving
 set autowriteall           " Writes on make/shell commands 
 set history=1000           " Store a ton of history (default is 20)
-set spell                  " Spell checking on
+" set spell                  " Spell checking on
 set foldmethod=syntax
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 " set foldenable             " Auto fold code
