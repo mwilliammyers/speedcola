@@ -173,7 +173,7 @@ link_snippet() {
 install_vim_plug() {
   info "Installing vim-plug"
   [[ -e "$2/bundle" ]] && rm -rf "$2/bundle"
-  download "$1" "$2/autoload/plug.vim"
+  [[ -e "$2/autoload/plug.vim" ]] || download "$1" "$2/autoload/plug.vim"
 }
 
 install_go_dep() {
