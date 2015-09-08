@@ -105,11 +105,35 @@ must_be_installed() {
   return 0
 }
 
+dir_exists() {
+  local dir="$1"
+  local does_exist=false
+  [[ -d "$dir" ]] && does_exist=true
+  return "$does_exist"
+}
+
 dir_must_exist() {
   for dir in "$@"; do
-    if [[ ! -d "$dir" ]]; then
-      warn "${dir} does not exist and is needed, creating it now..."
-      mkdir_p "${dir}"
+    if [[ dir_exists "$dir" == false ]]; then
+      warn "$dir does not exist and is needed, creating it now..."
+      mkdir_p "$dir"
+    fi
+  done
+}
+
+file_exists() {
+  local file="$1"
+  local does_exist=false
+  [[ -e "$file" ]] && does_exist=true
+  return "$does_exist"
+}
+
+file_must_exist() {
+  for file in "$@"; do
+    if [[ file_exists "$file" == false ]]; then
+      warn "$file does not exist and is needed, creating it now..."
+      dir_must_exist "$(dirname "$file")"
+      touch "$file"
     fi
   done
 }
@@ -171,9 +195,13 @@ link_snippet() {
 
 ############################# installers
 install_vim_plug() {
-  info "Installing vim-plug"
-  [[ -e "$2/bundle" ]] && rm -rf "$2/bundle"
-  download "$1" "$2/autoload/plug.vim"
+  local uri="$1"
+  local dest_file="$2"
+  # [[ -e "$dest_dir/bundle" ]] && rm -rf "$dest_dir/bundle"
+  if [[ file_exists "$dest_file" == false ]]; then
+    info "Installing vim-plug"
+    download "$uri" "$dest_file"
+  fi
 }
 
 install_go_dep() {
@@ -269,12 +297,15 @@ fi
 
 if [[ "$should_update_repo" == true ]]; then
   make_vim_dirs
-
+  
   update_repo "$COLA_CONFIG_HOME" \
               "$COLA_REPO_URL" \
               "$COLA_REPO_BRANCH" \
               "$COLA_APP_NAME"
-
+              
+  install_vim_plug "$plugin_url" \
+                   "$COLA_CONFIG_HOME/autoload/plug.vim"
+  
   link_config "$repo_vimrc_files"
 
   update_plugins "$COLA_CONFIG_HOME/vimrc"
@@ -299,7 +330,7 @@ else
   link_config "$repo_vimrc_files"
 
   install_vim_plug "$plugin_url" \
-                   "$COLA_CONFIG_HOME"
+                   "$COLA_CONFIG_HOME/autoload/plug.vim"
 
   if is_installed "go" && [[ "$COLA_GOLANG_DEPS" == true ]]; then
     install_go_dep "github.com/golang/lint/golint" \
