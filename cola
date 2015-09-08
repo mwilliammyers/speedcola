@@ -114,7 +114,7 @@ dir_exists() {
 
 dir_must_exist() {
   for dir in "$@"; do
-    if [[ dir_exists "$dir" == false ]]; then
+    if dir_exists "$dir" == false; then
       warn "$dir does not exist and is needed, creating it now..."
       mkdir_p "$dir"
     fi
@@ -130,7 +130,7 @@ file_exists() {
 
 file_must_exist() {
   for file in "$@"; do
-    if [[ file_exists "$file" == false ]]; then
+    if file_exists "$file" == false; then
       warn "$file does not exist and is needed, creating it now..."
       dir_must_exist "$(dirname "$file")"
       touch "$file"
@@ -198,7 +198,7 @@ install_vim_plug() {
   local uri="$1"
   local dest_file="$2"
   # [[ -e "$dest_dir/bundle" ]] && rm -rf "$dest_dir/bundle"
-  if [[ file_exists "$dest_file" == false ]]; then
+  if file_exists "$dest_file" == false; then
     info "Installing vim-plug"
     download "$uri" "$dest_file"
   fi
