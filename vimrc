@@ -18,6 +18,10 @@ endif
 
 let g:mapleader = ","
 
+if &shell =~# 'fish$'
+  set shell=sh
+endif
+
 " ----------------------------------------
 " Environment
 " ----------------------------------------
