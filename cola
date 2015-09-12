@@ -137,7 +137,7 @@ validate_xdg_dirs() {
 do_backup() {
   info "Backing up your original vim configuration"
   # msg=$(date +%Y-%m-%d_%s)
-  local msg="original"
+  local msg="orig"
   for file in "$@"; do
     if [[ -e "$file" ]] || [[ -L "$file" ]]; then
       mv -v "$file" "$file.$msg"
