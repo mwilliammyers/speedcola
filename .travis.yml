@@ -11,7 +11,7 @@ install:
   - git clone https://github.com/caarlos0/shell-ci-build.git  /tmp/shellcheck
   - git clone https://github.com/syngan/vim-vimlint /tmp/vim-vimlint
   - git clone https://github.com/ynkdir/vim-vimlparser /tmp/vim-vimlparser
-  - curl https://raw.githubusercontent.com/mkwmms/speed-cola/master/cola -L > /tmp/speed-cola.sh
+  - curl https://raw.githubusercontent.com/mkwmms/speedcola/master/bin/cola -L > /tmp/speed-cola.sh
 before_script:
   - bash /tmp/shellcheck/install.sh
 script:
