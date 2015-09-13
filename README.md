@@ -40,7 +40,7 @@ won't backup your configuration and it will go straight to updating your plugins
 
 take your pick:
 
-- `$XDG_CONFIG_HOME/vim/bin/cola`
+- `bash $XDG_CONFIG_HOME/vim/bin/cola`
 - do a regular [install](#installation)
 
 
