@@ -240,9 +240,9 @@ update_repo() {
 must_be_installed "vim" "git" "curl"
 validate_xdg_dirs
 
-[[ -z "$COLA_APP_NAME" ]] && COLA_APP_NAME="speed-cola"
+[[ -z "$COLA_APP_NAME" ]] && COLA_APP_NAME="speedcola"
 [[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="${XDG_CONFIG_HOME}/vim"
-[[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speed-cola"
+[[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speedcola"
 [[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
 [[ -z "$COLA_GOLANG_DEPS" ]] && COLA_GOLANG_DEPS=true
 [[ -z "$COLA_DO_BACKUP" ]] && COLA_DO_BACKUP=true
