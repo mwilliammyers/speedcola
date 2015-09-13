@@ -29,7 +29,7 @@ and rm speed-cola.sh`
 1. Backup your existing vim configuration
 1. Symlink `$XDG_CONFIG_HOME/vim/config/vimrc` to `~/.vimrc`
 1. Install `golang`'s tools if you have golang on your `$PATH`
-unless `$COLA_GOLANG_DEPS=false`.
+unless `$COLA_GOLANG_DEPS=false`
 1. Install all of your plugins and their dependencies
 
 #### Update early and often!
@@ -81,7 +81,6 @@ end goal will be to force vim into following the [XDG] spec à la [vim-respect-x
 
 ```bash
 brew reinstall vim --with-lua
-brew reinstall macvim --with-lua
 ```
 
 **Linux**
