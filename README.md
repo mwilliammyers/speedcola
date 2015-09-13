@@ -27,7 +27,7 @@ and rm speed-cola.sh`
 *TL;DR*
 
 1. Backup your existing vim configuration
-1. Symlink `~/.vim/config/vimrc` to `~/.vimrc`
+1. Symlink `$XDG_CONFIG_HOME/vim/config/vimrc` to `~/.vimrc`
 1. Install `golang`'s tools if you have golang on your `$PATH`
 unless `$COLA_GOLANG_DEPS=false`.
 1. Install all of your plugins and their dependencies
