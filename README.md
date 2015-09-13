@@ -22,7 +22,7 @@ and rm speed-cola.sh`
 #### How the install works
 
 *Full disclosure:*
-[cola](cola) (the install script)
+[cola](bin/cola) (the install script)
 
 *TL;DR*
 
@@ -40,7 +40,7 @@ won't backup your configuration and it will go straight to updating your plugins
 
 take your pick:
 
-- `$XDG_CONFIG_HOME/vim/cola`
+- `$XDG_CONFIG_HOME/vim/bin/cola`
 - do a regular [install](#installation)
 
 
