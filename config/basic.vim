@@ -17,8 +17,8 @@ set hidden                 " Change buffer - without saving
 set autowriteall           " Writes on make/shell commands 
 set history=1000           " Store a ton of history (default is 20)
 " set spell                  " Spell checking on
-set foldmethod=syntax
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+" set foldmethod=syntax
 " set foldenable             " Auto fold code
 " set foldlevel=0
 set formatoptions=crql

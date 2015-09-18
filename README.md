@@ -1,4 +1,4 @@
-#speed-cola [![Build Status](https://travis-ci.org/mkwmms/speed-cola.svg?branch=master)](https://travis-ci.org/mkwmms/speed-cola)
+#speedcola [![Build Status](https://travis-ci.org/mkwmms/speedcola.svg?branch=master)](https://travis-ci.org/mkwmms/speedcola)
 
 #### Ultra fast vim configuration; powered by vim-plug, infused with XDG and a little speed-cola
 
@@ -12,24 +12,24 @@ For a complete list of keybindings type `:map` inside Vim
 ## Installation
 bash, zsh etc. (bash-compatible shell):
 
-`bash <(curl https://j.mp/go-speed-cola -L)`
+`bash <(curl https://j.mp/pour-speedcola -L)`
 
 fish:
 
-`curl https://j.mp/go-speed-cola -L > speed-cola.sh; and sh speed-cola.sh;
+`curl https://j.mp/pour-speedcola > speed-cola.sh; and sh speed-cola.sh;
 and rm speed-cola.sh`
 
 #### How the install works
 
 *Full disclosure:*
-[cola](cola) (the install script)
+[cola](bin/cola) (the install script)
 
 *TL;DR*
 
 1. Backup your existing vim configuration
-1. Symlink `~/.vim/config/vimrc` to `~/.vimrc`
+1. Symlink `$XDG_CONFIG_HOME/vim/config/vimrc` to `~/.vimrc`
 1. Install `golang`'s tools if you have golang on your `$PATH`
-unless `$COLA_GOLANG_DEPS=false`.
+unless `$COLA_GOLANG_DEPS=false`
 1. Install all of your plugins and their dependencies
 
 #### Update early and often!
@@ -40,7 +40,7 @@ won't backup your configuration and it will go straight to updating your plugins
 
 take your pick:
 
-- `$XDG_CONFIG_HOME/vim/cola`
+- `bash $XDG_CONFIG_HOME/vim/bin/cola`
 - do a regular [install](#installation)
 
 
@@ -81,7 +81,6 @@ end goal will be to force vim into following the [XDG] spec à la [vim-respect-x
 
 ```bash
 brew reinstall vim --with-lua
-brew reinstall macvim --with-lua
 ```
 
 **Linux**
