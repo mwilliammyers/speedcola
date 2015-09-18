@@ -12,7 +12,7 @@ install:
   - git clone "https://github.com/ynkdir/vim-vimlparser" /tmp/vim-vimlparser
   - git clone "https://github.com/caarlos0/shell-ci-build.git" /tmp/shellcheck
   - curl -L "https://raw.githubusercontent.com/mkwmms/speedcola/master/bin/cola" -o /tmp/speed-cola.sh
-  - sudo add-apt-repository "ppa:neovim-ppa/unstable"
+  - sudo add-apt-repository "ppa:neovim-ppa/unstable" --yes
 
 before_script:
   - sudo apt-get update
