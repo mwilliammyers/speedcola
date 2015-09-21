@@ -6,18 +6,19 @@ env:
   XDG_DATA_HOME=$HOME/.local/share
   XDG_CACHE_HOME=$HOME/.cache
   GOPATH=$HOME/go
+  COLA_REPO_BRANCH=develop
 
 install:
   - git clone "https://github.com/syngan/vim-vimlint" /tmp/vim-vimlint
   - git clone "https://github.com/ynkdir/vim-vimlparser" /tmp/vim-vimlparser
   - git clone "https://github.com/caarlos0/shell-ci-build.git" /tmp/shellcheck
-  - curl -L "https://raw.githubusercontent.com/mkwmms/speedcola/master/bin/cola" -o /tmp/speed-cola.sh
+  - curl -L "https://raw.githubusercontent.com/mkwmms/speedcola/develop/bin/cola" -o /tmp/speed-cola.sh
   - sudo add-apt-repository "ppa:neovim-ppa/unstable" --yes
 
 before_script:
   - sudo apt-get update
-  - bash /tmp/shellcheck/install.sh
   - sudo apt-get install python-dev python-pip python3-dev
+  - bash /tmp/shellcheck/install.sh
   - sudo apt-get install neovim
 
 script:
