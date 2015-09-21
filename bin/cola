@@ -181,6 +181,8 @@ link_config() {
   done
 
   if is_installed "nvim"; then
+    # FIXME: sometimes vim gets linked as a subdirectory of $COLA_CONFIG_HOME
+    # I versified $COLA_CONFIG_HOME = what it should here...
     link "$COLA_CONFIG_HOME" "$HOME/.nvim"
     link "$COLA_CONFIG_HOME/vimrc" "$HOME/.nvimrc"
   fi
@@ -216,15 +218,17 @@ install_go_dep() {
 install_plugins() {
   local vimrc="$1"
   local vimcmd="$2"
+  # once neovim is detected in Plug.vim we might need to install more plugins
+  local nvimcmd="silent! PlugInstall!|"
   if [[ "$COLA_INTERACTIVE" == true ]]; then
     vim -u "$vimrc" +"$vimcmd" +'qall!'
     if is_installed "nvim"; then
-      nvim -u "$vimrc" +"$vimcmd" +'qall!'
+      nvim -u "$vimrc" +"$nvimcmd" +'qall'
     fi
   else
     vim -u "$vimrc" +"$vimcmd" +'qall!' > /dev/null
     if is_installed "nvim"; then
-      nvim -u "$vimrc" +"$vimcmd" +'qall!' > /dev/null
+      nvim -u "$vimrc" +"$nvimcmd" +'qall!' > /dev/null
     fi
   fi
 }
@@ -237,7 +241,9 @@ bootstrap_plugins() {
 
 update_plugins() {
   info "Updating plugins & plugin dependencies"
-  install_plugins "$1" "PlugUpgrade|silent! PlugClean!|silent! PlugUpdate|"
+  local vimrc="$1"
+  local vimcmd="PlugUpgrade|silent! PlugUpdate!|"
+  install_plugins "$vimrc" "$vimcmd"
 }
 
 ############################# downloaders

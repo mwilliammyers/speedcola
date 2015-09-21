@@ -12,3 +12,4 @@ spell/
 local
 .vimrc-rplugin~
 ..nvimrc-rplugin~
+vim
