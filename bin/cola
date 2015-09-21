@@ -107,8 +107,8 @@ must_be_installed() {
 
 dir_exists() {
   local dir="$1"
-  local does_exist=false
-  [[ -d "$dir" ]] && does_exist=true
+  local does_exist=0
+  [[ -d "$dir" ]] && does_exist=1
   return "$does_exist"
 }
 
@@ -123,8 +123,8 @@ dir_must_exist() {
 
 file_exists() {
   local file="$1"
-  local does_exist=false
-  [[ -e "$file" ]] && does_exist=true
+  local does_exist=0
+  [[ -e "$file" ]] && does_exist=1
   return "$does_exist"
 }
 
@@ -174,7 +174,6 @@ link() {
   ln -vsf "$1" "$2" 2> /dev/null
 }
 
-# FIXME: sometimes vim gets linked as a subdirectory of $COLA_CONFIG_HOME 
 link_config() {
   info "Linking vim configuration files"
   for file in "$@"; do
@@ -318,7 +317,7 @@ else
               "$HOME/.nvimrc" \
               "$HOME/.nvim" \
               "$XDG_CONFIG_HOME/nvim" \
-              "$COLA_CONFIG_HOME"
+              # "$COLA_CONFIG_HOME"
   fi 
 
   make_vim_dirs

@@ -10,3 +10,5 @@ plugged/
 autoload/
 spell/
 local
+.vimrc-rplugin~
+..nvimrc-rplugin~
