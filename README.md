@@ -16,8 +16,7 @@ bash, zsh etc. (bash-compatible shell):
 
 fish:
 
-`curl https://j.mp/pour-speedcola > speed-cola.sh; and sh speed-cola.sh;
-and rm speed-cola.sh`
+`curl -L https://j.mp/pour-speedcola -o speed-cola.sh; and bash speed-cola.sh; and rm speed-cola.sh`
 
 #### How the install works
 
