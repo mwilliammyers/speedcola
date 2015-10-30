@@ -248,7 +248,12 @@ update_plugins() {
 
 ############################# downloaders
 download() {
-  curl -fLo "$2" --create-dirs "$1"
+  if is_installed "curl"; then
+    curl -fLo "$2" --create-dirs "$1"
+  else
+    echo "$2"
+    wget "$1" -O "$2"
+  fi
 }
 
 clone_repo() {
@@ -271,7 +276,7 @@ update_repo() {
 }
 
 #######################################  SETUP
-must_be_installed "vim" "git" "curl"
+must_be_installed "vim" "git"
 validate_xdg_dirs
 
 [[ -z "$COLA_APP_NAME" ]] && COLA_APP_NAME="speedcola"
@@ -303,15 +308,15 @@ fi
 
 if [[ "$should_update_repo" == true ]]; then
   make_vim_dirs
-  
+
   update_repo "$COLA_CONFIG_HOME" \
               "$COLA_REPO_URL" \
               "$COLA_REPO_BRANCH" \
               "$COLA_APP_NAME"
-              
+
   install_vim_plug "$plugin_url" \
                    "$COLA_CONFIG_HOME/autoload/plug.vim"
-  
+
   link_config "$repo_vimrc_files"
 
   update_plugins "$COLA_CONFIG_HOME/vimrc"
@@ -324,7 +329,7 @@ else
               "$HOME/.nvim" \
               "$XDG_CONFIG_HOME/nvim" \
               # "$COLA_CONFIG_HOME"
-  fi 
+  fi
 
   make_vim_dirs
 
