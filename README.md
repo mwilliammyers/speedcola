@@ -12,7 +12,7 @@ For a complete list of keybindings type `:map` inside Vim
 ## Installation
 bash, zsh etc. (bash-compatible shell):
 
-`bash <(curl https://j.mp/pour-speedcola -L)`
+`bash <(curl https://j.mp/pour-speedcola -L)` or `bash <(wget https://j.mp/pour-speedcola -O -)`
 
 fish:
 
@@ -39,7 +39,7 @@ won't backup your configuration and it will go straight to updating your plugins
 **How?**
 
 take your pick:
-
+c
 - `bash $XDG_CONFIG_HOME/vim/bin/cola`
 - do a regular [install](#installation)
 
