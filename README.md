@@ -12,12 +12,11 @@ For a complete list of keybindings type `:map` inside Vim
 ## Installation
 bash, zsh etc. (bash-compatible shell):
 
-`bash <(curl https://j.mp/pour-speedcola -L)` or `bash <(wget https://j.mp/pour-speedcola -O -)`
+`bash <(wget https://j.mp/pour-speedcola -O -)`
 
 fish:
 
-`curl https://j.mp/pour-speedcola > speed-cola.sh; and sh speed-cola.sh;
-and rm speed-cola.sh`
+`wget https://j.mp/pour-speedcola -O - | bash`
 
 #### How the install works
 
