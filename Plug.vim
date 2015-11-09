@@ -130,8 +130,8 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
 
 " Language specific {{{
   " C/C++ {{{
-  " TODO: Bundle vim-altr for other languages?
-    Plug 'kana/vim-altr', { 'for': ['cpp', 'c'] }
+    " Plug 'kana/vim-altr', { 'for': ['cpp', 'c'] }
+    " Plug 'vim-scripts/a.vim', { 'for': ['cpp', 'c'] }
   " }}}
 
   " Ruby {{{

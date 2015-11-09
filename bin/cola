@@ -183,8 +183,8 @@ link_config() {
   if is_installed "nvim"; then
     # FIXME: sometimes vim gets linked as a subdirectory of $COLA_CONFIG_HOME
     # I versified $COLA_CONFIG_HOME = what it should here...
-    link "$COLA_CONFIG_HOME" "$HOME/.nvim"
-    link "$COLA_CONFIG_HOME/vimrc" "$HOME/.nvimrc"
+    dir_must_exist "$XDG_CONFIG_HOME/nvim"
+    link "$COLA_CONFIG_HOME/vimrc" "$XDG_CONFIG_HOME/nvim/init.vim"
   fi
 }
 
@@ -275,7 +275,7 @@ must_be_installed "vim" "git" "curl"
 validate_xdg_dirs
 
 [[ -z "$COLA_APP_NAME" ]] && COLA_APP_NAME="speedcola"
-[[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="${XDG_CONFIG_HOME}/vim"
+[[ -z "$COLA_CONFIG_HOME" ]] && COLA_CONFIG_HOME="$XDG_CONFIG_HOME/vim"
 [[ -z "$COLA_REPO_URL" ]] && COLA_REPO_URL="https://github.com/mkwmms/speedcola"
 [[ -z "$COLA_REPO_BRANCH" ]] && COLA_REPO_BRANCH='master'
 [[ -z "$COLA_GOLANG_DEPS" ]] && COLA_GOLANG_DEPS=true
@@ -294,7 +294,7 @@ repo_vimrc_files="vimrc"
 # is_installed "gvim" && repo_vimrc_files="vimrc gvimrc"
 
 ####################################### MAIN()
-if [[ -e "$COLA_CONFIG_HOME" ]]; then
+if [[ -d "$COLA_CONFIG_HOME" ]]; then
   cd "$COLA_CONFIG_HOME"
   [[ $(git remote -v) =~ $COLA_REPO_URL ]] && should_update_repo=true
 else
@@ -316,14 +316,10 @@ if [[ "$should_update_repo" == true ]]; then
 
   update_plugins "$COLA_CONFIG_HOME/vimrc"
 else
-
   if [[ "$COLA_DO_BACKUP" == true ]]; then
     do_backup "$HOME/.vim" \
               "$HOME/.vimrc" \
-              "$HOME/.nvimrc" \
-              "$HOME/.nvim" \
-              "$XDG_CONFIG_HOME/nvim" \
-              # "$COLA_CONFIG_HOME"
+              "$XDG_CONFIG_HOME/nvim/init.vim"
   fi 
 
   make_vim_dirs
