@@ -113,6 +113,7 @@ function! RunNearestTest()
   call RunTestFile(":" . spec_line_number)
 endfunction
 
+" TODO: add vipe support?
 function! RunTests(filename)
   :wa
 

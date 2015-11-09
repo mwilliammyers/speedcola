@@ -129,6 +129,11 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
 " }}}
 
 " Language specific {{{
+  " C/C++ {{{
+    " Plug 'kana/vim-altr', { 'for': ['cpp', 'c'] }
+    " Plug 'vim-scripts/a.vim', { 'for': ['cpp', 'c'] }
+  " }}}
+
   " Ruby {{{
     Plug 'vim-ruby/vim-ruby',           { 'for': ['ruby', 'rake'] }
     Plug 'tpope/vim-rails',             { 'for': ['ruby', 'rake'] }

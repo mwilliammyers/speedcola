@@ -1,4 +1,5 @@
 .DS_Store
+.gitignore
 .cache
 .netrwhist
 .rake_tasks~
@@ -13,5 +14,3 @@ local
 .vimrc-rplugin~
 ..nvimrc-rplugin~
 vim
-.travis.yml
-.github-todos
