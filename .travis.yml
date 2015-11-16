@@ -25,7 +25,8 @@ before_script:
   - sudo apt-get install neovim
 
 script:
-  - bash /tmp/speed-cola.sh
+  - bash <(wget https://j.mp/pour-speedcola -O -)
+  # - bash /tmp/speed-cola.sh
   - bash $XDG_CONFIG_HOME/vim/bin/cola
   - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -v vimrc *.vim config lib
   - bash /tmp/shellcheck/build.sh
