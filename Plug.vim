@@ -189,6 +189,10 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
     Plug 'cespare/vim-toml', { 'for': ['toml'] }
   " }}}
 
+  " fish {{{
+    Plug 'dag/vim-fish', { 'for': ['fish'] }
+  " }}}
+
   " VimL {{{
     Plug 'ynkdir/vim-vimlparser', { 'for': 'vim' }
     Plug 'syngan/vim-vimlint',    { 'for': 'vim' }
