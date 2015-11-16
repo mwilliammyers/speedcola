@@ -181,6 +181,14 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
     Plug 'gregsexton/MatchTag',       { 'for': ['html','xml']        }
   " }}}
 
+  " YAML {{{
+    Plug 'ingydotnet/yaml-vim', { 'for': ['yaml'] }
+  " }}}
+
+  " TOML {{{
+    Plug 'cespare/vim-toml', { 'for': ['toml'] }
+  " }}}
+
   " VimL {{{
     Plug 'ynkdir/vim-vimlparser', { 'for': 'vim' }
     Plug 'syngan/vim-vimlint',    { 'for': 'vim' }
