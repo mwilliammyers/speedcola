@@ -1,5 +1,4 @@
 .DS_Store
-.gitignore
 .cache
 .netrwhist
 .rake_tasks~
@@ -11,6 +10,13 @@ plugged/
 autoload/
 spell/
 local
-.vimrc-rplugin~
-..nvimrc-rplugin~
 vim
+
+#####=== Vim ===#####
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
