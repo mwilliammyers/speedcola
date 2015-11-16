@@ -1,5 +1,8 @@
 sudo: true 
 language: bash
+branches:
+  except:
+    - master
 
 env:
   XDG_CONFIG_HOME=$HOME/.config
