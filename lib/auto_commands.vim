@@ -10,7 +10,8 @@ if has("autocmd")
   autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
   " Fix trailing whitespace in my most used programming langauges
-  autocmd BufWritePre *.py,*.js,*.coffee,*.rb,*.c silent! :StripTrailingWhiteSpace
+  autocmd BufWritePre *.py,*.js,*.coffee,*.rb,*.c,*.cc,*.yml silent! :StripTrailingWhiteSpace
+
   autocmd FileType vim set fdm=marker foldmarker={{{,}}} foldenable
 
   if exists("g:autosave") && g:autosave == 1
@@ -29,15 +30,15 @@ if has("autocmd")
 
     "for ruby, autoindent with two spaces, always expand tabs
     autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-    autocmd FileType python set sw=4 sts=4 et
+    autocmd FileType python set sw=4 sts=4 et textwidth=80
 
-    autocmd! BufRead,BufNewFile *.sass setfiletype sass 
+    autocmd! BufRead,BufNewFile *.sass setfiletype sass
 
     autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
     autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
 
     " Don't syntax highlight markdown because it's often wrong
-    autocmd! FileType mkd setlocal syn=off
+    autocmd! FileType mkd setlocal syn=off textwidth=80
 
     " Input tabs for Make syntax
     autocmd FileType make setlocal noexpandtab list
