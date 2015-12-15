@@ -12,7 +12,7 @@ if has("autocmd")
   " Fix trailing whitespace in my most used programming langauges
   autocmd BufWritePre *.py,*.js,*.coffee,*.rb,*.c,*.cc,*.yml silent! :StripTrailingWhiteSpace
 
-  autocmd FileType vim set fdm=marker foldmarker={{{,}}} foldenable
+  " autocmd FileType vim set fdm=marker foldmarker={{{,}}} foldenable
 
   if exists("g:autosave") && g:autosave == 1
     autocmd FocusLost * silent! wa
