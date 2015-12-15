@@ -12,7 +12,7 @@ if has("autocmd")
   " Fix trailing whitespace in my most used programming langauges
   autocmd BufWritePre *.py,*.js,*.coffee,*.rb,*.c,*.cc,*.yml silent! :StripTrailingWhiteSpace
 
-  autocmd FileType vim set fdm=marker foldmarker={{{,}}} foldenable
+  " autocmd FileType vim set fdm=marker foldmarker={{{,}}} foldenable
 
   if exists("g:autosave") && g:autosave == 1
     autocmd FocusLost * silent! wa
@@ -21,7 +21,7 @@ if has("autocmd")
   augroup vimrcEx
     " Clear all autocmds in the group
     autocmd!
-    autocmd FileType text setlocal textwidth=78
+    autocmd FileType text setlocal textwidth=80
     " Jump to last cursor position unless it's invalid or in an event handler
     autocmd BufReadPost *
           \ if &filetype != "gitcommit" && line("'\"") > 0 && line("'\"") <= line("$") |

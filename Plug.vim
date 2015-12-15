@@ -184,6 +184,7 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
   " YAML {{{
     Plug 'ingydotnet/yaml-vim', { 'for': ['yaml'] }
   " }}}
+    Plug 'pearofducks/ansible-vim'
 
   " TOML {{{
     Plug 'cespare/vim-toml', { 'for': ['toml'] }
