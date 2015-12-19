@@ -5,9 +5,9 @@
 __Ultra fast vim configuration;
 powered by vim-plug, infused with XDG and a little speed-cola__
 
-"Just take a sip, you will move faster. Just try it now! And speed is mastered!
+> Just take a sip, you will move faster. Just try it now! And speed is mastered!
 Press those lips against the only one that really moves you. Speed Cola speeds
-up your life!"
+up your life!
 
 __WIP__: checkout the key-bindings
 [cheatsheet](https://github.com/mkwmms/speed-cola/wiki/Cheat-Sheet).
