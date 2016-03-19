@@ -1,6 +1,6 @@
 # speedcola
 
-[![BuildStatus](https://travis-ci.org/mkwmms/speedcola.svg?branch=master)](https://travis-ci.org/mkwmms/speedcola)
+[![BuildStatus](https://travis-ci.org/mwilliammyers/speedcola.svg?branch=master)](https://travis-ci.org/mwilliammyers/speedcola)
 
 __Ultra fast vim configuration;
 powered by vim-plug, infused with XDG and a little speed-cola__
@@ -10,7 +10,7 @@ Press those lips against the only one that really moves you. Speed Cola speeds
 up your life!
 
 __WIP__: checkout the key-bindings
-[cheatsheet](https://github.com/mkwmms/speed-cola/wiki/Cheat-Sheet).
+[cheatsheet](https://github.com/mwilliammyers/speed-cola/wiki/Cheat-Sheet).
 For a complete list of keybindings type `:map` inside Vim
 
 

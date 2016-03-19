@@ -5,7 +5,7 @@
 " powered by vim-plug, infused with XDG and a little speed-cola
 "
 " Maintained By:
-" William Myers @mkwmms [http://github.com/mkwmms/speed-cola]
+" William Myers @mwilliammyers [http://github.com/mwilliammyers/speed-cola]
 "
 " Initially based on:
 " Luan Santos' vimfiles [https://github.com/luan/vimfiles]
