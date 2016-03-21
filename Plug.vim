@@ -158,6 +158,10 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
     Plug 'fatih/vim-go', { 'for': ['go'] }
   " }}}
 
+  " Swift {{{
+    Plug 'keith/swift.vim', { 'for': ['swift'] }
+  " }}}
+
   " Docker {{{
     Plug 'honza/dockerfile.vim'
   " }}}
