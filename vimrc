@@ -60,12 +60,12 @@ endif
 " ----------------------------------------
 " Runtime configuration
 " ----------------------------------------
-set directory=$COLA_CACHE_HOME/swap,~/,/tmp/
-set backupdir=$COLA_CACHE_HOME/backup,~/,/tmp
+set directory=$COLA_CACHE_HOME/swap,/tmp/
+set backupdir=$COLA_CACHE_HOME/backup,/tmp
 " set viminfo+=n$COLA_CACHE_HOME/viminfo
-set undodir=$COLA_CACHE_HOME/undo,~/,/tmp
+set undodir=$COLA_CACHE_HOME/undo,/tmp
 set runtimepath=$COLA_CONFIG_HOME,$COLA_DATA_HOME/plugged,$VIM,$VIMRUNTIME
-let $MYVIMRC = $COLA_CONFIG_HOME . "/vimrc"
+" let $MYVIMRC = $COLA_CONFIG_HOME . "/vimrc"
 
 " ----------------------------------------
 " Local configuration

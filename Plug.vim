@@ -8,42 +8,32 @@ endif
 call plug#begin($COLA_DATA_HOME . '/plugged')
 
 " Defaults {{{
-  Plug 'tpope/vim-sensible'
+  Plug 'tpope/vim-sensible'            " defaults everyone can agree on
 " }}}
 
 " Navigation {{{
-  Plug 'majutsushi/tagbar'
-  Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
-  Plug 'tpope/vim-projectionist'
-  Plug 'bogado/file-line'
+  Plug 'majutsushi/tagbar'             " display tags in a window
+  Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'  " tree explorer
+  " Plug 'tpope/vim-projectionist'       " project configuration
+  Plug 'bogado/file-line'              " enable opening a file in a given line   
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
 
-  Plug 'junegunn/fzf', { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
-
-  if !has('nvim')
-    Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
-    if has('python')
-      Plug 'FelikZ/ctrlp-py-matcher'
-    endif
-  endif
+  Plug 'junegunn/fzf', 
+    \ { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --all' } 
+    \ | Plug 'junegunn/fzf.vim'        " command-line fuzzy finder
 " }}}
 
 " UI Additions {{{
   " Colors {{{
-    Plug 'flazz/vim-colorschemes'
-    " Plug 'xolox/vim-misc' | Plug 'xolox/vim-colorscheme-switcher',
-      " \ { 'on': ['NextColorScheme', 'PrevColorScheme', 'RandomColorScheme'] }
-    " Plug 'noah/vim256-color'
-    " Plug 'chriskempson/base16-vim'
-    " Plug 'altercation/vim-colors-solarized'
-
+    Plug 'flazz/vim-colorschemes'      " one colorscheme pack to rule them all
   " }}}
 
-  Plug 'luochen1990/rainbow'
-  Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-  Plug 'kshenoy/vim-signature'
-  Plug 'mhinz/vim-signify'
-  Plug 'jszakmeister/vim-togglecursor'
+  Plug 'luochen1990/rainbow'           " rainbow parentheses improved
+  Plug 'vim-airline/vim-airline' 
+    \ | Plug 'vim-airline/vim-airline-themes'  " lean & mean status/tabline
+  Plug 'kshenoy/vim-signature'         " toggle, display and navigate marks
+  Plug 'mhinz/vim-signify'             " show a diff via Vim sign column
+  Plug 'jszakmeister/vim-togglecursor' " toggle the cursor shape in the terminal
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'myusuf3/numbers.vim'
@@ -52,13 +42,10 @@ call plug#begin($COLA_DATA_HOME . '/plugged')
 " Commands {{{
   Plug 'scrooloose/nerdcommenter'      " intensely orgasmic commenting
   Plug 'tpope/vim-surround'            " quoting/parenthesizing made simple
-  Plug 'tpope/vim-fugitive'
-  " Plug 'gregsexton/gitv',                { 'on': 'Gitv' }
-  Plug 'tpope/vim-abolish'
-  " Plug 'tpope/vim-eunuch'            "  helpers for UNIX
+  Plug 'tpope/vim-fugitive'            " a Git wrapper so awesome, it should be illegal
+  Plug 'tpope/vim-abolish'             " search for, substitute, & abbreviate multiple variants of a word
+  " Plug 'tpope/vim-eunuch'            " helpers for UNIX
   Plug 'godlygeek/tabular'
-  " Plug 'mileszs/ack.vim',                { 'on': 'Ack' }
-  " Plug 'rking/ag.vim',                   { 'on': 'Ag'  }
   Plug 'benekastah/neomake'
   Plug 'milkypostman/vim-togglelist'
   Plug 'terryma/vim-multiple-cursors'
@@ -73,28 +60,30 @@ call plug#begin($COLA_DATA_HOME . '/plugged')
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-sleuth'
   Plug 'tpope/vim-unimpaired'
-  Plug 'Townk/vim-autoclose', { 'on': 'AutoCloseOn' }
+  " Plug 'Townk/vim-autoclose', { 'on': 'AutoCloseOn' }    " auto-close parentheses etc.
 
   if has('nvim')
-    Plug 'Shougo/deoplete.nvim'
-  " elseif !(has('lua') && (v:version > 703 || v:version == 703 && has('patch885')))
-    " Plug 'Shougo/neocomplcache.vim'
+    Plug 'Shougo/deoplete.nvim'        " dark powered asynchronous completion framework
   else
-    Plug 'Shougo/neocomplete.vim'
+    Plug 'Shougo/neocomplete.vim'      " next generation completion framework
   endif
-  " Plug 'Shougo/echodoc.vim'
 " }}}
 
 " Text objects {{{
-  Plug 'matchit.zip'
+  Plug 'matchit.zip'                   " configure % to match more than just single characters
   " Plug 'kana/vim-textobj-user'
   " Plug 'lucapette/vim-textobj-underscore'
   " Plug 'nelstrom/vim-textobj-rubyblock', { 'for': ['ruby', 'rake'] }
 " }}}
 
-" Snippets {{{
-  Plug 'Shougo/neosnippet.vim'
-  Plug 'Shougo/neosnippet-snippets'
+" Code completion {{{
+  " Plug 'Valloric/YouCompleteMe', { 'do': './install --all' } 
+  Plug 'SirVer/ultisnips'              " ultimate snippet solution
+  " Snippets {{{
+    Plug 'honza/vim-snippets'          " vim-snipmate default snippets
+    " Plug 'Shougo/neosnippet.vim'     " neocomplcache snippets source
+    " Plug 'Shougo/neosnippet-snippets'
+  " }}}
 " }}}
 
 " Language specific {{{
@@ -132,15 +121,15 @@ call plug#begin($COLA_DATA_HOME . '/plugged')
   " }}}
 
   " Docker {{{
-    Plug 'honza/dockerfile.vim'
+    " Plug 'honza/dockerfile.vim'       
   " }}}
 
   " JavaScript {{{
-    Plug 'pangloss/vim-javascript',  { 'for': ['javascript']        }
-    Plug 'mxw/vim-jsx',              { 'for': ['javascript']        }
-    Plug 'maksimr/vim-jsbeautify',   { 'for': ['javascript']        }
-    Plug 'kchmck/vim-coffee-script', { 'for': ['coffee']            }
-    Plug 'elzr/vim-json',            { 'for': ['javascript','json'] }
+    Plug 'pangloss/vim-javascript',   { 'for': ['javascript']        }
+    Plug 'mxw/vim-jsx',               { 'for': ['javascript']        }
+    Plug 'maksimr/vim-jsbeautify',    { 'for': ['javascript']        }
+    Plug 'kchmck/vim-coffee-script',  { 'for': ['coffee']            }
+    Plug 'elzr/vim-json',             { 'for': ['javascript','json'] }
   " }}}
 
   " CSS / HTML {{{
@@ -159,9 +148,9 @@ call plug#begin($COLA_DATA_HOME . '/plugged')
   " }}}
 
   " ansible {{{
-    Plug 'pearofducks/ansible-vim' " TODO load ansible plugin for yaml & .j2 (Jinja files) only
+    " Plug 'pearofducks/ansible-vim' { 'for': ['yaml'] }
     " Plug 'chase/vim-ansible-yaml', { 'for': ['yaml'] }
-    " Plug 'MicahElliott/Rocannon', { 'for': ['yaml'] }
+    " Plug 'MicahElliott/Rocannon',  { 'for': ['yaml'] }
   " }}}
 
   " jinja {{{
