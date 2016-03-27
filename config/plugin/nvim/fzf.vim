@@ -1,3 +1,4 @@
+
 function! s:buflist()
   redir => ls
   silent ls

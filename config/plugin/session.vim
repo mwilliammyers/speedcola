@@ -2,7 +2,7 @@ nmap <leader>so :OpenSession<CR>
 nmap <leader>ss :SaveSesssion! <CR>
 nmap <leader>sc :CloseSession<CR>
 
-let g:session_directory = $XDG_DATA_HOME . '/vim/sessions'
+let g:session_directory = $COLA_DATA_HOME . '/sessions'
 
 let g:session_command_aliases = 1
 

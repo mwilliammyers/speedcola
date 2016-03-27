@@ -1,11 +1,11 @@
 " Install vim-plug if it is not already installed
-if empty($XDG_CONFIG_HOME . '/vim/autoload/plug.vim')
-  silent !curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs
+if empty($COLA_CONFIG_HOME . '/autoload/plug.vim')
+  silent !curl -fLo $COLA_CONFIG_HOME/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
 
-call plug#begin($XDG_DATA_HOME . '/vim/plugged')
+call plug#begin($COLA_DATA_HOME . '/plugged')
 
 " Defaults {{{
   Plug 'tpope/vim-sensible'
@@ -18,7 +18,8 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
   Plug 'bogado/file-line'
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
 
-  " Plug 'junegunn/fzf', { 'do': 'yes \| ./install'  }
+  Plug 'junegunn/fzf', { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
+
   if !has('nvim')
     Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
     if has('python')
@@ -29,16 +30,17 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
 
 " UI Additions {{{
   " Colors {{{
-    Plug 'xolox/vim-misc' | Plug 'xolox/vim-colorscheme-switcher',
-      \ { 'on': ['NextColorScheme', 'PrevColorScheme', 'RandomColorScheme'] }
     Plug 'flazz/vim-colorschemes'
+    " Plug 'xolox/vim-misc' | Plug 'xolox/vim-colorscheme-switcher',
+      " \ { 'on': ['NextColorScheme', 'PrevColorScheme', 'RandomColorScheme'] }
     " Plug 'noah/vim256-color'
     " Plug 'chriskempson/base16-vim'
     " Plug 'altercation/vim-colors-solarized'
+
   " }}}
 
   Plug 'luochen1990/rainbow'
-  Plug 'bling/vim-airline'
+  Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
   Plug 'kshenoy/vim-signature'
   Plug 'mhinz/vim-signify'
   Plug 'jszakmeister/vim-togglecursor'
@@ -48,54 +50,21 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
 " }}}
 
 " Commands {{{
-  function! InstallVipe(info)
-    if a:info.status == 'installed' || a:info.force
-      let s:uname = system("uname -s")
-      if s:uname =~ "Darwin"
-        silent !rm -f /usr/local/bin/vipe
-        silent !ln -s `pwd`/vipe /usr/local/bin || true
-      else
-        silent !ln -s `pwd`/vipe ~/.local/bin || true
-      endif
-    endif
-  endfunction
-
-  function! InstallVimProc(info)
-    if a:info.status == 'installed' || a:info.force
-      let s:uname = system("uname -s")
-      if s:uname =~ "Darwin"
-        silent !make -f make_mac.mak
-      elseif s:uname =~ "Linux"
-        silent !make
-      else
-        silent !gmake
-      endif
-    endif
-  endfunction
-
-  Plug 'Shougo/vimproc.vim',             { 'do': function('InstallVimProc') }
-  Plug 'scrooloose/nerdcommenter'
-  " Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-surround'
+  Plug 'scrooloose/nerdcommenter'      " intensely orgasmic commenting
+  Plug 'tpope/vim-surround'            " quoting/parenthesizing made simple
   Plug 'tpope/vim-fugitive'
-  Plug 'gregsexton/gitv',                { 'on': 'Gitv'                  }
+  " Plug 'gregsexton/gitv',                { 'on': 'Gitv' }
   Plug 'tpope/vim-abolish'
-  Plug 'tpope/vim-eunuch'
-  Plug 'Peeja/vim-cdo'
+  " Plug 'tpope/vim-eunuch'            "  helpers for UNIX
   Plug 'godlygeek/tabular'
-  Plug 'mileszs/ack.vim',                { 'on': 'Ack'                   }
-  Plug 'rking/ag.vim',                   { 'on': 'Ag'                    }
-  " Plug 'luan/vipe',                      { 'do': function('InstallVipe') }
-  if has('nvim')
-    Plug 'benekastah/neomake'
-  else
-    Plug 'scrooloose/syntastic'
-  endif
+  " Plug 'mileszs/ack.vim',                { 'on': 'Ack' }
+  " Plug 'rking/ag.vim',                   { 'on': 'Ag'  }
+  Plug 'benekastah/neomake'
   Plug 'milkypostman/vim-togglelist'
   Plug 'terryma/vim-multiple-cursors'
-  Plug 'maxbrunsfeld/vim-emacs-bindings'
+  " Plug 'maxbrunsfeld/vim-emacs-bindings'
   Plug 'mbbill/undotree'
-  Plug 'xolox/vim-session'
+  Plug 'xolox/vim-misc' | Plug 'xolox/vim-session'
 " }}}
 
 " Automatic Helpers {{{
@@ -113,14 +82,14 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
   else
     Plug 'Shougo/neocomplete.vim'
   endif
-  Plug 'Shougo/echodoc.vim'
+  " Plug 'Shougo/echodoc.vim'
 " }}}
 
 " Text objects {{{
   Plug 'matchit.zip'
-  Plug 'kana/vim-textobj-user'
-  Plug 'lucapette/vim-textobj-underscore'
-  Plug 'nelstrom/vim-textobj-rubyblock', { 'for': ['ruby', 'rake'] }
+  " Plug 'kana/vim-textobj-user'
+  " Plug 'lucapette/vim-textobj-underscore'
+  " Plug 'nelstrom/vim-textobj-rubyblock', { 'for': ['ruby', 'rake'] }
 " }}}
 
 " Snippets {{{
@@ -188,7 +157,18 @@ call plug#begin($XDG_DATA_HOME . '/vim/plugged')
   " YAML {{{
     Plug 'ingydotnet/yaml-vim', { 'for': ['yaml'] }
   " }}}
-    Plug 'pearofducks/ansible-vim'
+
+  " ansible {{{
+    Plug 'pearofducks/ansible-vim' " TODO load ansible plugin for yaml & .j2 (Jinja files) only
+    " Plug 'chase/vim-ansible-yaml', { 'for': ['yaml'] }
+    " Plug 'MicahElliott/Rocannon', { 'for': ['yaml'] }
+  " }}}
+
+  " jinja {{{
+  " TODO jinja2 syntax does not seem to be working...
+    " Plug 'Glench/Vim-Jinja2-Syntax', { 'for': ['jinja'] }
+    " Plug 'Glench/Vim-Jinja2-Syntax'
+  " }}}
 
   " TOML {{{
     Plug 'cespare/vim-toml', { 'for': ['toml'] }
