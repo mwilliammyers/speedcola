@@ -1,7 +1,7 @@
 # speedcola
 
 __Ultra fast [neovim] configuration;
-powered by vim-plug, infused with XDG & a little speed-cola__
+powered by [vim-plug], infused with [XDG] & a little [speed-cola]__
 
 > Just take a sip, you will move faster. Just try it now! & speed is mastered!
 Press those lips against the only one that really moves you. Speed Cola speeds
@@ -139,6 +139,7 @@ doesn't get in the way of double curlies for things like jinja & twig.
 
 [mwilliammyers/ansible-neovim]: https://github.com/mwilliammyers/ansible-neovim
 [nazi zombies]: http://nazizombies.wikia.com/wiki/Speed_Cola
+[speed-cola]: http://nazizombies.wikia.com/wiki/Speed_Cola
 [plug.vim]: plug.vim
 
 [Git]:http://git-scm.com
