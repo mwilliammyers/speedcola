@@ -1,5 +1,5 @@
 " Install vim-plug if it is not already installed
-if empty($XDG_CONFIG_HOME. 'nvim/autoload/plug.vim')
+if empty($XDG_CONFIG_HOME . 'nvim/autoload/plug.vim')
   silent !curl -fLo $XDG_CONFIG_HOME/nvim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
@@ -15,7 +15,7 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
   Plug 'majutsushi/tagbar'             " display tags in a window
   Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'  " tree explorer
   " Plug 'tpope/vim-projectionist'       " project configuration
-  Plug 'bogado/file-line'              " enable opening a file in a given line   
+  Plug 'bogado/file-line'              " enable opening a file in a given line TODO: does nvim do this by default with the +option?   
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
 
   Plug 'junegunn/fzf', 
@@ -62,11 +62,7 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
   Plug 'tpope/vim-unimpaired'
   " Plug 'Townk/vim-autoclose', { 'on': 'AutoCloseOn' }    " auto-close parentheses etc.
 
-  if has('nvim')
-    Plug 'Shougo/deoplete.nvim'        " dark powered asynchronous completion framework
-  else
-    Plug 'Shougo/neocomplete.vim'      " next generation completion framework
-  endif
+  Plug 'Shougo/deoplete.nvim'        " dark powered asynchronous completion framework
 " }}}
 
 " Text objects {{{

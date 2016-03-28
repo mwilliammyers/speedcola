@@ -41,21 +41,10 @@ set splitright   " Puts new vsplit windows to the right of the current
 set splitbelow   " Puts new split windows to the bottom of the current
 set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
 set cursorline
-if !has('nvim')
-  set ttyfast
-endi
 set lazyredraw
 if exists('+colorcolumn')
   set colorcolumn=80 " Color the 80th column differently
 endif
-
-if !has('nvim')
-  if has("mouse_sgr")
-    set ttymouse=sgr
-  else
-    set ttymouse=xterm2
-  end
-end
 " }}}
 
 " Text Format {{{
