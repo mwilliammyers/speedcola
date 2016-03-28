@@ -1,11 +1,11 @@
 " Install vim-plug if it is not already installed
-if empty($COLA_CONFIG_HOME . '/autoload/plug.vim')
-  silent !curl -fLo $COLA_CONFIG_HOME/autoload/plug.vim --create-dirs
+if empty($XDG_CONFIG_HOME. 'nvim/autoload/plug.vim')
+  silent !curl -fLo $XDG_CONFIG_HOME/nvim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
 
-call plug#begin($COLA_DATA_HOME . '/plugged')
+call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
 
 " Defaults {{{
   Plug 'tpope/vim-sensible'            " defaults everyone can agree on
