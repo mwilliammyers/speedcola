@@ -14,7 +14,7 @@ up your life! - [nazi zombies]
 git clone https://github.com/mwilliammyers/speedcola.git ~/.config/nvim
 ```
 
-Install [vim-plug]
+[Install](https://github.com/junegunn/vim-plug#installation) [vim-plug]
 
 For some automation fun, checkout: [mwilliammyers/ansible-neovim]
 
@@ -22,6 +22,7 @@ For some automation fun, checkout: [mwilliammyers/ansible-neovim]
 
 - Linux or OS X
 - [neovim] 0.1.3+
+- [vim-plug]
 - Set: `$XDG_CONFIG_HOME`, `$XDG_DATA_HOME` & `$XDG_CACHE_HOME`. (see: [XDG])
 - Plugins (optional):
   - [Fugitive] requires Git
