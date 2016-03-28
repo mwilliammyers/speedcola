@@ -13,7 +13,9 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
 
 " Navigation {{{
   Plug 'majutsushi/tagbar'             " display tags in a window
-  Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'  " tree explorer
+  Plug 'scrooloose/nerdtree' 
+    \ | Plug 'jistr/vim-nerdtree-tabs', 
+    \ { 'on':  'NERDTreeToggle' }      " tree explorer
   " Plug 'tpope/vim-projectionist'       " project configuration
   Plug 'bogado/file-line'              " enable opening a file in a given line TODO: does nvim do this by default with the +option?   
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
@@ -60,9 +62,17 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-sleuth'
   Plug 'tpope/vim-unimpaired'
-  " Plug 'Townk/vim-autoclose', { 'on': 'AutoCloseOn' }    " auto-close parentheses etc.
-
-  Plug 'Shougo/deoplete.nvim'        " dark powered asynchronous completion framework
+  " Plug 'Townk/vim-autoclose',    { 'on': 'AutoCloseOn' }    " auto-close parentheses etc.
+  " Plug 'Valloric/YouCompleteMe', { 'do': './install --all' } 
+    Plug 'Shougo/deoplete.nvim'        " dark powered asynchronous completion framework
+    Plug 'Shougo/context_filetype.vim' " deoplete plugin
+    Plug 'Shougo/echodoc.vim'          " deoplete plugin - prints the documentation you have completed
+  " snippets {{{
+    Plug 'SirVer/ultisnips'            " ultimate snippet solution
+    Plug 'honza/vim-snippets'          " vim-snipmate default snippets
+    " Plug 'Shougo/neosnippet.vim'     " neocomplcache snippets source
+    " Plug 'Shougo/neosnippet-snippets'
+  " }}}
 " }}}
 
 " Text objects {{{
@@ -72,29 +82,16 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
   " Plug 'nelstrom/vim-textobj-rubyblock', { 'for': ['ruby', 'rake'] }
 " }}}
 
-" Code completion {{{
-  " Plug 'Valloric/YouCompleteMe', { 'do': './install --all' } 
-  Plug 'SirVer/ultisnips'              " ultimate snippet solution
-  " Snippets {{{
-    Plug 'honza/vim-snippets'          " vim-snipmate default snippets
-    " Plug 'Shougo/neosnippet.vim'     " neocomplcache snippets source
-    " Plug 'Shougo/neosnippet-snippets'
-  " }}}
-" }}}
-
 " Language specific {{{
   " C/C++ {{{
-    " Plug 'kana/vim-altr', { 'for': ['cpp', 'c'] }
+    Plug 'Shougo/neoinclude.vim', 
+      \ { 'for': ['cpp', 'c'] }  " deoplete plugin - completes from canidates in included path
     " Plug 'vim-scripts/a.vim', { 'for': ['cpp', 'c'] }
   " }}}
 
-  " Ruby {{{
-    Plug 'vim-ruby/vim-ruby',           { 'for': ['ruby', 'rake'] }
-    Plug 'tpope/vim-rails',             { 'for': ['ruby', 'rake'] }
-    Plug 'tpope/vim-rake',              { 'for': ['ruby', 'rake'] }
-    Plug 'tpope/vim-bundler',           { 'for': ['ruby', 'rake'] }
-    Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby', 'rake'] }
-    Plug 'tpope/vim-cucumber',          { 'for': ['cucumber']     }
+  " Swift {{{
+    Plug 'keith/swift.vim',           { 'for': ['swift'] }
+    Plug 'landaire/deoplete-swift',   { 'for': ['swift'] }
   " }}}
 
   " Clojure {{{
@@ -104,16 +101,8 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
     Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['clojure'] }
   " }}}
 
-  " Scala {{{
-    Plug 'derekwyatt/vim-scala', { 'for': ['scala'] }
-  " }}}
-
   " Go {{{
     Plug 'fatih/vim-go', { 'for': ['go'] }
-  " }}}
-
-  " Swift {{{
-    Plug 'keith/swift.vim', { 'for': ['swift'] }
   " }}}
 
   " Docker {{{
@@ -155,11 +144,28 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
     " Plug 'Glench/Vim-Jinja2-Syntax'
   " }}}
 
+  " Ruby {{{
+    Plug 'vim-ruby/vim-ruby',           { 'for': ['ruby', 'rake'] }
+    Plug 'tpope/vim-rails',             { 'for': ['ruby', 'rake'] }
+    Plug 'tpope/vim-rake',              { 'for': ['ruby', 'rake'] }
+    Plug 'tpope/vim-bundler',           { 'for': ['ruby', 'rake'] }
+    Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby', 'rake'] }
+    Plug 'tpope/vim-cucumber',          { 'for': ['cucumber']     }
+  " }}}
+
+  " Scala {{{
+    Plug 'derekwyatt/vim-scala', { 'for': ['scala'] }
+  " }}}
+
+  " PHP {{{
+    Plug 'm2mdas/phpcomplete-extended', { 'for': ['php'] }  " deoplete omnifunc
+  " }}}
+
   " TOML {{{
     Plug 'cespare/vim-toml', { 'for': ['toml'] }
   " }}}
 
-  " fish {{{
+  " Fish {{{
     Plug 'dag/vim-fish', { 'for': ['fish'] }
   " }}}
 
