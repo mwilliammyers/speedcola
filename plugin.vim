@@ -12,20 +12,21 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
 " }}}
 
 " Navigation {{{
-  Plug 'majutsushi/tagbar'             " display tags in a window
+  Plug 'junegunn/fzf', 
+    \ { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --all' } 
+    \ | Plug 'junegunn/fzf.vim'        " command-line fuzzy finder
   Plug 'scrooloose/nerdtree' 
     \ | Plug 'jistr/vim-nerdtree-tabs', 
     \ { 'on':  'NERDTreeToggle' }      " tree explorer
   " Plug 'tpope/vim-projectionist'       " project configuration
+  Plug 'majutsushi/tagbar'             " display tags in a window
   Plug 'bogado/file-line'              " enable opening a file in a given line TODO: does nvim do this by default with the +option?   
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
-
-  Plug 'junegunn/fzf', 
-    \ { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --all' } 
-    \ | Plug 'junegunn/fzf.vim'        " command-line fuzzy finder
+  Plug 'airblade/vim-rooter'           " changes Vim working directory to project root
+    " \ { 'on': ['FindRootDirectory', 'RooterChangeToRootDirectory'] }
 " }}}
 
-" UI Additions {{{
+" UI Additions {{{sy-to-use Vim alignment plugin
   " Colors {{{
     Plug 'flazz/vim-colorschemes'      " one colorscheme pack to rule them all
   " }}}
@@ -47,8 +48,9 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
   Plug 'tpope/vim-fugitive'            " a Git wrapper so awesome, it should be illegal
   Plug 'tpope/vim-abolish'             " search for, substitute, & abbreviate multiple variants of a word
   " Plug 'tpope/vim-eunuch'            " helpers for UNIX
-  Plug 'godlygeek/tabular'
-  Plug 'benekastah/neomake'
+  " Plug 'godlygeek/tabular'             " text filtering and alignment
+  Plug 'junegunn/vim-easy-align'       " simple, easy-to-use alignment
+  " Plug 'benekastah/neomake'           " asynchronous :make using Neovim's job-control functionality
   Plug 'milkypostman/vim-togglelist'
   Plug 'terryma/vim-multiple-cursors'
   " Plug 'maxbrunsfeld/vim-emacs-bindings'

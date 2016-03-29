@@ -1,11 +1,11 @@
-fun! s:fzf_root()
-  let path = finddir(".git", expand("%:p:h").";")
-  return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
-endfun
+" fun! s:fzf_root()
+  " let path = finddir(".git", expand("%:p:h").";")
+  " return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
+" endfun
 
-nnoremap <silent> <C-p> :exe 'Files ' . <SID>fzf_root()<CR>
-nnoremap <silent> <Leader>o :exe 'Files ' . <SID>fzf_root()<CR>
-nnoremap <silent> <Leader>fo :exe 'Files ' . <SID>fzf_root()<CR>
+nnoremap <silent> <C-p> :exe 'Files ' . <SID>FindRootDirectory()<CR>
+nnoremap <silent> <Leader>o :exe 'Files ' . <SID>FindRootDirectory()<CR>
+nnoremap <silent> <Leader>fo :exe 'Files ' . <SID>FindRootDirectory()<CR>
 nnoremap <silent> <Leader>ff :exe 'Files ' . <SID>fzf_root()<CR>
 
 nnoremap <silent> <leader>m :Mru<cr>

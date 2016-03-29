@@ -25,6 +25,7 @@ set formatoptions=crql
 set iskeyword+=$,@,-       " Add extra characters that are valid parts of variables
 set tags=./tags;/,tags;/
 set nojoinspaces           " Prevents inserting two spaces after punctuation on a join (J)
+set clipboard=unnamedplus  " Yank to system/X Window clipboard
 " }}}
 
 " UI {{{ 
