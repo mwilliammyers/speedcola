@@ -3,10 +3,10 @@
   " return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
 " endfun
 
-nnoremap <silent> <C-p> :exe 'Files ' . <SID>FindRootDirectory()<CR>
-nnoremap <silent> <Leader>o :exe 'Files ' . <SID>FindRootDirectory()<CR>
-nnoremap <silent> <Leader>fo :exe 'Files ' . <SID>FindRootDirectory()<CR>
-nnoremap <silent> <Leader>ff :exe 'Files ' . <SID>fzf_root()<CR>
+nnoremap <silent> <C-p> :exe 'Files ' . FindRootDirectory()<CR>
+nnoremap <silent> <Leader>o :exe 'Files ' . FindRootDirectory()<CR>
+nnoremap <silent> <Leader>fo :exe 'Files ' . FindRootDirectory()<CR>
+nnoremap <silent> <Leader>ff :exe 'Files ' . FindRootDirectory()<CR>
 
 nnoremap <silent> <leader>m :Mru<cr>
 nnoremap <silent> <leader>fm :Mru<cr>
