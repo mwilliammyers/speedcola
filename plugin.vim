@@ -13,17 +13,17 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
 
 " Navigation {{{
   Plug 'junegunn/fzf', 
-    \ { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --all' } 
-    \ | Plug 'junegunn/fzf.vim'        " command-line fuzzy finder
+        \ { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --all' } 
+        \ | Plug 'junegunn/fzf.vim'        " command-line fuzzy finder
   Plug 'scrooloose/nerdtree' 
-    \ | Plug 'jistr/vim-nerdtree-tabs', 
-    \ { 'on':  'NERDTreeToggle' }      " tree explorer
+        \ | Plug 'jistr/vim-nerdtree-tabs', 
+        \ { 'on':  'NERDTreeToggle' }      " tree explorer
   " Plug 'tpope/vim-projectionist'       " project configuration
   Plug 'majutsushi/tagbar'             " display tags in a window
   Plug 'bogado/file-line'              " enable opening a file in a given line TODO: does nvim do this by default with the +option?   
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
   Plug 'airblade/vim-rooter'           " changes Vim working directory to project root
-    " \ { 'on': ['FindRootDirectory', 'RooterChangeToRootDirectory'] }
+        " \ { 'on': ['FindRootDirectory', 'RooterChangeToRootDirectory'] }
 " }}}
 
 " UI Additions {{{sy-to-use Vim alignment plugin
@@ -33,7 +33,7 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
 
   Plug 'luochen1990/rainbow'           " rainbow parentheses improved
   Plug 'vim-airline/vim-airline' 
-    \ | Plug 'vim-airline/vim-airline-themes'  " lean & mean status/tabline
+        \ | Plug 'vim-airline/vim-airline-themes'  " lean & mean status/tabline
   Plug 'kshenoy/vim-signature'         " toggle, display and navigate marks
   Plug 'mhinz/vim-signify'             " show a diff via Vim sign column
   Plug 'jszakmeister/vim-togglecursor' " toggle the cursor shape in the terminal
@@ -55,7 +55,8 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
   Plug 'terryma/vim-multiple-cursors'
   " Plug 'maxbrunsfeld/vim-emacs-bindings'
   Plug 'mbbill/undotree'
-  Plug 'xolox/vim-misc' | Plug 'xolox/vim-session'
+  Plug 'xolox/vim-misc' | Plug 'xolox/vim-session', 
+        \ { 'do': 'mkdir -p $XDG_DATA_HOME/nvim/sessions' } 
 " }}}
 
 " Automatic Helpers {{{
@@ -87,7 +88,7 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
 " Language specific {{{
   " C/C++ {{{
     Plug 'Shougo/neoinclude.vim', 
-      \ { 'for': ['cpp', 'c'] }  " deoplete plugin - completes from canidates in included path
+          \ { 'for': ['cpp', 'c'] }  " deoplete plugin - completes from canidates in included path
     " Plug 'vim-scripts/a.vim', { 'for': ['cpp', 'c'] }
   " }}}
 
