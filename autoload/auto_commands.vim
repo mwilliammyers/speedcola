@@ -56,6 +56,9 @@ if has("autocmd")
   autocmd! BufNewFile,BufReadPost *.html setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
   autocmd! BufNewFile,BufReadPost *.slim setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
+  autocmd! BufWritePost * Neomake
+
+  " run neomake on the current file on every write
   augroup golang
     autocmd FileType go compiler go
     autocmd! BufEnter *.go call golang#buffcommands()

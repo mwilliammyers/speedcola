@@ -50,7 +50,7 @@ call plug#begin($XDG_DATA_HOME . '/nvim/plugged')
   " Plug 'tpope/vim-eunuch'            " helpers for UNIX
   " Plug 'godlygeek/tabular'             " text filtering and alignment
   Plug 'junegunn/vim-easy-align'       " simple, easy-to-use alignment
-  " Plug 'benekastah/neomake'           " asynchronous :make using Neovim's job-control functionality
+  Plug 'benekastah/neomake'           " asynchronous :make using Neovim's job-control functionality
   Plug 'milkypostman/vim-togglelist'
   Plug 'terryma/vim-multiple-cursors'
   " Plug 'maxbrunsfeld/vim-emacs-bindings'
