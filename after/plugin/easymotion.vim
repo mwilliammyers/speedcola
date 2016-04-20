@@ -38,5 +38,5 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " Basically replaces search, easymotion style
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
+" map  / <Plug>(easymotion-sn)
+" omap / <Plug>(easymotion-tn)
