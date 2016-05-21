@@ -20,15 +20,15 @@ noremap k gk
 " presence of `:set wrap`, and relative to line for `:set nowrap`.
 " Default vim behaviour is to act relative to text line in both cases
 function! WrapRelativeMotion(key, ...)
-    let vis_sel=""
-    if a:0
-        let vis_sel="gv"
-    endif
-    if &wrap
-        execute "normal!" vis_sel . "g" . a:key
-    else
-        execute "normal!" vis_sel . a:key
-    endif
+  let vis_sel=""
+  if a:0
+    let vis_sel="gv"
+  endif
+  if &wrap
+    execute "normal!" vis_sel . "g" . a:key
+  else
+    execute "normal!" vis_sel . a:key
+  endif
 endfunction
 
 " Map g* keys in Normal, Operator-pending, and Visual+select
@@ -56,15 +56,20 @@ map <S-L> gt
 
 " Stupid shift key fixes
 if has("user_commands")
-    command! -bang -nargs=* -complete=file E e<bang> <args>
-    command! -bang -nargs=* -complete=file W w<bang> <args>
-    command! -bang -nargs=* -complete=file Wq wq<bang> <args>
-    command! -bang -nargs=* -complete=file WQ wq<bang> <args>
-    command! -bang Wa wa<bang>
-    command! -bang WA wa<bang>
-    command! -bang Q q<bang>
-    command! -bang QA qa<bang>
-    command! -bang Qa qa<bang>
+  command! -bang -nargs=* -complete=file E e<bang> <args>
+  command! -bang -nargs=* -complete=file W w<bang> <args>
+  command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+  command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+  command! -bang WQA wqa<bang>
+  command! -bang WQa wqa<bang>
+  command! -bang Wqa wqa<bang>
+  command! -bang Wa wa<bang>
+  command! -bang WA wa<bang>
+  command! -bang Q q<bang>
+  command! -bang QA qa<bang>
+  command! -bang Qa qa<bang>
+  command! -bang XA xa<bang>
+  command! -bang Xa xa<bang>
 endif
 
 cmap Tabe tabe
@@ -88,9 +93,6 @@ nmap <leader>f9 :set foldlevel=9<CR>
 " search results. To clear search highlighting rather than toggle it on
 nmap <silent> <leader>/ :set invhlsearch<CR>
 
-" Find merge conflict markers
-map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
-
 " Shortcuts {{{
 " Change Working Directory to that of the current file
 " cmap cwd lcd %:p:h
@@ -108,7 +110,7 @@ vnoremap . :normal .<CR>
 cmap w!! w !sudo tee % >/dev/null
 
 " Edit vimrc with ,vi
-nmap <silent> <leader>vi :e ~/.vim/vimrc<CR>
+nmap <silent> <leader>vi :e ~/.config/nvim/init.vim<CR>
 
 " Some helpers to edit mode
 " http://vimcasts.org/e/14
@@ -190,3 +192,22 @@ nmap '<CR> :a<CR><CR>.<CR>
 
 " map <leader><space> :Vipe <CR>
 " map <leader>p :VipePop <CR>
+
+" Find merge conflict markers
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+
+" git mergetool (vimdiff)
+if &diff
+  set diffopt+=iwhite
+  " colorscheme industry
+  " vimdiff color scheme
+  highlight DiffChange cterm=none ctermfg=black ctermbg=LightGreen gui=none guifg=bg guibg=LightGreen
+  highlight DiffText cterm=none ctermfg=black ctermbg=Red gui=none guifg=bg guibg=Red
+
+  nnoremap <leader>dla :%diffget LO <bar> :xa <CR>
+  nnoremap <leader>dlc :diffget LO <bar> :normal ]c <CR>
+  nnoremap <leader>dra :%diffget RE <bar> :xa <CR>
+  nnoremap <leader>drc :diffget RE <bar> :normal ]c <CR>
+  nnoremap <leader>dba :%diffget BA <bar> :xa <CR>
+  nnoremap <leader>dbc :diffget BA <bar> :normal ]c <CR>
+endif
