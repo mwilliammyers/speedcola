@@ -3,45 +3,22 @@
 " ----------------------------------------
 
 if has("autocmd")
-  " No formatting on o key newlines
-  autocmd BufNewFile,BufEnter * set formatoptions-=o
+  augroup general
+    autocmd! " Clear all autocmds in the group
 
-  " Always switch to the current file directory
-  autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+    if exists("g:autosave") && g:autosave == 1
+      autocmd FocusLost * silent! wa
+    endif
 
-  " Fix trailing whitespace in my most used programming langauges
-  autocmd BufWritePre *.py,*.js,*.coffee,*.rb,*.c,*.cc,*.yml silent! :StripTrailingWhiteSpace
+    " Always switch to the current file directory
+    " autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
-  " autocmd FileType vim set fdm=marker foldmarker={{{,}}} foldenable
+    " No formatting on o key newlines
+    autocmd BufNewFile,BufEnter * set formatoptions-=o
 
-  if exists("g:autosave") && g:autosave == 1
-    autocmd FocusLost * silent! wa
-  endif
-
-  augroup vimrcEx
-    " Clear all autocmds in the group
-    autocmd!
-    autocmd FileType text setlocal textwidth=80
-    " Jump to last cursor position unless it's invalid or in an event handler
-    autocmd BufReadPost *
-          \ if &filetype != "gitcommit" && line("'\"") > 0 && line("'\"") <= line("$") |
-          \   exe "normal g`\"" |
-          \ endif
-
-    "for ruby, autoindent with two spaces, always expand tabs
-    autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-    autocmd FileType python set sw=4 sts=4 et textwidth=80
-
-    autocmd! BufRead,BufNewFile *.sass setfiletype sass
-
-    autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
-    autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
-
-    " Don't syntax highlight markdown because it's often wrong
-    autocmd! FileType mkd setlocal syn=off textwidth=80
-
-    " Input tabs for Make syntax
-    autocmd FileType make setlocal noexpandtab list
+ 
+    " run neomake on the current file on every write
+    autocmd! BufWritePost * Neomake
 
     " Leave the return key alone when in command line windows, since it's used
     " to run commands there.
@@ -49,25 +26,31 @@ if has("autocmd")
     autocmd! CmdwinLeave * :call MapCR()
   augroup END
 
-  autocmd! FileType ruby,eruby,yaml set tw=80 ai sw=2 sts=2 et
-  autocmd! User Rails set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+  augroup languages
+    autocmd! " Clear all autocmds in the group
 
-  autocmd! BufNewFile,BufReadPost *.jade setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-  autocmd! BufNewFile,BufReadPost *.html setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-  autocmd! BufNewFile,BufReadPost *.slim setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+    autocmd FileType python
+          \ setlocal ai si et sta sw=4
+          \ textwidth=80 backspace=indent,eol,start fo=croql
 
-  autocmd! BufWritePost * Neomake
+    " recognize newer web languages
+    autocmd! BufRead,BufNewFile *.sass setfiletype sass
+    autocmd! BufRead,BufNewFile *.coffee setfiletype coffee
+    autocmd! BufRead,BufNewFile *.jade setfiletype jade
 
-  " run neomake on the current file on every write
-  augroup golang
+    " makefile
+    autocmd FileType make setlocal noexpandtab list
+
+    " markdown
+    autocmd! FileType markdown set syntax=off textwidth=80
+    autocmd BufRead markdown set autoindent formatoptions=tcroqn2 comments=n:&gt;
+
+    " golang
     autocmd FileType go compiler go
-    autocmd! BufEnter *.go call golang#buffcommands()
+    " autocmd! BufEnter *.go call golang#buffcommands()
+    autocmd! FileType go autocmd BufWritePre <buffer> Fmt
+
+    autocmd FileType c,cpp,java,php,ruby,python,html,javascript,markdown 
+          \ autocmd BufWritePre <buffer> silent! :StripTrailingWhiteSpace
   augroup END
-
-  autocmd! BufNewFile,BufReadPost *.coffee setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-  autocmd! BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
-  autocmd! BufNewFile,BufReadPost *.coffee setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-
-  autocmd! CmdwinEnter * :unmap <cr>
-  autocmd! CmdwinLeave * :call MapCR()
 endif
