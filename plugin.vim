@@ -12,7 +12,7 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
   Plug 'scrooloose/nerdtree' 
         \ | Plug 'jistr/vim-nerdtree-tabs', 
         \ { 'on':  'NERDTreeToggle' } " tree explorer
-  Plug 'majutsushi/tagbar'            " display tags in a window
+  " Plug 'majutsushi/tagbar'            " display tags in a window
   Plug 'bogado/file-line'             " enable opening a file in a given line TODO: does nvim do this by default with the +option?
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
   Plug 'airblade/vim-rooter'          " changes Vim working directory to project root
@@ -46,19 +46,21 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
   " }}}
 
 " Automatic Helpers {{{
-  " Plug 'tpope/vim-repeat'            " enable repeating supported plugin maps with '.'
-  Plug 'tpope/vim-sleuth'              " heuristically set buffer options
-    Plug 'Shougo/deoplete.nvim'        " dark powered asynchronous completion framework
-    Plug 'Shougo/context_filetype.vim' " deoplete plugin
-    " Plug 'Shougo/echodoc.vim'          " deoplete plugin - prints the documentation you have completed
-  " snippets {{{
-    Plug 'SirVer/ultisnips'            " ultimate snippet solution
-    Plug 'honza/vim-snippets'          " vim-snipmate default snippets
-  " }}}
+ " TODO better way to do this?
+  function! DoRemote(arg)
+    UpdateRemotePlugins
+  endfunction
+  Plug 'Shougo/deoplete.nvim', 
+        \ { 'do': function('DoRemote') } " dark powered asynchronous completion framework
+  Plug 'Shougo/context_filetype.vim'     " deoplete plugin
+  Plug 'neomake/neomake'                 " asynchronous :make (provides linting)
+  Plug 'tpope/vim-sleuth'                " heuristically set buffer options
+  Plug 'SirVer/ultisnips'                " ultimate snippet solution
+  " Plug 'honza/vim-snippets'              " vim-snipmate default snippets
 " }}}
 
 " Text objects {{{
-  Plug 'matchit.zip'                   " configure % to match more than just single characters
+  " Plug 'matchit.zip'                   " configure % to match more than just single characters
 " }}}
 
 " Language specific {{{
