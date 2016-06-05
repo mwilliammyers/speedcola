@@ -8,82 +8,63 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
 " Navigation {{{
   Plug 'junegunn/fzf', 
         \ { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --all' } 
-        \ | Plug 'junegunn/fzf.vim'        " command-line fuzzy finder
+        \ | Plug 'junegunn/fzf.vim'   " command-line fuzzy finder
   Plug 'scrooloose/nerdtree' 
         \ | Plug 'jistr/vim-nerdtree-tabs', 
-        \ { 'on':  'NERDTreeToggle' }      " tree explorer
-  " Plug 'tpope/vim-projectionist'       " project configuration
-  Plug 'majutsushi/tagbar'             " display tags in a window
-  Plug 'bogado/file-line'              " enable opening a file in a given line TODO: does nvim do this by default with the +option?   
+        \ { 'on':  'NERDTreeToggle' } " tree explorer
+  Plug 'majutsushi/tagbar'            " display tags in a window
+  Plug 'bogado/file-line'             " enable opening a file in a given line TODO: does nvim do this by default with the +option?
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
-  Plug 'airblade/vim-rooter'           " changes Vim working directory to project root
-        " \ { 'on': ['FindRootDirectory', 'RooterChangeToRootDirectory'] }
+  Plug 'airblade/vim-rooter'          " changes Vim working directory to project root
 " }}}
 
 " UI Additions {{{sy-to-use Vim alignment plugin
   " Colors {{{
-    Plug 'flazz/vim-colorschemes'      " one colorscheme pack to rule them all
+    Plug 'flazz/vim-colorschemes'                 " one colorscheme pack to rule them all
   " }}}
 
-  Plug 'luochen1990/rainbow'           " rainbow parentheses improved
+  Plug 'luochen1990/rainbow'                      " rainbow parentheses improved
   Plug 'vim-airline/vim-airline' 
-        \ | Plug 'vim-airline/vim-airline-themes'  " lean & mean status/tabline
-  Plug 'kshenoy/vim-signature'         " toggle, display and navigate marks
-  Plug 'mhinz/vim-signify'             " show a diff via Vim sign column
-  Plug 'jszakmeister/vim-togglecursor' " toggle the cursor shape in the terminal
-  Plug 'christoomey/vim-tmux-navigator'
+        \ | Plug 'vim-airline/vim-airline-themes' " lean & mean status/tabline
+  Plug 'kshenoy/vim-signature'                    " toggle, display and navigate marks
+  Plug 'mhinz/vim-signify'                        " show a diff via Vim sign column
+  Plug 'jszakmeister/vim-togglecursor'            " toggle the cursor shape in the terminal
+  " Plug 'christoomey/vim-tmux-navigator'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'myusuf3/numbers.vim'
 " }}}
 
-" Commands {{{
-  Plug 'scrooloose/nerdcommenter'      " intensely orgasmic commenting
-  Plug 'tpope/vim-surround'            " quoting/parenthesizing made simple
-  Plug 'tpope/vim-fugitive'            " a Git wrapper so awesome, it should be illegal
-  Plug 'tpope/vim-abolish'             " search for, substitute, & abbreviate multiple variants of a word
-  " Plug 'tpope/vim-eunuch'            " helpers for UNIX
-  " Plug 'godlygeek/tabular'             " text filtering and alignment
-  Plug 'junegunn/vim-easy-align'       " simple, easy-to-use alignment
-  Plug 'benekastah/neomake'           " asynchronous :make using Neovim's job-control functionality
-  Plug 'milkypostman/vim-togglelist'
-  Plug 'terryma/vim-multiple-cursors'
-  " Plug 'maxbrunsfeld/vim-emacs-bindings'
-  Plug 'mbbill/undotree'
+  " Commands {{{
+  Plug 'scrooloose/nerdcommenter' " intensely orgasmic commenting
+  Plug 'tpope/vim-surround'       " quoting/parenthesizing made simple
+  Plug 'tpope/vim-fugitive'       " a Git wrapper so awesome, it should be illegal
+  Plug 'junegunn/vim-easy-align'  " simple, easy-to-use alignment
+  " Plug 'terryma/vim-multiple-cursors'
+  Plug 'mbbill/undotree'          " the ultimate undo history visualizer
   Plug 'xolox/vim-misc' | Plug 'xolox/vim-session', 
         \ { 'do': 'mkdir -p $XDG_DATA_HOME/nvim/sessions' } 
-" }}}
+  " }}}
 
 " Automatic Helpers {{{
-  Plug 'SearchComplete'
-  Plug 'tpope/vim-endwise'
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-sleuth'
-  Plug 'tpope/vim-unimpaired'
-  " Plug 'Townk/vim-autoclose',    { 'on': 'AutoCloseOn' }    " auto-close parentheses etc.
-  " Plug 'Valloric/YouCompleteMe', { 'do': './install --all' } 
+  " Plug 'tpope/vim-repeat'            " enable repeating supported plugin maps with '.'
+  Plug 'tpope/vim-sleuth'              " heuristically set buffer options
     Plug 'Shougo/deoplete.nvim'        " dark powered asynchronous completion framework
     Plug 'Shougo/context_filetype.vim' " deoplete plugin
-    Plug 'Shougo/echodoc.vim'          " deoplete plugin - prints the documentation you have completed
+    " Plug 'Shougo/echodoc.vim'          " deoplete plugin - prints the documentation you have completed
   " snippets {{{
     Plug 'SirVer/ultisnips'            " ultimate snippet solution
     Plug 'honza/vim-snippets'          " vim-snipmate default snippets
-    " Plug 'Shougo/neosnippet.vim'     " neocomplcache snippets source
-    " Plug 'Shougo/neosnippet-snippets'
   " }}}
 " }}}
 
 " Text objects {{{
   Plug 'matchit.zip'                   " configure % to match more than just single characters
-  " Plug 'kana/vim-textobj-user'
-  " Plug 'lucapette/vim-textobj-underscore'
-  " Plug 'nelstrom/vim-textobj-rubyblock', { 'for': ['ruby', 'rake'] }
 " }}}
 
 " Language specific {{{
   " C/C++ {{{
     Plug 'Shougo/neoinclude.vim', 
-          \ { 'for': ['cpp', 'c'] }  " deoplete plugin - completes from canidates in included path
-    " Plug 'vim-scripts/a.vim', { 'for': ['cpp', 'c'] }
+          \ { 'for': ['cpp', 'c'] }   " deoplete plugin - completes from canidates in included path
   " }}}
 
   " Swift {{{
@@ -127,18 +108,6 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
 
   " YAML {{{
     Plug 'ingydotnet/yaml-vim', { 'for': ['yaml'] }
-  " }}}
-
-  " ansible {{{
-    " Plug 'pearofducks/ansible-vim' { 'for': ['yaml'] }
-    " Plug 'chase/vim-ansible-yaml', { 'for': ['yaml'] }
-    " Plug 'MicahElliott/Rocannon',  { 'for': ['yaml'] }
-  " }}}
-
-  " jinja {{{
-  " TODO jinja2 syntax does not seem to be working...
-    " Plug 'Glench/Vim-Jinja2-Syntax', { 'for': ['jinja'] }
-    " Plug 'Glench/Vim-Jinja2-Syntax'
   " }}}
 
   " Ruby {{{
