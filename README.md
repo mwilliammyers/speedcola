@@ -1,157 +1,76 @@
 # speedcola
 
-[![BuildStatus](https://travis-ci.org/mwilliammyers/speedcola.svg?branch=master)](https://travis-ci.org/mwilliammyers/speedcola)
+__Ultra fast [neovim] configuration;
+powered by [vim-plug], infused with [XDG] & a little [speed-cola]__
 
-__Ultra fast vim configuration;
-powered by vim-plug, infused with XDG and a little speed-cola__
-
-> Just take a sip, you will move faster. Just try it now! And speed is mastered!
+> Just take a sip, you will move faster. Just try it now! & speed is mastered!
 Press those lips against the only one that really moves you. Speed Cola speeds
-up your life!
-
-__WIP__: checkout the key-bindings
-[cheatsheet](https://github.com/mwilliammyers/speed-cola/wiki/Cheat-Sheet).
-For a complete list of keybindings type `:map` inside Vim
+up your life! - [nazi zombies]
 
 
 ## Installation
 
-bash, zsh etc. (bash-compatible shell):
-
-```bash
-bash <(wget https://j.mp/pour-speedcola -O -)
+```
+git clone https://github.com/mwilliammyers/speedcola.git ~/.config/nvim
 ```
 
-fish:
+[Install](https://github.com/junegunn/vim-plug#installation) [vim-plug]*
 
-```bash
-wget https://j.mp/pour-speedcola -O - | bash
-```
+For some automation fun, checkout: [mwilliammyers/ansible-neovim]
 
-#### How the install works
-
-__Full disclosure:__ [cola](bin/cola) (the install script)
-
-__TL;DR__
-
-1. Backup your existing vim configuration
-1. Symlink `$XDG_CONFIG_HOME/vim/config/vimrc` to `~/.vimrc`
-1. Install `golang`'s tools if you have golang on your `$PATH` unless
-   `$COLA_GOLANG_DEPS=false`
-1. Install all of your plugins and their dependencies
-
-#### Update early and often!
-
-Updating is pretty much the same as the install except that it won't backup
-your configuration and it will go straight to updating your plugins.
-
-__How?__
-
-take your pick:
-- `bash $XDG_CONFIG_HOME/vim/bin/cola`
-- do a regular [install](#installation)
+\* [`plugin.vim`](plugin.vim) will install it for you if you don't.
 
 #### Requirements
 
-- Linux, *nix, or OS X
-- Git 1.7+
-- Vim 7.3+
-- Use the [XDG] base directory spec by having `$XDG_CONFIG_HOME`,
-  `$XDG_CONFIG_HOME` and `$XDG_CONFIG_HOME` environment variables set.*
+- Linux or OS X
+- [neovim] 0.1.3+
+- [vim-plug]
+- Set: `$XDG_CONFIG_HOME`, `$XDG_DATA_HOME` & `$XDG_CACHE_HOME`. (see: [XDG])
+- Plugins (optional):
+  - [Fugitive] requires Git
+  - [Tagbar] requires [exuberant-ctags]
 
 
-  \* speedcola forces vim to (mostly) obey the [XDG] spec à la
-  [vim-respect-xdg].
+## Accessorize
 
+#### User config files:
+  - All `local/*.vim` files will be sourced automatically & are ignored by Git.
 
-## The Setup
+For example, place this in `local/neocomplete.vim`:
 
-### Runtime configuration
-
-__Files loaded in this order:__
-
-- `~/.vimrc` -> `$XDG_CONFIG_HOME/vim/vimrc` (just controls the load order and
-  vim runtime)
-- `$XDG_CONFIG_HOME/vim/config/local/vimrc`
-- `$XDG_CONFIG_HOME/vim/local/config/Plug.vim`
-- `$XDG_CONFIG_HOME/vim/config/Plug.vim`
-- `$XDG_CONFIG_HOME/vim/local/config/*.vim`
-- `$XDG_CONFIG_HOME/vim/config/*.vim`
-- `$XDG_CONFIG_HOME/vim/local/config/plugin/*.vim`
-- `$XDG_CONFIG_HOME/vim/config/plugin/*.vim`
-
-__Directories/settings:__
-
-- Plugins are downloaded to: `$XDG_DATA_HOME/vim/plugged`
-- `<plugin name>` cache directory: `$XDG_CACHE_HOME/vim/<plugin name>`
-- Session directory: `$VIM_DATA_HOME/sessions`
-- `undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp`
-- `directory=$XDG_CACHE_HOME/vim/swap,~/,/tmp`
-- `backupdir=$XDG_CACHE_HOME/vim/backup,~/,/tmp`
-- `viminfo=n$XDG_CACHE_HOME/vim/viminfo`
-
-_note_: For [neovim], speedcola mainly just uses their
-[defaults](https://github.com/neovim/neovim/wiki/Following-HEAD#20151026)
-(which support XDG)
-
-### Recommended setup
-
-#### Faster and better autocomplete
-
-__OSX__
-
-```bash
-brew reinstall vim --with-lua
+```viml
+let g:neocomplete#enable_at_startup = 0   " disable neocomplete
+let g:neocomplcache_enable_at_startup = 0 " disable the fallback version when no LUA
 ```
 
-__Linux__
-
-```
-bash sudo apt-get install vim-nox
-```
-
-#### ctags
-
-__OSX__
-
-```bash
-brew uninstall ctags; brew tap kopischke/ctags; brew install ctags-fishman --HEAD
-```
-
-__Linux__
-
-_exuberant-ctags_ from your OS is generally enough for most things, but if you
-want more CSS, ruby and other goodnesses you will need to manually compile and
-replace your ctags installation with: https://github.com/fishman/ctags
+#### Colors!
+- Default color scheme: `Hybrid`
+- Use a different color scheme:
+  ```bash
+  echo "let g:cola_colorscheme='solarized'" >> "$XDG_CONFIG_HOME/nvim/local/colors.vim"
+  ```
+- List of available color schemes: [flazz/vim-colorschemes]
+- screenshots __coming soon__
 
 
 ## Plugins
 
 __All plugins are managed by [vim-plug]__
 
-See [Plug.vim](Plug.vim) for a list of currently bundled plugins
-
-### Requirements
-
- - [Fugitive] requires Git
- - [ag.vim] requires [ag]
- - [ack.vim] requires [ack]
- - [Tagbar] requires [exuberant-ctags]
-
-### Meet the plugins
+See [plug.vim] for a list of currently bundled plugins
 
 #### [Undotree]
 
-If you undo changes and then make a new change, in most editors the changes you
+If you undo changes & then make a new change, in most editors the changes you
 undid are gone forever, as their undo-history is a simple list. Since version
 7.0 vim uses an undo-tree instead. If you make a new change after undoing
 changes, a new branch is created in that tree. Combined with persistent undo,
-this is nearly as flexible and safe as git ;-)
+this is nearly as flexible & safe as git ;-)
 
 Undotree makes that feature more accessible by creating a visual representation
 of said undo-tree.
 
-__QuickStart__
+_QuickStart_
 
 Launch using `<Leader>u`
 
@@ -160,32 +79,22 @@ Launch using `<Leader>u`
 NERDTree is a file explorer plugin that provides "project drawer" functionality
 to your vim editing.  You can learn more about it with `:help NERDTree`.
 
-__QuickStart__
+_QuickStart_
 
 Launch using `\`
-
-#### [ctrlp]
-
-Ctrlp provides an intuitive and fast mechanism to load files from
-the file system (with regex and fuzzy find), from open buffers, and from
-recently used files.
-
-__QuickStart__
-
-Launch using `<c-p>`
 
 #### [Surround]
 
 This plugin is a tool for dealing with pairs of "surroundings."  Examples of
-surroundings include parentheses, quotes, and HTML tags.  They are closely
+surroundings include parentheses, quotes, & HTML tags.  They are closely
 related to what Vim refers to as text-objects.  Provided are mappings to allow
-for removing, changing, and adding surroundings.
+for removing, changing, & adding surroundings.
 
 Details follow on the exact semantics, but first, consider the following
 examples.  An asterisk (\*) is used to denote the cursor position.
 
 ```text
-Old text                  Command     New text ~
+Old text                  Comm&     New text ~
 "Hello *world!"           ds"         Hello world!
 [123+4*56]/2              cs])        (123+456)/2
 "Look ma, I'm *HTML!"     cs"<q>      <q>Look ma, I'm HTML!</q>
@@ -202,94 +111,36 @@ There's a lot more, check it out at `:help surround`
 
 Neocomplete is an amazing autocomplete plugin with additional support for
 snippets. It can complete simulatiously from the dictionary, buffer,
-omnicomplete and snippets. This is the one true plugin that brings Vim
+omnicomplete & snippets. This is the one true plugin that brings Vim
 autocomplete on par with the best editors.
 
-__QuickStart__
+_QuickStart_
 
 Just start typing, it will autocomplete where possible
 
 #### [Syntastic]
 
 Syntastic is a syntax checking plugin that runs buffers through external syntax
-checkers as they are saved and opened. If syntax errors are detected, the user
-is notified and is happy because they didn't have to compile their code or
+checkers as they are saved & opened. If syntax errors are detected, the user
+is notified & is happy because they didn't have to compile their code or
 execute their script to find them.
 
 #### [AutoClose]
 
 AutoClose does what you expect. It's simple, if you open a bracket, paren,
-brace, quote, etc, it automatically closes it. It handles curlys correctly and
-doesn't get in the way of double curlies for things like jinja and twig.
-
-
-## Accessorize
-
-### User config files:
-- mimics the directory structure of speed-cola (`$XDG_CONFIG_HOME/vim`)
-- loaded in this order:
-    - `$XDG_CONFIG_HOME/vim/local/vimrc` (override default settings from
-      speed-cola)
-    - `$XDG_CONFIG_HOME/vim/local/config/*.vim` (misc/general configuration)
-    - `$XDG_CONFIG_HOME/vim/local/Plug.vim` (load non-default plugins)
-    - `$XDG_CONFIG_HOME/vim/local/config/plugin/*.vim` (configure non-default
-      plugins)
-
-Put this in `$XDG_CONFIG_HOME/vim/config/local/vimrc` to disable the
-neocomplete autocomplete popup:
-
-```viml
-let g:neocomplete#enable_at_startup = 0   " disable neocomplete
-let g:neocomplcache_enable_at_startup = 0 " disable the fallback version when no LUA
-```
-
-If you have [fzf] installed you might want to do something like this:
-
-```bash
-echo "set rtp+=/usr/local/Cellar/fzf/0.10.2" >> "$XDG_CONFIG_HOME/vim/local/config/plugin/fzf.vim"
-```
-
-### Colors!
-- Default color scheme: `Hybrid`
-- Use a different color scheme:
-  ```bash
-  echo "let g:cola_colorscheme='solarized'" >> "$XDG_CONFIG_HOME/vim/local/config/vimrc"
-  ```
-- List of available color schemes: [flazz/vim-colorschemes]
-- screenshots __coming soon__
-
-
-## Intro to VIM
-
-Here's some tips if you've never used VIM before:
-
-### Tutorials
-
-- Type `vimtutor` into a shell to go through a brief interactive tutorial
-  inside VIM.
-- Read the slides at [VIM: Walking Without Crutches](https://walking-without-crutches.heroku.com/#1).
-- [keyboard cheat sheet](https://walking-without-crutches.heroku.com/image/images/vi-vim-cheat-sheet.png).
-
-### Modes
-
-- VIM has two (common) modes:
-  - insert mode- stuff you type is added to the buffer
-  - normal mode- keys you hit are interpreted as commands
-- To enter insert mode, hit `i`
-- To exit insert mode, hit `<ESC>`
-
-### Useful commands
-
-- Use `:q` to exit vim
-- Certain commands are prefixed with a `<Leader>` key, which by default maps to
-  `\` we use `let mapleader = ","` to change this to `,` which is in a
-  consistent and convenient location.
+brace, quote, etc, it automatically closes it. It h&les curlys correctly &
+doesn't get in the way of double curlies for things like jinja & twig.
 
 
 ## Acknowledgements
 - [spf13-vim] legendary vim distribution
 - Luan Santos' [vimfiles]
 
+
+[mwilliammyers/ansible-neovim]: https://github.com/mwilliammyers/ansible-neovim
+[nazi zombies]: http://nazizombies.wikia.com/wiki/Speed_Cola
+[speed-cola]: http://nazizombies.wikia.com/wiki/Speed_Cola
+[plug.vim]: plug.vim
 
 [Git]:http://git-scm.com
 [Curl]:http://curl.haxx.se
@@ -298,7 +149,7 @@ Here's some tips if you've never used VIM before:
 [MacVim]:http://code.google.com/p/macvim/
 
 [vim-respect-xdg]:https://tlvince.com/vim-respect-xdg
-[XDG]:http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+[XDG]:http://st&ards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 
 [vim-plug]:https://github.com/junegunn/vim-plug
 
