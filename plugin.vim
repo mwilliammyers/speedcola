@@ -1,6 +1,6 @@
 " Install vim-plug if it is not already installed
 if empty(glob($XDG_CONFIG_HOME . '/nvim/autoload/plug.vim'))
-	silent !curl -fLo $XDG_CONFIG_HOME/nvim/autoload/plug.vim --create-dirs
+bash: cho: command not found
 			\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
@@ -13,13 +13,12 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
 " }}}
 
 " Navigation {{{
-  " Plug 'majutsushi/tagbar'            " display tags in a window
   Plug 'bogado/file-line'             " enable opening a file in a given line TODO: does nvim do this by default with the +option?
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
   Plug 'airblade/vim-rooter'          " changes Vim working directory to project root
 " }}}
 
-" UI Additions {{{sy-to-use Vim alignment plugin
+" UI Additions {{{
   " Colors {{{
     Plug 'flazz/vim-colorschemes'                 " one colorscheme pack to rule them all
   " }}}
@@ -30,7 +29,6 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
   Plug 'kshenoy/vim-signature'                    " toggle, display and navigate marks
   Plug 'mhinz/vim-signify'                        " show a diff via Vim sign column
   Plug 'jszakmeister/vim-togglecursor'            " toggle the cursor shape in the terminal
-  " Plug 'christoomey/vim-tmux-navigator'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'myusuf3/numbers.vim'
 " }}}
@@ -40,7 +38,6 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
   Plug 'tpope/vim-surround'       " quoting/parenthesizing made simple
   Plug 'tpope/vim-fugitive'       " a Git wrapper so awesome, it should be illegal
   Plug 'junegunn/vim-easy-align'  " simple, easy-to-use alignment
-  " Plug 'terryma/vim-multiple-cursors'
   Plug 'mbbill/undotree'          " the ultimate undo history visualizer
   Plug 'xolox/vim-misc' | Plug 'xolox/vim-session', 
         \ { 'do': 'mkdir -p $XDG_DATA_HOME/nvim/sessions' } 
@@ -57,11 +54,6 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
   Plug 'neomake/neomake'                 " asynchronous :make (provides linting)
   Plug 'tpope/vim-sleuth'                " heuristically set buffer options
   Plug 'SirVer/ultisnips'                " ultimate snippet solution
-  " Plug 'honza/vim-snippets'              " vim-snipmate default snippets
-" }}}
-
-" Text objects {{{
-  " Plug 'matchit.zip'                   " configure % to match more than just single characters
 " }}}
 
 " Language specific {{{
