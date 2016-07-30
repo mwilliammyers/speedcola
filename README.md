@@ -22,7 +22,7 @@ For some automation fun, checkout: [mwilliammyers/ansible-neovim]
 
 - Linux or OS X
 - [neovim] 0.1.3+
-- [vim-plug]
+- [vim-plug] ([`plugin.vim`](plugin.vim) automatically installs this if it isn't already)
 - Set: `$XDG_CONFIG_HOME`, `$XDG_DATA_HOME` & `$XDG_CACHE_HOME`. (see: [XDG])
 - Plugins (optional):
   - [Fugitive] requires Git
@@ -33,8 +33,6 @@ For some automation fun, checkout: [mwilliammyers/ansible-neovim]
 
 #### User config files:
   - All `local/*.vim` files will be sourced automatically & are ignored by Git.
-  - All `*.vim.local` files will be sourced automatically. You can, for
-    example, add these files to `after/`.
 
 For example, place this in `local/neocomplete.vim`:
 
