@@ -13,9 +13,6 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
 " }}}
 
 " Navigation {{{
-  Plug 'junegunn/fzf', 
-        \ { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --all' } 
-        \ | Plug 'junegunn/fzf.vim'   " command-line fuzzy finder
   Plug 'scrooloose/nerdtree' 
         \ | Plug 'jistr/vim-nerdtree-tabs', 
         \ { 'on':  'NERDTreeToggle' } " tree explorer
