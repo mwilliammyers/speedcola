@@ -13,14 +13,15 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
 " }}}
 
 " Navigation {{{
-  Plug 'scrooloose/nerdtree',
-    \ { 'on':  'NERDTreeToggle' }     " a tree explorer plugin for vim
-  Plug 'bogado/file-line'             " enable opening a file in a given line TODO: does nvim do this by default with the +option?
+  Plug 'scrooloose/nerdtree'                 " a tree explorer plugin for vim
+    \ | Plug 'Xuyuanp/nerdtree-git-plugin',  " a plugin of NERDTree showing git status
+    \ { 'on':  'NERDTreeToggle' }     
+  Plug 'bogado/file-line'                    " enable opening a file in a given line TODO: does nvim do this by default with the +option?
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
-  Plug 'airblade/vim-rooter'          " changes Vim working directory to project root
+  Plug 'airblade/vim-rooter'                 " changes Vim working directory to project root
   Plug 'junegunn/fzf', 
         \ { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --bin' } 
-        \ | Plug 'junegunn/fzf.vim'   " command-line fuzzy finder
+        \ | Plug 'junegunn/fzf.vim'          " command-line fuzzy finder
 " }}}
 
 " UI Additions {{{
