@@ -46,7 +46,7 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
   Plug 'junegunn/vim-easy-align'  " simple, easy-to-use alignment
   Plug 'mbbill/undotree'          " the ultimate undo history visualizer
   Plug 'xolox/vim-misc' | Plug 'xolox/vim-session', 
-        \ { 'do': 'mkdir -p $XDG_DATA_HOME/nvim/sessions' } 
+    \ { 'do': 'mkdir -p $XDG_DATA_HOME/nvim/sessions' } 
   " }}}
 
 " Automatic Helpers {{{
