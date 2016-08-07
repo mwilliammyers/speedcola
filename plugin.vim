@@ -20,8 +20,8 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
   Plug 'tpope/vim-repeat'| Plug 'easymotion/vim-easymotion'
   Plug 'airblade/vim-rooter'                 " changes Vim working directory to project root
   Plug 'junegunn/fzf', 
-        \ { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --bin' } 
-        \ | Plug 'junegunn/fzf.vim'          " command-line fuzzy finder
+    \ { 'dir': $XDG_DATA_HOME . '/fzf', 'do': './install --bin' } 
+    \ | Plug 'junegunn/fzf.vim'          " command-line fuzzy finder
 " }}}
 
 " UI Additions {{{
@@ -31,7 +31,7 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
 
   Plug 'luochen1990/rainbow'                      " rainbow parentheses improved
   Plug 'vim-airline/vim-airline' 
-        \ | Plug 'vim-airline/vim-airline-themes' " lean & mean status/tabline
+    \ | Plug 'vim-airline/vim-airline-themes' " lean & mean status/tabline
   Plug 'kshenoy/vim-signature'                    " toggle, display and navigate marks
   Plug 'mhinz/vim-signify'                        " show a diff via Vim sign column
   Plug 'jszakmeister/vim-togglecursor'            " toggle the cursor shape in the terminal
@@ -55,56 +55,51 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
     UpdateRemotePlugins
   endfunction
   Plug 'Shougo/deoplete.nvim', 
-        \ { 'do': function('DoRemote') } " dark powered asynchronous completion framework
-  Plug 'Shougo/context_filetype.vim'     " deoplete plugin
-  Plug 'neomake/neomake'                 " asynchronous :make (provides linting)
-  Plug 'tpope/vim-sleuth'                " heuristically set buffer options
-  Plug 'SirVer/ultisnips'                " ultimate snippet solution
+    \ { 'do': function('DoRemote') }  " dark powered asynchronous completion framework
+  Plug 'Shougo/context_filetype.vim'  " deoplete plugin
+  Plug 'neomake/neomake'              " asynchronous :make (provides linting)
+  Plug 'tpope/vim-sleuth'             " heuristically set buffer options
+  Plug 'SirVer/ultisnips'             " ultimate snippet solution
 " }}}
 
 " Language specific {{{
   " C/C++ {{{
     Plug 'Shougo/neoinclude.vim', 
-          \ { 'for': ['cpp', 'c'] }   " deoplete plugin - completes from canidates in included path
+      \ { 'for': ['cpp', 'c'] }   " deoplete plugin - completes from canidates in included path
   " }}}
 
   " Swift {{{
-    Plug 'keith/swift.vim',           { 'for': ['swift'] }
-    Plug 'landaire/deoplete-swift',   { 'for': ['swift'] }
+    Plug 'keith/swift.vim',         { 'for': ['swift'] }
+    Plug 'landaire/deoplete-swift', { 'for': ['swift'] }
   " }}}
 
   " Clojure {{{
-    Plug 'guns/vim-clojure-static',                    { 'for': ['clojure'] }
-    Plug 'tpope/vim-fireplace',                        { 'for': ['clojure'] }
-    Plug 'guns/vim-sexp',                              { 'for': ['clojure'] }
-    Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['clojure'] }
+    Plug 'guns/vim-clojure-static', { 'for': ['clojure'] }
+    Plug 'tpope/vim-fireplace',     { 'for': ['clojure'] }
+    Plug 'guns/vim-sexp',           { 'for': ['clojure'] }
   " }}}
 
   " Go {{{
     Plug 'fatih/vim-go', { 'for': ['go'] }
   " }}}
 
-  " Docker {{{
-    " Plug 'honza/dockerfile.vim'       
-  " }}}
-
   " JavaScript {{{
-    Plug 'pangloss/vim-javascript',   { 'for': ['javascript']        }
-    Plug 'mxw/vim-jsx',               { 'for': ['javascript']        }
-    Plug 'maksimr/vim-jsbeautify',    { 'for': ['javascript']        }
-    Plug 'kchmck/vim-coffee-script',  { 'for': ['coffee']            }
-    Plug 'elzr/vim-json',             { 'for': ['javascript','json'] }
+    Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
+    Plug 'mxw/vim-jsx',             { 'for': ['javascript'] }
+    Plug 'elzr/vim-json',           { 'for': ['javascript','json'] }
+    Plug 'neomake/neomake' | Plug 'benjie/neomake-local-eslint.vim', 
+      \ { 'on': 'Neomake', 'for': ['javascript'] }
   " }}}
 
   " CSS / HTML {{{
-    Plug 'mattn/emmet-vim',           { 'for': ['html','css']        }
-    Plug 'tpope/vim-haml',            { 'for': ['haml']              }
-    Plug 'nono/vim-handlebars',       { 'for': ['handlebars']        }
-    Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss','sass']       }
+    Plug 'mattn/emmet-vim',           { 'for': ['html','css'] }
+    Plug 'tpope/vim-haml',            { 'for': ['haml'] }
+    Plug 'nono/vim-handlebars',       { 'for': ['handlebars'] }
+    Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss','sass'] }
     Plug 'hail2u/vim-css3-syntax',    { 'for': ['css','scss','sass'] }
-    Plug 'othree/html5.vim',          { 'for': ['html']              }
-    Plug 'juvenn/mustache.vim',       { 'for': ['mustache']          }
-    Plug 'gregsexton/MatchTag',       { 'for': ['html','xml']        }
+    Plug 'othree/html5.vim',          { 'for': ['html'] }
+    Plug 'juvenn/mustache.vim',       { 'for': ['mustache'] }
+    Plug 'gregsexton/MatchTag',       { 'for': ['html','xml'] }
   " }}}
 
   " YAML {{{
@@ -117,7 +112,6 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
     Plug 'tpope/vim-rake',              { 'for': ['ruby', 'rake'] }
     Plug 'tpope/vim-bundler',           { 'for': ['ruby', 'rake'] }
     Plug 'ecomba/vim-ruby-refactoring', { 'for': ['ruby', 'rake'] }
-    Plug 'tpope/vim-cucumber',          { 'for': ['cucumber']     }
   " }}}
 
   " Scala {{{
