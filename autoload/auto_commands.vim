@@ -32,11 +32,17 @@ if has("autocmd")
     autocmd FileType python
           \ setlocal ai si et sta sw=4
           \ textwidth=80 backspace=indent,eol,start fo=croql
+    
 
     " recognize newer web languages
     autocmd! BufRead,BufNewFile *.sass setfiletype sass
     autocmd! BufRead,BufNewFile *.coffee setfiletype coffee
     autocmd! BufRead,BufNewFile *.jade setfiletype jade
+
+    " javascript
+    autocmd! BufRead,BufNewFile *.jsx setfiletype javascript
+    autocmd! FileType javascript
+          \ setlocal ai si et sta sw=2
 
     " makefile
     autocmd FileType make setlocal noexpandtab list
