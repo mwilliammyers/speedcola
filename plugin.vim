@@ -87,7 +87,7 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
     Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
     Plug 'mxw/vim-jsx',             { 'for': ['javascript'] }
     Plug 'elzr/vim-json',           { 'for': ['javascript','json'] }
-    Plug 'neomake/neomake' | Plug 'jaawerth/neomake-local-eslint-first',
+    Plug 'neomake/neomake' | Plug 'benjie/neomake-local-eslint.vim', 
       \ { 'for': ['javascript'] }
   " }}}
 
