@@ -17,9 +17,9 @@ set autowriteall          " Writes on make/shell commands
 set history=1000          " Store a ton of history (default is 20)
 " set spell                 " Spell checking on
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-" set foldmethod=syntax
-" set foldenable            " Auto fold code
-" set foldlevel=9
+set foldmethod=syntax
+ set foldenable            " Auto fold code
+set foldlevel=9
 set formatoptions=crql
 set iskeyword+=$,@,-      " Add extra characters that are valid parts of variables
 set tags=./tags;/,tags;/
@@ -62,13 +62,13 @@ set wildmenu                    " Show list instead of just completing
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set wildignore+=.final_builds/*,*/tmp/*,*/node_modules/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git,.sass-cache,*.class,*.scssc,*/Godeps/*
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
-  set grepformat=%f:%l:%c:%m
-elseif executable('ack')
-  set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
-  set grepformat=%f:%l:%c:%m
-endif
+" if executable('ag')
+  " set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
+  " set grepformat=%f:%l:%c:%m
+" elseif executable('ack')
+  " set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
+  " set grepformat=%f:%l:%c:%m
+" endif
 " }}}
 
 " Visual {{{ 

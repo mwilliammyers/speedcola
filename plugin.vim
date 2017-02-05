@@ -55,7 +55,7 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
 	Plug 'tpope/vim-sleuth'               " heuristically set buffer options
   Plug 'SirVer/ultisnips'               " ultimate snippet solution
   Plug 'honza/vim-snippets'             " default snippets 
-  Plug 'ervandew/supertab'              " perform all your vim insert mode completions with Tab
+  " Plug 'ervandew/supertab'              " perform all your vim insert mode completions with Tab
 " }}}
 
 " Language specific {{{
@@ -80,6 +80,10 @@ call plug#begin($XDG_DATA_HOME . '/nvim/site/plugged')
   " }}}
 
   " JavaScript {{{
+    Plug 'neovim/node-host', { 'do': 'npm install',  'for': ['javascript', 'javascript.jsx'] }
+    Plug 'billyvg/tigris.nvim', { 'do': './install.sh', 'for': ['javascript', 'javascript.jsx'] }
+    " Plug 'neovim/node-host', { 'do': 'npm install' }
+    " Plug 'billyvg/tigris.nvim', { 'do': './install.sh' }
     " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
     " Plug 'mxw/vim-jsx',             { 'for': ['javascript', 'javascript.jsx'] }
     " Plug 'elzr/vim-json',           { 'for': ['javascript', 'javascript.jsx', 'json'] }

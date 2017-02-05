@@ -142,29 +142,25 @@ map <leader>C :let @* = expand("%").":".line(".")<CR>:echo "Copied: ".expand("%"
 " create fold in SCSS
 nnoremap <leader>S ?{<CR>jV/^\s*\}$<CR>k:sort<CR>:noh<CR>
 vnoremap <leader>S :sort<CR>
-nnoremap <silent> <space> :noh<cr>
-nnoremap <leader>=  gg=G``
+" nnoremap <silent> <space> :noh<cr>
+" nnoremap <leader>=  gg=G``
 
-function! CRWriteIfNecessary()
-  if !&modified || &readonly || &filetype == "qf"
-    " Execute a normal enter when in Quickfix list.
-    execute "normal! \<enter>"
-  else
-    :write
-  endif
-endfunction
-function! MapCR()
-  nnoremap <silent> <enter> :call CRWriteIfNecessary()<CR>
-endfunction
-call MapCR()
+" function! CRWriteIfNecessary()
+  " if !&modified || &readonly || &filetype == "qf"
+    " " Execute a normal enter when in Quickfix list.
+    " execute "normal! \<enter>"
+  " else
+    " :write
+  " endif
+" endfunction
+" function! MapCR()
+  " nnoremap <silent> <enter> :call CRWriteIfNecessary()<CR>
+" endfunction
+" call MapCR()
 
-nnoremap <silent><leader><C-]> <C-w><C-]><C-w>T
-nnoremap <silent><leader>o o<esc>
-nnoremap <silent><leader>O O<esc>
-" }}}
-
-" Switch between test and production code {{{
-nnoremap <leader>. :A<cr>
+" nnoremap <silent><leader><C-]> <C-w><C-]><C-w>T
+" nnoremap <silent><leader>o o<esc>
+" nnoremap <silent><leader>O O<esc>
 " }}}
 
 " {{{ File Jumping
@@ -180,18 +176,8 @@ nmap <silent> <leader>ss :set spell!<CR>
 nmap <silent> <leader>sf :QuickSpellingFix<CR>
 " }}}
 
-" Test runner {{{
-" Run this file
-map <leader>t :call RunTestFile()<cr>
-" Run only the example under the cursor
-map <leader>T :call RunNearestTest()<cr>
-" }}}
-
 "insert carraiage return from normal mode
 nmap '<CR> :a<CR><CR>.<CR>
-
-" map <leader><space> :Vipe <CR>
-" map <leader>p :VipePop <CR>
 
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
