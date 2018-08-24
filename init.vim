@@ -15,6 +15,7 @@ if exists('*minpac#init')
 	call minpac#add('mbbill/undotree')
 	call minpac#add('sheerun/vim-polyglot')
 	call minpac#add('tpope/vim-commentary')
+	call minpac#add('vim-airline/vim-airline')
 	call minpac#add('w0rp/ale')
 endif
 
