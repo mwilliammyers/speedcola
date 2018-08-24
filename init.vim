@@ -3,14 +3,14 @@ if exists('*minpac#init')
 
 	call minpac#add('k-takata/minpac', {'type': 'opt'})
 
+	call minpac#add('airblade/vim-gitgutter')
 	call minpac#add('airblade/vim-rooter')
 	call minpac#add('dyng/ctrlsf.vim')
 	call minpac#add('editorconfig/editorconfig-vim')
 	call minpac#add('ervandew/supertab')
 	call minpac#add('jeffkreeftmeijer/vim-numbertoggle')
 	call minpac#add('joshdick/onedark.vim', {'type': 'opt'})
-	" call minpac#add('junegunn/fzf', { 'do': '!./install --all && ln -s $(pwd) ~/.fzf'})
-	call minpac#add('junegunn/fzf')
+	call minpac#add('junegunn/fzf')  " TODO: should we install it this way?
 	call minpac#add('junegunn/fzf.vim')
 	call minpac#add('mbbill/undotree')
 	call minpac#add('sheerun/vim-polyglot')
@@ -47,7 +47,7 @@ set colorcolumn=80
 set laststatus=2
 set listchars=tab:▸\ ,eol:\ ,trail:·
 set list
-
+set signcolumn=yes
 set backspace=indent,eol,start
 set autoindent
 set complete-=i
@@ -103,7 +103,6 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call fzf#vim#files($P
 
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
-let g:ale_sign_column_always = 1
 let g:ale_completion_enabled = 1
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_fixers = {
