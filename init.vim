@@ -124,3 +124,5 @@ let g:ale_linters = {
 \}
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
+
+let g:javascript_plugin_jsdoc = 1
