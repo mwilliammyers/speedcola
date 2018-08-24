@@ -102,8 +102,14 @@ nnoremap <silent> <C-p> :exe 'Files ' . FindRootDirectory()<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call fzf#vim#files($PWD) | endif
 
+nmap <leader>af <Plug>(ale_fix)
+nmap <leader>ap <Plug>(ale_previous_wrap)
+nmap <leader>an <Plug>(ale_next_wrap)
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
+let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_fixers = {
