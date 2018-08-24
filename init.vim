@@ -60,6 +60,7 @@ set tabstop=2
 " set expandtab
 autocmd FileType make setlocal noexpandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
+autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
 
 " let g:loaded_matchit = 1
 
@@ -73,6 +74,8 @@ set wildmenu
 " set wildignore+=.final_builds/*,*/tmp/*,*/node_modules/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git,.sass-cache,*.class,*.scssc,*/Godeps/*
 
 let g:mapleader=','
+
+tnoremap <Esc> <C-\><C-n>
 
 command! -bang -nargs=? -complete=file E e<bang> <args>
 command! -bang -nargs=? -complete=file W w<bang> <args>
@@ -126,3 +129,4 @@ let g:ale_linters = {
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 let g:javascript_plugin_jsdoc = 1
+
