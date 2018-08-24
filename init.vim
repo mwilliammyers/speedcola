@@ -101,6 +101,8 @@ nnoremap <silent> <C-p> :exe 'Files ' . FindRootDirectory()<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call fzf#vim#files($PWD) | endif
 
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
 let g:ale_sign_column_always = 1
 let g:ale_completion_enabled = 1
 let g:ale_javascript_prettier_use_local_config = 1
