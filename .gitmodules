@@ -1,0 +1,42 @@
+[submodule "pack/default/start/vim-airline"]
+	path = pack/default/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+[submodule "pack/default/start/vim-gitgutter"]
+	path = pack/default/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "pack/default/start/vim-rooter"]
+	path = pack/default/start/vim-rooter
+	url = https://github.com/airblade/vim-rooter.git
+[submodule "pack/default/start/ctrlsf.vim"]
+	path = pack/default/start/ctrlsf.vim
+	url = https://github.com/dyng/ctrlsf.vim.git
+[submodule "pack/default/start/editorconfig-vim"]
+	path = pack/default/start/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim.git
+[submodule "pack/default/start/supertab"]
+	path = pack/default/start/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule "pack/default/start/vim-numbertoggle"]
+	path = pack/default/start/vim-numbertoggle
+	url = https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
+[submodule "pack/default/opt/onedark.vim"]
+	path = pack/default/opt/onedark.vim
+	url = https://github.com/joshdick/onedark.vim.git
+[submodule "pack/default/start/fzf"]
+	path = pack/default/start/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "pack/default/start/fzf.vim"]
+	path = pack/default/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
+[submodule "pack/default/start/undotree"]
+	path = pack/default/start/undotree
+	url = https://github.com/mbbill/undotree.git
+[submodule "pack/default/start/vim-polyglot"]
+	path = pack/default/start/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
+[submodule "pack/default/start/vim-commentary"]
+	path = pack/default/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "pack/default/start/ale"]
+	path = pack/default/start/ale
+	url = https://github.com/w0rp/ale.git

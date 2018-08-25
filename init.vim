@@ -1,28 +1,3 @@
-if exists('*minpac#init')
-	call minpac#init()
-
-	call minpac#add('k-takata/minpac', {'type': 'opt'})
-
-	call minpac#add('airblade/vim-gitgutter')
-	call minpac#add('airblade/vim-rooter')
-	call minpac#add('dyng/ctrlsf.vim')
-	call minpac#add('editorconfig/editorconfig-vim')
-	call minpac#add('ervandew/supertab')
-	call minpac#add('jeffkreeftmeijer/vim-numbertoggle')
-	call minpac#add('joshdick/onedark.vim', {'type': 'opt'})
-	call minpac#add('junegunn/fzf')  " TODO: should we install it this way?
-	call minpac#add('junegunn/fzf.vim')
-	call minpac#add('mbbill/undotree')
-	call minpac#add('sheerun/vim-polyglot')
-	call minpac#add('tpope/vim-commentary')
-	call minpac#add('vim-airline/vim-airline')
-	call minpac#add('w0rp/ale')
-endif
-
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
-command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
-
-
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
@@ -40,7 +15,7 @@ set termguicolors
 colorscheme onedark
 
 syntax on
-set ruler
+set rulerla
 set number relativenumber
 set splitright
 set splitbelow
