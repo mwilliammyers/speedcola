@@ -62,8 +62,6 @@ autocmd FileType make setlocal noexpandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
 
-" let g:loaded_matchit = 1
-
 set hlsearch
 set incsearch
 set ignorecase
@@ -92,6 +90,7 @@ command! -bang Qa qa<bang>
 command! -bang XA xa<bang>
 command! -bang Xa xa<bang>
 
+
 nmap <C-F>f <Plug>CtrlSFPrompt
 vmap <C-F>f <Plug>CtrlSFVwordPath
 vmap <C-F>F <Plug>CtrlSFVwordExec
@@ -102,8 +101,11 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 nnoremap <silent> <C-p> :exe 'Files ' . FindRootDirectory()<CR>
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call fzf#vim#files($PWD) | endif
+augroup FzfOnEnter
+	autocmd!
+	autocmd StdinReadPre * let s:std_in=1
+	 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call fzf#vim#files($PWD) | endif
+augroup END
 
 nmap <leader>af <Plug>(ale_fix)
 nmap <leader>ap <Plug>(ale_previous_wrap)
