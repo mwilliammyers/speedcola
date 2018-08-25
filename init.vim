@@ -15,7 +15,7 @@ set termguicolors
 colorscheme onedark
 
 syntax on
-set rulerla
+set ruler
 set number relativenumber
 set splitright
 set splitbelow
