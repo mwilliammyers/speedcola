@@ -7,9 +7,6 @@
 [submodule "pack/default/start/vim-rooter"]
 	path = pack/default/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter.git
-[submodule "pack/default/start/ctrlsf.vim"]
-	path = pack/default/start/ctrlsf.vim
-	url = https://github.com/dyng/ctrlsf.vim.git
 [submodule "pack/default/start/editorconfig-vim"]
 	path = pack/default/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
