@@ -80,7 +80,6 @@ let g:gutentags_file_list_command = {
 \ }
 
 " fzf
-nnoremap <silent> <C-p> :exe 'Files ' . FindRootDirectory()<CR>
 augroup FzfOnEnter
 	autocmd!
 	autocmd StdinReadPre * let s:std_in=1
@@ -94,6 +93,18 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
+inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+  \ 'prefix': '^.*$',
+  \ 'source': 'rg -n ^ --color always',
+  \ 'options': '--ansi --delimiter : --nth 3..',
+  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+
+" nnoremap <silent> <C-p> :exe 'Files ' . FindRootDirectory()<CR>
+nmap <C-p> :Files<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>r :Tags<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>f :Rg<CR>
 
 " ale
 nmap <leader>af <Plug>(ale_fix)
