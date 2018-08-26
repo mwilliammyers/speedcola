@@ -43,3 +43,6 @@
 [submodule "pack/default/start/vim-easymotion"]
 	path = pack/default/start/vim-easymotion
 	url = https://github.com/easymotion/vim-easymotion.git
+[submodule "pack/default/start/vim-fugitive"]
+	path = pack/default/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
