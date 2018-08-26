@@ -48,7 +48,9 @@ set wildignore+=.final_builds/*,*/tmp/*,*/node_modules/*,*.o,*.obj,*.exe,*.so,*.
 
 let g:mapleader=','
 
-tnoremap <Esc> <C-\><C-n>
+if has('nvim')
+	tnoremap <Esc> <C-\><C-n>
+endif
 
 command! -bang -nargs=? -complete=file E e<bang> <args>
 command! -bang -nargs=? -complete=file W w<bang> <args>
