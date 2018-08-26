@@ -37,6 +37,8 @@ autocmd FileType make setlocal noexpandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
 
+autocmd FileType vim setlocal commentstring=\"\ %s
+
 set hlsearch
 set incsearch
 set ignorecase
