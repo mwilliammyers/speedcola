@@ -83,21 +83,21 @@ let g:javascript_plugin_jsdoc = 1
 augroup FzfOnEnter
 	autocmd!
 	autocmd StdinReadPre * let s:std_in=1
-	 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call fzf#vim#files($PWD) | endif
+	autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call fzf#vim#files($PWD) | endif
 augroup END
 
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+	\ call fzf#vim#grep(
+	\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+	\   <bang>0 ? fzf#vim#with_preview('up:60%')
+	\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+	\   <bang>0)
 
 inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-  \ 'prefix': '^.*$',
-  \ 'source': 'rg -n ^ --color always',
-  \ 'options': '--ansi --delimiter : --nth 3..',
-  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+	\ 'prefix': '^.*$',
+	\ 'source': 'rg -n ^ --color always',
+	\ 'options': '--ansi --delimiter : --nth 3..',
+	\ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <Leader>t :Files<CR>
@@ -158,15 +158,15 @@ let g:ale_completion_enabled = 1
 let g:ale_javascript_prettier_use_local_config = 1
 
 let g:ale_fixers = {
-\	'*': ['remove_trailing_lines', 'trim_whitespace'],
-\	'python': ['pyls', 'yapf', 'isort'],
-\	'javascript': ['eslint', 'prettier'],
+	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+	\ 'python': ['pyls', 'yapf', 'isort'],
+	\ 'javascript': ['eslint', 'prettier'],
 \}
 
 " TODO: according to docs all enabled linters are used but this isn't working
 let g:ale_linters = {
-\	'python': ['pyls', 'vulture', 'mypy'],
-\	'javascript': ['eslint', 'prettier'],
+	\ 'python': ['pyls', 'vulture', 'mypy'],
+	\ 'javascript': ['eslint', 'prettier'],
 \}
 
 " gutentags
