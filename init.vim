@@ -96,13 +96,50 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
   \ 'options': '--ansi --delimiter : --nth 3..',
   \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
-" nnoremap <silent> <C-p> :exe 'Files ' . FindRootDirectory()<CR>
-nmap <C-p> :Files<CR>
-nmap <Leader>t :Files<CR>
-nmap <Leader>r :Tags<CR>
-nmap <Leader>e :BTags<CR>
-nmap <Leader>b :Buffers<CR>
-nmap <Leader>f :Rg<CR>
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <Leader>t :Files<CR>
+nnoremap <silent> <Leader>g :GFiles<CR>
+nnoremap <silent> <Leader>gs :GFiles?<CR>
+nnoremap <silent> <Leader><Enter> :Buffers<CR>
+nnoremap <silent> <Leader>b :Buffers<CR>
+" nnoremap <silent> <Leader> :Colors<CR>
+nnoremap <silent> <Leader>l :Lines<CR>
+nnoremap <silent> <Leader>ll :BLines<CR>
+nnoremap <silent> <Leader>r :Tags<CR>
+nnoremap <silent> <Leader>rr :BTags<CR>
+nnoremap <silent> <Leader>` :Marks<CR>
+nnoremap <silent> <Leader>w :Windows<CR>
+nnoremap <silent> <Leader>o :Locate<CR>
+nnoremap <silent> <Leader>q :History<CR>
+nnoremap <silent> <Leader>q: :History:<CR>
+nnoremap <silent> <Leader>q/ :History/<CR>
+nnoremap <silent> <Leader>s :Snippets<CR>
+nnoremap <silent> <Leader>c :Commits<CR>
+nnoremap <silent> <Leader>cc :BCommits<CR>
+nnoremap <silent> <Leader>: :Commands<CR>
+nnoremap <silent> <Leader>m :Maps<CR>
+nnoremap <silent> <Leader>h :Helptags<CR>
+nnoremap <silent> <Leader>tp :Filetypes<CR>
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+let g:fzf_colors = {
+	\ 'fg':      ['fg', 'Normal'],
+	\ 'bg':      ['bg', 'Normal'],
+	\ 'hl':      ['fg', 'Comment'],
+	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+	\ 'hl+':     ['fg', 'Statement'],
+	\ 'info':    ['fg', 'PreProc'],
+	\ 'border':  ['fg', 'Ignore'],
+	\ 'prompt':  ['fg', 'Conditional'],
+	\ 'pointer': ['fg', 'Exception'],
+	\ 'marker':  ['fg', 'Keyword'],
+	\ 'spinner': ['fg', 'Label'],
+	\ 'header':  ['fg', 'Comment'] 
+\}
 
 " ale
 nmap <leader>af <Plug>(ale_fix)
