@@ -42,9 +42,9 @@ set incsearch
 set ignorecase
 set smartcase
 set wildmenu
-" set wildmode=list:longest,full
-" set whichwrap=b,s,h,l,<,>,[,]
-" set wildignore+=.final_builds/*,*/tmp/*,*/node_modules/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git,.sass-cache,*.class,*.scssc,*/Godeps/*
+set wildmode=list:longest,full
+set whichwrap=b,s,h,l,<,>,[,]
+set wildignore+=.final_builds/*,*/tmp/*,*/node_modules/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git,.sass-cache,*.class,*.scssc,*/Godeps/*
 
 let g:mapleader=','
 
@@ -66,18 +66,11 @@ command! -bang XA xa<bang>
 command! -bang Xa xa<bang>
 
 
-" plugin settings
+" package settings
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 let g:javascript_plugin_jsdoc = 1
-
-let g:gutentags_file_list_command = {
-	\ 'markers': {
-	\ '.git': 'git ls-files',
-	\ '.hg': 'hg files',
-	\ },
-\ }
 
 " fzf
 augroup FzfOnEnter
@@ -103,6 +96,7 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
 nmap <C-p> :Files<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
+nmap <Leader>e :BTags<CR>
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>f :Rg<CR>
 
@@ -130,3 +124,16 @@ let g:ale_linters = {
 \	'python': ['pyls', 'vulture', 'mypy'],
 \	'javascript': ['eslint', 'prettier'],
 \}
+
+" gutentags
+let g:gutentags_file_list_command = {
+	\ 'markers': {
+	\ '.git': 'git ls-files',
+	\ '.hg': 'hg files',
+	\ },
+\ }
+
+let g:gutentags_ctags_exclude = [
+	\ 'package.json',
+	\ 'package-lock.json',
+\]
