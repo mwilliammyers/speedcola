@@ -49,7 +49,9 @@ set smartcase
 set wildmenu
 set wildmode=list:longest,full
 set whichwrap=b,s,h,l,<,>,[,]
-set wildignore+=.final_builds/*,*/tmp/*,*/node_modules/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git,.sass-cache,*.class,*.scssc,*/Godeps/*
+set wildignore+=.svn,.hg,.bzr,.git
+set wildignore+=*/tmp/*,*/node_modules/*,.sass-cache,*.class,*.scssc,*/Godeps/*
+set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc
 
 let g:mapleader=','
 
@@ -73,13 +75,17 @@ command! -bang XA xa<bang>
 command! -bang Xa xa<bang>
 
 
+"
 " package settings
+"
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 let g:javascript_plugin_jsdoc = 1
 
+"
 " fzf
+"
 augroup FzfOnEnter
 	autocmd!
 	autocmd StdinReadPre * let s:std_in=1
@@ -144,7 +150,9 @@ let g:fzf_colors = {
 	\ 'header':  ['fg', 'Comment'] 
 \}
 
+"
 " ale
+"
 nmap <leader>af <Plug>(ale_fix)
 nmap <leader>ap <Plug>(ale_previous_wrap)
 nmap <leader>an <Plug>(ale_next_wrap)
@@ -169,7 +177,9 @@ let g:ale_linters = {
 	\ 'javascript': ['eslint', 'prettier'],
 \}
 
+"
 " gutentags
+"
 let g:gutentags_file_list_command = {
 	\ 'markers': {
 	\ '.git': 'git ls-files',
