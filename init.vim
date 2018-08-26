@@ -107,3 +107,9 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 
 let g:javascript_plugin_jsdoc = 1
 
+let g:gutentags_file_list_command = {
+	\ 'markers': {
+	\ '.git': 'git ls-files',
+	\ '.hg': 'hg files',
+	\ },
+\ }
