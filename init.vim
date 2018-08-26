@@ -86,11 +86,12 @@ let g:javascript_plugin_jsdoc = 1
 "
 " fzf
 "
-augroup FzfOnEnter
-	autocmd!
-	autocmd StdinReadPre * let s:std_in=1
-	autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call fzf#vim#files($PWD) | endif
-augroup END
+autocmd StdinReadPre * let s:reading_stdin=1
+autocmd VimEnter * nested
+	\  if argc() == 0 && !exists("s:reading_stdin")
+	\|	call fzf#vim#files(getcwd()) 
+	\|	stopinsert
+	\| endif
 
 command! -bang -nargs=* Rg
 	\ call fzf#vim#grep(
