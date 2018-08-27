@@ -79,7 +79,7 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
 	\ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 nnoremap <silent> <Leader>f :Rg<CR>
-nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-t> :Files<CR>
 nnoremap <silent> <Leader>t :Files<CR>
 nnoremap <silent> <Leader>g :GFiles<CR>
 nnoremap <silent> <Leader>gs :GFiles?<CR>
