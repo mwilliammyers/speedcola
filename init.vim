@@ -1,38 +1,17 @@
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8
-" set bomb
-" set binary
-
-set autoread
-set nobackup
-set noswapfile
-" set undodir=~/.local/share/nvim/undo/
-set undofile
-
 packadd onedark.vim
 set termguicolors
 colorscheme onedark
 
-syntax on
-set ruler
 set number relativenumber
 set splitright
 set splitbelow
 set colorcolumn=80
-set laststatus=2
-set listchars=tab:▸\ ,eol:\ ,trail:·
-set list
 set signcolumn=yes
-set backspace=indent,eol,start
-set autoindent
-set complete-=i
-set smarttab
 
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
-" set expandtab
+
 autocmd FileType make setlocal noexpandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
@@ -42,11 +21,7 @@ command! -range=% -nargs=0 Space2Tab execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)
 
 autocmd FileType vim setlocal commentstring=\"\ %s
 
-set hlsearch
-set incsearch
-set ignorecase
 set smartcase
-set wildmenu
 set wildmode=list:longest,full
 set whichwrap=b,s,h,l,<,>,[,]
 set wildignore+=.svn,.hg,.bzr,.git
