@@ -30,9 +30,7 @@ set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc
 
 let g:mapleader=','
 
-if has('nvim')
-	tnoremap <Esc> <C-\><C-n>
-endif
+tnoremap <Esc> <C-\><C-n>
 
 command! -bang -nargs=? -complete=file E e<bang> <args>
 command! -bang -nargs=? -complete=file W w<bang> <args>
@@ -65,7 +63,6 @@ autocmd StdinReadPre * let s:reading_stdin=1
 autocmd VimEnter * nested
 	\  if argc() == 0 && !exists("s:reading_stdin")
 	\|	call fzf#vim#files(getcwd()) 
-	\|	stopinsert
 	\| endif
 
 command! -bang -nargs=* Rg
