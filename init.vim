@@ -5,7 +5,7 @@ colorscheme onedark
 set number relativenumber
 set splitright
 set splitbelow
-set colorcolumn=80
+set colorcolumn=80,120
 set signcolumn=yes
 
 set shiftwidth=2
