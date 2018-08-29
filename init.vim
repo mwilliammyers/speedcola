@@ -7,6 +7,7 @@ set splitright
 set splitbelow
 set colorcolumn=80,120
 set signcolumn=yes
+set nowrap
 
 set shiftwidth=2
 set softtabstop=2
