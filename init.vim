@@ -143,12 +143,14 @@ let g:ale_fixers = {
 	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
 	\ 'python': ['pyls', 'yapf', 'isort'],
 	\ 'javascript': ['eslint', 'prettier'],
+	\ 'graphql': ['eslint', 'prettier'],
 \}
 
 " TODO: according to docs all enabled linters are used but this isn't working
 let g:ale_linters = {
 	\ 'python': ['pyls', 'vulture', 'mypy'],
 	\ 'javascript': ['eslint', 'prettier'],
+	\ 'graphql': [],
 \}
 
 "
