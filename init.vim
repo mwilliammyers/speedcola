@@ -82,8 +82,8 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
 nnoremap <silent> <Leader>f :Rg<CR>
 nnoremap <silent> <C-t> :Files<CR>
 nnoremap <silent> <Leader>t :Files<CR>
-nnoremap <silent> <Leader>g :GFiles<CR>
-nnoremap <silent> <Leader>gs :GFiles?<CR>
+nnoremap <silent> <Leader>gf :GFiles<CR>
+nnoremap <silent> <Leader>gf? :GFiles?<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 " nnoremap <silent> <Leader> :Colors<CR>
@@ -124,6 +124,21 @@ let g:fzf_colors = {
 	\ 'spinner': ['fg', 'Label'],
 	\ 'header':  ['fg', 'Comment'] 
 \}
+
+
+"
+" fugitive
+"
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+nnoremap <silent> <leader>gr :Gread<CR>
+nnoremap <silent> <leader>gw :Gwrite<CR>
+nnoremap <silent> <leader>ge :Gedit<CR>
+nnoremap <silent> <leader>gi :Git add -p %<CR>
 
 "
 " ale
