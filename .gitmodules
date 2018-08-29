@@ -25,9 +25,6 @@
 [submodule "pack/default/start/fzf.vim"]
 	path = pack/default/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
-[submodule "pack/default/start/undotree"]
-	path = pack/default/start/undotree
-	url = https://github.com/mbbill/undotree.git
 [submodule "pack/default/start/vim-polyglot"]
 	path = pack/default/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git
