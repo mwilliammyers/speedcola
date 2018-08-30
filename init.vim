@@ -155,21 +155,6 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 nnoremap <silent> <leader>gi :Git add -p %<CR>
 
 "
-" gutentags
-"
-let g:gutentags_file_list_command = {
-	\ 'markers': {
-	\ '.git': 'git ls-files',
-	\ '.hg': 'hg files',
-	\ },
-\ }
-
-let g:gutentags_ctags_exclude = [
-	\ 'package.json',
-	\ 'package-lock.json',
-\]
-
-"
 " LanguageClient
 "
 let g:LanguageClient_serverCommands = {

@@ -42,10 +42,6 @@
 	path = pack/default/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
 	shallow = true
-[submodule "pack/default/start/vim-gutentags"]
-	path = pack/default/start/vim-gutentags
-	url = https://github.com/ludovicchabant/vim-gutentags.git
-	shallow = true
 [submodule "pack/default/start/vim-easymotion"]
 	path = pack/default/start/vim-easymotion
 	url = https://github.com/easymotion/vim-easymotion.git
