@@ -2,6 +2,8 @@ packadd onedark.vim
 set termguicolors
 colorscheme onedark
 
+set mouse=a
+
 set number relativenumber
 set splitright
 set splitbelow
