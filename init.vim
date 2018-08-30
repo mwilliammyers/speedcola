@@ -40,7 +40,7 @@ set wildignore+=.svn,.hg,.bzr,.git
 set wildignore+=*/tmp/*,*/node_modules/*,.sass-cache,*.class,*.scssc,*/Godeps/*
 set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc
 
-let g:mapleader=','
+let g:mapleader=","
 
 tnoremap <Esc> <C-\><C-n>
 
