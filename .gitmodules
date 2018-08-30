@@ -66,3 +66,7 @@
 	path = pack/default/start/LanguageClient-neovim
 	url = https://github.com/autozimu/LanguageClient-neovim.git
 	shallow = true
+[submodule "pack/default/start/vim-abolish"]
+	path = pack/default/start/vim-abolish
+	url = https://github.com/tpope/vim-abolish.git
+	shallow = true
