@@ -169,6 +169,7 @@ let g:ale_fixers = {
 	\ 'python': ['pyls', 'yapf', 'isort'],
 	\ 'javascript': ['eslint', 'prettier'],
 	\ 'graphql': ['eslint', 'prettier'],
+	\ 'json': ['prettier'],
 \}
 
 " TODO: according to docs all enabled linters are used but this isn't working
