@@ -139,7 +139,6 @@ let g:fzf_colors = {
 	\ 'header':  ['fg', 'Comment'] 
 \}
 
-
 "
 " fugitive
 "
@@ -153,6 +152,34 @@ nnoremap <silent> <leader>gr :Gread<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>ge :Gedit<CR>
 nnoremap <silent> <leader>gi :Git add -p %<CR>
+
+"
+" ale
+"
+nnoremap <leader>af <Plug>(ale_fix)
+" nnoremap <leader>ap <Plug>(ale_previous_wrap)
+" nnoremap <leader>an <Plug>(ale_next_wrap)
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:airline#extensions#ale#enabled = 1
+" let g:ale_completion_enabled = 1
+let g:ale_javascript_prettier_use_local_config = 1
+
+let g:ale_fixers = {
+	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+	\ 'javascript': ['eslint', 'prettier'],
+	\ 'graphql': ['eslint', 'prettier'],
+	\ 'json': ['prettier'],
+\}
+
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+	\ 'javascript': ['eslint', 'prettier'],
+	\ 'graphql': [],
+\}
 
 "
 " LanguageClient
@@ -198,8 +225,8 @@ nnoremap <silent> <Leader>assh :call LanguageClient#textDocument_documentHighlig
 
 nnoremap <silent> <Leader>ad :call LanguageClient#textDocument_references()<CR>
 
-nnoremap <silent> <Leader>af :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <silent> <Leader>arf :call LanguageClient#textDocument_rangeFormatting()<CR>
+nnoremap <silent> <Leader>ap :call LanguageClient#textDocument_formatting()<CR>
+nnoremap <silent> <Leader>arp :call LanguageClient#textDocument_rangeFormatting()<CR>
 set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 
 nnoremap <silent> <Leader>ae :call LanguageClient#workspace_applyEdit()<CR>

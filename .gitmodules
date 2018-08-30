@@ -67,3 +67,7 @@
 	path = pack/default/start/vim-abolish
 	url = https://github.com/tpope/vim-abolish.git
 	shallow = true
+[submodule "pack/default/start/ale"]
+	path = pack/default/start/ale
+	url = https://github.com/w0rp/ale.git
+	shallow = true
