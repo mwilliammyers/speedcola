@@ -66,3 +66,7 @@
 	path = pack/default/start/vim-mundo
 	url = https://github.com/simnalamburt/vim-mundo.git
 	shallow = true
+[submodule "pack/default/start/LanguageClient-neovim"]
+	path = pack/default/start/LanguageClient-neovim
+	url = https://github.com/autozimu/LanguageClient-neovim.git
+	shallow = true
