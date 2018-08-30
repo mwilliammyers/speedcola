@@ -155,36 +155,6 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 nnoremap <silent> <leader>gi :Git add -p %<CR>
 
 "
-" ale
-"
-nmap <leader>af <Plug>(ale_fix)
-nmap <leader>ap <Plug>(ale_previous_wrap)
-nmap <leader>an <Plug>(ale_next_wrap)
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-let g:airline#extensions#ale#enabled = 1
-let g:ale_completion_enabled = 1
-let g:ale_javascript_prettier_use_local_config = 1
-
-let g:ale_fixers = {
-	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-	\ 'python': ['pyls', 'yapf', 'isort'],
-	\ 'javascript': ['eslint', 'prettier'],
-	\ 'graphql': ['eslint', 'prettier'],
-	\ 'json': ['prettier'],
-\}
-
-" TODO: according to docs all enabled linters are used but this isn't working
-let g:ale_linters = {
-	\ 'python': ['pyls', 'vulture', 'mypy'],
-	\ 'javascript': ['eslint', 'prettier'],
-	\ 'graphql': [],
-\}
-
-"
 " gutentags
 "
 let g:gutentags_file_list_command = {
