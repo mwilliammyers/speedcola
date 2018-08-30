@@ -9,6 +9,10 @@ set colorcolumn=80,120
 set signcolumn=yes
 set nowrap
 
+set undofile
+set undolevels=1000
+autocmd BufWritePre /tmp/* setlocal noundofile
+
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
@@ -56,6 +60,9 @@ command! -bang Xa xa<bang>
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 let g:javascript_plugin_jsdoc = 1
+
+nnoremap <F5> :MundoToggle<CR>
+nnoremap <Leader>u :MundoToggle<CR>
 
 "
 " fzf
