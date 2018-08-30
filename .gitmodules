@@ -71,3 +71,6 @@
 	path = pack/default/start/ale
 	url = https://github.com/w0rp/ale.git
 	shallow = true
+[submodule "pack/default/start/vim-gutentags"]
+	path = pack/default/start/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags.git

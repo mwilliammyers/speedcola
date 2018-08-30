@@ -156,6 +156,21 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 nnoremap <silent> <leader>gi :Git add -p %<CR>
 
 "
+" gutentags
+"
+let g:gutentags_file_list_command = {
+       \ 'markers': {
+       \ '.git': 'git ls-files',
+       \ '.hg': 'hg files',
+       \ },
+\ }
+
+let g:gutentags_ctags_exclude = [
+       \ 'package.json',
+       \ 'package-lock.json',
+\]
+
+"
 " ale
 "
 nnoremap <leader>af <Plug>(ale_fix)
