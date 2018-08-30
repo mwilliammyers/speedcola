@@ -71,6 +71,8 @@ let g:javascript_plugin_jsdoc = 1
 nnoremap <F5> :MundoToggle<CR>
 nnoremap <Leader>u :MundoToggle<CR>
 
+let g:jsx_ext_required = 1
+
 "
 " fzf
 "
