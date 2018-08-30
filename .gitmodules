@@ -46,3 +46,6 @@
 [submodule "pack/default/start/vim-surround"]
 	path = pack/default/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+[submodule "pack/default/start/vim-mundo"]
+	path = pack/default/start/vim-mundo
+	url = https://github.com/simnalamburt/vim-mundo.git
