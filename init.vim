@@ -15,6 +15,8 @@ set undofile
 set undolevels=1000
 autocmd BufWritePre /tmp/* setlocal noundofile
 
+set listchars=tab:▸\ ,eol:\ ,trail:·
+
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
