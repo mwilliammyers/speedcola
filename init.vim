@@ -185,7 +185,7 @@ nnoremap <leader>af <Plug>(ale_fix)
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
-" let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 1
 let g:ale_javascript_prettier_use_local_config = 1
 
 let g:ale_fixers = {
@@ -195,62 +195,14 @@ let g:ale_fixers = {
 	\ 'json': ['prettier'],
 \}
 
-let g:ale_linters_explicit = 1
-let g:ale_linters = {
-	\ 'javascript': ['eslint', 'prettier'],
-	\ 'graphql': [],
-\}
-
 "
-" LanguageClient
+" vim-lsc
 "
-let g:LanguageClient_serverCommands = {
-	\ 'rust': ['rustup', 'run', 'stable', 'rls'],
-	\ 'javascript': ['javascript-typescript-stdio'],
-	\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-	\ 'python': ['pyls'],
+let g:lsc_server_commands = {
+	\ 'rust': 'rustup run stable rls',
+	\ 'javascript': 'javascript-typescript-stdio',
+	\ 'javascript.jsx': 'tcp://127.0.0.1:2089',
+	\ 'python': 'pyls',
 \ }
 
-noremap <F8> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> <Leader>aa :call LanguageClient_contextMenu()<CR>
-
-nnoremap <silent> <Leader>ai :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <Leader>ah :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-
-nnoremap <silent> <Leader>ad<Enter> :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Leader>agd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Leader>adg :call LanguageClient#textDocument_definition()<CR>
-
-nnoremap <silent> <Leader>at<Enter> :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <silent> <Leader>agt :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <silent> <Leader>atg :call LanguageClient#textDocument_typeDefinition()<CR>
-
-nnoremap <silent> <Leader>ai<Enter> :call LanguageClient#textDocument_implementation()<CR>
-nnoremap <silent> <Leader>agi :call LanguageClient#textDocument_implementation()<CR>
-nnoremap <silent> <Leader>aig :call LanguageClient#textDocument_implementation()<CR>
-
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <Leader>r :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <Leader>rc :call LanguageClient#textDocument_rename(
-	\ {'newName': Abolish.camelcase(expand('<cword>'))})<CR>
-nnoremap <silent> <Leader>rs :call LanguageClient#textDocument_rename(
-	\ {'newName': Abolish.snakecase(expand('<cword>'))})<CR>
-nnoremap <silent> <Leader>ru :call LanguageClient#textDocument_rename(
-	\ {'newName': Abolish.uppercase(expand('<cword>'))})<CR>
-
-nnoremap <silent> <Leader>as :call LanguageClient#workspace_symbol()<CR>
-nnoremap <silent> <Leader>ass :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> <Leader>assh :call LanguageClient#textDocument_documentHighlight()<CR>
-
-nnoremap <silent> <Leader>ad :call LanguageClient#textDocument_references()<CR>
-
-nnoremap <silent> <Leader>ap :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <silent> <Leader>arp :call LanguageClient#textDocument_rangeFormatting()<CR>
-set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-
-nnoremap <silent> <Leader>ae :call LanguageClient#workspace_applyEdit()<CR>
-
-nnoremap <silent> <Leader>ac :call LanguageClient#workspace_applyCommand()<CR>
-
-nnoremap <silent> <Leader>aei :call LanguageClient#explainErrorAtPoint()<CR>
+let g:lsc_auto_map = v:true
