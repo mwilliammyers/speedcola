@@ -54,4 +54,8 @@ git_pull_or_clone \
 	https://github.com/mwilliammyers/neovim-config.git \
 	"${config_dir}" \
 	|| fail "Cloning neovim configuration failed"
-nvim --headless -c 'PackUpdate' -c q || fail "Configuring neovim failed"
+nvim --headless -u NORC \
+	-c 'runtime packages.vim' \
+	-c 'packadd minpac' \
+	-c "call minpac#update('', {'do': 'quit'})" \
+	|| fail "Configuring neovim failed"
