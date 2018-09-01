@@ -53,7 +53,7 @@ git_pull_or_clone \
 config_dir="$(nvim --headless -u NONE -c 'echo stdpath("config")' -c q 2>&1)"
 info "Downloading neovim configuration..."
 git_pull_or_clone \
-	https://github.com/mwilliammyers/neovim-config.git \
+	https://github.com/mwilliammyers/speedcola.git \
 	"${config_dir}" \
 	|| fail "Downloading neovim configuration failed"
 
