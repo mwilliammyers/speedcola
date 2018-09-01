@@ -3,7 +3,6 @@ function! s:gutentags_hook(hooktype, name)
 		call system('sudo apt-get install -y universal-ctags')
 	elseif executable('brew')
 		call system('brew install --HEAD universal-ctags')
-		call system('echo 2 > /tmp/test.txt')
 	endif
 endfunction
 
