@@ -10,8 +10,8 @@ function! s:lsp_hook(hooktype, name)
 	let l:pip = 'pip3 install vim-vint python-language-server[all]'
 	let l:npm = 'npm i -g javascript-typescript-langserver'
 	if executable('apt-get')
-		let l:pip = 'sudo ' + l:pip
-		let l:npm = 'sudo ' + l:npm
+		let l:pip = 'sudo ' . l:pip
+		let l:npm = 'sudo ' . l:npm
 	endif
 	call system(l:pip)
 	call system(l:npm)
