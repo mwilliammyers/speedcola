@@ -1,4 +1,4 @@
-function! s:gutentags_hook(hooktype, name)
+function! s:GutentagsHook(hooktype, name)
 	if executable('apt-get')
 		call system('sudo apt-get install -y universal-ctags')
 	elseif executable('brew')
@@ -6,7 +6,7 @@ function! s:gutentags_hook(hooktype, name)
 	endif
 endfunction
 
-function! s:lsp_hook(hooktype, name)
+function! s:LspHook(hooktype, name)
 	let l:pip = 'pip3 install vim-vint python-language-server[all]'
 	let l:npm = 'npm i -g javascript-typescript-langserver'
 	if executable('apt-get')
@@ -38,6 +38,6 @@ call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-surround')
 call minpac#add('simnalamburt/vim-mundo')
 call minpac#add('tpope/vim-abolish')
-call minpac#add('w0rp/ale', {'do': function('s:lsp_hook')})
-call minpac#add('ludovicchabant/vim-gutentags', {'do': function('s:gutentags_hook')})
-call minpac#add('natebosch/vim-lsc', {'do': function('s:lsp_hook')})
+call minpac#add('w0rp/ale', {'do': function('s:LspHook')})
+call minpac#add('ludovicchabant/vim-gutentags', {'do': function('s:GutentagsHook')})
+call minpac#add('natebosch/vim-lsc', {'do': function('s:LspHook')})
