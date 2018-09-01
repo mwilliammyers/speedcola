@@ -23,6 +23,7 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 call minpac#add('joshdick/onedark.vim', {'type': 'opt'})
 call minpac#add('vim-airline/vim-airline')
+call minpac#add('vim-airline/vim-airline-themes')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('airblade/vim-rooter')
 call minpac#add('editorconfig/editorconfig-vim')
