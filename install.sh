@@ -1,8 +1,5 @@
 #!/usr/bin/env sh
 
-set -e
-
-
 info() {
 	echo "$(tput bold)${@}$(tput sgr0)"
 }
