@@ -1,12 +1,14 @@
 #!/usr/bin/env sh
 
+
 info() {
-	echo "$(tput bold)${@}$(tput sgr0)"
+	printf "$(tput bold)${@}$(tput sgr0)\n"
 }
 
 error() {
-	>&2 echo "$(tput bold)$(tput setaf 1)${@}$(tput sgr0)"
+	>&2 printf "$(tput bold)$(tput setaf 1)${@}$(tput sgr0)\n"
 }
+
 
 fail() {
 	rc="${?}"
@@ -38,8 +40,8 @@ git_pull_or_clone() {
 	git clone "${1}" "${2}" --depth=1
 }
 
-info "Installing packages..."
-system_package "git" "neovim" || fail "Install failed"
+info "Installing prerequisite packages..."
+system_package "git" "neovim" || fail "Installing prerequisite packages failed"
 
 data_dir="$(nvim --headless -u NONE -c 'echo stdpath("data")' -c q 2>&1)"
 info "Installing minpac..."
@@ -49,11 +51,13 @@ git_pull_or_clone \
 	|| fail "Installing minpac failed"
 
 config_dir="$(nvim --headless -u NONE -c 'echo stdpath("config")' -c q 2>&1)"
-info "Configuring neovim..."
+info "Downloading neovim configuration..."
 git_pull_or_clone \
 	https://github.com/mwilliammyers/neovim-config.git \
 	"${config_dir}" \
-	|| fail "Cloning neovim configuration failed"
+	|| fail "Downloading neovim configuration failed"
+
+info "Installing plugins (this may take a few minutes)..."
 nvim --headless -u NORC \
 	-c 'runtime packages.vim' \
 	-c 'packadd minpac' \
