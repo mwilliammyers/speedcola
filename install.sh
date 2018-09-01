@@ -34,11 +34,8 @@ system_package() {
 }
 
 git_pull_or_clone() {
-	if [ ! -d "${2}/.git" ]; then
-		git clone "${1}" "${2}" --depth=1
-	else
-		git -C "${2}" pull --rebase --autostash --depth=1 
-	fi
+	cd "${2}" 2> /dev/null && git pull --rebase --autostash --depth=1 && return
+	git clone "${1}" "${2}" --depth=1
 }
 
 info "Installing packages..."
