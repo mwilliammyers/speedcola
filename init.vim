@@ -73,6 +73,9 @@ nnoremap <Leader>u :MundoToggle<CR>
 
 let g:jsx_ext_required = 1
 
+command! PackUpdate runtime! packages.vim | call minpac#update()
+command! PackClean runtime! packages.vim | call minpac#clean()
+
 "
 " fzf
 "
