@@ -15,7 +15,7 @@ set nowrap
 
 set undofile
 set undolevels=1000
-autocmd BufWritePre /tmp/* setlocal noundofile
+aug tmp | au! | au BufWritePre /tmp/* setlocal noundofile | aug END
 
 set listchars=tab:▸\ ,eol:\ ,trail:·
 
@@ -39,7 +39,7 @@ set wildignore+=.svn,.hg,.bzr,.git
 set wildignore+=*/tmp/*,*/node_modules/*,.sass-cache,*.class,*.scssc,*/Godeps/*
 set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc
 
-let g:mapleader=","
+let g:mapleader=','
 
 tnoremap <Esc> <C-\><C-n>
 
@@ -66,7 +66,7 @@ command! -bang Xa xa<bang>
 command! PackUpdate runtime! packages.vim | call minpac#update()
 command! PackClean runtime! packages.vim | call minpac#clean()
 
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = '<c-n>'
 
 let g:javascript_plugin_jsdoc = 1
 
@@ -83,7 +83,7 @@ let g:airline_theme='onedark'
 autocmd StdinReadPre * let s:reading_stdin=1
 autocmd VimEnter * nested
 	\  if argc() == 0 && !exists("s:reading_stdin")
-	\|	call fzf#vim#files(getcwd()) 
+	\|	call fzf#vim#files(getcwd())
 	\| endif
 
 command! -bang -nargs=* Rg
@@ -142,7 +142,7 @@ let g:fzf_colors = {
 	\ 'pointer': ['fg', 'Exception'],
 	\ 'marker':  ['fg', 'Keyword'],
 	\ 'spinner': ['fg', 'Label'],
-	\ 'header':  ['fg', 'Comment'] 
+	\ 'header':  ['fg', 'Comment']
 \}
 
 "
@@ -177,9 +177,10 @@ let g:gutentags_ctags_exclude = [
 "
 " ale
 "
-nnoremap <leader>af <Plug>(ale_fix)
-" nnoremap <leader>ap <Plug>(ale_previous_wrap)
-" nnoremap <leader>an <Plug>(ale_next_wrap)
+" FIXME: not working for some reason but :ALEFix is...
+nnoremap <Leader>af <Plug>(ale_fix)
+" nnoremap <Leader>ap <Plug>(ale_previous_wrap)
+" nnoremap <Leader>an <Plug>(ale_next_wrap)
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
