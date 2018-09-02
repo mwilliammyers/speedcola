@@ -27,7 +27,7 @@ autocmd FileType make setlocal noexpandtab
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab list
 autocmd FileType markdown setlocal linebreak shiftwidth=4 tabstop=4 expandtab spell
-autocmd FileType vim setlocal commentstring=\"\ %s
+autocmd FileType vim setlocal shiftwidth=2 softtabstop=2 expandtab commentstring=\"\ %s
 
 command! -range=% -nargs=0 Tabs2Spaces execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
 command! -range=% -nargs=0 Spaces2Tabs execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)\+#\=repeat("\t", len(submatch(0))/' . &ts . ')'
