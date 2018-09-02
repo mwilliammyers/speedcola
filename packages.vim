@@ -1,13 +1,25 @@
-function! s:GutentagsHook(hooktype, name)
+function! s:NeotagsHook(hooktype, name)
+  let l:pip = 'pip3 install -U neovim psutil'
+  
   if executable('apt-get')
-    call system('sudo apt-get install -y universal-ctags')
+    let l:pip = 'sudo ' . l:pip
+    call system('sudo apt-get install -y universal-ctags build-essentials cmake')
   elseif executable('brew')
     call system('brew install --HEAD universal-ctags')
+    call system('brew install gcc cmake pcre2')
+  endif
+  
+  call system(l:pip)
+  
+  if exists('g:neotags_directory')
+    call system('env PREFIX=' . g:neotags_directory . ' make')
+  else
+    call system('make')
   endif
 endfunction
 
 function! s:LspHook(hooktype, name)
-  let l:pip = 'pip3 install vim-vint python-language-server[all]'
+  let l:pip = 'pip3 install -U neovim vim-vint python-language-server[all]'
   let l:npm = 'npm i -g jsonlint javascript-typescript-langserver'
   if executable('apt-get')
     let l:pip = 'sudo ' . l:pip
@@ -39,5 +51,5 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('simnalamburt/vim-mundo')
 call minpac#add('tpope/vim-abolish')
 call minpac#add('w0rp/ale', {'do': function('s:LspHook')})
-call minpac#add('ludovicchabant/vim-gutentags', {'do': function('s:GutentagsHook')})
+call minpac#add('mwilliammyers/neotags.nvim', {'branch': 'fix/Makefile', 'do': function('s:NeotagsHook')})
 call minpac#add('natebosch/vim-lsc', {'do': function('s:LspHook')})

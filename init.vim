@@ -73,6 +73,11 @@ let g:jsx_ext_required = 1
 
 let g:airline_theme='onedark'
 
+let g:neotags_enabled=1
+let g:neotags_bin = '' " temporary
+let g:neotags_directory=stdpath('cache') . '/neotags'
+" let g:neotags_find_tool='fd --type f' 
+
 "
 " fzf
 "
@@ -154,21 +159,6 @@ nnoremap <silent> <leader>gr :Gread<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>ge :Gedit<CR>
 nnoremap <silent> <leader>gi :Git add -p %<CR>
-
-"
-" gutentags
-"
-let g:gutentags_file_list_command = {
-      \ 'markers': {
-      \ '.git': 'git ls-files',
-      \ '.hg': 'hg files',
-      \},
-      \}
-
-let g:gutentags_ctags_exclude = [
-      \ 'package.json',
-      \ 'package-lock.json',
-      \]
 
 "
 " ale
