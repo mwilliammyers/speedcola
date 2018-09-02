@@ -1,20 +1,20 @@
 function! s:GutentagsHook(hooktype, name)
-	if executable('apt-get')
-		call system('sudo apt-get install -y universal-ctags')
-	elseif executable('brew')
-		call system('brew install --HEAD universal-ctags')
-	endif
+  if executable('apt-get')
+    call system('sudo apt-get install -y universal-ctags')
+  elseif executable('brew')
+    call system('brew install --HEAD universal-ctags')
+  endif
 endfunction
 
 function! s:LspHook(hooktype, name)
-	let l:pip = 'pip3 install vim-vint python-language-server[all]'
-	let l:npm = 'npm i -g jsonlint javascript-typescript-langserver'
-	if executable('apt-get')
-		let l:pip = 'sudo ' . l:pip
-		let l:npm = 'sudo ' . l:npm
-	endif
-	call system(l:pip)
-	call system(l:npm)
+  let l:pip = 'pip3 install vim-vint python-language-server[all]'
+  let l:npm = 'npm i -g jsonlint javascript-typescript-langserver'
+  if executable('apt-get')
+    let l:pip = 'sudo ' . l:pip
+    let l:npm = 'sudo ' . l:npm
+  endif
+  call system(l:pip)
+  call system(l:npm)
 endfunction
 
 packadd minpac

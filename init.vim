@@ -15,7 +15,6 @@ set nowrap
 
 set undofile
 set undolevels=1000
-aug tmp | au! | au BufWritePre /tmp/* setlocal noundofile | aug END
 
 set listchars=tab:▸\ ,eol:\ ,trail:·
 
@@ -28,9 +27,6 @@ autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab list
 autocmd FileType markdown setlocal linebreak shiftwidth=4 tabstop=4 expandtab spell
 autocmd FileType vim setlocal shiftwidth=2 softtabstop=2 expandtab commentstring=\"\ %s
-
-command! -range=% -nargs=0 Tabs2Spaces execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
-command! -range=% -nargs=0 Spaces2Tabs execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)\+#\=repeat("\t", len(submatch(0))/' . &ts . ')'
 
 set smartcase
 set wildmode=list:longest,full
@@ -82,22 +78,22 @@ let g:airline_theme='onedark'
 "
 autocmd StdinReadPre * let s:reading_stdin=1
 autocmd VimEnter * nested
-	\  if argc() == 0 && !exists("s:reading_stdin")
-	\|	call fzf#vim#files(getcwd())
-	\| endif
+      \  if argc() == 0 && !exists("s:reading_stdin")
+      \|  call fzf#vim#files(getcwd())
+      \| endif
 
 command! -bang -nargs=* Rg
-	\ call fzf#vim#grep(
-	\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-	\   <bang>0 ? fzf#vim#with_preview('up:60%')
-	\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-	\   <bang>0)
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+      \   <bang>0 ? fzf#vim#with_preview('up:60%')
+      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \   <bang>0)
 
 inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-	\ 'prefix': '^.*$',
-	\ 'source': 'rg -n ^ --color always',
-	\ 'options': '--ansi --delimiter : --nth 3..',
-	\ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+      \ 'prefix': '^.*$',
+      \ 'source': 'rg -n ^ --color always',
+      \ 'options': '--ansi --delimiter : --nth 3..',
+      \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 nnoremap <silent> <Leader>f :Rg<CR>
 nnoremap <silent> <C-t> :Files<CR>
@@ -130,20 +126,20 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
 let g:fzf_colors = {
-	\ 'fg':      ['fg', 'Normal'],
-	\ 'bg':      ['bg', 'Normal'],
-	\ 'hl':      ['fg', 'Comment'],
-	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-	\ 'hl+':     ['fg', 'Statement'],
-	\ 'info':    ['fg', 'PreProc'],
-	\ 'border':  ['fg', 'Ignore'],
-	\ 'prompt':  ['fg', 'Conditional'],
-	\ 'pointer': ['fg', 'Exception'],
-	\ 'marker':  ['fg', 'Keyword'],
-	\ 'spinner': ['fg', 'Label'],
-	\ 'header':  ['fg', 'Comment']
-\}
+      \ 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment']
+      \}
 
 "
 " fugitive
@@ -163,16 +159,16 @@ nnoremap <silent> <leader>gi :Git add -p %<CR>
 " gutentags
 "
 let g:gutentags_file_list_command = {
-	\ 'markers': {
-		\ '.git': 'git ls-files',
-		\ '.hg': 'hg files',
-  \ },
-\ }
+      \ 'markers': {
+      \ '.git': 'git ls-files',
+      \ '.hg': 'hg files',
+      \},
+      \}
 
 let g:gutentags_ctags_exclude = [
-	\ 'package.json',
-	\ 'package-lock.json',
-\]
+      \ 'package.json',
+      \ 'package-lock.json',
+      \]
 
 "
 " ale
@@ -191,20 +187,20 @@ let g:ale_completion_enabled = 1
 let g:ale_javascript_prettier_use_local_config = 1
 
 let g:ale_fixers = {
-	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-	\ 'javascript': ['eslint', 'prettier'],
-	\ 'graphql': ['eslint', 'prettier'],
-	\ 'json': ['prettier'],
-\}
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'javascript': ['eslint', 'prettier'],
+      \ 'graphql': ['eslint', 'prettier'],
+      \ 'json': ['prettier'],
+      \}
 
 "
 " vim-lsc
 "
 let g:lsc_server_commands = {
-	\ 'rust': 'rustup run stable rls',
-	\ 'javascript': 'javascript-typescript-stdio',
-	\ 'javascript.jsx': 'tcp://127.0.0.1:2089',
-	\ 'python': 'pyls',
-\ }
+      \ 'rust': 'rustup run stable rls',
+      \ 'javascript': 'javascript-typescript-stdio',
+      \ 'javascript.jsx': 'tcp://127.0.0.1:2089',
+      \ 'python': 'pyls',
+      \}
 
 let g:lsc_auto_map = v:true
