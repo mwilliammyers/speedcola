@@ -158,18 +158,18 @@ nnoremap <silent> <leader>gi :Git add -p %<CR>
 "
 " ale
 "
-" FIXME: not working for some reason but :ALEFix is...
-nnoremap <Leader>af <Plug>(ale_fix)
-" nnoremap <Leader>ap <Plug>(ale_previous_wrap)
-" nnoremap <Leader>an <Plug>(ale_next_wrap)
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <Leader>af <Plug>(ale_fix)
+nmap <silent> <C-S-c> <Plug>(ale_fix)
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
 let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_javascript_ls_use_global = 1
+let g:javascript_tsserver_use_global = 1
 
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
