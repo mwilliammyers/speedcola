@@ -22,12 +22,6 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
-autocmd FileType make setlocal noexpandtab
-autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
-autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab list
-autocmd FileType markdown setlocal linebreak shiftwidth=4 tabstop=4 expandtab spell
-autocmd FileType vim setlocal shiftwidth=2 softtabstop=2 expandtab commentstring=\"\ %s
-
 set smartcase
 set wildmode=list:longest,full
 set whichwrap=b,s,h,l,<,>,[,]
@@ -167,16 +161,8 @@ let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
-let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_javascript_ls_use_global = 1
-let g:javascript_tsserver_use_global = 1
 
-let g:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'javascript': ['eslint', 'prettier'],
-      \ 'graphql': ['eslint', 'prettier'],
-      \ 'json': ['prettier'],
-      \}
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 
 "
 " vim-lsc
