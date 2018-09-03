@@ -60,8 +60,8 @@ let g:SuperTabDefaultCompletionType = '<c-n>'
 
 let g:javascript_plugin_jsdoc = 1
 
-nnoremap <F5> :MundoToggle<CR>
-nnoremap <Leader>u :MundoToggle<CR>
+nnoremap <F5> :MundoToggle<Return>
+nnoremap <Leader>u :MundoToggle<Return>
 
 let g:jsx_ext_required = 1
 
@@ -89,31 +89,31 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
       \ 'options': '--ansi --delimiter : --nth 3..',
       \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
-nnoremap <silent> <Leader>f :Rg<CR>
-nnoremap <silent> <C-t> :Files<CR>
-nnoremap <silent> <Leader>t :Files<CR>
-nnoremap <silent> <Leader>tg :GFiles<CR>
-nnoremap <silent> <Leader>tg? :GFiles?<CR>
-nnoremap <silent> <Leader><Enter> :Buffers<CR>
-nnoremap <silent> <Leader>b :Buffers<CR>
-" nnoremap <silent> <Leader> :Colors<CR>
-nnoremap <silent> <Leader>l :Lines<CR>
-nnoremap <silent> <Leader>ll :BLines<CR>
-nnoremap <silent> <Leader>r :Tags<CR>
-nnoremap <silent> <Leader>rr :BTags<CR>
-nnoremap <silent> <Leader>` :Marks<CR>
-nnoremap <silent> <Leader>w :Windows<CR>
-nnoremap <silent> <Leader>o :Locate<CR>
-nnoremap <silent> <Leader>q :History<CR>
-nnoremap <silent> <Leader>q: :History:<CR>
-nnoremap <silent> <Leader>q/ :History/<CR>
-nnoremap <silent> <Leader>sn :Snippets<CR>
-nnoremap <silent> <Leader>c :Commits<CR>
-nnoremap <silent> <Leader>cc :BCommits<CR>
-nnoremap <silent> <Leader>: :Commands<CR>
-nnoremap <silent> <Leader>m :Maps<CR>
-nnoremap <silent> <Leader>h :Helptags<CR>
-nnoremap <silent> <Leader>tp :Filetypes<CR>
+nnoremap <silent> <Leader>f :Rg<Return>
+nnoremap <silent> <C-t> :Files<Return>
+nnoremap <silent> <Leader>t :Files<Return>
+nnoremap <silent> <Leader>tg :GFiles<Return>
+nnoremap <silent> <Leader>tg? :GFiles?<Return>
+nnoremap <silent> <Leader><Enter> :Buffers<Return>
+nnoremap <silent> <Leader>b :Buffers<Return>
+" nnoremap <silent> <Leader> :Colors<Return>
+nnoremap <silent> <Leader>l :Lines<Return>
+nnoremap <silent> <Leader>ll :BLines<Return>
+nnoremap <silent> <Leader>r :Tags<Return>
+nnoremap <silent> <Leader>rr :BTags<Return>
+nnoremap <silent> <Leader>` :Marks<Return>
+nnoremap <silent> <Leader>w :Windows<Return>
+nnoremap <silent> <Leader>o :Locate<Return>
+nnoremap <silent> <Leader>q :History<Return>
+nnoremap <silent> <Leader>q: :History:<Return>
+nnoremap <silent> <Leader>q/ :History/<Return>
+nnoremap <silent> <Leader>sn :Snippets<Return>
+nnoremap <silent> <Leader>c :Commits<Return>
+nnoremap <silent> <Leader>cc :BCommits<Return>
+nnoremap <silent> <Leader>: :Commands<Return>
+nnoremap <silent> <Leader>m :Maps<Return>
+nnoremap <silent> <Leader>h :Helptags<Return>
+nnoremap <silent> <Leader>tp :Filetypes<Return>
 
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
@@ -138,16 +138,16 @@ let g:fzf_colors = {
 "
 " fugitive
 "
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gr :Gread<CR>
-nnoremap <silent> <leader>gw :Gwrite<CR>
-nnoremap <silent> <leader>ge :Gedit<CR>
-nnoremap <silent> <leader>gi :Git add -p %<CR>
+nnoremap <silent> <leader>gs :Gstatus<Return>
+nnoremap <silent> <leader>gd :Gdiff<Return>
+nnoremap <silent> <leader>gc :Gcommit<Return>
+nnoremap <silent> <leader>gb :Gblame<Return>
+nnoremap <silent> <leader>gl :Glog<Return>
+nnoremap <silent> <leader>gp :Git push<Return>
+nnoremap <silent> <leader>gr :Gread<Return>
+nnoremap <silent> <leader>gw :Gwrite<Return>
+nnoremap <silent> <leader>ge :Gedit<Return>
+nnoremap <silent> <leader>gi :Git add -p %<Return>
 
 "
 " ale
