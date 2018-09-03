@@ -91,23 +91,23 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
 
 nnoremap <silent> <Leader>f :Rg<CR>
 nnoremap <silent> <C-t> :Files<CR>
-nnoremap <silent> <Leader>tf :Files<CR>
-nnoremap <silent> <Leader>gf :GFiles<CR>
-nnoremap <silent> <Leader>gf? :GFiles?<CR>
+nnoremap <silent> <Leader>t :Files<CR>
+nnoremap <silent> <Leader>tg :GFiles<CR>
+nnoremap <silent> <Leader>tg? :GFiles?<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 " nnoremap <silent> <Leader> :Colors<CR>
 nnoremap <silent> <Leader>l :Lines<CR>
 nnoremap <silent> <Leader>ll :BLines<CR>
-nnoremap <silent> <Leader>t :Tags<CR>
-nnoremap <silent> <Leader>tt :BTags<CR>
+nnoremap <silent> <Leader>r :Tags<CR>
+nnoremap <silent> <Leader>rr :BTags<CR>
 nnoremap <silent> <Leader>` :Marks<CR>
 nnoremap <silent> <Leader>w :Windows<CR>
 nnoremap <silent> <Leader>o :Locate<CR>
 nnoremap <silent> <Leader>q :History<CR>
 nnoremap <silent> <Leader>q: :History:<CR>
 nnoremap <silent> <Leader>q/ :History/<CR>
-nnoremap <silent> <Leader>s :Snippets<CR>
+nnoremap <silent> <Leader>sn :Snippets<CR>
 nnoremap <silent> <Leader>c :Commits<CR>
 nnoremap <silent> <Leader>cc :BCommits<CR>
 nnoremap <silent> <Leader>: :Commands<CR>
@@ -167,11 +167,10 @@ let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 "
 " vim-lsc
 "
-let g:lsc_server_commands = {
-      \ 'rust': 'rustup run stable rls',
-      \ 'javascript': 'javascript-typescript-stdio',
-      \ 'javascript.jsx': 'tcp://127.0.0.1:2089',
-      \ 'python': 'pyls',
-      \}
+" let g:lsc_server_commands = {
+"       \ 'rust': 'rustup run stable rls',
+"       \ 'javascript': 'javascript-typescript-stdio',
+"       \ 'javascript.jsx': 'tcp://127.0.0.1:2089',
+"       \}
 
-let g:lsc_auto_map = v:true
+" let g:lsc_auto_map = v:true
