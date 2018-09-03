@@ -7,7 +7,7 @@ function! s:GutentagsHook(hooktype, name)
 endfunction
 
 function! s:LspHook(hooktype, name)
-  let l:pip = 'pip3 install vim-vint python-language-server[all]'
+  let l:pip = 'pip3 install vim-vint isort vulture python-language-server[all]'
   let l:npm = 'npm i -g jsonlint javascript-typescript-langserver'
   if executable('apt-get')
     let l:pip = 'sudo ' . l:pip
