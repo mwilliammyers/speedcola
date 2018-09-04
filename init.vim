@@ -153,24 +153,6 @@ nnoremap <silent> <leader>Ge :Gedit<Return>
 nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
 "
-" ale
-"
-nmap <silent> <Leader>af <Plug>(ale_fix)
-nmap <silent> <C-S-c> <Plug>(ale_fix)
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <Leader>ar <Plug>(ale_rename)
-nmap <silent> <Leader>gR <Plug>(ale_rename)
-nmap <silent> <Leader>ai :ALEInfo<Return>
-
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-let g:airline#extensions#ale#enabled = 1
-let g:ale_completion_enabled = 1
-
-let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
-
-"
 " vim-lsc
 "
 " let g:lsc_server_commands = {
