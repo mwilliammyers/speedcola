@@ -53,8 +53,8 @@ command! -bang Xa xa<bang>
 " package settings
 "
 
-com! PackUpdate ru! packages.vim | call minpac#update('', {'do': 'helpt ALL'})
-com! PackClean ru! packages.vim | call minpac#clean()
+command! PackUpdate runtime! packages.vim | call minpac#update()
+command! PackClean runtime! packages.vim | call minpac#clean()
 
 let g:SuperTabDefaultCompletionType = '<c-n>'
 
