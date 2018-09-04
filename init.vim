@@ -138,16 +138,16 @@ let g:fzf_colors = {
 "
 " fugitive
 "
-nnoremap <silent> <leader>gs :Gstatus<Return>
-nnoremap <silent> <leader>gd :Gdiff<Return>
-nnoremap <silent> <leader>gc :Gcommit<Return>
-nnoremap <silent> <leader>gb :Gblame<Return>
-nnoremap <silent> <leader>gl :Glog<Return>
-nnoremap <silent> <leader>gp :Git push<Return>
-nnoremap <silent> <leader>gr :Gread<Return>
-nnoremap <silent> <leader>gw :Gwrite<Return>
-nnoremap <silent> <leader>ge :Gedit<Return>
-nnoremap <silent> <leader>gi :Git add -p %<Return>
+nnoremap <silent> <leader>Gs :Gstatus<Return>
+nnoremap <silent> <leader>Gd :Gdiff<Return>
+nnoremap <silent> <leader>Gc :Gcommit<Return>
+nnoremap <silent> <leader>Gb :Gblame<Return>
+nnoremap <silent> <leader>Gl :Glog<Return>
+nnoremap <silent> <leader>Gp :Git push<Return>
+nnoremap <silent> <leader>Gr :Gread<Return>
+nnoremap <silent> <leader>Gw :Gwrite<Return>
+nnoremap <silent> <leader>Ge :Gedit<Return>
+nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
 "
 " ale
