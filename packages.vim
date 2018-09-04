@@ -37,8 +37,6 @@ endfunction
 
 
 function! s:LspHook(hooktype, name)
-  if !executable('make') | call s:SystemPackage('make') | endif
-
   let l:pip = 'pip3 install python-language-server[all] pyls-mypy pyls-isort'
   let l:npm = 'npm i -g jsonlint javascript-typescript-langserver'
   if executable('apt-get')
@@ -56,6 +54,10 @@ function! s:LspHook(hooktype, name)
     let l:rustup = l:cargo_rustup
   endif
   call system(l:rustup . ' component add rls-preview rust-analysis rust-src')
+  
+  if !executable('make') | call s:SystemPackage('make') | endif
+
+  call system('bash install.sh')
 endfunction
 
 packadd minpac
@@ -82,4 +84,5 @@ call minpac#add('tpope/vim-abolish')
 call minpac#add('prettier/vim-prettier', {'do': 'silent ! npm i -g prettier'})
 call minpac#add('ludovicchabant/vim-gutentags', 
                 \ {'do': s:SystemPackage('universal-ctags', {'brew': '--HEAD'})})
-call minpac#add('autozimu/LanguageClient-neovim', {'do': function('s:LspHook')})
+call minpac#add('autozimu/LanguageClient-neovim', 
+                \ {'do': function('s:LspHook'), 'branch': 'next'})
