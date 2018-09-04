@@ -1,4 +1,5 @@
-function! s:GetPackageNames(packager, names) let l:apps = a:names
+function! s:GetPackageNames(packager, names)
+  let l:apps = a:names
   if type(l:apps) is v:t_dict
      let l:apps = get(l:apps, a:packager, get(l:apps, '*', []))
   endif
@@ -14,20 +15,21 @@ endfunction
 
 function! s:SystemPackage(names, ...)
   let l:opts = get(a:, 1, {})
-  let l:fn = get(a:, 2, jobstart)
-  
+
   if executable('apt-get')
-    let l:apps = s:GetPackageNames('apt-get', a:names) 
-    let l:apt_opts = get(l:opts, 'apt-get', '') 
-    call l:fn('sudo apt-get install -y ' . l:apt_opts . l:apps)
+    let l:apps = s:GetPackageNames('apt-get', a:names)
+    let l:apt_opts = get(l:opts, 'apt-get', '')
+    call system('sudo apt-get install -y ' . l:apt_opts . l:apps)
   elseif executable('brew')
-    let l:apps = s:GetPackageNames('brew', a:names) 
-    call l:fn('brew install ' . get(l:opts, 'brew', '') . l:apps)
+    let l:apps = s:GetPackageNames('brew', a:names)
+    call system('brew install ' . get(l:opts, 'brew', '') . l:apps)
   endif
 endfunction
 
 function! s:InstallRustup(...)
-  if !executable('curl') | call s:SystemPackage('curl', {}, system) | endif
+  if !executable('curl')
+    call s:SystemPackage('curl', {}, function('system'))
+  endif
 
   let l:url = 'https://sh.rustup.rs'
   let l:args = get(a:, 0, ['--default-toolchain nightly', '--no-modify-path'])
@@ -42,21 +44,25 @@ function! s:LspHook(hooktype, name)
     let l:pip = 'sudo ' . l:pip
     let l:npm = 'sudo ' . l:npm
   endif
-  call jobstart(l:pip)
-  call jobstart(l:npm)
-  
+  call jobstart([l:pip])
+  call jobstart([l:npm])
+
   if executable('rustup')
     let l:rustup = 'rustup'
   else
     let l:cargo_rustup = expand('~') . '/.cargo/bin/rustup'
-    if !executable(l:cargo_rustup) | call s:InstallRustup() | endif
+    if !executable(l:cargo_rustup)
+      call s:InstallRustup()
+    endif
     let l:rustup = l:cargo_rustup
   endif
   call system(l:rustup . ' component add rls-preview rust-analysis rust-src')
-  
-  if !executable('make') | call s:SystemPackage('make', {}, system) | endif
 
-  call jobstart('bash install.sh')
+  if !executable('make')
+    call s:SystemPackage('make', {}, function('system'))
+  endif
+
+  call system('bash install.sh')
 endfunction
 
 packadd minpac
@@ -80,8 +86,8 @@ call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-surround')
 call minpac#add('simnalamburt/vim-mundo')
 call minpac#add('tpope/vim-abolish')
-call minpac#add('prettier/vim-prettier', {'do': 'jobstart("npm i -g prettier")'})
-call minpac#add('ludovicchabant/vim-gutentags', 
+call minpac#add('prettier/vim-prettier', {'do': jobstart("npm i -g prettier")})
+call minpac#add('ludovicchabant/vim-gutentags',
                 \ {'do': s:SystemPackage('universal-ctags', {'brew': '--HEAD'})})
-call minpac#add('autozimu/LanguageClient-neovim', 
+call minpac#add('autozimu/LanguageClient-neovim',
                 \ {'do': function('s:LspHook'), 'branch': 'next'})
