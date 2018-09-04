@@ -67,6 +67,9 @@ let g:jsx_ext_required = 1
 
 let g:airline_theme='onedark'
 
+let g:prettier#autoformat = 0
+let g:prettier#exec_cmd_async = 1
+
 "
 " fzf
 "

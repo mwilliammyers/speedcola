@@ -58,7 +58,6 @@ function! s:LspHook(hooktype, name)
   call system(l:rustup . ' component add rls-preview rust-analysis rust-src')
 endfunction
 
-
 packadd minpac
 call minpac#init({'dir': stdpath('data') . '/site'})
 call minpac#add('k-takata/minpac', {'type': 'opt'})
@@ -80,6 +79,7 @@ call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-surround')
 call minpac#add('simnalamburt/vim-mundo')
 call minpac#add('tpope/vim-abolish')
+call minpac#add('prettier/vim-prettier', {'do': 'silent ! npm i -g prettier'})
 call minpac#add('ludovicchabant/vim-gutentags', 
                 \ {'do': s:SystemPackage('universal-ctags', {'brew': '--HEAD'})})
 call minpac#add('autozimu/LanguageClient-neovim', {'do': function('s:LspHook')})
