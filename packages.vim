@@ -1,13 +1,45 @@
-function! s:GutentagsHook(hooktype, name)
-  if executable('apt-get')
-    call system('sudo apt-get install -y universal-ctags')
-  elseif executable('brew')
-    call system('brew install --HEAD universal-ctags')
+function! s:GetPackageNames(packager, names)
+  let l:apps = a:names
+
+  if type(l:apps) is v:t_dict
+     let l:apps = get(l:apps, a:packager, get(l:apps, '*', []))
+  endif
+
+  if type(l:apps) is v:t_list
+    return ' ' . join(l:apps, ' ')
+  elseif type(l:apps) is v:t_string
+    return ' ' . l:apps . ' '
+  else
+    return ' '
   endif
 endfunction
 
+function! s:SystemPackage(names, ...)
+  let l:opts = get(a:, 1, {})
+
+  if executable('apt-get')
+    let l:apps = s:GetPackageNames('apt-get', a:names) 
+    let l:apt_opts = get(l:opts, 'apt-get', '') 
+    call system('sudo apt-get install -y ' . l:apt_opts . l:apps)
+  elseif executable('brew')
+    let l:apps = s:GetPackageNames('brew', a:names) 
+    call system('brew install ' . get(l:opts, 'brew', '') . l:apps)
+  endif
+endfunction
+
+function! s:InstallRustup(...)
+  if !executable('curl') | call s:SystemPackage('curl') | endif
+
+  let l:url = 'https://sh.rustup.rs'
+  let l:args = get(a:, 0, ['--default-toolchain nightly', '--no-modify-path'])
+  call system('curl ' . l:url . ' -sSf | sh -s -- -y ' . join(l:args, ' '))
+endfunction
+
+
 function! s:LspHook(hooktype, name)
-  let l:pip = 'pip3 install vim-vint isort vulture python-language-server[all]'
+  if !executable('make') | call s:SystemPackage('make') | endif
+
+  let l:pip = 'pip3 install python-language-server[all] pyls-mypy pyls-isort'
   let l:npm = 'npm i -g jsonlint javascript-typescript-langserver'
   if executable('apt-get')
     let l:pip = 'sudo ' . l:pip
@@ -15,7 +47,17 @@ function! s:LspHook(hooktype, name)
   endif
   call system(l:pip)
   call system(l:npm)
+  
+  if executable('rustup')
+    let l:rustup = 'rustup'
+  else
+    let l:cargo_rustup = expand('~') . '/.cargo/bin/rustup'
+    if !executable(l:cargo_rustup) | call s:InstallRustup() | endif
+    let l:rustup = l:cargo_rustup
+  endif
+  call system(l:rustup . ' component add rls-preview rust-analysis rust-src')
 endfunction
+
 
 packadd minpac
 call minpac#init({'dir': stdpath('data') . '/site'})
@@ -38,6 +80,6 @@ call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-surround')
 call minpac#add('simnalamburt/vim-mundo')
 call minpac#add('tpope/vim-abolish')
-call minpac#add('w0rp/ale', {'do': function('s:LspHook')})
-call minpac#add('ludovicchabant/vim-gutentags', {'do': function('s:GutentagsHook')})
-call minpac#add('natebosch/vim-lsc', {'do': function('s:LspHook')})
+call minpac#add('ludovicchabant/vim-gutentags', 
+                \ {'do': s:SystemPackage('universal-ctags', {'brew': '--HEAD'})})
+call minpac#add('autozimu/LanguageClient-neovim', {'do': function('s:LspHook')})
