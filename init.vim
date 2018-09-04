@@ -153,12 +153,59 @@ nnoremap <silent> <leader>Ge :Gedit<Return>
 nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
 "
-" vim-lsc
+" LanguageClient
 "
-" let g:lsc_server_commands = {
-"       \ 'rust': 'rustup run stable rls',
-"       \ 'javascript': 'javascript-typescript-stdio',
-"       \ 'javascript.jsx': 'tcp://127.0.0.1:2089',
-"       \}
+let g:LanguageClient_serverCommands = {
+      \ 'rust': ['rls'],
+      \ 'javascript': ['javascript-typescript-stdio'],
+      \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+      \ 'python': ['pyls'],
+      \ }
 
-" let g:lsc_auto_map = v:true
+nnoremap <silent> <Leader>aa :call LanguageClient#contextMenu()<Return>
+noremap <F8> :call LanguageClient#contextMenu()<Return>
+
+nnoremap <silent> <Leader>ah :call LanguageClient#textDocument_hover()<Return>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<Return>
+
+nnoremap <silent> <Leader>agd :call LanguageClient#textDocument_definition()<Return>
+nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<Return>
+
+nnoremap <silent> <Leader>agt :call LanguageClient#textDocument_typeDefinition()<Return>
+nnoremap <silent> gT :call LanguageClient#textDocument_typeDefinition()<Return>
+
+nnoremap <silent> <Leader>agi :call LanguageClient#textDocument_implementation()<Return>
+nnoremap <silent> gI :call LanguageClient#textDocument_implementation()<Return>
+
+nnoremap <silent> <Leader>r :call LanguageClient#textDocument_rename()<Return>
+nnoremap <silent> gR :call LanguageClient#textDocument_rename()<Return>
+
+nnoremap <silent> <Leader>rc :call LanguageClient#textDocument_rename(
+	\ {'newName': Abolish.camelcase(expand('<cword>'))})<Return>
+nnoremap <silent> gRc :call LanguageClient#textDocument_rename(
+	\ {'newName': Abolish.camelcase(expand('<cword>'))})<Return>
+
+nnoremap <silent> <Leader>rs :call LanguageClient#textDocument_rename(
+	\ {'newName': Abolish.snakecase(expand('<cword>'))})<Return>
+nnoremap <silent> gRs :call LanguageClient#textDocument_rename(
+	\ {'newName': Abolish.snakecase(expand('<cword>'))})<Return>
+
+nnoremap <silent> <Leader>ru :call LanguageClient#textDocument_rename(
+  \ {'newName': Abolish.uppercase(expand('<cword>'))})<Return>
+nnoremap <silent> gRu :call LanguageClient#textDocument_rename(
+	\ {'newName': Abolish.uppercase(expand('<cword>'))})<Return>
+
+nnoremap <silent> <Leader>as :call LanguageClient#workspace_symbol()<Return>
+nnoremap <silent> go :call LanguageClient#workspace_symbol()<Return>
+
+nnoremap <silent> <Leader>ass :call LanguageClient#textDocument_documentSymbol()<Return>
+nnoremap <silent> gS :call LanguageClient#textDocument_documentSymbol()<Return>
+" nnoremap <silent> <Leader>assh :call LanguageClient#textDocument_documentHighlight()<Return>
+
+nnoremap <silent> <Leader>ad :call LanguageClient#textDocument_references()<Return>
+nnoremap <silent> gr :call LanguageClient#textDocument_references()<Return>
+
+nnoremap <silent> <Leader>af :call LanguageClient#textDocument_formatting()<Return>
+
+nnoremap <silent> <Leader>arf :call LanguageClient#textDocument_rangeFormatting()<Return>
+set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
