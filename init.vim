@@ -156,6 +156,9 @@ nmap <silent> <Leader>af <Plug>(ale_fix)
 nmap <silent> <C-S-c> <Plug>(ale_fix)
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <Leader>ar <Plug>(ale_rename)
+nmap <silent> <Leader>gR <Plug>(ale_rename)
+nmap <silent> <Leader>ai :ALEInfo<Return>
 
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
