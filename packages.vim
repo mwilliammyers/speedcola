@@ -26,42 +26,21 @@ function! s:SystemPackage(names, ...)
   endif
 endfunction
 
-function! s:InstallRustup(...)
-  if !executable('curl')
-    call s:SystemPackage('curl', {}, function('system'))
-  endif
-
-  let l:url = 'https://sh.rustup.rs'
-  let l:args = get(a:, 0, ['--default-toolchain nightly', '--no-modify-path'])
-  call system('curl ' . l:url . ' -sSf | sh -s -- -y ' . join(l:args, ' '))
-endfunction
-
-
 function! s:LspHook(hooktype, name)
   let l:pip = 'pip3 install python-language-server[all] pyls-mypy pyls-isort'
-  let l:npm = 'npm i -g jsonlint javascript-typescript-langserver'
+  let l:npm = 'npm i -g javascript-typescript-langserver'
   if executable('apt-get')
     let l:pip = 'sudo ' . l:pip
     let l:npm = 'sudo ' . l:npm
   endif
-  call jobstart([l:pip])
-  call jobstart([l:npm])
+  if executable('pip3') | call jobstart([l:pip]) | endif
+  if executable('npm') | jobstart([l:npm]) | endif
 
   if executable('rustup')
-    let l:rustup = 'rustup'
-  else
-    let l:cargo_rustup = expand('~') . '/.cargo/bin/rustup'
-    if !executable(l:cargo_rustup)
-      call s:InstallRustup()
-    endif
-    let l:rustup = l:cargo_rustup
+      call system(l:rustup . ' component add rls-preview rust-analysis rust-src')
   endif
-  call system(l:rustup . ' component add rls-preview rust-analysis rust-src')
-
-  if !executable('make')
-    call s:SystemPackage('make', {}, function('system'))
-  endif
-
+  
+  # TODO: requires `make` and a rust toolchain if pre-built binary does not exist
   call system('bash install.sh')
 endfunction
 
