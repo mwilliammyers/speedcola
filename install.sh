@@ -58,8 +58,8 @@ git_pull_or_clone \
 	|| fail "Downloading neovim configuration failed"
 
 info "Installing plugins (this may take a few minutes)..."
-nvim --headless -u NORC \
-	-c 'runtime packages.vim' \
+nvim --headless -u NONE \
 	-c 'packadd minpac' \
+	-c 'runtime packages.vim' \
 	-c "call minpac#update('', {'do': 'quit'})" \
 	|| fail "Configuring neovim failed"
