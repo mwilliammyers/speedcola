@@ -34,7 +34,7 @@ function! s:LspHook(hooktype, name)
     let l:npm = 'sudo ' . l:npm
   endif
   if executable('pip3') | call jobstart([l:pip]) | endif
-  if executable('npm') | jobstart([l:npm]) | endif
+  if executable('npm') | call jobstart([l:npm]) | endif
 
   if executable('rustup')
       call system(l:rustup . ' component add rls-preview rust-analysis rust-src')
