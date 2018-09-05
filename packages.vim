@@ -65,7 +65,7 @@ call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-surround')
 call minpac#add('simnalamburt/vim-mundo')
 call minpac#add('tpope/vim-abolish')
-call minpac#add('prettier/vim-prettier', {'do': jobstart("npm i -g prettier")})
+call minpac#add('prettier/vim-prettier', {'do': jobstart("npm i -g prettier"), 'branch': 'release/1.x'}) " TODO: use default branch
 call minpac#add('ludovicchabant/vim-gutentags',
                 \ {'do': s:SystemPackage('universal-ctags', {'brew': '--HEAD'})})
 call minpac#add('autozimu/LanguageClient-neovim',
