@@ -46,25 +46,25 @@ git_pull_or_clone() {
 }
 
 info "Installing prerequisite packages..."
-system_package "git" "neovim" || fail "Installing prerequisite packages failed"
+system_package "git" "neovim" || die "Installing prerequisite packages failed"
 
 data_dir="$(nvim --headless -u NONE -c 'echo stdpath("data")' -c q 2>&1)"
 info "Installing minpac..."
 git_pull_or_clone \
 	https://github.com/k-takata/minpac.git \
 	"${data_dir}/site/pack/minpac/opt/minpac" \
-	|| fail "Installing minpac failed"
+	|| die "Installing minpac failed"
 
 config_dir="$(nvim --headless -u NONE -c 'echo stdpath("config")' -c q 2>&1)"
 info "Downloading neovim configuration..."
 git_pull_or_clone \
 	"https://github.com/${repo}.git" \
 	"${config_dir}" \
-	|| fail "Downloading neovim configuration failed"
+	|| die "Downloading neovim configuration failed"
 
 info "Installing plugins (this may take a few minutes)..."
 nvim --headless -u NONE \
 	-c 'packadd minpac' \
 	-c 'runtime packages.vim' \
 	-c "call minpac#update('', {'do': 'quit'})" \
-	|| fail "Configuring neovim failed"
+	|| die "Configuring neovim failed"
