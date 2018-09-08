@@ -40,7 +40,7 @@ function! s:LspHook(hooktype, name)
       call system(l:rustup . ' component add rls-preview rust-analysis rust-src')
   endif
   
-  # TODO: requires `make` and a rust toolchain if pre-built binary does not exist
+  " TODO: requires `make` and a rust toolchain if pre-built binary does not exist
   call system('bash install.sh')
 endfunction
 
