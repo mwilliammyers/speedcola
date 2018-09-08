@@ -162,8 +162,8 @@ let g:LanguageClient_serverCommands = {
       \ 'python': ['pyls'],
       \ }
 
-nnoremap <silent> <Leader>aa :call LanguageClient#contextMenu()<Return>
-noremap <F8> :call LanguageClient#contextMenu()<Return>
+nnoremap <silent> <Leader>aa :call LanguageClient_contextMenu()<Return>
+noremap <F8> :call LanguageClient_contextMenu()<Return>
 
 nnoremap <silent> <Leader>ah :call LanguageClient#textDocument_hover()<Return>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<Return>
