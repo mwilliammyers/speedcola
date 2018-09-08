@@ -53,27 +53,24 @@ packadd minpac
 call minpac#init({'dir': stdpath('data') . '/site'})
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-call minpac#add('joshdick/onedark.vim', {'type': 'opt'})
-call minpac#add('vim-airline/vim-airline')
-call minpac#add('vim-airline/vim-airline-themes')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('airblade/vim-rooter')
+call minpac#add('autozimu/LanguageClient-neovim', {'do': function('s:LspHook'), 'branch': 'next'})
+call minpac#add('easymotion/vim-easymotion')
 call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('ervandew/supertab')
 call minpac#add('jeffkreeftmeijer/vim-numbertoggle')
+call minpac#add('joshdick/onedark.vim', {'type': 'opt'})
 call minpac#add('junegunn/fzf')
 call minpac#add('junegunn/fzf.vim')
+call minpac#add('ludovicchabant/vim-gutentags', {'do': s:SystemPackage('universal-ctags', {'brew': '--HEAD'})})
+call minpac#add('prettier/vim-prettier',  {'do': system(['npm', 'i', '-g', 'prettier']), 'branch': 'release/1.x'}) " TODO: use default branch
 call minpac#add('sheerun/vim-polyglot')
-call minpac#add('tpope/vim-commentary')
-call minpac#add('easymotion/vim-easymotion')
-call minpac#add('tpope/vim-fugitive')
-call minpac#add('tpope/vim-surround')
-call minpac#add('tpope/vim-sleuth')
 call minpac#add('simnalamburt/vim-mundo')
 call minpac#add('tpope/vim-abolish')
-call minpac#add('prettier/vim-prettier', 
-                \ {'do': system(['npm', 'i', '-g', 'prettier']), 'branch': 'release/1.x'}) " TODO: use default branch
-call minpac#add('ludovicchabant/vim-gutentags',
-                \ {'do': s:SystemPackage('universal-ctags', {'brew': '--HEAD'})})
-call minpac#add('autozimu/LanguageClient-neovim',
-                \ {'do': function('s:LspHook'), 'branch': 'next'})
+call minpac#add('tpope/vim-commentary')
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('tpope/vim-sleuth')
+call minpac#add('tpope/vim-surround')
+call minpac#add('vim-airline/vim-airline')
+call minpac#add('vim-airline/vim-airline-themes')
