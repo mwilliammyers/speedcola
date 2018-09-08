@@ -19,29 +19,34 @@ function! s:SystemPackage(names, ...)
   if executable('apt-get')
     let l:apps = s:GetPackageNames('apt-get', a:names)
     let l:apt_opts = get(l:opts, 'apt-get', '')
-    call system('sudo apt-get install -y ' . l:apt_opts . l:apps)
+    call system(['sudo', 'apt-get', 'install', '-y', l:apt_opts, l:apps])
   elseif executable('brew')
     let l:apps = s:GetPackageNames('brew', a:names)
-    call system('brew install ' . get(l:opts, 'brew', '') . l:apps)
+    call system(['brew', 'install', get(l:opts, 'brew', ''), l:apps])
   endif
 endfunction
 
 function! s:LspHook(hooktype, name)
-  let l:pip = 'pip3 install python-language-server[all] pyls-mypy pyls-isort'
-  let l:npm = 'npm i -g javascript-typescript-langserver'
+  let l:jobids = []
+
+  let l:pip = ['pip3', 'install', 'python-language-server[all]', 'pyls-mypy', 'pyls-isort']
+  let l:npm = ['npm', 'i', '-g', 'javascript-typescript-langserver']
   if executable('apt-get')
-    let l:pip = 'sudo ' . l:pip
-    let l:npm = 'sudo ' . l:npm
+    call insert(l:pip, 'sudo')
+    call insert(l:npm, 'sudo')
   endif
-  if executable('pip3') | call jobstart([l:pip]) | endif
-  if executable('npm') | call jobstart([l:npm]) | endif
+  if executable('pip3') | call add(l:jobids, jobstart(l:pip)) | endif
+  if executable('npm') | call add(l:jobids, jobstart(l:npm)) | endif
 
   if executable('rustup')
-      call system(l:rustup . ' component add rls-preview rust-analysis rust-src')
+      let l:rustup = ['rustup', 'component', 'add', 'rls-preview', 'rust-analysis', 'rust-src']
+      call add(l:jobids, jobstart(l:rustup))
   endif
   
   " TODO: requires `make` and a rust toolchain if pre-built binary does not exist
-  call system('bash install.sh')
+  call jobstart(['bash', 'install.sh'])
+
+  call jobwait(l:jobids, 300000)
 endfunction
 
 packadd minpac
@@ -65,7 +70,8 @@ call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-surround')
 call minpac#add('simnalamburt/vim-mundo')
 call minpac#add('tpope/vim-abolish')
-call minpac#add('prettier/vim-prettier', {'do': jobstart("npm i -g prettier"), 'branch': 'release/1.x'}) " TODO: use default branch
+call minpac#add('prettier/vim-prettier', 
+                \ {'do': system(['npm', 'i', '-g', 'prettier']), 'branch': 'release/1.x'}) " TODO: use default branch
 call minpac#add('ludovicchabant/vim-gutentags',
                 \ {'do': s:SystemPackage('universal-ctags', {'brew': '--HEAD'})})
 call minpac#add('autozimu/LanguageClient-neovim',
