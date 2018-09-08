@@ -70,6 +70,9 @@ let g:airline_theme='onedark'
 let g:prettier#autoformat = 0
 let g:prettier#exec_cmd_async = 1
 
+let g:gutentags_cache_dir = stdpath('cache') . '/tags'
+let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
+
 "
 " fzf
 "
@@ -102,8 +105,8 @@ nnoremap <silent> <Leader>b :Buffers<Return>
 " nnoremap <silent> <Leader> :Colors<Return>
 nnoremap <silent> <Leader>l :Lines<Return>
 nnoremap <silent> <Leader>ll :BLines<Return>
-nnoremap <silent> <Leader>r :Tags<Return>
-nnoremap <silent> <Leader>rr :BTags<Return>
+nnoremap <silent> <Leader>y :Tags<Return>
+nnoremap <silent> <Leader>yy :BTags<Return>
 nnoremap <silent> <Leader>` :Marks<Return>
 nnoremap <silent> <Leader>w :Windows<Return>
 nnoremap <silent> <Leader>o :Locate<Return>
@@ -181,19 +184,19 @@ nnoremap <silent> <Leader>r :call LanguageClient#textDocument_rename()<Return>
 nnoremap <silent> gR :call LanguageClient#textDocument_rename()<Return>
 
 nnoremap <silent> <Leader>rc :call LanguageClient#textDocument_rename(
-	\ {'newName': Abolish.camelcase(expand('<cword>'))})<Return>
+      \ {'newName': Abolish.camelcase(expand('<cword>'))})<Return>
 nnoremap <silent> gRc :call LanguageClient#textDocument_rename(
-	\ {'newName': Abolish.camelcase(expand('<cword>'))})<Return>
+      \ {'newName': Abolish.camelcase(expand('<cword>'))})<Return>
 
 nnoremap <silent> <Leader>rs :call LanguageClient#textDocument_rename(
-	\ {'newName': Abolish.snakecase(expand('<cword>'))})<Return>
+      \ {'newName': Abolish.snakecase(expand('<cword>'))})<Return>
 nnoremap <silent> gRs :call LanguageClient#textDocument_rename(
-	\ {'newName': Abolish.snakecase(expand('<cword>'))})<Return>
+      \ {'newName': Abolish.snakecase(expand('<cword>'))})<Return>
 
 nnoremap <silent> <Leader>ru :call LanguageClient#textDocument_rename(
-  \ {'newName': Abolish.uppercase(expand('<cword>'))})<Return>
+      \ {'newName': Abolish.uppercase(expand('<cword>'))})<Return>
 nnoremap <silent> gRu :call LanguageClient#textDocument_rename(
-	\ {'newName': Abolish.uppercase(expand('<cword>'))})<Return>
+      \ {'newName': Abolish.uppercase(expand('<cword>'))})<Return>
 
 nnoremap <silent> <Leader>as :call LanguageClient#workspace_symbol()<Return>
 nnoremap <silent> go :call LanguageClient#workspace_symbol()<Return>
