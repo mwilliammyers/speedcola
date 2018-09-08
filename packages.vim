@@ -68,6 +68,7 @@ call minpac#add('tpope/vim-commentary')
 call minpac#add('easymotion/vim-easymotion')
 call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-sleuth')
 call minpac#add('simnalamburt/vim-mundo')
 call minpac#add('tpope/vim-abolish')
 call minpac#add('prettier/vim-prettier', 
