@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+repo="mwilliammyers/speedcola"
+
 
 info() {
 	printf "$(tput bold)${@}$(tput sgr0)\n"
@@ -36,7 +38,10 @@ system_package() {
 }
 
 git_pull_or_clone() {
-	cd "${2}" 2> /dev/null && git pull --rebase --autostash --depth=1 && return
+	cd "${2}" 2> /dev/null \
+		&& git config --get remote.origin.url | grep -v "${repo}" \
+		&& git pull --rebase --autostash --depth=1 \
+		&& return
 	git clone "${1}" "${2}" --depth=1
 }
 
@@ -53,7 +58,7 @@ git_pull_or_clone \
 config_dir="$(nvim --headless -u NONE -c 'echo stdpath("config")' -c q 2>&1)"
 info "Downloading neovim configuration..."
 git_pull_or_clone \
-	https://github.com/mwilliammyers/speedcola.git \
+	"https://github.com/${repo}.git" \
 	"${config_dir}" \
 	|| fail "Downloading neovim configuration failed"
 
