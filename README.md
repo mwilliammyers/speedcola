@@ -15,13 +15,13 @@ Ceck out: [init.vim](init.vim).
 
 ### notable plugins
 
-- [fzf] for fuzzy searching all the things [init.vim#L
+- [fzf] for fuzzy searching all the things
 - [LanguageClient] for IDE like features
 - [sneak] for jumping around
 
 ### key mappings
 
-[`<Leader>`] is mapped to `,` (init.vim#L7)
+[`<Leader>`] is mapped to `,`
 
 From [Normal] mode, type:
 ```
