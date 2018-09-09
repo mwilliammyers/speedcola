@@ -73,6 +73,8 @@ let g:prettier#exec_cmd_async = 1
 let g:gutentags_cache_dir = stdpath('cache') . '/tags'
 let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
 
+let g:sneak#label = 1
+
 "
 " fzf
 "
