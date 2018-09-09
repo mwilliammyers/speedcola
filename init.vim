@@ -200,8 +200,8 @@ nnoremap <silent> <Leader>ru :call LanguageClient#textDocument_rename(
 nnoremap <silent> gRu :call LanguageClient#textDocument_rename(
       \ {'newName': Abolish.uppercase(expand('<cword>'))})<Return>
 
-nnoremap <silent> <Leader>as :call LanguageClient#workspace_symbol()<Return>
-nnoremap <silent> go :call LanguageClient#workspace_symbol()<Return>
+nnoremap <silent> <Leader>as :call LanguageClient#workspace_symbol(input('Workspace symbol: '))<Return>
+nnoremap <silent> go :call LanguageClient#workspace_symbol(input('Workspace symbol: '))<Return>
 
 nnoremap <silent> <Leader>ass :call LanguageClient#textDocument_documentSymbol()<Return>
 nnoremap <silent> gS :call LanguageClient#textDocument_documentSymbol()<Return>
