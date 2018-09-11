@@ -214,3 +214,15 @@ nnoremap <silent> <Leader>af :call LanguageClient#textDocument_formatting()<Retu
 
 nnoremap <silent> <Leader>arf :call LanguageClient#textDocument_rangeFormatting()<Return>
 set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+
+"
+" vim-lsp
+"
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
