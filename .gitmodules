@@ -81,7 +81,7 @@
 	path = pack/gitmodules/opt/onedark.vim
 	url = https://github.com/joshdick/onedark.vim.git
 	shallow = true
-[submodule "prabirshrestha/vim-lsp"]
-	path = pack/gitmodules/start/vim-lsp
-	url = https://github.com/prabirshrestha/vim-lsp.git
+[submodule "natebosch/vim-lsc"]
+	path = pack/gitmodules/start/vim-lsc
+	url = https://github.com/natebosch/vim-lsc.git
 	shallow = true
