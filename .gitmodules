@@ -1,7 +1,3 @@
-[submodule "airblade/vim-gitgutter"]
-	path = pack/gitmodules/start/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter.git
-	shallow = true
 [submodule "airblade/vim-rooter"]
 	path = pack/gitmodules/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter.git
@@ -73,4 +69,19 @@
 [submodule "vim-airline/vim-airline-themes"]
 	path = pack/gitmodules/start/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
+	shallow = true
+[submodule "prabirshrestha/async.vim"]
+	path = pack/gitmodules/start/async.vim
+	url = https://github.com/prabirshrestha/async.vim.git
+	shallow = true
+[submodule "airblade/vim-gitgutter"]
+	path = pack/gitmodules/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "prabirshrestha/vim-lsp"]
+	shallow = true
+	path = pack/gitmodules/opt/vim-lsp
+	url = https://github.com/prabirshrestha/vim-lsp.git
+[submodule "joshdick/onedark.vim"]
+	path = pack/gitmodules/opt/onedark.vim
+	url = https://github.com/joshdick/onedark.vim.git
 	shallow = true
