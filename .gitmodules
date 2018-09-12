@@ -10,10 +10,6 @@
 	path = pack/gitmodules/start/supertab
 	url = https://github.com/ervandew/supertab.git
 	shallow = true
-[submodule "jeffkreeftmeijer/vim-numbertoggle"]
-	path = pack/gitmodules/start/vim-numbertoggle
-	url = https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
-	shallow = true
 [submodule "junegunn/fzf"]
 	path = pack/gitmodules/start/fzf
 	url = https://github.com/junegunn/fzf.git
@@ -42,10 +38,6 @@
 	path = pack/gitmodules/start/vim-mundo
 	url = https://github.com/simnalamburt/vim-mundo.git
 	shallow = true
-[submodule "tpope/vim-abolish"]
-	path = pack/gitmodules/start/vim-abolish
-	url = https://github.com/tpope/vim-abolish.git
-	shallow = true
 [submodule "tpope/vim-commentary"]
 	path = pack/gitmodules/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
@@ -53,10 +45,6 @@
 [submodule "tpope/vim-fugitive"]
 	path = pack/gitmodules/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-	shallow = true
-[submodule "tpope/vim-sleuth"]
-	path = pack/gitmodules/start/vim-sleuth
-	url = https://github.com/tpope/vim-sleuth.git
 	shallow = true
 [submodule "tpope/vim-surround"]
 	path = pack/gitmodules/start/vim-surround
@@ -88,3 +76,11 @@
 [submodule "prabirshrestha/vim-lsp"]
 	path = pack/gitmodules/start/vim-lsp
 	url = https://github.com/prabirshrestha/vim-lsp.git
+[submodule "tpope/vim-abolish"]
+	shallow = true
+	path = pack/gitmodules/start/vim-abolish
+	url = https://github.com/tpope/vim-abolish.git
+[submodule "jeffkreeftmeijer/vim-numbertoggle"]
+	path = pack/gitmodules/start/vim-numbertoggle
+	url = https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
+	shallow = true
