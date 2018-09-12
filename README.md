@@ -16,7 +16,7 @@ Ceck out: [init.vim](init.vim).
 ### notable plugins
 
 - [fzf] for fuzzy searching all the things
-- [LanguageClient] for IDE like features
+- [vim-lsc] for IDE like features
 - [sneak] for jumping around
 
 ### key mappings
@@ -32,7 +32,7 @@ From [Normal] mode, type:
 [Speed Cola]: http://nazizombies.wikia.com/wiki/Speed_Cola
 [`<Leader>`]: http://learnvimscriptthehardway.stevelosh.com/chapters/06.html#leader
 [fzf]: https://github.com/junegunn/fzf.vim
-[LanguageClient]: https://github.com/autozimu/LanguageClient-neovim
+[vim-lsc]: https://github.com/natebosch/vim-lsc
 [sneak]: https://github.com/justinmk/vim-sneak
 [Normal]: https://en.wikibooks.org/wiki/Learning_the_vi_Editor/Vim/Modes#normal_(command)
 
