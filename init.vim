@@ -82,24 +82,27 @@ let g:sneak#label = 1
 "
 autocmd StdinReadPre * let s:reading_stdin=1
 autocmd VimEnter * nested
-      \  if argc() == 0 && !exists("s:reading_stdin")
-      \|  call fzf#vim#files(getcwd())
-      \| endif
+  \  if argc() == 0 && !exists("s:reading_stdin")
+  \|  call fzf#vim#files(getcwd())
+  \| endif
 
-command! -bang -nargs=* Rg
-      \ call fzf#vim#grep(
-      \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-      \   <bang>0 ? fzf#vim#with_preview('up:60%')
-      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-      \   <bang>0)
+if executable('rg')
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+    \   <bang>0 ? fzf#vim#with_preview('up:60%')
+    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+    \   <bang>0)
 
-inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-      \ 'prefix': '^.*$',
-      \ 'source': 'rg -n ^ --color always',
-      \ 'options': '--ansi --delimiter : --nth 3..',
-      \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+  inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+    \ 'prefix': '^.*$',
+    \ 'source': 'rg -n ^ --color always',
+    \ 'options': '--ansi --delimiter : --nth 3..',
+    \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
-nnoremap <silent> <Leader>f :Rg<Return>
+  nnoremap <silent> <Leader>f :Rg<Return>
+end
+
 nnoremap <silent> <C-t> :Files<Return>
 nnoremap <silent> <Leader>t :Files<Return>
 nnoremap <silent> <Leader>tg :GFiles<Return>
@@ -130,20 +133,20 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
 let g:fzf_colors = {
-      \ 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
-      \ 'hl':      ['fg', 'Comment'],
-      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-      \ 'hl+':     ['fg', 'Statement'],
-      \ 'info':    ['fg', 'PreProc'],
-      \ 'border':  ['fg', 'Ignore'],
-      \ 'prompt':  ['fg', 'Conditional'],
-      \ 'pointer': ['fg', 'Exception'],
-      \ 'marker':  ['fg', 'Keyword'],
-      \ 'spinner': ['fg', 'Label'],
-      \ 'header':  ['fg', 'Comment']
-      \}
+  \ 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment']
+  \}
 
 "
 " fugitive
@@ -165,7 +168,7 @@ nnoremap <silent> <leader>Gi :Git add -p %<Return>
 let g:lsc_auto_map = v:true
 
 let g:lsc_server_commands = {
-      \ 'rust': 'rls',
-      \ 'javascript': 'javascript-typescript-stdio',
-      \ 'python': 'pyls',
-      \ }
+  \ 'rust': 'rls',
+  \ 'javascript': 'javascript-typescript-stdio',
+  \ 'python': 'pyls',
+  \ }
