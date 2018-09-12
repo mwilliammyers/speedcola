@@ -12,7 +12,7 @@ error() {
 }
 
 
-fail() {
+die() {
 	rc="${?}"
 	error "${@}"
 	exit "${rc}"
@@ -39,7 +39,7 @@ system_package() {
 
 git_pull_or_clone() {
 	cd "${2}" 2> /dev/null \
-		&& git config --get remote.origin.url | grep -v "${repo}" \
+		&& git config --get remote.origin.url | grep -q "${repo}" \
 		&& git pull --rebase --autostash --depth=1 \
 		&& return
 	git clone "${1}" "${2}" --depth=1
