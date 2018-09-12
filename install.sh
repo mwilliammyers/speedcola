@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 repo="mwilliammyers/speedcola"
 
@@ -12,7 +12,7 @@ error() {
 }
 
 
-fail() {
+die() {
 	rc="${?}"
 	error "${@}"
 	exit "${rc}"
@@ -39,32 +39,45 @@ system_package() {
 
 git_pull_or_clone() {
 	cd "${2}" 2> /dev/null \
-		&& git config --get remote.origin.url | grep -v "${repo}" \
+		&& git config --get remote.origin.url | grep -q "${repo}" \
 		&& git pull --rebase --autostash --depth=1 \
 		&& return
-	git clone "${1}" "${2}" --depth=1
+	git clone "${1}" "${2}" --depth=1 --recursive --jobs=0
 }
 
 info "Installing prerequisite packages..."
-system_package "git" "neovim" || die "Installing prerequisite packages failed"
+if ! [ -x "$(command -v git)" ]; then
+	system_package "git" || die "Installing git failed"
+fi
 
-data_dir="$(nvim --headless -u NONE -c 'echo stdpath("data")' -c q 2>&1)"
-info "Installing minpac..."
-git_pull_or_clone \
-	https://github.com/k-takata/minpac.git \
-	"${data_dir}/site/pack/minpac/opt/minpac" \
-	|| die "Installing minpac failed"
+if ! [ -x "$(command -v vim)" ]; then
+	if ! [ -x "$(command -v nvim)" ]; then
+		system_package "vim" || die "Installing vim failed"
+	fi
+fi
 
-config_dir="$(nvim --headless -u NONE -c 'echo stdpath("config")' -c q 2>&1)"
-info "Downloading neovim configuration..."
+# TODO: this assumes nvim provides vim...
+config_dir="$(vim --cmd 'echo split(&rtp, ",")[0] | q' 2>&1)"
+info "Downloading speedcola..."
 git_pull_or_clone \
 	"https://github.com/${repo}.git" \
 	"${config_dir}" \
-	|| die "Downloading neovim configuration failed"
+	|| die "Downloading speedcola failed"
 
-info "Installing plugins (this may take a few minutes)..."
-nvim --headless -u NONE \
-	-c 'packadd minpac' \
-	-c 'runtime packages.vim' \
-	-c "call minpac#update('', {'do': 'quit'})" \
-	|| die "Configuring neovim failed"
+# TODO: detect if we need sudo...
+if [ -x "$(command -v pip3)" ]; then
+	info "Installing Python Language Server..."
+	sudo -H pip3 install -U 'python-language-server[all]' pyls-mypy pyls-isort
+fi
+
+# TODO: detect if we need sudo...
+if [ -x "$(command -v npm)" ]; then
+	info "Installing Javascript/Typescript Language Servers..."
+	sudo -H npm -g install javascript-typescript-langserver
+fi
+
+if [ -x "$(command -v rustup)" ]; then
+	info "Installing Rust Language Server..."
+	rustup update
+	rustup component add rls-preview rust-analysis rust-src
+fi

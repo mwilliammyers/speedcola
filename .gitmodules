@@ -1,0 +1,86 @@
+[submodule "airblade/vim-rooter"]
+	path = pack/gitmodules/start/vim-rooter
+	url = https://github.com/airblade/vim-rooter.git
+	shallow = true
+[submodule "editorconfig/editorconfig-vim"]
+	path = pack/gitmodules/start/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim.git
+	shallow = true
+[submodule "ervandew/supertab"]
+	path = pack/gitmodules/start/supertab
+	url = https://github.com/ervandew/supertab.git
+	shallow = true
+[submodule "junegunn/fzf"]
+	path = pack/gitmodules/start/fzf
+	url = https://github.com/junegunn/fzf.git
+	shallow = true
+[submodule "junegunn/fzf.vim"]
+	path = pack/gitmodules/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
+	shallow = true
+[submodule "justinmk/vim-sneak"]
+	path = pack/gitmodules/start/vim-sneak
+	url = https://github.com/justinmk/vim-sneak.git
+	shallow = true
+[submodule "ludovicchabant/vim-gutentags"]
+	path = pack/gitmodules/start/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags.git
+	shallow = true
+[submodule "prettier/vim-prettier"]
+	path = pack/gitmodules/start/vim-prettier
+	url = https://github.com/prettier/vim-prettier.git
+	shallow = true
+[submodule "sheerun/vim-polyglot"]
+	path = pack/gitmodules/start/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
+	shallow = true
+[submodule "simnalamburt/vim-mundo"]
+	path = pack/gitmodules/start/vim-mundo
+	url = https://github.com/simnalamburt/vim-mundo.git
+	shallow = true
+[submodule "tpope/vim-commentary"]
+	path = pack/gitmodules/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+	shallow = true
+[submodule "tpope/vim-fugitive"]
+	path = pack/gitmodules/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+	shallow = true
+[submodule "tpope/vim-surround"]
+	path = pack/gitmodules/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+	shallow = true
+[submodule "vim-airline/vim-airline"]
+	path = pack/gitmodules/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+	shallow = true
+[submodule "vim-airline/vim-airline-themes"]
+	path = pack/gitmodules/start/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
+	shallow = true
+[submodule "prabirshrestha/async.vim"]
+	path = pack/gitmodules/start/async.vim
+	url = https://github.com/prabirshrestha/async.vim.git
+	shallow = true
+[submodule "airblade/vim-gitgutter"]
+	path = pack/gitmodules/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "joshdick/onedark.vim"]
+	path = pack/gitmodules/opt/onedark.vim
+	url = https://github.com/joshdick/onedark.vim.git
+	shallow = true
+[submodule "natebosch/vim-lsc"]
+	path = pack/gitmodules/start/vim-lsc
+	url = https://github.com/natebosch/vim-lsc.git
+	shallow = true
+[submodule "prabirshrestha/vim-lsp"]
+	path = pack/gitmodules/start/vim-lsp
+	url = https://github.com/prabirshrestha/vim-lsp.git
+[submodule "tpope/vim-abolish"]
+	shallow = true
+	path = pack/gitmodules/start/vim-abolish
+	url = https://github.com/tpope/vim-abolish.git
+[submodule "jeffkreeftmeijer/vim-numbertoggle"]
+	path = pack/gitmodules/start/vim-numbertoggle
+	url = https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
+	shallow = true
