@@ -70,7 +70,9 @@ let g:airline_theme='onedark'
 let g:prettier#autoformat = 0
 let g:prettier#exec_cmd_async = 1
 
-let g:gutentags_cache_dir = stdpath('cache') . '/tags'
+let s:cache_dir=expand('~/.cache')
+if !empty($XDG_CACHE_HOME) | let s:cache_dir=expand($XDG_CACHE_HOME) | end
+let g:gutentags_cache_dir = s:cache_dir . '/tags'
 let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
 
 let g:sneak#label = 1
