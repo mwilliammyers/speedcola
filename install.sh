@@ -43,7 +43,7 @@ git_pull_or_clone() {
 		&& git pull --rebase --autostash --depth=1 \
 		&& return
 	# git < v2.9.0 do not have the --jobs flag
-	git clone "${1}" "${2}" --depth=1 --recursive --jobs=0 \
+	git clone "${1}" "${2}" --depth=1 --recursive --jobs=0 2>/dev/null \
 		|| git clone "${1}" "${2}" --depth=1 --recursive
 }
 
@@ -65,6 +65,9 @@ git_pull_or_clone \
 	"https://github.com/${repo}.git" \
 	"${config_dir}" \
 	|| die "Downloading speedcola failed"
+if [ -x "$(command -v vim)" ]; then
+	ln -s "${config_dir}/init.vim" ~/.vimrc
+fi
 
 # TODO: detect if we need sudo...
 if [ -x "$(command -v pip3)" ]; then
