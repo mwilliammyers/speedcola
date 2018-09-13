@@ -42,7 +42,9 @@ git_pull_or_clone() {
 		&& git config --get remote.origin.url | grep -q "${repo}" \
 		&& git pull --rebase --autostash --depth=1 \
 		&& return
-	git clone "${1}" "${2}" --depth=1 --recursive --jobs=0
+	# git < v2.9.0 do not have the --jobs flag
+	git clone "${1}" "${2}" --depth=1 --recursive --jobs=0 \
+		|| git clone "${1}" "${2}" --depth=1 --recursive
 }
 
 info "Installing prerequisite packages..."
