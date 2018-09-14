@@ -70,9 +70,9 @@ let g:airline_theme='onedark'
 let g:prettier#autoformat = 0
 let g:prettier#exec_cmd_async = 1
 
-let s:cache_dir=expand('~/.cache')
-if !empty($XDG_CACHE_HOME) | let s:cache_dir=expand($XDG_CACHE_HOME) | end
-let g:gutentags_cache_dir = s:cache_dir . '/tags'
+" TODO: extract this and XDG logic in vimrc to a package
+if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME=expand('~/.cache') | endif
+let g:gutentags_cache_dir = $XDG_CACHE_HOME . '/tags'
 let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
 
 let g:sneak#label = 1
