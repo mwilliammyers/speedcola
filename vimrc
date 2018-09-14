@@ -6,9 +6,9 @@ set fileencodings=utf-8
 
 set autoread
 
-if empty('$XDG_CACHE_HOME') | let $XDG_CACHE_HOME=expand('~/.cache') | endif
-if empty('$XDG_CONFIG_HOME') | let $XDG_CONFIG_HOME=expand('~/.config') | endif
-if empty('$XDG_DATA_HOME') | let $XDG_DATA_HOME=expand('~/.local/share') | endif
+if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME=expand('~/.cache') | endif
+if empty($XDG_CONFIG_HOME) | let $XDG_CONFIG_HOME=expand('~/.config') | endif
+if empty($XDG_DATA_HOME) | let $XDG_DATA_HOME=expand('~/.local/share') | endif
 
 let s:vim_data_dir=$XDG_DATA_HOME . '/vim'
 
@@ -28,7 +28,7 @@ set undofile
 
 let s:viminfo=s:vim_data_dir . '/viminfo'
 if !isdirectory(s:viminfo) | call mkdir(s:viminfo, 'p') | endif
-let &viminfo+=s:viminfo . '//'
+let &viminfo=s:viminfo . '//'
 
 set ruler
 set laststatus=2
