@@ -31,7 +31,9 @@ set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc
 
 let g:mapleader=','
 
-if exists('*tnoremap') | tnoremap <Esc> <C-\><C-n> | endif
+if exists(':tnoremap')
+  tnoremap <Esc> <C-\><C-n>
+endif
 
 command! -bang -nargs=? -complete=file E e<bang> <args>
 command! -bang -nargs=? -complete=file W w<bang> <args>
