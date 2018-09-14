@@ -65,9 +65,6 @@ git_pull_or_clone \
 	"https://github.com/${repo}.git" \
 	"${config_dir}" \
 	|| die "Downloading speedcola failed"
-if [ -x "$(command -v vim)" ]; then
-	ln -s "${config_dir}/init.vim" ~/.vimrc
-fi
 
 # TODO: detect if we need sudo...
 if [ -x "$(command -v pip3)" ]; then
