@@ -1,5 +1,5 @@
 packadd onedark.vim
-set termguicolors
+if has('termguicolors') | set termguicolors | endif
 colorscheme onedark
 
 set hidden
@@ -10,7 +10,7 @@ set number relativenumber
 set splitright
 set splitbelow
 set colorcolumn=80,120
-set signcolumn=yes
+if has('signcolumn') | set signcolumn=yes | endif
 set nowrap
 
 set undofile
@@ -31,7 +31,7 @@ set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc
 
 let g:mapleader=','
 
-tnoremap <Esc> <C-\><C-n>
+if exists('*tnoremap') | tnoremap <Esc> <C-\><C-n> | endif
 
 command! -bang -nargs=? -complete=file E e<bang> <args>
 command! -bang -nargs=? -complete=file W w<bang> <args>
