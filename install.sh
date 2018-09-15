@@ -38,13 +38,14 @@ system_package() {
 }
 
 git_pull_or_clone() {
-	cd "${2}" 2> /dev/null \
-		&& git config --get remote.origin.url | grep -q "${repo}" \
-		&& git pull --ff-only --depth=1 \
-		&& return
-	# git < v2.9.0 do not have the --jobs flag
-	git clone "${1}" "${2}" --depth=1 --recursive --jobs=0 2>/dev/null \
-		|| git clone "${1}" "${2}" --depth=1 --recursive
+	git -C "${2}" config --get remote.origin.url 2>/dev/null | grep -q "${repo}"
+	if [ "${?}" -eq 0 ]; then
+		git -C "${2}" pull --ff-only --depth=1
+	else
+		# git < v2.9.0 do not have the --jobs flag
+		git clone "${1}" "${2}" --depth=1 --recursive --jobs=0 2>/dev/null \
+			|| git clone "${1}" "${2}" --depth=1 --recursive	
+	fi
 }
 
 info "Installing prerequisite packages..."
