@@ -6,7 +6,7 @@
 
 Run [`install.sh`](install.sh):
 ```
-curl -fsSL https://git.io/fAlZT | sh
+curl -fsSL https://git.io/speedcola | sh
 ```
 
 ## configuration
