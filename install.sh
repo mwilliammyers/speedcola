@@ -38,12 +38,14 @@ system_package() {
 }
 
 git_pull_or_clone() {
+	# git < v2.9.0 do not have the --jobs flag
 	git -C "${2}" config --get remote.origin.url 2>/dev/null | grep -q "${repo}"
 	if [ "${?}" -eq 0 ]; then
 		git -C "${2}" pull --ff-only --depth=1
+		git -C "${2}" submodule update --jobs 0 --depth=1 --remote --init --checkout \
+			|| git -C "${2}" submodule update --depth=1 --remote --init --checkout
 	else
-		# git < v2.9.0 do not have the --jobs flag
-		git clone "${1}" "${2}" --depth=1 --recursive --jobs=0 2>/dev/null \
+		git clone "${1}" "${2}" --jobs=0 --depth=1 --recursive 2>/dev/null \
 			|| git clone "${1}" "${2}" --depth=1 --recursive	
 	fi
 }
