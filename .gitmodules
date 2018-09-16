@@ -92,3 +92,8 @@
 	url = https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
 	shallow = true
 	ignore = dirty
+[submodule "lifepillar/vim-mucomplete"]
+	path = pack/gitmodules/start/vim-mucomplete
+	url = https://github.com/lifepillar/vim-mucomplete.git
+	shallow = true
+	ignore = dirty
