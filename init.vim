@@ -22,6 +22,17 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
+augroup indentation
+  autocmd!
+  autocmd FileType fish setlocal shiftwidth=4 softtabstop=4 expandtab
+  autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab list
+  autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab list
+  autocmd FileType make setlocal noexpandtab list
+  autocmd FileType markdown setlocal linebreak shiftwidth=4 tabstop=4 expandtab spell
+  autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
+  autocmd FileType vim setlocal shiftwidth=2 softtabstop=2 expandtab commentstring=\"\ %s
+augroup END
+
 set smartcase
 set wildmode=list:longest,full
 set whichwrap=b,s,h,l,<,>,[,]
@@ -194,3 +205,4 @@ command! -nargs=* DevDocsMoment call devdocs#open_doc(<q-args>, 'moment')
 command! -nargs=* DevDocsNpm call devdocs#open_doc(<q-args>, 'npm')
 command! -nargs=* DevDocsNumpy call devdocs#open_doc(<q-args>, 'numpy')
 command! -nargs=* DevDocsReact call devdocs#open_doc(<q-args>, 'react')
+
