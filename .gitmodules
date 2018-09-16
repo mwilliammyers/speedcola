@@ -3,11 +3,6 @@
 	url = https://github.com/airblade/vim-rooter.git
 	shallow = true
 	ignore = dirty
-[submodule "editorconfig/editorconfig-vim"]
-	path = pack/gitmodules/start/editorconfig-vim
-	url = https://github.com/editorconfig/editorconfig-vim.git
-	shallow = true
-	ignore = dirty
 [submodule "junegunn/fzf"]
 	path = pack/gitmodules/start/fzf
 	url = https://github.com/junegunn/fzf.git
@@ -100,5 +95,10 @@
 [submodule "rhysd/devdocs.vim"]
 	path = pack/gitmodules/start/devdocs.vim
 	url = https://github.com/rhysd/devdocs.vim.git
+	shallow = true
+	ignore = dirty
+[submodule "sgur/vim-editorconfig"]
+	path = pack/gitmodules/start/vim-editorconfig
+	url = https://github.com/sgur/vim-editorconfig.git
 	shallow = true
 	ignore = dirty
