@@ -76,6 +76,8 @@ let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
 
 let g:sneak#label = 1
 
+let g:sql_type_default = 'pgsql'
+
 "
 " fzf
 "
@@ -155,7 +157,7 @@ nnoremap <silent> <leader>Ge :Gedit<Return>
 nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
 "
-" vim-lsc 
+" vim-lsc
 "
 let g:lsc_auto_map = v:true
 
@@ -171,12 +173,24 @@ let g:lsc_server_commands = {
 nmap L <Plug>(devdocs-under-cursor)
 
 let g:devdocs_filetype_map = {
+    \   'ansible': 'ansible',
+    \   'dockerfile': 'postgresql',
+    \   'fish': 'fish',
     \   'javascript': 'javascript',
     \   'javascript.jsx': 'react',
     \   'javascript.test': 'jest',
+    \   'markdown': 'markdown',
+    \   'rust': 'rust',
     \   'sql': 'postgresql',
-    \   'dockerfile': 'postgresql',
     \ }
 
+command! -nargs=* DevDocsESlint call devdocs#open_doc(<q-args>, 'eslint')
+command! -nargs=* DevDocsExpress call devdocs#open_doc(<q-args>, 'express')
+command! -nargs=* DevDocsGit call devdocs#open_doc(<q-args>, 'git')
+command! -nargs=* DevDocsJSdoc call devdocs#open_doc(<q-args>, 'jsdoc')
+command! -nargs=* DevDocsLodash call devdocs#open_doc(<q-args>, 'lodash')
+command! -nargs=* DevDocsMatplotlib call devdocs#open_doc(<q-args>, 'matplotlib')
+command! -nargs=* DevDocsMoment call devdocs#open_doc(<q-args>, 'moment')
+command! -nargs=* DevDocsNpm call devdocs#open_doc(<q-args>, 'npm')
+command! -nargs=* DevDocsNumpy call devdocs#open_doc(<q-args>, 'numpy')
 command! -nargs=* DevDocsReact call devdocs#open_doc(<q-args>, 'react')
-
