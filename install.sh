@@ -7,6 +7,10 @@ info() {
 	printf "$(tput bold)${@}$(tput sgr0)\n"
 }
 
+warn() {
+	printf "$(tput setaf 3)${@}$(tput sgr0)\n"
+}
+
 error() {
 	>&2 printf "$(tput bold)$(tput setaf 1)${@}$(tput sgr0)\n"
 }
@@ -18,7 +22,8 @@ die() {
 	exit "${rc}"
 }
 
-system_package() {
+# TODO: update first, only if we haven't already
+package_install() {
 	if [ -x "$(command -v apt-get)" ]; then
 		sudo apt-get install -y "${@}"	
 	elif [ -x "$(command -v brew)" ]; then
@@ -37,6 +42,23 @@ system_package() {
 	fi
 }
 
+# TODO: make this smarter
+package_exists() {
+	if [ -x "$(command -v apt-cache)" ]; then
+		sudo apt-cache show "${@}" 2>/dev/null >/dev/null
+	else
+		return 0
+	fi
+}
+
+add_apt_repository() {
+	if ! [ -x "$(command -v add-apt-repository)" ]; then
+		sudo apt-get install -y software-properties-common
+	fi
+	sudo add-apt-repository -y "${@}"
+}
+
+
 git_pull_or_clone() {
 	# git < v2.9.0 do not have the --jobs flag
 	git -C "${2}" config --get remote.origin.url 2>/dev/null | grep -q "${repo}"
@@ -50,13 +72,25 @@ git_pull_or_clone() {
 
 info "Installing prerequisite packages..."
 if ! [ -x "$(command -v git)" ]; then
-	system_package "git" || die "Installing git failed"
+	package_install "git" || die "Installing git failed"
 fi
 
 if ! [ -x "$(command -v vim)" ]; then
 	if ! [ -x "$(command -v nvim)" ]; then
-		system_package "vim" || die "Installing vim failed"
+		package_install "vim" || die "Installing vim failed"
 	fi
+fi
+
+if ! [ -x "$(command -v rg)" ]; then
+	package_exists "ripgrep" || add_apt_repository "ppa:x4121/ripgrep"
+	package_install "ripgrep" \
+		|| warn 'Could not install optional `ripgrep` package'
+fi
+
+if ! [ -x "$(command -v ctags)" ]; then
+	package_exists "universal-ctags" || add_apt_repository "ppa:hnakamur/universal-ctags"
+	package_install "universal-ctags" \
+		|| warn 'Could not install optional `universal-ctags` package'
 fi
 
 # TODO: this assumes nvim provides vim...
