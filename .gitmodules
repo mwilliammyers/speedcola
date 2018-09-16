@@ -28,11 +28,6 @@
 	url = https://github.com/ludovicchabant/vim-gutentags.git
 	shallow = true
 	ignore = dirty
-[submodule "prettier/vim-prettier"]
-	path = pack/gitmodules/start/vim-prettier
-	url = https://github.com/prettier/vim-prettier.git
-	shallow = true
-	ignore = dirty
 [submodule "sheerun/vim-polyglot"]
 	path = pack/gitmodules/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git
@@ -95,5 +90,11 @@
 [submodule "lifepillar/vim-mucomplete"]
 	path = pack/gitmodules/start/vim-mucomplete
 	url = https://github.com/lifepillar/vim-mucomplete.git
+	shallow = true
+	ignore = dirty
+[submodule "prettier/vim-prettier"]
+	path = pack/default/start/vim-prettier
+	url = https://github.com/prettier/vim-prettier.git
+	branch = release/1.x
 	shallow = true
 	ignore = dirty
