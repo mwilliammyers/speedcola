@@ -6,6 +6,8 @@ set fileencodings=utf-8
 
 set autoread
 
+syntax on
+
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME=expand('~/.cache') | endif
 if empty($XDG_CONFIG_HOME) | let $XDG_CONFIG_HOME=expand('~/.config') | endif
 if empty($XDG_DATA_HOME) | let $XDG_DATA_HOME=expand('~/.local/share') | endif
