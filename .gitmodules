@@ -98,3 +98,8 @@
 	branch = release/1.x
 	shallow = true
 	ignore = dirty
+[submodule "sbdchd/neoformat"]
+	path = pack/gitmodules/start/neoformat
+	url = https://github.com/sbdchd/neoformat.git
+	shallow = true
+	ignore = dirty
