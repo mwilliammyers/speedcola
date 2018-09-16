@@ -89,6 +89,8 @@ let g:sneak#label = 1
 
 let g:sql_type_default = 'pgsql'
 
+nnoremap <Leader>p :Neoformat<Return>
+
 "
 " fzf
 "
