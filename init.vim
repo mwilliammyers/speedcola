@@ -29,6 +29,8 @@ set wildignore+=.svn,.hg,.bzr,.git
 set wildignore+=*/tmp/*,*/node_modules/*,.sass-cache,*.class,*.scssc,*/Godeps/*
 set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc
 
+set completeopt+=longest,menuone,noselect
+
 let g:mapleader=','
 
 if exists(':tnoremap')
@@ -55,10 +57,7 @@ command! -bang Xa xa<bang>
 " package settings
 "
 
-command! PackUpdate runtime! packages.vim | call minpac#update()
-command! PackClean runtime! packages.vim | call minpac#clean()
-
-let g:SuperTabDefaultCompletionType = '<c-n>'
+let g:mucomplete#enable_auto_at_startup = 1
 
 let g:javascript_plugin_jsdoc = 1
 
