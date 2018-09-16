@@ -8,11 +8,6 @@
 	url = https://github.com/editorconfig/editorconfig-vim.git
 	shallow = true
 	ignore = dirty
-[submodule "ervandew/supertab"]
-	path = pack/gitmodules/start/supertab
-	url = https://github.com/ervandew/supertab.git
-	shallow = true
-	ignore = dirty
 [submodule "junegunn/fzf"]
 	path = pack/gitmodules/start/fzf
 	url = https://github.com/junegunn/fzf.git
