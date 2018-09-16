@@ -92,12 +92,6 @@
 	url = https://github.com/lifepillar/vim-mucomplete.git
 	shallow = true
 	ignore = dirty
-[submodule "prettier/vim-prettier"]
-	path = pack/default/start/vim-prettier
-	url = https://github.com/prettier/vim-prettier.git
-	branch = release/1.x
-	shallow = true
-	ignore = dirty
 [submodule "sbdchd/neoformat"]
 	path = pack/gitmodules/start/neoformat
 	url = https://github.com/sbdchd/neoformat.git
