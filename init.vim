@@ -164,3 +164,19 @@ let g:lsc_server_commands = {
   \ 'javascript': 'javascript-typescript-stdio',
   \ 'python': 'pyls',
   \ }
+
+"
+" devdocs.vim
+"
+nmap L <Plug>(devdocs-under-cursor)
+
+let g:devdocs_filetype_map = {
+    \   'javascript': 'javascript',
+    \   'javascript.jsx': 'react',
+    \   'javascript.test': 'jest',
+    \   'sql': 'postgresql',
+    \   'dockerfile': 'postgresql',
+    \ }
+
+command! -nargs=* DevDocsReact call devdocs#open_doc(<q-args>, 'react')
+
