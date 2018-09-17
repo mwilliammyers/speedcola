@@ -1,6 +1,6 @@
 # speedcola
 
-> Lean [neovim] configuration infused with a little [Speed Cola]
+> Lean [vim8]/[neovim] configuration infused with a little [Speed Cola]
 
 ## install
 
@@ -28,6 +28,7 @@ From [Normal] mode, type:
 :Maps
 ```
 
+[vim]: https://www.vim.org/
 [neovim]: https://neovim.io
 [Speed Cola]: http://nazizombies.wikia.com/wiki/Speed_Cola
 [`<Leader>`]: http://learnvimscriptthehardway.stevelosh.com/chapters/06.html#leader
