@@ -46,16 +46,22 @@ package_install() {
 package_exists() {
 	if [ -x "$(command -v apt-cache)" ]; then
 		sudo apt-cache show "${@}" 2>/dev/null >/dev/null
+	elif [ -x "$(command -v brew)" ]; then
+		# we don't need this info and it is faster without it
+		env HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_GITHUB_API=1 \
+			brew info "${@}" 2>/dev/null >/dev/null
 	else
 		return 0
 	fi
 }
 
-add_apt_repository() {
-	if ! [ -x "$(command -v add-apt-repository)" ]; then
-		sudo apt-get install -y software-properties-common
+try_add_apt_repository() {
+	if grep -q "ID=ubuntu" /etc/os-release 2>/dev/null; then
+		if ! [ -x "$(command -v add-apt-repository)" ]; then
+			sudo apt-get install -y software-properties-common
+		fi
+		sudo add-apt-repository -y "${@}"
 	fi
-	sudo add-apt-repository -y "${@}"
 }
 
 
@@ -68,6 +74,7 @@ git_pull_or_clone() {
 		# `Fetched in submodule path <path> but it did not contain <hash>. Direct fetching of that commit failed.`
 		git clone "${1}" "${2}" --depth=1
 	fi
+	# TODO: this will update all submodules instead of using the version at HEAD
 	git -C "${2}" submodule update --depth=1 --remote --init --checkout
 }
 
@@ -83,13 +90,13 @@ if ! [ -x "$(command -v vim)" ]; then
 fi
 
 if ! [ -x "$(command -v rg)" ]; then
-	package_exists "ripgrep" || add_apt_repository "ppa:x4121/ripgrep"
+	package_exists "ripgrep" || try_add_apt_repository "ppa:x4121/ripgrep"
 	package_install "ripgrep" \
 		|| warn 'Could not install optional `ripgrep` package'
 fi
 
 if ! [ -x "$(command -v ctags)" ]; then
-	package_exists "universal-ctags" || add_apt_repository "ppa:hnakamur/universal-ctags"
+	package_exists "universal-ctags" || try_add_apt_repository "ppa:hnakamur/universal-ctags"
 	package_install "universal-ctags" \
 		|| warn 'Could not install optional `universal-ctags` package'
 fi
