@@ -6,6 +6,8 @@ set fileencodings=utf-8
 
 set autoread
 
+filetype plugin on
+
 syntax on
 
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME=expand('~/.cache') | endif
