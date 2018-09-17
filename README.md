@@ -28,7 +28,7 @@ From [Normal] mode, type:
 :Maps
 ```
 
-[vim]: https://www.vim.org/
+[vim8]: https://www.vim.org/
 [neovim]: https://neovim.io
 [Speed Cola]: http://nazizombies.wikia.com/wiki/Speed_Cola
 [`<Leader>`]: http://learnvimscriptthehardway.stevelosh.com/chapters/06.html#leader
