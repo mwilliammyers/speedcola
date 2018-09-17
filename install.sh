@@ -60,14 +60,15 @@ add_apt_repository() {
 
 
 git_pull_or_clone() {
-	# git < v2.9.0 do not have the --jobs flag
 	git -C "${2}" config --get remote.origin.url 2>/dev/null | grep -q "${repo}"
 	if [ "${?}" -eq 0 ]; then
 		git -C "${2}" pull --ff-only --depth=1
-		git -C "${2}" submodule update --depth=1 --remote --init --checkout
 	else
-		git clone "${1}" "${2}" --depth=1 --recursive
+		# Do not use recursive to avoid:
+		# `Fetched in submodule path <path> but it did not contain <hash>. Direct fetching of that commit failed.`
+		git clone "${1}" "${2}" --depth=1
 	fi
+	git -C "${2}" submodule update --depth=1 --remote --init --checkout
 }
 
 info "Installing prerequisite packages..."
