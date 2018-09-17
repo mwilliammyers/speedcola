@@ -94,7 +94,8 @@ if ! [ -x "$(command -v ctags)" ]; then
 fi
 
 # TODO: this assumes nvim provides vim...
-config_dir="$(vim -Esc 'verbose echo split(&rtp, ",")[0] | q' 2>&1)"
+config_dir="${1}"
+[ -z "${config_dir}" ] && config_dir="$(vim -Esc 'verbose echo split(&rtp, ",")[0] | q' 2>&1)"
 info "Downloading speedcola..."
 git_pull_or_clone \
 	"https://github.com/${repo}.git" \
