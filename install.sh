@@ -47,7 +47,7 @@ package_exists() {
 	if [ -x "$(command -v apt-cache)" ]; then
 		sudo apt-cache show "${@}" 2>/dev/null >/dev/null
 	elif [ -x "$(command -v brew)" ]; then
-		# we don't need this info and it is faster without it
+		# we don't need this info and it is faster without it 
 		env HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_GITHUB_API=1 \
 			brew info "${@}" 2>/dev/null >/dev/null
 	else
@@ -64,6 +64,15 @@ try_add_apt_repository() {
 	fi
 }
 
+# TODO: is this the best way to detect if we need sudo?
+safe_pip3() {
+	pip3 install -U "${@}" || sudo -H pip3 install -U "${@}"
+}
+
+# TODO: is this the best way to detect if we need sudo?
+safe_npm_global() {
+	npm install -g "${@}" || sudo -H npm install -g "${@}"
+}
 
 git_pull_or_clone() {
 	git -C "${2}" config --get remote.origin.url 2>/dev/null | grep -q "${repo}"
@@ -110,20 +119,21 @@ git_pull_or_clone \
 	"${config_dir}" \
 	|| die "Downloading speedcola failed"
 
-# TODO: detect if we need sudo...
 if [ -x "$(command -v pip3)" ]; then
 	info "Installing Python Language Server..."
-	sudo -H pip3 install -U 'python-language-server[all]' pyls-mypy pyls-isort
+	safe_pip3 'python-language-server[all]' pyls-mypy pyls-isort \
+		|| warn "Could not install optional Python Language Server packages"
 fi
 
-# TODO: detect if we need sudo...
 if [ -x "$(command -v npm)" ]; then
-	info "Installing Javascript/Typescript Language Servers..."
-	sudo -H npm -g install javascript-typescript-langserver
+	info "Installing Javascript/Typescript Language Server..."
+	safe_npm_global javascript-typescript-langserver \
+		|| warn "Could not install optional Javascript/Typescript Language Server package"
 fi
 
 if [ -x "$(command -v rustup)" ]; then
 	info "Installing Rust Language Server..."
 	rustup update
-	rustup component add rls-preview rust-analysis rust-src
+	rustup component add rls-preview rust-analysis rust-src \
+		|| warn "Could not install optional Rust Langauge Server package"
 fi
