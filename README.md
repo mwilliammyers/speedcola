@@ -4,9 +4,17 @@
 
 ## install
 
-Run [`install.sh`](install.sh):
+Run [`install.sh`]:
 ```
 curl -fsSL https://git.io/speedcola | sh
+```
+
+This will default to configuring `vim` if both `nvim` and `vim` are found. 
+If neither are found it will install [neovim] for you and configure that.
+
+If you want to customize the configuration directory, run [`install.sh`] like:
+```
+curl -L git.io/speedcola | sh -s -- ~/.config/nvim
 ```
 
 ## configuration
@@ -31,6 +39,7 @@ From [Normal] mode, type:
 [vim8]: https://www.vim.org/
 [neovim]: https://neovim.io
 [Speed Cola]: http://nazizombies.wikia.com/wiki/Speed_Cola
+[`install.sh`]: install.sh
 [`<Leader>`]: http://learnvimscriptthehardway.stevelosh.com/chapters/06.html#leader
 [fzf]: https://github.com/junegunn/fzf.vim
 [vim-lsc]: https://github.com/natebosch/vim-lsc
