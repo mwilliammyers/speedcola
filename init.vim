@@ -10,7 +10,7 @@ set number relativenumber
 set splitright
 set splitbelow
 set colorcolumn=80,120
-if has('signcolumn') | set signcolumn=yes | endif
+if exists('+signcolumn') | set signcolumn=yes | endif
 set nowrap
 
 set undofile
