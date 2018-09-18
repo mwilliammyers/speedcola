@@ -14,7 +14,7 @@ If neither are found it will install [neovim] for you and configure that.
 
 If you want to customize the configuration directory, run [`install.sh`] like:
 ```
-curl -L git.io/speedcola | sh -s -- ~/.config/nvim
+curl -L git.io/speedcola | sh -s ~/.config/nvim
 ```
 
 ## configuration
