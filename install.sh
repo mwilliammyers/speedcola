@@ -64,9 +64,9 @@ try_add_apt_repository() {
 	fi
 }
 
-# TODO: is this the best way to detect if we need sudo?
+# TODO: test for sudo without trying it first without sudo (pip will install to ~/.local)?
 safe_pip3() {
-	pip3 install -U "${@}" || sudo -H pip3 install -U "${@}"
+	sudo -H pip3 install -U "${@}"
 }
 
 # TODO: is this the best way to detect if we need sudo?
