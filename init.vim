@@ -79,6 +79,14 @@ let g:jsx_ext_required = 1
 
 let g:airline_theme='onedark'
 
+" TODO: this is annoying, but prettier should be the default
+let g:neoformat_enabled_javascript = [
+      \   'standard',
+      \   'prettier',
+      \   'esformatter',
+      \   'prettiereslint',
+      \   'eslint_d'
+      \ ]
 let g:neoformat_basic_format_trim = 1
 
 " TODO: extract this and XDG logic in vimrc to a package
