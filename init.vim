@@ -42,6 +42,7 @@ set wildignore+=*/tmp/*,*/node_modules/*,.sass-cache,*.class,*.scssc,*/Godeps/*
 set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc
 
 set completeopt+=longest,menuone,noselect
+autocmd CompleteDone * silent! pclose
 set shortmess+=c
 
 let g:mapleader=','
