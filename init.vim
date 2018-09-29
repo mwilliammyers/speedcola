@@ -80,16 +80,6 @@ let g:jsx_ext_required = 1
 
 let g:airline_theme='onedark'
 
-" TODO: this is annoying, but prettier should be the default
-let g:neoformat_enabled_javascript = [
-      \   'standard',
-      \   'prettier',
-      \   'esformatter',
-      \   'prettiereslint',
-      \   'eslint_d'
-      \ ]
-let g:neoformat_basic_format_trim = 1
-
 " TODO: extract this and XDG logic in vimrc to a package
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME=expand('~/.cache') | endif
 let g:gutentags_cache_dir = $XDG_CACHE_HOME . '/tags'
@@ -98,8 +88,6 @@ let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
 let g:sneak#label = 1
 
 let g:sql_type_default = 'pgsql'
-
-nnoremap <Leader>p :Neoformat<Return>
 
 "
 " fzf
@@ -218,3 +206,28 @@ command! -nargs=* DevDocsNpm call devdocs#open_doc(<q-args>, 'npm')
 command! -nargs=* DevDocsNumpy call devdocs#open_doc(<q-args>, 'numpy')
 command! -nargs=* DevDocsReact call devdocs#open_doc(<q-args>, 'react')
 
+"
+" neoformat
+"
+nnoremap <Leader>p :Neoformat<Return>
+
+let g:neoformat_basic_format_trim = 1
+
+" TODO: this is annoying, but prettier should be the default
+let g:neoformat_enabled_javascript = [
+      \   'prettier',
+      \   'jsbeautify',
+      \   'standard',
+      \   'prettydiff',
+      \   'clangformat',
+      \   'esformatter',
+      \   'prettiereslint',
+      \   'eslint_d'
+      \ ]
+
+let g:neoformat_enabled_python = ['yapf', 'isort']
+
+augroup neoformat
+  autocmd!
+  autocmd FileType python let b:neoformat_run_all_formatters = 1
+augroup END
