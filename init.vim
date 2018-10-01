@@ -30,6 +30,7 @@ augroup indentation
   autocmd FileType make setlocal noexpandtab list
   autocmd FileType markdown setlocal linebreak shiftwidth=4 tabstop=4 expandtab spell
   autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
+  autocmd FileType cfg setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab commentstring=\;\ %s
   autocmd FileType sql setlocal commentstring=\--\ %s
   autocmd FileType vim setlocal shiftwidth=2 softtabstop=2 expandtab commentstring=\"\ %s
 augroup END
