@@ -35,6 +35,9 @@ augroup indentation
   autocmd FileType vim setlocal shiftwidth=2 softtabstop=2 expandtab commentstring=\"\ %s
 augroup END
 
+set foldmethod=syntax
+set foldlevelstart=99
+
 set smartcase
 set wildmode=list:longest,full
 set whichwrap=b,s,h,l,<,>,[,]
