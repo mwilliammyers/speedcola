@@ -94,6 +94,7 @@ fi
 
 if ! [ -x "$(command -v vim)" ]; then
 	if ! [ -x "$(command -v nvim)" ]; then
+		package_exists "neovim" || try_add_apt_repository "ppa:neovim-ppa/stable"
 		package_install "neovim" || die "Installing neovim failed"
 	fi
 fi
