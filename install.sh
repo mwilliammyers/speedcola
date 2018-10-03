@@ -61,6 +61,7 @@ try_add_apt_repository() {
 			sudo apt-get install -y software-properties-common
 		fi
 		sudo add-apt-repository -y "${@}"
+		sudo apt-get update
 	fi
 }
 
