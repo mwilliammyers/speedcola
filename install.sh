@@ -94,7 +94,7 @@ fi
 
 if ! [ -x "$(command -v vim)" ]; then
 	if ! [ -x "$(command -v nvim)" ]; then
-		package_install "nvim" || die "Installing neovim failed"
+		package_install "neovim" || die "Installing neovim failed"
 	fi
 fi
 
