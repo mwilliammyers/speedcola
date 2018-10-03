@@ -112,9 +112,17 @@ if ! [ -x "$(command -v ctags)" ]; then
 		|| warn 'Could not install optional `universal-ctags` package'
 fi
 
-# TODO: this assumes nvim provides vim...
 config_dir="${1}"
-[ -z "${config_dir}" ] && config_dir="$(vim -Esc 'verbose echo split(&rtp, ",")[0] | q' 2>&1)"
+if [ -z "${config_dir}" ]; then
+	if [ -x "$(command -v nvim)" ]; then
+		config_dir="$(nvim --headless --cmd 'echo split(&rtp, ",")[0] | q' 2>&1)"
+	elif [ -x "$(command -v vim)" ]; then
+		config_dir="$(vim -T dumb --not-a-term --cmd 'echo split(&rtp, ",")[0] | q' 2>&1)"
+	else
+		die "Could not find neovim or vim"
+	fi
+fi
+
 info "Downloading speedcola..."
 git_pull_or_clone \
 	"https://github.com/${repo}.git" \
