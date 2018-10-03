@@ -88,6 +88,7 @@ git_pull_or_clone() {
 	git -C "${2}" submodule update --depth=1 --remote --init --checkout
 }
 
+
 info "Installing prerequisite packages..."
 if ! [ -x "$(command -v git)" ]; then
 	package_install "git" || die "Installing git failed"
@@ -127,7 +128,7 @@ info "Downloading speedcola..."
 git_pull_or_clone \
 	"https://github.com/${repo}.git" \
 	"${config_dir}" \
-	|| die "Downloading speedcola failed"
+		|| die "Downloading speedcola failed"
 
 if [ -x "$(command -v pip3)" ]; then
 	info "Installing Python Language Server..."
