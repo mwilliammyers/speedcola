@@ -22,8 +22,11 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
+autocmd BufRead,BufNewFile Dockerfile.* setfiletype dockerfile
+
 augroup indentation
   autocmd!
+  autocmd FileType dockerfile setlocal shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType fish setlocal shiftwidth=4 softtabstop=4 expandtab
   autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab list
   autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab list
