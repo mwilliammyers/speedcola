@@ -46,7 +46,7 @@ set wildmode=list:longest,full
 set whichwrap=b,s,h,l,<,>,[,]
 set wildignore+=.svn,.hg,.bzr,.git
 set wildignore+=*/tmp/*,*/node_modules/*,.sass-cache,*.class,*.scssc,*/Godeps/*
-set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc
+set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc,*/target/*
 
 set completeopt+=longest,menuone,noselect
 autocmd CompleteDone * silent! pclose
@@ -86,11 +86,6 @@ nnoremap <Leader>u :MundoToggle<Return>
 let g:jsx_ext_required = 1
 
 let g:airline_theme='onedark'
-
-" TODO: extract this and XDG logic in vimrc to a package
-if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME=expand('~/.cache') | endif
-let g:gutentags_cache_dir = $XDG_CACHE_HOME . '/tags'
-let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
 
 let g:sneak#label = 1
 
@@ -238,3 +233,19 @@ augroup neoformat
   autocmd!
   autocmd FileType python let b:neoformat_run_all_formatters = 1
 augroup END
+
+"
+" gutentags
+"
+" TODO: extract this and XDG logic in vimrc to a package
+if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME=expand('~/.cache') | endif
+let g:gutentags_cache_dir = $XDG_CACHE_HOME . '/tags'
+
+let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
+
+let g:gutentags_file_list_command = {
+   \ 'markers': {
+       \ '.git': 'git ls-files',
+       \ '.hg': 'hg files',
+       \ },
+   \ }
