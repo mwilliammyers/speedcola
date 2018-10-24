@@ -91,6 +91,8 @@ let g:sneak#label = 1
 
 let g:sql_type_default = 'pgsql'
 
+let g:mundo_close_on_revert = 1
+
 "
 " fzf
 "
