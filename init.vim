@@ -251,3 +251,13 @@ let g:gutentags_file_list_command = {
        \ '.hg': 'hg files',
        \ },
    \ }
+
+"
+" jsdoc
+"
+nmap <silent> <C-l> <Plug>(jsdoc)
+
+let g:jsdoc_allow_input_prompt = 1
+let g:jsdoc_input_description	= 1
+let g:jsdoc_access_descriptions	= 1
+let g:jsdoc_enable_es6 = 1
