@@ -102,3 +102,8 @@
 	url = https://github.com/sgur/vim-editorconfig.git
 	shallow = true
 	ignore = dirty
+[submodule "heavenshell/vim-jsdoc"]
+	path = pack/gitmodules/start/vim-jsdoc
+	url = https://github.com/heavenshell/vim-jsdoc.git
+	shallow = true
+	ignore = dirty
