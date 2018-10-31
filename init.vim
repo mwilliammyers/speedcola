@@ -80,8 +80,8 @@ command! -bang Xa xa<bang>
 
 let g:javascript_plugin_jsdoc = 1
 
-nnoremap <F5> :MundoToggle<Return>
-nnoremap <Leader>u :MundoToggle<Return>
+nnoremap <silent> <F5> :MundoToggle<Return>
+nnoremap <silent> <Leader>u :MundoToggle<Return>
 
 let g:jsx_ext_required = 1
 
@@ -103,7 +103,7 @@ autocmd VimEnter * nested
   \| endif
 
 if executable('rg')
-  inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+  inoremap <silent> <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
     \ 'prefix': '^.*$',
     \ 'source': 'rg -n ^ --color always',
     \ 'options': '--ansi --delimiter : --nth 3..',
@@ -137,9 +137,9 @@ nnoremap <silent> <Leader>m :Maps<Return>
 nnoremap <silent> <Leader>h :Helptags<Return>
 nnoremap <silent> <Leader>tp :Filetypes<Return>
 
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+nmap <silent> <leader><tab> <plug>(fzf-maps-n)
+xmap <silent> <leader><tab> <plug>(fzf-maps-x)
+omap <silent> <leader><tab> <plug>(fzf-maps-o)
 
 let g:fzf_colors = {
   \ 'fg':      ['fg', 'Normal'],
@@ -213,7 +213,7 @@ command! -nargs=* DevDocsReact call devdocs#open_doc(<q-args>, 'react')
 "
 " neoformat
 "
-nnoremap <Leader>p :Neoformat<Return>
+nnoremap <silent> <Leader>p :Neoformat<Return>
 
 let g:neoformat_basic_format_trim = 1
 
