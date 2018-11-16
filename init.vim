@@ -177,7 +177,7 @@ nnoremap <silent> <leader>Gi :Git add -p %<Return>
 let g:lsc_auto_map = v:true
 
 let g:lsc_server_commands = {
-  \ 'rust': 'rls',
+  \ 'rust': 'rls 2> /dev/null',
   \ 'javascript': 'javascript-typescript-stdio',
   \ 'python': 'pyls',
   \ }
