@@ -229,7 +229,13 @@ let g:neoformat_enabled_javascript = [
       \   'eslint_d'
       \ ]
 
-let g:neoformat_enabled_python = ['yapf', 'isort']
+let g:neoformat_python_black = {
+      \ 'exe': 'black',
+      \ 'stdin': 1,
+      \ 'args': ['-l 80', '-'],
+      \ }
+
+let g:neoformat_enabled_python = ['black', 'isort']
 
 augroup neoformat
   autocmd!
