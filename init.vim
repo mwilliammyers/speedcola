@@ -6,9 +6,9 @@ set hidden
 
 set mouse=a
 
+set noshowmode
 set number relativenumber
-set splitright
-set splitbelow
+set splitright splitbelow
 set colorcolumn=80,120
 if exists('+signcolumn') | set signcolumn=yes | endif
 set nowrap
