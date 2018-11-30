@@ -73,8 +73,8 @@ command! -bang Qa qa<bang>
 command! -bang XA xa<bang>
 command! -bang Xa xa<bang>
 
-" from http://got-ravings.blogspot.com/2008/07/vim-pr0n-visual-search-mappings.html
-" makes * and # work on visual mode too.
+" Make * and # work on visual mode too
+" http://got-ravings.blogspot.com/2008/07/vim-pr0n-visual-search-mappings.html
 function! s:VSetSearch(cmdtype)
   let temp = @s
   norm! gv"sy
