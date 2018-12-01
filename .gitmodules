@@ -67,11 +67,6 @@
 	url = https://github.com/joshdick/onedark.vim.git
 	shallow = true
 	ignore = dirty
-[submodule "natebosch/vim-lsc"]
-	path = pack/gitmodules/start/vim-lsc
-	url = https://github.com/natebosch/vim-lsc.git
-	shallow = true
-	ignore = dirty
 [submodule "tpope/vim-abolish"]
 	shallow = true
 	path = pack/gitmodules/start/vim-abolish

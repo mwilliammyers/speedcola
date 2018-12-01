@@ -189,17 +189,6 @@ nnoremap <silent> <leader>Ge :Gedit<Return>
 nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
 "
-" vim-lsc
-"
-let g:lsc_auto_map = v:true
-
-let g:lsc_server_commands = {
-  \ 'rust': 'rls 2> /dev/null',
-  \ 'javascript': 'javascript-typescript-stdio',
-  \ 'python': 'pyls',
-  \ }
-
-"
 " devdocs.vim
 "
 nmap L <Plug>(devdocs-under-cursor)
