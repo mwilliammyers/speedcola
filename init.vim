@@ -187,6 +187,60 @@ nnoremap <silent> <leader>Ge :Gedit<Return>
 nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
 "
+" ale
+"
+nmap <Leader>af <Plug>(ale_fix)
+nmap <Leader>p <Plug>(ale_fix)
+
+nmap <Leader>an <Plug>(ale_next_wrap)
+nmap <C-j> <Plug>(ale_next_wrap)
+
+nmap <Leader>ap <Plug>(ale_previous_wrap)
+nmap <C-k> <Plug>(ale_previous_wrap)
+
+nmap <Leader>ad <Plug>(ale_go_to_definition)
+" TODO: fix this binding to work with docs navigation etc.
+" https://github.com/w0rp/ale/issues/1236
+" https://github.com/w0rp/ale/issues/1645
+nmap <C-]> <Plug>(ale_go_to_definition)
+
+nmap <Leader>ar <Plug>(ale_find_references)
+nmap gr <Plug>(ale_find_references)
+
+nmap <Leader>ah <Plug>(ale_hover)
+
+" nmap <Leader>as :ALESymbolSearch<Return>
+" nmap gS :ALESymbolSearch<Return>
+
+let g:ale_use_global_executables = 1
+let g:ale_completion_enabled = 1
+let g:ale_set_balloons = 1
+" let g:ale_sign_error = '✘'
+" let g:ale_sign_warning = '⚠'
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_python_black_options = '-l 80'
+let g:ale_rust_rls_toolchain = 'beta'
+
+let g:ale_fixers = {
+    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \   'graphql': ['eslint', 'prettier'],
+    \   'javascript': ['eslint', 'prettier'],
+    \   'json': ['prettier', 'jq'],
+    \   'python': ['black', 'isort'],
+    \   'rust': ['rustfmt'],
+    \ }
+
+let g:ale_linters = {
+    \   'graphql': ['eslint', 'prettier'],
+    \   'javascript': ['language_server', 'eslint', 'prettier'],
+    \   'json': ['prettier'],
+    \   'python': ['pyls', 'vulture'],
+    \   'rust': ['rls', 'cargo'],
+    \ }
+
+"
 " devdocs.vim
 "
 nmap L <Plug>(devdocs-under-cursor)
