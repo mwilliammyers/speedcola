@@ -87,11 +87,6 @@
 	url = https://github.com/lifepillar/vim-mucomplete.git
 	shallow = true
 	ignore = dirty
-[submodule "sbdchd/neoformat"]
-	path = pack/gitmodules/start/neoformat
-	url = https://github.com/sbdchd/neoformat.git
-	shallow = true
-	ignore = dirty
 [submodule "rhysd/devdocs.vim"]
 	path = pack/gitmodules/start/devdocs.vim
 	url = https://github.com/rhysd/devdocs.vim.git
