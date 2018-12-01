@@ -236,7 +236,7 @@ let g:ale_fixers = {
 
 let g:ale_linters = {
     \   'graphql': ['eslint', 'prettier'],
-    \   'javascript': ['language_server', 'eslint', 'prettier'],
+    \   'javascript': ['tsserver', 'eslint', 'prettier'],
     \   'json': ['prettier'],
     \   'python': ['pyls', 'vulture'],
     \   'rust': ['rls', 'cargo'],
