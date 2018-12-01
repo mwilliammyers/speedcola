@@ -226,38 +226,6 @@ command! -nargs=* DevDocsNumpy call devdocs#open_doc(<q-args>, 'numpy')
 command! -nargs=* DevDocsReact call devdocs#open_doc(<q-args>, 'react')
 
 "
-" neoformat
-"
-nnoremap <silent> <Leader>p :Neoformat<Return>
-
-let g:neoformat_basic_format_trim = 1
-
-" TODO: this is annoying, but prettier should be the default
-let g:neoformat_enabled_javascript = [
-      \   'prettier',
-      \   'jsbeautify',
-      \   'standard',
-      \   'prettydiff',
-      \   'clangformat',
-      \   'esformatter',
-      \   'prettiereslint',
-      \   'eslint_d'
-      \ ]
-
-let g:neoformat_python_black = {
-      \ 'exe': 'black',
-      \ 'stdin': 1,
-      \ 'args': ['-l 80', '-'],
-      \ }
-
-let g:neoformat_enabled_python = ['black', 'isort']
-
-augroup neoformat
-  autocmd!
-  autocmd FileType python let b:neoformat_run_all_formatters = 1
-augroup END
-
-"
 " gutentags
 "
 " TODO: extract this and XDG logic in vimrc to a package
