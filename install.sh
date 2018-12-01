@@ -132,7 +132,7 @@ git_pull_or_clone \
 
 if [ -x "$(command -v pip3)" ]; then
 	info "Installing Python Language Server..."
-	safe_pip3 'python-language-server[all]' pyls-mypy pyls-isort \
+	safe_pip3 'python-language-server[all]' pyls-black pyls-mypy pyls-isort vulture \
 		|| warn "Could not install optional Python Language Server packages"
 fi
 

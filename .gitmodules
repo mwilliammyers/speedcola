@@ -97,3 +97,8 @@
 	url = https://github.com/heavenshell/vim-jsdoc.git
 	shallow = true
 	ignore = dirty
+[submodule "w0rp/ale"]
+	path = pack/gitmodules/start/ale
+	url = https://github.com/w0rp/ale.git
+	shallow = true
+	ignore = dirty
