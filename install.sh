@@ -137,9 +137,9 @@ if [ -x "$(command -v pip3)" ]; then
 fi
 
 if [ -x "$(command -v npm)" ]; then
-	info "Installing Javascript/Typescript Language Server..."
-	safe_npm_global javascript-typescript-langserver \
-		|| warn "Could not install optional Javascript/Typescript Language Server package"
+	info "Installing Typescript server..."
+	safe_npm_global typescript \
+		|| warn "Could not install optional Typescript server package"
 fi
 
 if [ -x "$(command -v rustup)" ]; then
