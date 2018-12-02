@@ -28,7 +28,7 @@ let &directory=s:directory . '//'
 let s:undodir=s:vim_data_dir . '/undo'
 if !isdirectory(s:undodir) | call mkdir(s:undodir, 'p') | endif
 let &undodir=s:undodir . '//'
-set undofile
+set undolevels=1000
 
 let s:viminfo=s:vim_data_dir . '/viminfo'
 if !isdirectory(s:viminfo) | call mkdir(s:viminfo, 'p') | endif

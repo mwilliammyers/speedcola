@@ -14,7 +14,6 @@ if exists('+signcolumn') | set signcolumn=yes | endif
 set nowrap
 
 set undofile
-set undolevels=1000
 
 set listchars=tab:▸\ ,eol:\ ,trail:·
 
