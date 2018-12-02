@@ -6,6 +6,8 @@ set hidden
 
 set mouse=a
 
+set belloff+=ctrlg
+
 set noshowmode
 set number relativenumber
 set splitright splitbelow
