@@ -239,7 +239,7 @@ let g:ale_linters = {
     \   'javascript': ['tsserver', 'eslint', 'prettier'],
     \   'json': ['prettier'],
     \   'python': ['pyls', 'vulture'],
-    \   'rust': ['rls', 'cargo'],
+    \   'rust': ['rls'],
     \ }
 
 "
