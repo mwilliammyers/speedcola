@@ -49,7 +49,8 @@ set wildignore+=.svn,.hg,.bzr,.git
 set wildignore+=*/tmp/*,*/node_modules/*,.sass-cache,*.class,*.scssc,*/Godeps/*
 set wildignore+=.final_builds/*,*.o,*.obj,*.exe,*.so,*.dll,*.pyc,*/target/*
 
-set completeopt+=longest,menuone,noselect
+set completeopt=menu,menuone,preview,noselect,noinsert
+
 autocmd CompleteDone * silent! pclose
 set shortmess+=c
 
