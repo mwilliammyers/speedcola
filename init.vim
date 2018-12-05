@@ -225,11 +225,13 @@ let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_python_black_options = '-l 80'
 let g:ale_rust_rls_toolchain = 'beta'
 
+" TODO: options to make all installed fixers enabled by default?
 let g:ale_fixers = {
     \   '*': ['remove_trailing_lines', 'trim_whitespace'],
     \   'graphql': ['eslint', 'prettier'],
     \   'javascript': ['eslint', 'prettier'],
     \   'json': ['prettier', 'jq'],
+    \   'markdown': ['prettier'],
     \   'python': ['black', 'isort'],
     \   'rust': ['rustfmt'],
     \ }
