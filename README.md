@@ -9,7 +9,8 @@ Run [`install.sh`]:
 curl -fsSL https://git.io/speedcola | sh
 ```
 
-This will default to configuring `vim` if both `nvim` and `vim` are found. 
+This will default to configuring `vim` if both `nvim` and `vim` are found.
+
 If neither are found it will install [neovim] for you and configure that.
 
 If you want to customize the configuration directory, run [`install.sh`] like:
@@ -24,7 +25,7 @@ Ceck out: [init.vim](init.vim).
 ### notable plugins
 
 - [fzf] for fuzzy searching all the things
-- [vim-lsc] for IDE like features
+- [ALE] for IDE like features
 - [sneak] for jumping around
 
 ### key mappings
@@ -43,6 +44,7 @@ From [Normal] mode, type:
 [`<Leader>`]: http://learnvimscriptthehardway.stevelosh.com/chapters/06.html#leader
 [fzf]: https://github.com/junegunn/fzf.vim
 [vim-lsc]: https://github.com/natebosch/vim-lsc
+[ALE]: https://github.com/w0rp/ale
 [sneak]: https://github.com/justinmk/vim-sneak
 [Normal]: https://en.wikibooks.org/wiki/Learning_the_vi_Editor/Vim/Modes#normal_(command)
 
