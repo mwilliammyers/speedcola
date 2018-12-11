@@ -6,6 +6,8 @@ set hidden
 
 set mouse=a
 
+if has('unnamedplus') | set clipboard=unnamedplus | endif
+
 set belloff+=ctrlg
 
 set noshowmode
