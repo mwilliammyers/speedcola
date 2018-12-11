@@ -234,6 +234,7 @@ let g:ale_fixers = {
     \   'markdown': ['prettier'],
     \   'python': ['black', 'isort'],
     \   'rust': ['rustfmt'],
+    \   'yaml': ['prettier'],
     \ }
 
 let g:ale_linters = {
