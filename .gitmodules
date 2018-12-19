@@ -1,8 +1,3 @@
-[submodule "airblade/vim-rooter"]
-	path = pack/gitmodules/start/vim-rooter
-	url = https://github.com/airblade/vim-rooter.git
-	shallow = true
-	ignore = dirty
 [submodule "junegunn/fzf"]
 	path = pack/gitmodules/start/fzf
 	url = https://github.com/junegunn/fzf.git
