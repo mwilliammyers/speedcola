@@ -274,6 +274,7 @@ command! -nargs=* DevDocsMoment call devdocs#open_doc(<q-args>, 'moment')
 command! -nargs=* DevDocsNpm call devdocs#open_doc(<q-args>, 'npm')
 command! -nargs=* DevDocsNumpy call devdocs#open_doc(<q-args>, 'numpy')
 command! -nargs=* DevDocsReact call devdocs#open_doc(<q-args>, 'react')
+command! -nargs=* DevDocsRust call devdocs#open_doc(<q-args>, 'rust')
 
 "
 " gutentags
