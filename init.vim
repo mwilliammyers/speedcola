@@ -248,35 +248,6 @@ let g:ale_linters = {
     \ }
 
 "
-" devdocs.vim
-"
-nmap L <Plug>(devdocs-under-cursor)
-
-let g:devdocs_filetype_map = {
-    \   'ansible': 'ansible',
-    \   'dockerfile': 'postgresql',
-    \   'fish': 'fish',
-    \   'javascript': 'javascript',
-    \   'javascript.jsx': 'react',
-    \   'javascript.test': 'jest',
-    \   'markdown': 'markdown',
-    \   'rust': 'rust',
-    \   'sql': 'postgresql',
-    \ }
-
-command! -nargs=* DevDocsESlint call devdocs#open_doc(<q-args>, 'eslint')
-command! -nargs=* DevDocsExpress call devdocs#open_doc(<q-args>, 'express')
-command! -nargs=* DevDocsGit call devdocs#open_doc(<q-args>, 'git')
-command! -nargs=* DevDocsJSdoc call devdocs#open_doc(<q-args>, 'jsdoc')
-command! -nargs=* DevDocsLodash call devdocs#open_doc(<q-args>, 'lodash')
-command! -nargs=* DevDocsMatplotlib call devdocs#open_doc(<q-args>, 'matplotlib')
-command! -nargs=* DevDocsMoment call devdocs#open_doc(<q-args>, 'moment')
-command! -nargs=* DevDocsNpm call devdocs#open_doc(<q-args>, 'npm')
-command! -nargs=* DevDocsNumpy call devdocs#open_doc(<q-args>, 'numpy')
-command! -nargs=* DevDocsReact call devdocs#open_doc(<q-args>, 'react')
-command! -nargs=* DevDocsRust call devdocs#open_doc(<q-args>, 'rust')
-
-"
 " gutentags
 "
 " TODO: extract this and XDG logic in vimrc to a package

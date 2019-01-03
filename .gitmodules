@@ -77,11 +77,6 @@
 	url = https://github.com/lifepillar/vim-mucomplete.git
 	shallow = true
 	ignore = dirty
-[submodule "rhysd/devdocs.vim"]
-	path = pack/gitmodules/start/devdocs.vim
-	url = https://github.com/rhysd/devdocs.vim.git
-	shallow = true
-	ignore = dirty
 [submodule "sgur/vim-editorconfig"]
 	path = pack/gitmodules/start/vim-editorconfig
 	url = https://github.com/sgur/vim-editorconfig.git
