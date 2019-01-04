@@ -94,6 +94,50 @@ xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 
 "
+" browser & docs
+"
+function! OpenUrl(...)
+	for uri in a:000
+		" let uri = tolower(uri)
+		if uri !~# '^https\=\:\/\/'
+			let uri = 'https://' . uri
+		endif
+
+		call netrw#BrowseX(uri, netrw#CheckIfRemote())
+	endfor
+endfunction
+
+command! -nargs=* Url call OpenUrl(<f-args>)
+
+command! -nargs=* Google call OpenUrl('https://www.google.com/search?q=' . join([<f-args>], '+'))
+map <expr> <Leader><Leader>g ':Google ' . expand('<cword>') . '<Return>'
+
+command! -nargs=* Lucky call OpenUrl('https://www.google.com/search?q=' . join([<f-args>], '+') . '&btnI')
+map <expr> <Leader><Leader>l ':Lucky ' . expand('<cword>') . '<Return>'
+
+command! -nargs=* Stackoverflow call OpenUrl('https://stackoverflow.com/search?q=' . join([<f-args>], '+'))
+map <expr> <Leader><Leader>s ':Stackoverflow ' . expand('<cword>') . '<Return>'
+
+command! -nargs=* Github call OpenUrl('https://www.github.com/search?q=' . join([<f-args>], '+'))
+map <expr> <Leader><Leader>h ':Github ' . expand('<cword>') . '<Return>'
+
+command! -nargs=* Docs call OpenUrl('https://www.google.com/search?q=' . join([<f-args>, 'documentation'], '+') . '&btnI')
+
+" command! -nargs=* Docs call OpenUrl(''. <q-args>)
+command! -nargs=* Docsrust call OpenUrl('https://doc.rust-lang.org/std/index.html?search=' . <q-args>)
+command! -nargs=* Docspython call OpenUrl('https://docs.python.org/3.6/search.html?q=' . <q-args>)
+command! -nargs=* Docspytorch call OpenUrl('https://pytorch.org/docs/stable/search.html?q='. <q-args>)
+command! -nargs=* Docstf call OpenUrl('https://www.tensorflow.org/s/results/?q='. <q-args>)
+command! -nargs=* Docspostgresql call OpenUrl('https://www.postgresql.org/search/?q=' . <q-args>)
+
+augroup docs
+  autocmd!
+  autocmd FileType * map <expr> L ':Docs' . &filetype . ' ' . expand('<cword>') . '<Return>'
+  autocmd FileType * map <expr> <Leader><Leader>l ':Docs' . &filetype . ' ' . expand('<cword>') . '<Return>'
+augroup END
+
+
+"
 " package settings
 "
 
