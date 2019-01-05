@@ -60,6 +60,9 @@ let g:mapleader=','
 
 if exists(':tnoremap')
   tnoremap <Esc> <C-\><C-n>
+
+  map <Leader>vt :vsplit term://$SHELL <Return>
+  map <Leader>xt :split term://$SHELL <Return>
 endif
 
 command! -bang -nargs=? -complete=file E e<bang> <args>
