@@ -267,10 +267,10 @@ nmap <Leader>ah <Plug>(ale_hover)
 " nmap <Leader>as :ALESymbolSearch<Return>
 " nmap gS :ALESymbolSearch<Return>
 
-let g:ale_use_global_executables = 1
+" let g:ale_use_global_executables = 1
 let g:ale_completion_enabled = 1
 let g:ale_set_balloons = 1
-" let g:ale_sign_error = '✘'
+" let g:ale_sifoogn_error = '✘'
 " let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
 
