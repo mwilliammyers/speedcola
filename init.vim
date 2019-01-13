@@ -291,8 +291,8 @@ let g:ale_fixers = {
     \ }
 
 let g:ale_linters = {
-    \   'graphql': ['eslint', 'prettier'],
-    \   'javascript': ['tsserver', 'eslint', 'prettier'],
+    \   'graphql': ['eslint'],
+    \   'javascript': ['tsserver', 'eslint'],
     \   'json': ['prettier'],
     \   'python': ['pyls', 'vulture'],
     \   'rust': ['rls'],
