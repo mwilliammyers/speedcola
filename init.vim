@@ -19,7 +19,7 @@ set nowrap
 
 set undofile
 
-set listchars=tab:▸\ ,eol:\ ,trail:·
+set listchars=tab:▸-,space:·,trail:·
 
 set shiftwidth=2
 set softtabstop=2
