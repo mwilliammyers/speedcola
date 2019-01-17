@@ -92,3 +92,8 @@
 	url = https://github.com/w0rp/ale.git
 	shallow = true
 	ignore = dirty
+[submodule "wincent/loupe"]
+	path = pack/gitmodules/start/loupe
+	url = https://github.com/wincent/loupe.git
+	shallow = true
+	ignore = dirty

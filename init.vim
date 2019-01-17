@@ -82,21 +82,10 @@ command! -bang Xa xa<bang>
 
 nnoremap Y y$
 
-" Make * and # work on visual mode too
-" http://got-ravings.blogspot.com/2008/07/vim-pr0n-visual-search-mappings.html
-function! s:VSetSearch(cmdtype)
-  let temp = @s
-  norm! gv"sy
-  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
-  let @s = temp
-endfunction
-
-xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
-
 " Do not immediately jump to next search result
 " https://stackoverflow.com/a/4257175
-nnoremap * *#
+" TODO: make this behavior work with loupe: https://github.com/wincent/loupe/issues/12
+" nnoremap * *#
 
 " Trigger `autoread` when files changes on disk
 " https://unix.stackexchange.com/a/383044
