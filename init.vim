@@ -31,8 +31,8 @@ augroup indentation
   autocmd!
   autocmd FileType dockerfile setlocal shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType fish setlocal shiftwidth=4 softtabstop=4 expandtab
-  autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab list
-  autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab list
+  autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType make setlocal noexpandtab list
   autocmd FileType markdown setlocal linebreak shiftwidth=4 tabstop=4 expandtab spell
   autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
