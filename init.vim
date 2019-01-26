@@ -274,7 +274,7 @@ let g:ale_rust_rls_toolchain = 'beta'
 " TODO: options to make all installed fixers enabled by default?
 let g:ale_fixers = {
     \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \   'graphql': ['eslint', 'prettier'],
+    \   'graphql': ['prettier'],
     \   'javascript': ['eslint', 'prettier'],
     \   'json': ['prettier', 'jq'],
     \   'markdown': ['prettier'],
@@ -284,7 +284,7 @@ let g:ale_fixers = {
     \ }
 
 let g:ale_linters = {
-    \   'graphql': ['eslint'],
+    \   'graphql': [],
     \   'javascript': ['tsserver', 'eslint'],
     \   'json': ['prettier'],
     \   'python': ['pyls', 'vulture'],
