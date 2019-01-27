@@ -38,11 +38,6 @@
 	url = https://github.com/tpope/vim-fugitive.git
 	shallow = true
 	ignore = dirty
-[submodule "tpope/vim-surround"]
-	path = pack/gitmodules/start/vim-surround
-	url = https://github.com/tpope/vim-surround.git
-	shallow = true
-	ignore = dirty
 [submodule "vim-airline/vim-airline"]
 	path = pack/gitmodules/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
