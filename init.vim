@@ -150,11 +150,17 @@ let g:jsx_ext_required = 1
 
 let g:airline_theme='onedark'
 
-let g:sneak#label = 1
-
 let g:sql_type_default = 'pgsql'
 
 let g:mundo_close_on_revert = 1
+
+"
+" sneak
+"
+let g:sneak#label = 1
+" because the sandwhich plugin uses `sa`
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
 
 "
 " fzf
