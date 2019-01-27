@@ -82,6 +82,21 @@ command! -bang Xa xa<bang>
 
 nnoremap Y y$
 
+" Visual mode search
+" https://github.com/godlygeek/vim-files/blob/ecd434bc/plugin/vsearch.vim
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  " Use this line instead of the above to match matches spanning across lines
+  "let @/ = '\V' . substitute(escape(@@, '\'), '\_s\+', '\\_s\\+', 'g')
+  call histadd('/', substitute(@/, '[?/]', '\="\\%d".char2nr(submatch(0))', 'g'))
+  let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>/<CR>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>?<CR>
+
 " Do not immediately jump to next search result
 " https://stackoverflow.com/a/4257175
 " TODO: make this behavior work with loupe: https://github.com/wincent/loupe/issues/12
