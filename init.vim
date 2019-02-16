@@ -291,6 +291,7 @@ let g:airline#extensions#ale#enabled = 1
 
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_python_black_options = '-l 80'
+let g:ale_rust_rls_toolchain = 'stable'
 
 " TODO: options to make all installed fixers enabled by default?
 let g:ale_fixers = {
