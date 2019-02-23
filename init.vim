@@ -309,8 +309,8 @@ let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
 
 let g:gutentags_file_list_command = {
       \ 'markers': {
-      \ '.git': 'git ls-files',
-      \ '.hg': 'hg files',
+      \   '.git': 'git ls-files',
+      \   '.hg': 'hg files',
       \ },
       \ }
 
