@@ -111,14 +111,14 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 " browser & docs
 "
 function! OpenUrl(...)
-	for uri in a:000
-		" let uri = tolower(uri)
-		if uri !~# '^https\=\:\/\/'
-			let uri = 'https://' . uri
-		endif
+  for uri in a:000
+    " let uri = tolower(uri)
+    if uri !~# '^https\=\:\/\/'
+      let uri = 'https://' . uri
+    endif
 
-		call netrw#BrowseX(uri, netrw#CheckIfRemote())
-	endfor
+    call netrw#BrowseX(uri, netrw#CheckIfRemote())
+  endfor
 endfunction
 
 command! -nargs=* Url call OpenUrl(<f-args>)
@@ -202,16 +202,16 @@ map F <Plug>Sneak_S
 "
 autocmd StdinReadPre * let s:reading_stdin=1
 autocmd VimEnter * nested
-  \  if argc() == 0 && !exists("s:reading_stdin")
-  \|  call fzf#vim#files(getcwd())
-  \| endif
+      \  if argc() == 0 && !exists("s:reading_stdin")
+      \|  call fzf#vim#files(getcwd())
+      \| endif
 
 if executable('rg')
   inoremap <silent> <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-    \ 'prefix': '^.*$',
-    \ 'source': 'rg -n ^ --color always',
-    \ 'options': '--ansi --delimiter : --nth 3..',
-    \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+        \ 'prefix': '^.*$',
+        \ 'source': 'rg -n ^ --color always',
+        \ 'options': '--ansi --delimiter : --nth 3..',
+        \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
   nnoremap <silent> <Leader>f :Rg<Return>
 end
@@ -246,20 +246,20 @@ xmap <silent> <leader><tab> <plug>(fzf-maps-x)
 omap <silent> <leader><tab> <plug>(fzf-maps-o)
 
 let g:fzf_colors = {
-  \ 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment']
-  \}
+      \ 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment']
+      \}
 
 "
 " fugitive
@@ -285,11 +285,12 @@ let g:gutentags_cache_dir = $XDG_CACHE_HOME . '/tags'
 let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
 
 let g:gutentags_file_list_command = {
-   \ 'markers': {
-       \ '.git': 'git ls-files',
-       \ '.hg': 'hg files',
-       \ },
-   \ }
+      \ 'markers': {
+      \ '.git': 'git ls-files',
+      \ '.hg': 'hg files',
+      \ },
+      \ }
+
 
 "
 " jsdoc
@@ -301,5 +302,5 @@ let g:jsdoc_input_description	= 1
 let g:jsdoc_access_descriptions	= 2
 let g:jsdoc_enable_es6 = 1
 let g:jsdoc_tags = {
-    \   'returns': 'return',
-    \ }
+      \   'returns': 'return',
+      \ }
