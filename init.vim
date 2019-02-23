@@ -203,11 +203,6 @@ let g:neoformat_basic_format_trim = 1
 nnoremap <silent> <Leader>= :Neoformat<Return>
 nnoremap <silent> ;; :Neoformat<Return>
 
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
-
 "
 " sneak
 "
