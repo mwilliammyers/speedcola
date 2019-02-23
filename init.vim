@@ -176,6 +176,9 @@ let g:mundo_close_on_revert = 1
 let g:lsc_auto_map = v:true
 let g:lsc_server_commands = {'python': 'pyls', 'rust': 'rls'}
 
+highlight link lscDiagnosticError SpellBad
+highlight link lscDiagnosticWarning SpellCap
+
 "
 " neoformat
 "
