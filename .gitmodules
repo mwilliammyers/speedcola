@@ -92,3 +92,13 @@
 	url = https://github.com/machakann/vim-sandwich.git
 	shallow = true
 	ignore = dirty
+[submodule "natebosch/vim-lsc"]
+	path = pack/gitmodules/start/vim-lsc
+	url = https://github.com/natebosch/vim-lsc.git
+	shallow = true
+	ignore = dirty
+[submodule "sbdchd/neoformat"]
+	path = pack/gitmodules/start/neoformat
+	url = https://github.com/sbdchd/neoformat.git
+	shallow = true
+	ignore = dirty

@@ -171,6 +171,25 @@ let g:sql_type_default = 'pgsql'
 let g:mundo_close_on_revert = 1
 
 "
+" lsc
+"
+let g:lsc_auto_map = v:true
+let g:lsc_server_commands = {'python': 'pyls', 'rust': 'rls'}
+
+"
+" neoformat
+"
+" let g:neoformat_try_formatprg = 1
+let g:neoformat_basic_format_align = 1
+" let g:neoformat_basic_format_retab = 1
+let g:neoformat_basic_format_trim = 1
+
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
+
+"
 " sneak
 "
 let g:sneak#label = 1
