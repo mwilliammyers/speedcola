@@ -144,9 +144,9 @@ if [ -x "$(command -v pip3)" ]; then
 fi
 
 if [ -x "$(command -v npm)" ]; then
-	info "Installing Typescript server..."
-	safe_npm_global typescript \
-		|| warn "Could not install optional Typescript server package"
+	info "Installing Typescript server & prettier..."
+	safe_npm_global typescript prettier \
+		|| warn "Could not install optional Typescript server or prettier packages"
 fi
 
 if [ -x "$(command -v rustup)" ]; then
