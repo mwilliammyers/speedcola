@@ -174,7 +174,20 @@ let g:mundo_close_on_revert = 1
 " lsc
 "
 let g:lsc_auto_map = v:true
-let g:lsc_server_commands = {'python': 'pyls', 'rust': 'rls'}
+let g:lsc_server_commands  = {
+      \ 'javascript' : {
+      \   'command': 'javascript-typescript-stdio',
+      \   'log_level': 'Error'
+      \ },
+      \ 'python': {
+      \   'command': 'pyls',
+      \   'log_level': 'Error'
+      \  },
+      \ 'rust': {
+      \   'command': 'rls',
+      \   'log_level': 'Error'
+      \  },
+      \}
 
 highlight link lscDiagnosticError SpellBad
 highlight link lscDiagnosticWarning SpellCap
