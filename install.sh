@@ -27,7 +27,9 @@ package_install() {
 	if [ -x "$(command -v apt-get)" ]; then
 		sudo apt-get install -y "${@}"	
 	elif [ -x "$(command -v brew)" ]; then
-	 	brew install "${@}"
+		# TODO: this might fail when installing multiple things
+		brew install "${@}" 2>&1 | grep -q "head-only formula" \
+			&& brew install --HEAD "${@}"
 	elif [ -x "$(command -v pacman)" ]; then
 		sudo pacman -S "${@}"
 	elif [ -x "$(command -v dnf)" ]; then
@@ -62,7 +64,10 @@ try_add_apt_repository() {
 		fi
 		sudo add-apt-repository -y "${@}"
 		sudo apt-get update
+		return 0
 	fi
+
+	return 1
 }
 
 # TODO: test for sudo without trying it first without sudo (pip will install to ~/.local)?
@@ -107,8 +112,10 @@ if ! [ -x "$(command -v rg)" ]; then
 		|| warn 'Could not install optional `ripgrep` package'
 fi
 
-if ! [ -x "$(command -v ctags)" ]; then
-	package_exists "universal-ctags" || try_add_apt_repository "ppa:hnakamur/universal-ctags"
+if ! [ "$(ctags --version 2>&1 | grep 'Universal Ctags' -q)" ]; then
+	package_exists "universal-ctags" \
+		|| try_add_apt_repository "ppa:hnakamur/universal-ctags" \
+		|| brew tap "universal-ctags/universal-ctags"
 	package_install "universal-ctags" \
 		|| warn 'Could not install optional `universal-ctags` package'
 fi
@@ -145,6 +152,6 @@ fi
 if [ -x "$(command -v rustup)" ]; then
 	info "Installing Rust Language Server..."
 	rustup update
-	rustup component add rls-preview rust-analysis rust-src \
+	rustup component add rls rust-analysis rust-src clippy rustfmt \
 		|| warn "Could not install optional Rust Langauge Server package"
 fi
