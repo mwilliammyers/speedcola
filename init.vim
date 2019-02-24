@@ -174,6 +174,10 @@ let g:mundo_close_on_revert = 1
 " lsc
 "
 let g:lsc_auto_map = v:true
+
+nnoremap <silent> <Leader>ad :LSClientAllDiagnostics<Return>
+nnoremap <silent> <Leader>d :LSClientLineDiagnostics<Return>
+
 let g:lsc_server_commands  = {
       \ 'javascript' : {
       \   'command': 'javascript-typescript-stdio',
