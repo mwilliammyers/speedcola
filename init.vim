@@ -338,23 +338,6 @@ nnoremap <silent> <leader>Ge :Gedit<Return>
 nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
 "
-" gutentags
-"
-" TODO: extract this and XDG logic in vimrc to a package
-if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME=expand('~/.cache') | endif
-let g:gutentags_cache_dir = $XDG_CACHE_HOME . '/tags'
-
-let g:gutentags_ctags_exclude = ['package*.json', '*config.json']
-
-let g:gutentags_file_list_command = {
-      \ 'markers': {
-      \   '.git': 'git ls-files',
-      \   '.hg': 'hg files',
-      \ },
-      \ }
-
-
-"
 " jsdoc
 "
 nmap <silent> <C-l> <Plug>(jsdoc)

@@ -13,11 +13,6 @@
 	url = https://github.com/justinmk/vim-sneak.git
 	shallow = true
 	ignore = dirty
-[submodule "ludovicchabant/vim-gutentags"]
-	path = pack/gitmodules/start/vim-gutentags
-	url = https://github.com/ludovicchabant/vim-gutentags.git
-	shallow = true
-	ignore = dirty
 [submodule "sheerun/vim-polyglot"]
 	path = pack/gitmodules/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git

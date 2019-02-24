@@ -112,13 +112,6 @@ if ! [ -x "$(command -v rg)" ]; then
 		|| warn 'Could not install optional `ripgrep` package'
 fi
 
-if ! [ "$(ctags --version 2>&1 | grep 'Universal Ctags' -q)" ]; then
-	package_exists "universal-ctags" \
-		|| try_add_apt_repository "ppa:hnakamur/universal-ctags" \
-		|| brew tap "universal-ctags/universal-ctags"
-	package_install "universal-ctags" \
-		|| warn 'Could not install optional `universal-ctags` package'
-fi
 
 config_dir="${1}"
 if [ -z "${config_dir}" ]; then
