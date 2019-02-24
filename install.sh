@@ -137,6 +137,14 @@ git_pull_or_clone \
 	"${config_dir}" \
 		|| die "Downloading speedcola failed"
 
+lsc_dir="${config_dir}/pack/gitmodules/start/LanguageClient-neovim" 
+if [ -f "${lsc_dir}/install.sh" ]; then
+	info "Installing Language Client..."
+	pushd "${lsc_dir}" > /dev/null
+	# sh install.sh
+	popd > /dev/null
+fi
+
 if [ -x "$(command -v pip3)" ]; then
 	info "Installing Python Language Server..."
 	safe_pip3 'python-language-server[all]' pyls-mypy pyls-isort \

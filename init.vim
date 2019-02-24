@@ -27,7 +27,6 @@ set tabstop=2
 
 autocmd BufNewFile,BufRead *.Dockerfile,Dockerfile.*,Dockerfile set filetype=Dockerfile
 
-
 augroup indentation
   autocmd!
   autocmd FileType Dockerfile setlocal shiftwidth=2 softtabstop=2 expandtab
@@ -159,7 +158,7 @@ augroup END
 
 let g:javascript_plugin_jsdoc = 1
 
-nnoremap <silent> <F5> :MundoToggle<Return>
+" nnoremap <silent> <F5> :MundoToggle<Return>
 nnoremap <silent> <Leader>u :MundoToggle<Return>
 
 let g:jsx_ext_required = 1
@@ -171,41 +170,12 @@ let g:sql_type_default = 'pgsql'
 let g:mundo_close_on_revert = 1
 
 "
-" lsc
-"
-let g:lsc_auto_map = v:true
-
-nnoremap <silent> <Leader>ad :LSClientAllDiagnostics<Return>
-nnoremap <silent> <Leader>d :LSClientLineDiagnostics<Return>
-
-let g:lsc_server_commands  = {
-      \ 'javascript' : {
-      \   'command': 'javascript-typescript-stdio',
-      \   'log_level': 'Error'
-      \ },
-      \ 'python': {
-      \   'command': 'pyls',
-      \   'log_level': 'Error'
-      \  },
-      \ 'rust': {
-      \   'command': 'rls',
-      \   'log_level': 'Error'
-      \  },
-      \}
-
-highlight link lscDiagnosticError SpellBad
-highlight link lscDiagnosticWarning SpellCap
-
-"
 " neoformat
 "
 " let g:neoformat_try_formatprg = 1
 let g:neoformat_basic_format_align = 1
 " let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
-
-nnoremap <silent> <Leader>= :Neoformat<Return>
-nnoremap <silent> ;; :Neoformat<Return>
 
 let g:neoformat_toml_prettier = {
       \ 'exe': 'prettier',
@@ -215,6 +185,70 @@ let g:neoformat_toml_prettier = {
 
 let g:neoformat_enabled_toml = ['prettier']
 
+"
+" LanguageClient-neovim
+"
+function ConfigureLSP()
+  let g:LanguageClient_serverCommands = {
+        \ 'rust': ['rls'],
+        \ 'javascript': ['javascript-typescript-stdio'],
+        \ 'python': ['pyls'],
+        \ }
+
+  if !has_key(g:LanguageClient_serverCommands, &filetype)
+    " These conflict with the LSP config below
+    nnoremap <silent> <Leader>= :Neoformat<Return>
+    nnoremap <silent> ;; :Neoformat<Return>
+
+    return
+  endif
+
+  " Show list of all available actions.
+  nnoremap <Leader>lm :call LanguageClient_contextMenu()<Return>
+  nnoremap <C-a> :call LanguageClient_contextMenu()<Return>
+  nnoremap <F5> :call LanguageClient_contextMenu()<Return>
+  " Goto definition under cursor.
+  nnoremap <Leader>ld :call LanguageClient#textDocument_definition()<Return>
+  nnoremap <C-]> :call LanguageClient#textDocument_definition()<Return>
+  " Rename identifier under cursor.
+  nnoremap <Leader>lr :call LanguageClient#textDocument_rename()<Return>
+  nnoremap gR :call LanguageClient#textDocument_rename()<Return>
+  " Goto type definition under cursor.
+  nnoremap <Leader>lt :call LanguageClient#textDocument_typeDefinition()<Return>
+  " List all references of identifier under cursor.
+  nnoremap <Leader>lx :call LanguageClient#textDocument_references()<Return>
+  nnoremap gr :call LanguageClient#textDocument_references()<Return>
+  " Apply a workspace edit.
+  nnoremap <Leader>le :call LanguageClient#workspace_applyEdit()<Return>
+  " List completion items at current editing location.
+  nnoremap <Leader>lc :call LanguageClient#textDocument_completion()<Return>
+  " Show type info (and short doc) of identifier under cursor.
+  nnoremap <Leader>lh :call LanguageClient#textDocument_hover()<Return>
+  nnoremap K :call LanguageClient#textDocument_hover()<Return>
+  " List project's symbols.
+  nnoremap <Leader>ls :call LanguageClient#workspace_symbol()<Return>
+  nnoremap gS :call LanguageClient#textDocument_workspace_symbol()<Return>
+  " List current buffer's symbols.
+  nnoremap <Leader>lss :call LanguageClient#textDocument_documentSymbol()<Return>
+  nnoremap go :call LanguageClient#textDocument_documentSymbol()<Return>
+  " Goto implementation under cursor.
+  nnoremap <Leader>li :call LanguageClient#textDocument_implementation()<Return>
+  nnoremap gI :call LanguageClient#textDocument_implementation()<Return>
+  " Show code actions at current location.
+  nnoremap <Leader>la :call LanguageClient#textDocument_codeAction()<Return>
+  nnoremap ga :call LanguageClient#textDocument_codeAction()<Return>
+  " Format current document.
+  nnoremap <Leader>lf :call LanguageClient#textDocument_formatting()<Return>
+  nnoremap <Leader>= :call LanguageClient#textDocument_formatting()<Return>
+  nnoremap ;; :call LanguageClient#textDocument_formatting()<Return>
+
+  set formatexpr=LanguageClient#textDocument_rangeFormatting()
+endfunction
+
+augroup LSP
+  autocmd!
+  autocmd FileType * call ConfigureLSP()
+augroup END
 
 "
 " sneak
@@ -227,6 +261,7 @@ map F <Plug>Sneak_S
 "
 " fzf
 "
+" Run fzf when vim open iff no filepath was specified to vim via CLI
 autocmd StdinReadPre * let s:reading_stdin=1
 autocmd VimEnter * nested
       \  if argc() == 0 && !exists("s:reading_stdin")
