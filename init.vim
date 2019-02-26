@@ -1,6 +1,8 @@
-packadd onedark.vim
+packadd vim-one
 if has('termguicolors') | set termguicolors | endif
-colorscheme onedark
+set background=dark
+let g:one_allow_italics = 1
+colorscheme one
 
 set hidden
 
@@ -163,7 +165,7 @@ nnoremap <silent> <Leader>u :MundoToggle<Return>
 
 let g:jsx_ext_required = 1
 
-let g:airline_theme='onedark'
+let g:airline_theme='one'
 
 let g:sql_type_default = 'pgsql'
 

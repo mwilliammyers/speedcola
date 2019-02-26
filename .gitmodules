@@ -47,11 +47,6 @@
 	path = pack/gitmodules/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
 	ignore = dirty
-[submodule "joshdick/onedark.vim"]
-	path = pack/gitmodules/opt/onedark.vim
-	url = https://github.com/joshdick/onedark.vim.git
-	shallow = true
-	ignore = dirty
 [submodule "tpope/vim-abolish"]
 	shallow = true
 	path = pack/gitmodules/start/vim-abolish
@@ -95,5 +90,10 @@
 [submodule "autozimu/LanguageClient-neovim"]
 	path = pack/gitmodules/start/LanguageClient-neovim
 	url = https://github.com/autozimu/LanguageClient-neovim.git
+	shallow = true
+	ignore = dirty
+[submodule "rakr/vim-one"]
+	path = pack/gitmodules/opt/vim-one
+	url = https://github.com/rakr/vim-one.git
 	shallow = true
 	ignore = dirty
