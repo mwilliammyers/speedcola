@@ -82,11 +82,6 @@
 	url = https://github.com/sbdchd/neoformat.git
 	shallow = true
 	ignore = dirty
-[submodule "autozimu/LanguageClient-neovim"]
-	path = pack/gitmodules/start/LanguageClient-neovim
-	url = https://github.com/autozimu/LanguageClient-neovim.git
-	shallow = true
-	ignore = dirty
 [submodule "rakr/vim-one"]
 	path = pack/gitmodules/opt/vim-one
 	url = https://github.com/rakr/vim-one.git
@@ -95,5 +90,11 @@
 [submodule "heavenshell/vim-jsdoc"]
 	path = pack/gitmodules/opt/vim-jsdoc
 	url = https://github.com/heavenshell/vim-jsdoc.git
+	shallow = true
+	ignore = dirty
+[submodule "autozimu/LanguageClient-neovim"]
+	path = pack/gitmodules/start/LanguageClient-neovim
+	url = https://github.com/autozimu/LanguageClient-neovim.git
+	branch = next
 	shallow = true
 	ignore = dirty
