@@ -67,11 +67,6 @@
 	url = https://github.com/sgur/vim-editorconfig.git
 	shallow = true
 	ignore = dirty
-[submodule "heavenshell/vim-jsdoc"]
-	path = pack/gitmodules/start/vim-jsdoc
-	url = https://github.com/heavenshell/vim-jsdoc.git
-	shallow = true
-	ignore = dirty
 [submodule "wincent/loupe"]
 	path = pack/gitmodules/start/loupe
 	url = https://github.com/wincent/loupe.git
@@ -95,5 +90,10 @@
 [submodule "rakr/vim-one"]
 	path = pack/gitmodules/opt/vim-one
 	url = https://github.com/rakr/vim-one.git
+	shallow = true
+	ignore = dirty
+[submodule "heavenshell/vim-jsdoc"]
+	path = pack/gitmodules/opt/vim-jsdoc
+	url = https://github.com/heavenshell/vim-jsdoc.git
 	shallow = true
 	ignore = dirty

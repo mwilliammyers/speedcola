@@ -33,7 +33,7 @@ augroup indentation
   autocmd!
   autocmd FileType Dockerfile setlocal shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType fish setlocal shiftwidth=4 softtabstop=4 expandtab
-  autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab | packadd vim-jsdoc
   autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType make setlocal noexpandtab list
   autocmd FileType markdown setlocal linebreak shiftwidth=4 tabstop=4 expandtab spell
