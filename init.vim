@@ -1,50 +1,9 @@
-packadd vim-one
-if has('termguicolors') | set termguicolors | endif
-set background=dark
-let g:one_allow_italics = 1
-colorscheme one
-
-set hidden
-
-set mouse=a
-
-if has('unnamedplus') | set clipboard=unnamedplus | endif
-
-set belloff+=ctrlg
-
-set noshowmode
-set number relativenumber
-set splitright splitbelow
-set colorcolumn=80,120
-if exists('+signcolumn') | set signcolumn=yes | endif
-set nowrap
+"
+" speedcola (neo)vim configuration
+" https://github.com/mwilliammyers/speedcola
+"
 
 set undofile
-
-set listchars=tab:▸-,space:·,trail:·
-
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
-
-autocmd BufNewFile,BufRead *.Dockerfile,Dockerfile.*,Dockerfile set filetype=Dockerfile
-
-augroup indentation
-  autocmd!
-  autocmd FileType Dockerfile setlocal shiftwidth=2 softtabstop=2 expandtab
-  autocmd FileType fish setlocal shiftwidth=4 softtabstop=4 expandtab
-  autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab | packadd vim-jsdoc
-  autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab
-  autocmd FileType make setlocal noexpandtab list
-  autocmd FileType markdown setlocal linebreak shiftwidth=4 tabstop=4 expandtab spell
-  autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
-  autocmd FileType cfg setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab commentstring=\;\ %s
-  autocmd FileType sql setlocal commentstring=\--\ %s
-  autocmd FileType vim setlocal shiftwidth=2 softtabstop=2 expandtab commentstring=\"\ %s
-augroup END
-
-set foldmethod=syntax
-set foldlevelstart=99
 
 set smartcase
 set wildmode=list:longest,full
@@ -58,6 +17,13 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 autocmd CompleteDone * silent! pclose
 set shortmess+=c
 
+" Trigger `autoread` when files changes on disk 
+" see: https://unix.stackexchange.com/a/383044
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+
+"
+" mappings
+"
 let g:mapleader=','
 
 if exists(':tnoremap')
@@ -104,9 +70,58 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>?<CR>
 " TODO: make this behavior work with loupe: https://github.com/wincent/loupe/issues/12
 " nnoremap * *#
 
-" Trigger `autoread` when files changes on disk
-" https://unix.stackexchange.com/a/383044
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+"
+" UI
+"
+packadd vim-one
+if has('termguicolors') | set termguicolors | endif
+set background=dark
+let g:one_allow_italics = 1
+colorscheme one
+
+set hidden
+
+set mouse=a
+
+if has('unnamedplus') | set clipboard=unnamedplus | endif
+
+set belloff+=ctrlg
+
+set noshowmode
+set number relativenumber
+set splitright splitbelow
+set colorcolumn=80,120
+if exists('+signcolumn') | set signcolumn=yes | endif
+set nowrap
+
+set listchars=tab:▸-,space:·,trail:·
+
+"
+" syntax
+"
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+
+autocmd BufNewFile,BufRead *.Dockerfile,Dockerfile.*,Dockerfile set filetype=Dockerfile
+
+" TODO: are these necessary or does vim-polyglot take care of it?
+augroup indentation
+  autocmd!
+  autocmd FileType Dockerfile setlocal shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType fish setlocal shiftwidth=4 softtabstop=4 expandtab
+  autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType make setlocal noexpandtab list
+  autocmd FileType markdown setlocal linebreak shiftwidth=4 tabstop=4 expandtab spell
+  autocmd FileType python setlocal shiftwidth=4 softtabstop=4 expandtab
+  autocmd FileType cfg setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab commentstring=\;\ %s
+  autocmd FileType sql setlocal commentstring=\--\ %s
+  autocmd FileType vim setlocal shiftwidth=2 softtabstop=2 expandtab commentstring=\"\ %s
+augroup END
+
+set foldmethod=syntax
+set foldlevelstart=99
 
 "
 " browser & docs
@@ -158,99 +173,16 @@ augroup END
 " package settings
 "
 
-let g:javascript_plugin_jsdoc = 1
 
 " nnoremap <silent> <F5> :MundoToggle<Return>
 nnoremap <silent> <Leader>u :MundoToggle<Return>
 
-let g:jsx_ext_required = 1
 
 let g:airline_theme='one'
 
 let g:sql_type_default = 'pgsql'
 
 let g:mundo_close_on_revert = 1
-
-"
-" neoformat
-"
-" let g:neoformat_try_formatprg = 1
-let g:neoformat_basic_format_align = 1
-" let g:neoformat_basic_format_retab = 1
-let g:neoformat_basic_format_trim = 1
-
-let g:neoformat_toml_prettier = {
-      \ 'exe': 'prettier',
-      \ 'args': ['--stdin', '--stdin-filepath', '"%:p"'],
-      \ 'stdin': 1,
-      \ }
-
-let g:neoformat_enabled_toml = ['prettier']
-
-"
-" LanguageClient-neovim
-"
-function ConfigureLSP()
-  let g:LanguageClient_serverCommands = {
-        \ 'rust': ['rls'],
-        \ 'javascript': ['javascript-typescript-stdio'],
-        \ 'python': ['pyls'],
-        \ }
-
-  if !has_key(g:LanguageClient_serverCommands, &filetype)
-    " These conflict with the LSP config below
-    nnoremap <silent> <Leader>= :Neoformat<Return>
-    nnoremap <silent> ;; :Neoformat<Return>
-
-    return
-  endif
-
-  " Show list of all available actions.
-  nnoremap <Leader>lm :call LanguageClient_contextMenu()<Return>
-  nnoremap <C-a> :call LanguageClient_contextMenu()<Return>
-  nnoremap <F5> :call LanguageClient_contextMenu()<Return>
-  " Goto definition under cursor.
-  nnoremap <Leader>ld :call LanguageClient#textDocument_definition()<Return>
-  nnoremap <C-]> :call LanguageClient#textDocument_definition()<Return>
-  " Rename identifier under cursor.
-  nnoremap <Leader>lr :call LanguageClient#textDocument_rename()<Return>
-  nnoremap gR :call LanguageClient#textDocument_rename()<Return>
-  " Goto type definition under cursor.
-  nnoremap <Leader>lt :call LanguageClient#textDocument_typeDefinition()<Return>
-  " List all references of identifier under cursor.
-  nnoremap <Leader>lx :call LanguageClient#textDocument_references()<Return>
-  nnoremap gr :call LanguageClient#textDocument_references()<Return>
-  " Apply a workspace edit.
-  nnoremap <Leader>le :call LanguageClient#workspace_applyEdit()<Return>
-  " List completion items at current editing location.
-  nnoremap <Leader>lc :call LanguageClient#textDocument_completion()<Return>
-  " Show type info (and short doc) of identifier under cursor.
-  nnoremap <Leader>lh :call LanguageClient#textDocument_hover()<Return>
-  nnoremap K :call LanguageClient#textDocument_hover()<Return>
-  " List project's symbols.
-  nnoremap <Leader>ls :call LanguageClient#workspace_symbol()<Return>
-  nnoremap gS :call LanguageClient#textDocument_workspace_symbol()<Return>
-  " List current buffer's symbols.
-  nnoremap <Leader>lss :call LanguageClient#textDocument_documentSymbol()<Return>
-  nnoremap go :call LanguageClient#textDocument_documentSymbol()<Return>
-  " Goto implementation under cursor.
-  nnoremap <Leader>li :call LanguageClient#textDocument_implementation()<Return>
-  nnoremap gI :call LanguageClient#textDocument_implementation()<Return>
-  " Show code actions at current location.
-  nnoremap <Leader>la :call LanguageClient#textDocument_codeAction()<Return>
-  nnoremap ga :call LanguageClient#textDocument_codeAction()<Return>
-  " Format current document.
-  nnoremap <Leader>lf :call LanguageClient#textDocument_formatting()<Return>
-  nnoremap <Leader>= :call LanguageClient#textDocument_formatting()<Return>
-  nnoremap ;; :call LanguageClient#textDocument_formatting()<Return>
-
-  set formatexpr=LanguageClient#textDocument_rangeFormatting()
-endfunction
-
-augroup LSP
-  autocmd!
-  autocmd FileType * call ConfigureLSP()
-augroup END
 
 "
 " sneak
@@ -339,15 +271,111 @@ nnoremap <silent> <leader>Gw :Gwrite<Return>
 nnoremap <silent> <leader>Ge :Gedit<Return>
 nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
-"
-" jsdoc
-"
-nmap <silent> <C-l> <Plug>(jsdoc)
 
-let g:jsdoc_allow_input_prompt = 1
-let g:jsdoc_input_description	= 1
-let g:jsdoc_access_descriptions	= 2
-let g:jsdoc_enable_es6 = 1
-let g:jsdoc_tags = {
-      \   'returns': 'return',
+function! s:ConfigureJavascript()
+  let g:jsx_ext_required = 1
+  
+  "
+  " jsdoc
+  "
+  let g:javascript_plugin_jsdoc = 1
+  
+  packadd vim-jsdoc
+  
+  nmap <silent> <C-l> <Plug>(jsdoc)
+
+  let g:jsdoc_allow_input_prompt = 1
+  let g:jsdoc_input_description	= 1
+  let g:jsdoc_access_descriptions	= 2
+  let g:jsdoc_enable_es6 = 1
+  let g:jsdoc_tags = {
+        \   'returns': 'return',
+        \ }
+endfunction
+
+" TODO: move this to a ftplugin file
+augroup js
+  autocmd!
+  autocmd FileType javascript call <SID>ConfigureJavascript()
+augroup END
+
+"
+" neoformat
+"
+" let g:neoformat_try_formatprg = 1
+let g:neoformat_basic_format_align = 1
+" let g:neoformat_basic_format_retab = 1
+let g:neoformat_basic_format_trim = 1
+
+let g:neoformat_toml_prettier = {
+      \ 'exe': 'prettier',
+      \ 'args': ['--stdin', '--stdin-filepath', '"%:p"'],
+      \ 'stdin': 1,
       \ }
+
+let g:neoformat_enabled_toml = ['prettier']
+
+"
+" LanguageClient-neovim
+"
+function! s:ConfigureLSP()
+  let g:LanguageClient_serverCommands = {
+        \ 'rust': ['rls'],
+        \ 'javascript': ['javascript-typescript-stdio'],
+        \ 'python': ['pyls'],
+        \ }
+
+  if !has_key(g:LanguageClient_serverCommands, &filetype)
+    " These conflict with the LSP config below
+    nnoremap <silent> <Leader>= :Neoformat<Return>
+    nnoremap <silent> ;; :Neoformat<Return>
+
+    return
+  endif
+
+  " Show list of all available actions.
+  nnoremap <Leader>lm :call LanguageClient_contextMenu()<Return>
+  nnoremap <C-a> :call LanguageClient_contextMenu()<Return>
+  nnoremap <F5> :call LanguageClient_contextMenu()<Return>
+  " Goto definition under cursor.
+  nnoremap <Leader>ld :call LanguageClient#textDocument_definition()<Return>
+  nnoremap <C-]> :call LanguageClient#textDocument_definition()<Return>
+  " Rename identifier under cursor.
+  nnoremap <Leader>lr :call LanguageClient#textDocument_rename()<Return>
+  nnoremap gR :call LanguageClient#textDocument_rename()<Return>
+  " Goto type definition under cursor.
+  nnoremap <Leader>lt :call LanguageClient#textDocument_typeDefinition()<Return>
+  " List all references of identifier under cursor.
+  nnoremap <Leader>lx :call LanguageClient#textDocument_references()<Return>
+  nnoremap gr :call LanguageClient#textDocument_references()<Return>
+  " Apply a workspace edit.
+  nnoremap <Leader>le :call LanguageClient#workspace_applyEdit()<Return>
+  " List completion items at current editing location.
+  nnoremap <Leader>lc :call LanguageClient#textDocument_completion()<Return>
+  " Show type info (and short doc) of identifier under cursor.
+  nnoremap <Leader>lh :call LanguageClient#textDocument_hover()<Return>
+  nnoremap K :call LanguageClient#textDocument_hover()<Return>
+  " List project's symbols.
+  nnoremap <Leader>ls :call LanguageClient#workspace_symbol()<Return>
+  nnoremap gS :call LanguageClient#textDocument_workspace_symbol()<Return>
+  " List current buffer's symbols.
+  nnoremap <Leader>lss :call LanguageClient#textDocument_documentSymbol()<Return>
+  nnoremap go :call LanguageClient#textDocument_documentSymbol()<Return>
+  " Goto implementation under cursor.
+  nnoremap <Leader>li :call LanguageClient#textDocument_implementation()<Return>
+  nnoremap gI :call LanguageClient#textDocument_implementation()<Return>
+  " Show code actions at current location.
+  nnoremap <Leader>la :call LanguageClient#textDocument_codeAction()<Return>
+  nnoremap ga :call LanguageClient#textDocument_codeAction()<Return>
+  " Format current document.
+  nnoremap <Leader>lf :call LanguageClient#textDocument_formatting()<Return>
+  nnoremap <Leader>= :call LanguageClient#textDocument_formatting()<Return>
+  nnoremap ;; :call LanguageClient#textDocument_formatting()<Return>
+
+  set formatexpr=LanguageClient#textDocument_rangeFormatting()
+endfunction
+
+augroup LSP
+  autocmd!
+  autocmd FileType * call <SID>ConfigureLSP()
+augroup END
