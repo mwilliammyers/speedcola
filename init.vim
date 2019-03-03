@@ -282,7 +282,7 @@ nnoremap <silent> ;; :Neoformat<Return>
 
 let g:neoformat_toml_prettier = {
       \ 'exe': 'prettier',
-      \ 'args': ['--stdin', '--stdin-filepath', '"%:p"'],
+      \ 'args': ['--stdin', '--print-width=100', '--stdin-filepath', '"%:p"'],
       \ 'stdin': 1,
       \}
 
