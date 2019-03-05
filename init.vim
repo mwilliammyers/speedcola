@@ -140,8 +140,8 @@ command! -nargs=* Docsjavascript call OpenUrl('https://developer.mozilla.org/en-
 
 augroup docs
   autocmd!
-  autocmd FileType * map <expr> L ':Docs' . &filetype . ' ' . expand('<cword>') . '<Return>'
-  autocmd FileType * map <expr> <Leader><Leader>l ':Docs' . &filetype . ' ' . expand('<cword>') . '<Return>'
+  autocmd FileType * map <expr> I ':Docs' . &filetype . ' ' . expand('<cword>') . '<Return>'
+  autocmd FileType * map <expr> <Leader><Leader>i ':Docs' . &filetype . ' ' . expand('<cword>') . '<Return>'
 augroup END
 
 
@@ -188,10 +188,11 @@ if executable('rg')
   nnoremap <silent> <Leader>f :Rg<Return>
 end
 
-nnoremap <silent> <C-t> :Files<Return>
+nnoremap <silent> <C-a> :Files<Return>
+nnoremap <silent> <Leader>a :Files<Return>
 nnoremap <silent> <Leader>t :Files<Return>
-nnoremap <silent> <Leader>tg :GFiles<Return>
-nnoremap <silent> <Leader>tg? :GFiles?<Return>
+nnoremap <silent> <Leader>ag :GFiles<Return>
+nnoremap <silent> <Leader>ag? :GFiles?<Return>
 nnoremap <silent> <Leader><Enter> :Buffers<Return>
 nnoremap <silent> <Leader>b :Buffers<Return>
 " nnoremap <silent> <Leader> :Colors<Return>
