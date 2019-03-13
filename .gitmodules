@@ -92,8 +92,13 @@
 	url = https://github.com/heavenshell/vim-jsdoc.git
 	shallow = true
 	ignore = dirty
-[submodule "natebosch/vim-lsc"]
-	path = pack/gitmodules/start/vim-lsc
-	url = https://github.com/natebosch/vim-lsc.git
+[submodule "prabirshrestha/async.vim"]
+	path = pack/gitmodules/start/async.vim
+	url = https://github.com/prabirshrestha/async.vim.git
+	shallow = true
+	ignore = dirty
+[submodule "prabirshrestha/vim-lsp"]
+	path = pack/gitmodules/start/vim-lsp
+	url = https://github.com/prabirshrestha/vim-lsp.git
 	shallow = true
 	ignore = dirty

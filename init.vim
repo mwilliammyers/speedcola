@@ -189,6 +189,7 @@ if executable('rg')
 end
 
 nnoremap <silent> <C-a> :Files<Return>
+nnoremap <silent> <C-p> :Files<Return>
 nnoremap <silent> <Leader>a :Files<Return>
 nnoremap <silent> <Leader>t :Files<Return>
 nnoremap <silent> <Leader>ag :GFiles<Return>
@@ -249,27 +250,53 @@ nnoremap <silent> <leader>Ge :Gedit<Return>
 nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
 "
-" lsc
+" vim-lsp
 "
-let g:lsc_auto_map = v:true
+map ga <plug>(lsp-code-action)
+" map <plug>(lsp-declaration)
+" TODO: fix lsp-definition map so it works
+map C-] <plug>(lsp-definition)
+map go <plug>(lsp-document-symbol)
+" map <plug>(lsp-document-diagnostics)
+" map <plug>(lsp-hover)
+" TODO: only set this when LSC is enabled
+set keywordprg=:LspHover
+map C-j <plug>(lsp-next-error)
+map C-k <plug>(lsp-previous-error)
+map gr <plug>lsp-references)
+map gR <plug>(lsp-rename)
+map gS <plug>(lsp-workspace-symbol)
+" TODO: handle neoformat/LSC formatting
+" map <plug>(lsp-document-range-format)
+" map <plug>(lsp-document-format)
+map gI <plug>(lsp-implementation)
+" map <plug>(lsp-type-definition)
+" map <plug>(lsp-status)
 
-nnoremap <silent> <Leader>ad :LSClientAllDiagnostics<Return>
-nnoremap <silent> <Leader>d :LSClientLineDiagnostics<Return>
+" rustup component add rls rust-analysis rust-src
+au User lsp_setup call lsp#register_server({
+	\ 'name': 'rls',
+	\ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+	\ 'whitelist': ['rust'],
+	\ })
 
-let g:lsc_server_commands  = {
-      \ 'javascript' : {
-      \   'command': 'javascript-typescript-stdio',
-      \ },
-      \ 'python': {
-      \   'command': 'pyls',
-      \  },
-      \ 'rust': {
-      \   'command': 'rls',
-      \  },
-      \}
+" npm install -g typescript typescript-language-server
+" TODO: use 'ryanolsonx/vim-lsp-javascript'?
+au User lsp_setup call lsp#register_server({
+	\ 'name': 'javascript support using typescript-language-server',
+	\ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+	\ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+	\ 'whitelist': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'],
+	\ })
 
-" highlight link lscDiagnosticError SpellBad
-" highlight link lscDiagnosticWarning SpellCap
+" pip install python-language-server[all]
+" TODO: use 'ryanolsonx/vim-lsp-python' plugin?
+au User lsp_setup call lsp#register_server({
+	\ 'name': 'pyls',
+	\ 'cmd': {server_info->['pyls']},
+	\ 'whitelist': ['python'],
+	\ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+	\ })
 
 "
 " neoformat
@@ -278,6 +305,7 @@ let g:neoformat_basic_format_align = 1
 " let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
 
+" TODO: use vim-lsp when enabled instead of neoformat
 nnoremap <silent> <Leader>= :Neoformat<Return>
 nnoremap <silent> ;; :Neoformat<Return>
 
