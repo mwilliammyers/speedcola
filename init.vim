@@ -301,6 +301,7 @@ au User lsp_setup call lsp#register_server({
 "
 " neoformat
 "
+let g:neoformat_run_all_formatters = 1
 let g:neoformat_basic_format_align = 1
 " let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
@@ -308,6 +309,8 @@ let g:neoformat_basic_format_trim = 1
 " TODO: use vim-lsp when enabled instead of neoformat
 nnoremap <silent> <Leader>= :Neoformat<Return>
 nnoremap <silent> ;; :Neoformat<Return>
+
+let g:neoformat_enabled_python = ['yapf', 'isort']
 
 let g:neoformat_toml_prettier = {
       \ 'exe': 'prettier',
