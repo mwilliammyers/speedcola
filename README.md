@@ -27,6 +27,7 @@ Ceck out: [init.vim](init.vim).
 
 ### notable plugins
 
+- [One Dark] colorscheme
 - [fzf] for fuzzy searching all the things
 - [vim-lsp] for IDE like features (via the [Language Server Protocol])
 - [sneak] for jumping around
@@ -45,6 +46,7 @@ From [Normal] mode, type:
 [Speed Cola]: http://nazizombies.wikia.com/wiki/Speed_Cola
 [`install.sh`]: install.sh
 [`<Leader>`]: http://learnvimscriptthehardway.stevelosh.com/chapters/06.html#leader
+[One Dark]: https://github.com/rakr/vim-one
 [fzf]: https://github.com/junegunn/fzf.vim
 [vim-lsc]: https://github.com/natebosch/vim-lsc
 [vim-lsp]: https://github.com/prabirshrestha/vim-lsp
