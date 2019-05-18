@@ -18,8 +18,9 @@ For example, to force [neovim] configuration, run [`install.sh`] like:
 curl -sSL git.io/speedcola | sh -s -- ~/.config/nvim
 ```
 
-**Note**: If your terminal does not support [24-bit/"true color"], you can either 
-install one that does *or* remove the line: [init.vim#L77].
+**Note**: If your terminal does not support [24-bit/"true color"], do yourself
+a favor and install one that does. But, if you don't don't mind your colors 
+looking a little off, remove the line: [init.vim#L77].
 
 ## configuration
 
