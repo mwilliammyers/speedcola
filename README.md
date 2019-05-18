@@ -25,7 +25,7 @@ Ceck out: [init.vim](init.vim).
 ### notable plugins
 
 - [fzf] for fuzzy searching all the things
-- [ALE] for IDE like features
+- [vim-lsp] for IDE like features (via the [Language Server Protocol])
 - [sneak] for jumping around
 
 ### key mappings
@@ -44,9 +44,11 @@ From [Normal] mode, type:
 [`<Leader>`]: http://learnvimscriptthehardway.stevelosh.com/chapters/06.html#leader
 [fzf]: https://github.com/junegunn/fzf.vim
 [vim-lsc]: https://github.com/natebosch/vim-lsc
+[vim-lsp]: https://github.com/prabirshrestha/vim-lsp
 [ALE]: https://github.com/w0rp/ale
 [sneak]: https://github.com/justinmk/vim-sneak
 [Normal]: https://en.wikibooks.org/wiki/Learning_the_vi_Editor/Vim/Modes#normal_(command)
+[Language Server Protocol]: https://microsoft.github.io/language-server-protocol/
 
 [Neovim FAQ]: https://github.com/neovim/neovim/wiki/FAQ
 [Learn Vimscript the Hard Way]: http://learnvimscriptthehardway.stevelosh.com/
