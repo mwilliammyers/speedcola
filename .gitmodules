@@ -102,3 +102,8 @@
 	url = https://github.com/prabirshrestha/vim-lsp.git
 	shallow = true
 	ignore = dirty
+[submodule "Raimondi/yaifa"]
+	path = pack/gitmodules/start/yaifa
+	url = https://github.com/Raimondi/yaifa.git
+	shallow = true
+	ignore = dirty

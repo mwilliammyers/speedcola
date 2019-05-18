@@ -156,6 +156,8 @@ nnoremap <silent> <Leader>u :MundoToggle<Return>
 
 let g:airline_theme='one'
 
+let g:yaifa_tabstop = 4
+
 let g:sql_type_default = 'pgsql'
 
 let g:mundo_close_on_revert = 1
