@@ -15,7 +15,7 @@ If neither are found it will install [neovim] for you and configure that.
 You can also customize the configuration directory. 
 For example, to force [neovim] configuration, run [`install.sh`] like:
 ```
-curl -sSL git.io/speedcola | sh -s ~/.config/nvim
+curl -sSL git.io/speedcola | sh -s -- ~/.config/nvim
 ```
 
 **Note**: If your terminal does not support [24-bit/"true color"], you can either 
