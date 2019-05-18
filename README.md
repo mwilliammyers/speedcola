@@ -1,21 +1,21 @@
 # speedcola
 
-> Lean [vim8]/[neovim] configuration infused with a little [Speed Cola]
+> Lean [vim8]/[neovim] configuration infused with a little [Speed Cola].
 
 ## install
 
 Run [`install.sh`]:
 ```
-curl -fsSL https://git.io/speedcola | sh
+curl -sSL https://git.io/speedcola | sh
 ```
 
-This will default to configuring `vim` if both `nvim` and `vim` are found.
-
+This will default to configuring `vim` if both `nvim` and `vim` are found. 
 If neither are found it will install [neovim] for you and configure that.
 
-If you want to customize the configuration directory, run [`install.sh`] like:
+You can also customize the configuration directory. 
+For example, to force [neovim] configuration, run [`install.sh`] like:
 ```
-curl -L git.io/speedcola | sh -s ~/.config/nvim
+curl -sSL git.io/speedcola | sh -s ~/.config/nvim
 ```
 
 ## configuration
