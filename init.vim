@@ -275,28 +275,28 @@ map gI <plug>(lsp-implementation)
 
 " rustup component add rls rust-analysis rust-src
 au User lsp_setup call lsp#register_server({
-	\ 'name': 'rls',
-	\ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
-	\ 'whitelist': ['rust'],
-	\ })
+      \ 'name': 'rls',
+      \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+      \ 'whitelist': ['rust'],
+      \ })
 
 " npm install -g typescript typescript-language-server
 " TODO: use 'ryanolsonx/vim-lsp-javascript'?
 au User lsp_setup call lsp#register_server({
-	\ 'name': 'javascript support using typescript-language-server',
-	\ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-	\ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-	\ 'whitelist': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'],
-	\ })
+      \ 'name': 'javascript support using typescript-language-server',
+      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+      \ 'whitelist': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'],
+      \ })
 
 " pip install python-language-server[all]
 " TODO: use 'ryanolsonx/vim-lsp-python' plugin?
 au User lsp_setup call lsp#register_server({
-	\ 'name': 'pyls',
-	\ 'cmd': {server_info->['pyls']},
-	\ 'whitelist': ['python'],
-	\ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
-	\ })
+      \ 'name': 'pyls',
+      \ 'cmd': {server_info->['pyls']},
+      \ 'whitelist': ['python'],
+      \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+      \ })
 
 "
 " neoformat
@@ -334,8 +334,8 @@ function! s:ConfigureJavascript()
   nmap <silent> <C-l> <Plug>(jsdoc)
 
   let g:jsdoc_allow_input_prompt = 1
-  let g:jsdoc_input_description	= 1
-  let g:jsdoc_access_descriptions	= 2
+  let g:jsdoc_input_description = 1
+  let g:jsdoc_access_descriptions = 2
   let g:jsdoc_enable_es6 = 1
   let g:jsdoc_tags = {
         \   'returns': 'return',
