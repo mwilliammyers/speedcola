@@ -1,7 +1,7 @@
 # speedcola
 
 > Lean [vim8]/[neovim] configuration infused with a little [Speed Cola].
-
+ 
 ## install
 
 Run [`install.sh`]:
@@ -17,6 +17,9 @@ For example, to force [neovim] configuration, run [`install.sh`] like:
 ```
 curl -sSL git.io/speedcola | sh -s ~/.config/nvim
 ```
+
+**Note**: If your terminal does not support [24-bit/"true color"], you can either 
+install one that does *or* remove the line: [init.vim#L77].
 
 ## configuration
 
@@ -49,6 +52,10 @@ From [Normal] mode, type:
 [sneak]: https://github.com/justinmk/vim-sneak
 [Normal]: https://en.wikibooks.org/wiki/Learning_the_vi_Editor/Vim/Modes#normal_(command)
 [Language Server Protocol]: https://microsoft.github.io/language-server-protocol/
+[24-bit/"true color"]: https://gist.github.com/XVilka/8346728
+[Terminal.app]: https://en.wikipedia.org/wiki/Terminal_(macOS)
+[iTerm2]: https://www.iterm2.com/
+[init.vim#L77]: https://github.com/mwilliammyers/speedcola/blob/510e88e/init.vim#L77
 
 [Neovim FAQ]: https://github.com/neovim/neovim/wiki/FAQ
 [Learn Vimscript the Hard Way]: http://learnvimscriptthehardway.stevelosh.com/
