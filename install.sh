@@ -133,8 +133,7 @@ git_pull_or_clone \
 lsc_dir="${config_dir}/pack/gitmodules/start/LanguageClient-neovim" 
 if [ -f "${lsc_dir}/install.sh" ]; then
 	info "Installing Language Client..."
-	pushd "${lsc_dir}" > /dev/null
-	sh install.sh
+	pushd "${lsc_dir}" > /dev/null && sh install.sh
 	popd > /dev/null
 fi
 
