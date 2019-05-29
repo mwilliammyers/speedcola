@@ -90,7 +90,7 @@ set belloff+=ctrlg
 set noshowmode
 set number relativenumber
 set splitright splitbelow
-set colorcolumn=80,120
+set colorcolumn=80,100,120
 if exists('+signcolumn') | set signcolumn=yes | endif
 set nowrap
 
