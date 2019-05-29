@@ -92,18 +92,14 @@
 	url = https://github.com/heavenshell/vim-jsdoc.git
 	shallow = true
 	ignore = dirty
-[submodule "prabirshrestha/async.vim"]
-	path = pack/gitmodules/start/async.vim
-	url = https://github.com/prabirshrestha/async.vim.git
-	shallow = true
-	ignore = dirty
-[submodule "prabirshrestha/vim-lsp"]
-	path = pack/gitmodules/start/vim-lsp
-	url = https://github.com/prabirshrestha/vim-lsp.git
-	shallow = true
-	ignore = dirty
 [submodule "Raimondi/yaifa"]
 	path = pack/gitmodules/start/yaifa
 	url = https://github.com/Raimondi/yaifa.git
+	shallow = true
+	ignore = dirty
+[submodule "autozimu/LanguageClient-neovim"]
+	path = pack/gitmodules/start/LanguageClient-neovim
+	url = https://github.com/autozimu/LanguageClient-neovim.git
+	branch = next
 	shallow = true
 	ignore = dirty
