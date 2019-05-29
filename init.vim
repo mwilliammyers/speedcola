@@ -301,7 +301,8 @@ let g:neoformat_toml_prettier = {
 function! s:ConfigureLSP()
   let g:LanguageClient_serverCommands = {
         \ 'rust': ['rls'],
-        \ 'javascript': ['javascript-typescript-stdio'],
+        \ 'javascript': ['js-langserver', '--stdio'],
+        \ 'typescript': ['typescript-language-server', '--stdio'],
         \ 'python': ['pyls'],
         \ }
 
