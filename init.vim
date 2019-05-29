@@ -312,7 +312,7 @@ let g:neoformat_basic_format_trim = 1
 nnoremap <silent> <Leader>= :Neoformat<Return>
 nnoremap <silent> ;; :Neoformat<Return>
 
-let g:neoformat_enabled_python = ['yapf', 'isort']
+let g:neoformat_enabled_python = ['black', 'isort']
 
 let g:neoformat_toml_prettier = {
       \ 'exe': 'prettier',
