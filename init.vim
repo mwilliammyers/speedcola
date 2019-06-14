@@ -3,6 +3,10 @@
 " https://github.com/mwilliammyers/speedcola
 "
 
+" https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-12735
+set modelines=0
+set nomodeline
+
 set undofile
 
 set smartcase
