@@ -257,14 +257,14 @@ nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
 function! s:ConfigureJavascript()
   let g:jsx_ext_required = 1
-  
+
   "
   " jsdoc
   "
   let g:javascript_plugin_jsdoc = 1
-  
+
   packadd vim-jsdoc
-  
+
   nmap <silent> <C-l> <Plug>(jsdoc)
 
   let g:jsdoc_allow_input_prompt = 1
@@ -302,67 +302,66 @@ let g:neoformat_toml_prettier = {
       \}
 
 "
-" LanguageClient-neovim
+" vim-lsp
 "
-function! s:ConfigureLSP()
-  let g:LanguageClient_serverCommands = {
-        \ 'rust': ['rls'],
-        \ 'javascript': ['js-langserver', '--stdio'],
-        \ 'typescript': ['typescript-language-server', '--stdio'],
-        \ 'python': ['pyls'],
-        \ }
 
-  if !has_key(g:LanguageClient_serverCommands, &filetype)
-    " These conflict with the LSP config below
-    nnoremap <silent> <Leader>= :Neoformat<Return>
-    nnoremap <silent> ;; :Neoformat<Return>
+" let g:lsp_signs_error = {'text': '✗'}
+" let g:lsp_signs_warning = {'text': '⚠'}
 
-    return
-  endif
+nmap ga <plug>(lsp-code-action)
+" map <plug>(lsp-declaration)
+nmap go <plug>(lsp-document-symbol)
+nmap gS <plug>(lsp-workspace-symbol)
+" map! <plug>(lsp-document-diagnostics)
+map! C-j <plug>(lsp-next-error)
+map! C-k <plug>(lsp-previous-error)
+nmap gr <plug>lsp-references)
+nmap gR <plug>(lsp-rename)
+nmap gI <plug>(lsp-implementation)
+nmap gm <plug>(lsp-type-definition)
+" map <plug>(lsp-status)
+" TODO: handle neoformat/LSC formatting?
+" nmap <plug>(lsp-document-range-format)
+" nmap <plug>(lsp-document-format)
 
-  " Show list of all available actions.
-  nnoremap <Leader>lm :call LanguageClient_contextMenu()<Return>
-  nnoremap <C-a> :call LanguageClient_contextMenu()<Return>
-  nnoremap <F5> :call LanguageClient_contextMenu()<Return>
-  " Goto definition under cursor.
-  nnoremap <Leader>ld :call LanguageClient#textDocument_definition()<Return>
-  nnoremap <C-]> :call LanguageClient#textDocument_definition()<Return>
-  " Rename identifier under cursor.
-  nnoremap <Leader>lr :call LanguageClient#textDocument_rename()<Return>
-  nnoremap gR :call LanguageClient#textDocument_rename()<Return>
-  " Goto type definition under cursor.
-  nnoremap <Leader>lt :call LanguageClient#textDocument_typeDefinition()<Return>
-  " List all references of identifier under cursor.
-  nnoremap <Leader>lx :call LanguageClient#textDocument_references()<Return>
-  nnoremap gr :call LanguageClient#textDocument_references()<Return>
-  " Apply a workspace edit.
-  nnoremap <Leader>le :call LanguageClient#workspace_applyEdit()<Return>
-  " List completion items at current editing location.
-  nnoremap <Leader>lc :call LanguageClient#textDocument_completion()<Return>
-  " Show type info (and short doc) of identifier under cursor.
-  nnoremap <Leader>lh :call LanguageClient#textDocument_hover()<Return>
-  nnoremap K :call LanguageClient#textDocument_hover()<Return>
-  " List project's symbols.
-  nnoremap <Leader>ls :call LanguageClient#workspace_symbol()<Return>
-  nnoremap gS :call LanguageClient#textDocument_workspace_symbol()<Return>
-  " List current buffer's symbols.
-  nnoremap <Leader>lss :call LanguageClient#textDocument_documentSymbol()<Return>
-  nnoremap go :call LanguageClient#textDocument_documentSymbol()<Return>
-  " Goto implementation under cursor.
-  nnoremap <Leader>li :call LanguageClient#textDocument_implementation()<Return>
-  nnoremap gI :call LanguageClient#textDocument_implementation()<Return>
-  " Show code actions at current location.
-  nnoremap <Leader>la :call LanguageClient#textDocument_codeAction()<Return>
-  nnoremap ga :call LanguageClient#textDocument_codeAction()<Return>
-  " Format current document.
-  nnoremap <Leader>lf :call LanguageClient#textDocument_formatting()<Return>
-  nnoremap <Leader>= :call LanguageClient#textDocument_formatting()<Return>
-  nnoremap ;; :call LanguageClient#textDocument_formatting()<Return>
-
-  set formatexpr=LanguageClient#textDocument_rangeFormatting()
-endfunction
-
-augroup LSP
+augroup lsp
   autocmd!
-  autocmd FileType * call <SID>ConfigureLSP()
+  " TODO: better way to detect if LSP is enabled?
+  autocmd FileType rust,javascript,typescript,python
+        \ nmap <buffer> <C-]> <plug>(lsp-definition)
+        \| setlocal omnifunc=lsp#complete
+        \| setlocal keywordprg=:LspHover
 augroup END
+
+" rustup component add rls rust-analysis rust-src
+au User lsp_setup call lsp#register_server({
+      \ 'name': 'rls',
+      \ 'cmd': {server_info->['rls']},
+      \ 'whitelist': ['rust'],
+      \ })
+
+" npm install -g js-langserver
+au User lsp_setup call lsp#register_server({
+      \ 'name': 'js-langserver',
+      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'js-langserver --stdio']},
+      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+      \ 'whitelist': ['javascript', 'javascript.jsx'],
+      \ })
+
+" npm install -g typescript typescript-language-server
+" TODO: use 'ryanolsonx/vim-lsp-javascript'?
+au User lsp_setup call lsp#register_server({
+      \ 'name': 'typescript-language-server',
+      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+      \ 'whitelist': ['typescript', 'typescript.tsx'],
+      \ })
+
+" pip install python-language-server[all]
+" TODO: use 'ryanolsonx/vim-lsp-python' plugin?
+au User lsp_setup call lsp#register_server({
+      \ 'name': 'pyls',
+      \ 'cmd': {server_info->['pyls']},
+      \ 'whitelist': ['python'],
+      \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+      \ })

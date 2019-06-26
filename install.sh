@@ -28,6 +28,7 @@ package_install() {
 		sudo apt-get install -y "${@}"	
 	elif [ -x "$(command -v brew)" ]; then
 		# TODO: this might fail when installing multiple things
+		env HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_GITHUB_API=1 \
 		brew install "${@}" 2>&1 | grep -q "head-only formula" \
 			&& brew install --HEAD "${@}"
 	elif [ -x "$(command -v pacman)" ]; then
@@ -129,13 +130,6 @@ git_pull_or_clone \
 	"https://github.com/${repo}.git" \
 	"${config_dir}" \
 		|| die "Downloading speedcola failed"
-
-lsc_dir="${config_dir}/pack/gitmodules/start/LanguageClient-neovim" 
-if [ -f "${lsc_dir}/install.sh" ]; then
-	info "Installing Language Client..."
-	pushd "${lsc_dir}" > /dev/null && sh install.sh
-	popd > /dev/null
-fi
 
 if [ -x "$(command -v pip3)" ]; then
 	info "Installing Python Language Server..."
