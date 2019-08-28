@@ -365,3 +365,6 @@ au User lsp_setup call lsp#register_server({
       \ 'whitelist': ['python'],
       \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
       \ })
+
+
+runtime packages.vim
