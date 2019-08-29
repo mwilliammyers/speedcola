@@ -1,8 +1,5 @@
 #!/bin/sh
 
-repo="mwilliammyers/speedcola"
-
-
 info() {
 	printf "$(tput bold)${@}$(tput sgr0)\n"
 }
@@ -83,32 +80,20 @@ try_add_apt_repository() {
 }
 
 git_pull_or_clone() {
-	git -C "${2}" config --get remote.origin.url 2>/dev/null | grep -q "${1}"
-	if [ "${?}" -eq 0 ]; then
-		git -C "${2}" pull --ff-only --depth=1
+	if git -C "${2}" config --get remote.origin.url 2>/dev/null | grep -q "${3}"; then
+		git -C "${2}" pull --autostash --ff-only --depth=1
 	else
 		git clone "${1}" "${2}" --depth=1
 	fi
 }
-
-get_first_neovim_path_value() {
-	if [ -x "$(command -v nvim)" ]; then
-		_first_path_value="$(nvim --headless --cmd 'echo split(&'$1', ",")[0] | q' 2>&1)"
-	elif [ -x "$(command -v vim)" ]; then
-		_first_path_value="$(vim -T dumb --not-a-term --cmd 'echo split(&'$1', ",")[0] | q' 2>&1)"
-	else
-		die "Could not find neovim or vim"
-	fi
-}
-
 
 info "Installing prerequisite packages..."
 if ! [ -x "$(command -v git)" ]; then
 	package_install "git" || die "Installing git failed"
 fi
 
-if ! [ -x "$(command -v vim)" ]; then
-	if ! [ -x "$(command -v nvim)" ]; then
+if ! [ -x "$(command -v nvim)" ]; then
+	if ! [ -x "$(command -v vim)" ]; then
 		package_exists "neovim" || try_add_apt_repository "ppa:neovim-ppa/stable"
 		package_install "neovim" || die "Installing neovim failed"
 	fi
@@ -122,34 +107,42 @@ fi
 
 
 info "Downloading speedcola..."
-config_dir="${1}"
-if [ -z "${config_dir}" ]; then
-	get_first_neovim_path_value "rtp"
-	config_dir="${_first_path_value}"
+program="${1:-nvim}"
+use_neovim=true
+
+if echo $program | grep -qi "nvim" && [ -x "$(command -v nvim)" ]; then
+	config_dir="$(command nvim --headless --cmd 'echo split(&rtp, ",")[0] | q' 2>&1)"
+# TODO: figure out how to handle `update-alternatives`...
+elif echo $program | grep -qi "vim" && command vim --version | grep -q 'Vi IMproved'; then
+	# TODO: assume path starts with `/`? how to remove junk characters?!
+	config_dir="$(command vim -T dumb --not-a-term --cmd 'echo split(&rtp, ",")[0] | q' 2>&1 | egrep -o '/.*' | tr -d '[:cntrl:]')"
+	use_neovim=false
+else
+	die "Could not find vim or neovim"
 fi
 
 git_pull_or_clone \
-	"https://github.com/${repo}.git" \
+	"https://github.com/mwilliammyers/speedcola.git" \
 	"${config_dir}" \
+	"mwilliammyers/speedcola" \
 		|| die "Downloading speedcola failed"
 
 
 info "\nInstalling minpac--(neo)vim package manager..."
-get_first_neovim_path_value "packpath"
-packpath="${_first_path_value}"
-
+# TODO: assume packpath lives under runtimepath?
 git_pull_or_clone \
 	"https://github.com/k-takata/minpac.git" \
-	"${packpath}/pack/minpac/opt/minpac" \
-	|| die "Installing minpac failed"
+	"${config_dir}/pack/minpac/opt/minpac" \
+	"k-takata/minpac" \
+		|| die "Installing minpac failed"
 
 
 info "\nInstalling (neo)vim packages; this may take a while..."
 # XXX: cannot call `+quit` at the end; `PackBootstrap` handles quitting vim...
-if [ -x "$(command -v nvim)" ]; then
-	nvim --headless -u NONE +'runtime packages.vim' +PackBootstrap +'echo "Still working...\n"'
-elif [ -x "$(command -v vim)" ]; then
-	vim --clean -T dumb --not-a-term +'runtime packages.vim' +PackBootstrap +'echo "Still working...\n"'
+if [ "$use_neovim" = true ]; then
+	command nvim --headless -u NONE +'set cmdheight=2' +'source packages.vim' +'PackBootstrap'
 else
-	die "Could not find neovim or vim"
+	# TODO: get vim install to work
+	command vim -T dumb --not-a-term -u NONE +'set cmdheight=2' +'source packages.vim' +'PackBootstrap'
 fi
+

@@ -9,18 +9,19 @@ Run [`install.sh`]:
 curl -sSL https://git.io/speedcola | sh
 ```
 
-This will default to configuring `vim` if both `nvim` and `vim` are found. 
-If neither are found it will install [neovim] for you and configure that.
+This will default to configuring `nvim` if both `nvim` and `vim` are found. 
+If neither are found, it will install [neovim] for you and configure that.
 
 You can also customize the configuration directory. 
 For example, to force [neovim] configuration, run [`install.sh`] like:
 ```
-curl -sSL git.io/speedcola | sh -s -- ~/.config/nvim
+curl -sSL git.io/speedcola | sh -s -- nvim
 ```
 
 **Note**: If your terminal does not support [24-bit/"true color"], do yourself
 a favor and install one that does. But, if you don't don't mind your colors 
-looking a little off, remove the line: [init.vim#L77].
+looking a little off, remove the line: [init.vim#L77]. Also, make sure
+`:echo has('termguicolors')` prints `1`.
 
 ## configuration
 
