@@ -324,13 +324,14 @@ nmap gm <plug>(lsp-type-definition)
 " nmap <plug>(lsp-document-range-format)
 " nmap <plug>(lsp-document-format)
 
-augroup lsp
+augroup lsp_settings
   autocmd!
   " TODO: better way to detect if LSP is enabled?
   autocmd FileType rust,javascript,typescript,python
-        \ nmap <buffer> <C-]> <plug>(lsp-definition)
-        \| setlocal omnifunc=lsp#complete
-        \| setlocal keywordprg=:LspHover
+        \ setlocal omnifunc=lsp#complete keywordprg=:LspHover
+        \| nmap <buffer> <C-]> <plug>(lsp-definition)
+
+  autocmd FileType *.lsp-hover  nnoremap <buffer><silent> q :pclose<Return>
 augroup END
 
 " rustup component add rls rust-analysis rust-src
