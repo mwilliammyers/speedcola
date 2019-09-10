@@ -152,7 +152,7 @@ augroup END
 "
 " package settings
 "
-
+runtime packages.vim
 
 " nnoremap <silent> <F5> :MundoToggle<Return>
 nnoremap <silent> <Leader>u :MundoToggle<Return>
@@ -302,79 +302,16 @@ let g:neoformat_toml_prettier = {
       \}
 
 "
-" vim-lsp
+" vim-lsc
 "
+let g:lsc_auto_map = v:true
 
-" let g:lsp_signs_error = {'text': '✗'}
-" let g:lsp_signs_warning = {'text': '⚠'}
+let g:lsc_server_commands = {
+      \ 'rust': 'rls',
+      \ 'javascript': 'js-langserver --stdio',
+      \ 'python': {
+      \   'command': 'pyls',
+      \   'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+      \ }
+      \}
 
-nmap ga <plug>(lsp-code-action)
-" map <plug>(lsp-declaration)
-nmap go <plug>(lsp-document-symbol)
-nmap gS <plug>(lsp-workspace-symbol)
-" map! <plug>(lsp-document-diagnostics)
-map! C-j <plug>(lsp-next-error)
-map! C-k <plug>(lsp-previous-error)
-nmap gr <plug>lsp-references)
-nmap gR <plug>(lsp-rename)
-nmap gI <plug>(lsp-implementation)
-nmap gm <plug>(lsp-type-definition)
-" map <plug>(lsp-status)
-" TODO: handle neoformat/LSC formatting?
-" nmap <plug>(lsp-document-range-format)
-" nmap <plug>(lsp-document-format)
-
-augroup lsp_settings
-  autocmd!
-  " TODO: better way to detect if LSP is enabled?
-  autocmd FileType rust,javascript,typescript,python
-        \ setlocal omnifunc=lsp#complete keywordprg=:LspHover
-        \| nmap <buffer> <C-]> <plug>(lsp-definition)
-
-  autocmd FileType *.lsp-hover  nnoremap <buffer><silent> q :pclose<Return>
-augroup END
-
-" rustup component add rls rust-analysis rust-src
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'rls',
-      \ 'cmd': {server_info->['rls']},
-      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
-      \ 'whitelist': ['rust'],
-      \ })
-
-" https://github.com/rust-analyzer/rust-analyzer
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'rust-analyzer',
-      \ 'cmd': {server_info->['ra_lsp_server']},
-      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
-      \ 'whitelist': ['rust'],
-      \ })
-
-" npm install -g js-langserver
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'js-langserver',
-      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'js-langserver --stdio']},
-      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-      \ 'whitelist': ['javascript', 'javascript.jsx'],
-      \ })
-
-" npm install -g typescript typescript-language-server
-" TODO: use 'ryanolsonx/vim-lsp-javascript'?
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'typescript-language-server',
-      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-      \ 'whitelist': ['typescript', 'typescript.tsx'],
-      \ })
-
-" pip install python-language-server[all]
-" TODO: use 'ryanolsonx/vim-lsp-python' plugin?
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'pyls',
-      \ 'cmd': {server_info->['pyls']},
-      \ 'whitelist': ['python'],
-      \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
-      \ })
-
-
-runtime packages.vim
