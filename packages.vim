@@ -47,7 +47,7 @@ function! PackInit() abort
   call minpac#add('wincent/loupe')
   call minpac#add('machakann/vim-sandwich')
   call minpac#add('sbdchd/neoformat', {'do':  {-> s:MaybeSudoSystem('npm', 'i -g prettier')}})
-  call minpac#add('heavenshell/vim-jsdoc')
+  call minpac#add('heavenshell/vim-jsdoc', {'type': 'opt'})
   call minpac#add('Raimondi/yaifa')
   call minpac#add('prabirshrestha/async.vim')
   call minpac#add('prabirshrestha/vim-lsp', {'do': function('s:LspHook')})
