@@ -153,6 +153,8 @@ augroup END
 " package settings
 "
 
+" this can be done anywhere, it doesn't actually load any packages
+runtime packages.vim
 
 " nnoremap <silent> <F5> :MundoToggle<Return>
 nnoremap <silent> <Leader>u :MundoToggle<Return>
@@ -377,4 +379,3 @@ au User lsp_setup call lsp#register_server({
       \ })
 
 
-runtime packages.vim
