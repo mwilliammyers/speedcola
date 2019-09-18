@@ -140,9 +140,9 @@ git_pull_or_clone \
 info "\nInstalling (neo)vim packages; this may take a while..."
 # XXX: cannot call `+quit` at the end; `PackBootstrap` handles quitting vim...
 if [ "$use_neovim" = true ]; then
-	command nvim --headless -u NONE +'set cmdheight=2' +'source packages.vim' +'PackBootstrap'
+	command nvim --headless -u NONE +'set cmdheight=2' +'runtime packages.vim' +'PackBootstrap'
 else
 	# TODO: get vim install to work
-	command vim -T dumb --not-a-term -u NONE +'set cmdheight=2' +'source packages.vim' +'PackBootstrap'
+	command vim -T dumb --not-a-term -u NONE +'set cmdheight=2' +'runtime packages.vim' +'PackBootstrap'
 fi
 
