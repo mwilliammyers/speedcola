@@ -58,4 +58,4 @@ command! PackUpdate call PackInit() | call minpac#update('', {'do': 'call minpac
 command! PackClean  call PackInit() | call minpac#clean()
 command! PackStatus call PackInit() | call minpac#status()
 " HACK: used by install script so we can quit vim at the right time
-command! PackBootstrap call PackInit() | call minpac#update('', {'do': 'echo "\nFinished installing all packages\n" |  qall'})
+command! PackBootstrap call PackInit() | call minpac#update('', {'do': 'echo "\nFinished installing all packages\n" | qall'})
