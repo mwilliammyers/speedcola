@@ -200,8 +200,8 @@ nnoremap <silent> <C-a> :Files<Return>
 nnoremap <silent> <C-p> :Files<Return>
 nnoremap <silent> <Leader>a :Files<Return>
 nnoremap <silent> <Leader>t :Files<Return>
-nnoremap <silent> <Leader>ag :GFiles<Return>
-nnoremap <silent> <Leader>ag? :GFiles?<Return>
+nnoremap <silent> <Leader>rg :GFiles<Return>
+nnoremap <silent> <Leader>rg? :GFiles?<Return>
 nnoremap <silent> <Leader><Enter> :Buffers<Return>
 nnoremap <silent> <Leader>b :Buffers<Return>
 " nnoremap <silent> <Leader> :Colors<Return>
@@ -330,9 +330,8 @@ nmap gR <plug>(lsp-rename)
 nmap gI <plug>(lsp-implementation)
 nmap gm <plug>(lsp-type-definition)
 " map <plug>(lsp-status)
-" TODO: handle neoformat/LSC formatting?
 " nmap <plug>(lsp-document-range-format)
-" nmap <plug>(lsp-document-format)
+nmap gf <plug>(lsp-document-format)
 
 augroup lsp_settings
   autocmd!
