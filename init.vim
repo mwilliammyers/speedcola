@@ -219,6 +219,7 @@ nnoremap <silent> <Leader>sn :Snippets<Return>
 nnoremap <silent> <Leader>c :Commits<Return>
 nnoremap <silent> <Leader>cc :BCommits<Return>
 nnoremap <silent> <Leader>: :Commands<Return>
+nnoremap <silent> ;; :Commands<Return>
 nnoremap <silent> <Leader>m :Maps<Return>
 nnoremap <silent> <Leader>h :Helptags<Return>
 nnoremap <silent> <Leader>tp :Filetypes<Return>
@@ -287,7 +288,13 @@ augroup END
 "
 " neoformat
 "
-nmap ;; :Neoformat<Return>
+nmap <Leader>n :Neoformat<Return>
+
+" augroup fmt
+"   autocmd!
+"   " rust & go have standardized formatters
+"   autocmd FileType rust,go autocmd BufWritePre * undojoin | Neoformat
+" augroup END
 
 let g:neoformat_run_all_formatters = 1
 " let g:neoformat_try_formatprg = 1
@@ -307,6 +314,7 @@ let g:neoformat_toml_prettier = {
 " vim-lsp
 "
 
+" let g:lsp_virtual_text_enabled = 0
 " let g:lsp_signs_error = {'text': '✗'}
 " let g:lsp_signs_warning = {'text': '⚠'}
 
@@ -315,8 +323,8 @@ nmap ga <plug>(lsp-code-action)
 nmap go <plug>(lsp-document-symbol)
 nmap gS <plug>(lsp-workspace-symbol)
 " map! <plug>(lsp-document-diagnostics)
-map! C-j <plug>(lsp-next-error)
-map! C-k <plug>(lsp-previous-error)
+map! <C-j> <plug>(lsp-next-error)
+map! <C-k> <plug>(lsp-previous-error)
 nmap gr <plug>lsp-references)
 nmap gR <plug>(lsp-rename)
 nmap gI <plug>(lsp-implementation)
