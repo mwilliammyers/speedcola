@@ -33,6 +33,7 @@ Ceck out: [init.vim](init.vim).
 - [fzf] for fuzzy searching all the things
 - [vim-lsp] for IDE like features (via the [Language Server Protocol])
 - [sneak] for jumping around
+- [neoformat] for formatting code
 
 ### key mappings
 
@@ -60,6 +61,7 @@ From [Normal] mode, type:
 [Terminal.app]: https://en.wikipedia.org/wiki/Terminal_(macOS)
 [iTerm2]: https://www.iterm2.com/
 [init.vim#L77]: https://github.com/mwilliammyers/speedcola/blob/510e88e/init.vim#L77
+[neoformat]: https://github.com/sbdchd/neoformat
 
 [Neovim FAQ]: https://github.com/neovim/neovim/wiki/FAQ
 [Learn Vimscript the Hard Way]: http://learnvimscriptthehardway.stevelosh.com/
