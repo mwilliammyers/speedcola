@@ -343,14 +343,6 @@ augroup lsp_settings
   autocmd FileType *.lsp-hover  nnoremap <buffer><silent> q :pclose<Return>
 augroup END
 
-" rustup component add rls rust-analysis rust-src
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'rls',
-      \ 'cmd': {server_info->['rls']},
-      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
-      \ 'whitelist': ['rust'],
-      \ })
-
 " https://github.com/rust-analyzer/rust-analyzer
 au User lsp_setup call lsp#register_server({
       \ 'name': 'rust-analyzer',
@@ -384,5 +376,4 @@ au User lsp_setup call lsp#register_server({
       \ 'whitelist': ['python'],
       \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
       \ })
-
 
