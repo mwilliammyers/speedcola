@@ -56,9 +56,8 @@ function! PackInit() abort
   call minpac#add('sbdchd/neoformat', {'do':  {-> syspkg#npm_install('prettier')}})
   call minpac#add('heavenshell/vim-jsdoc', {'type': 'opt'})
   call minpac#add('Raimondi/yaifa')
-  call minpac#add('prabirshrestha/async.vim')
-  call minpac#add('prabirshrestha/vim-lsp', {'do': function('s:LspHook')})
   call minpac#add('iamcco/markdown-preview.nvim', { 'do': { -> system('cd app && ./install.sh') }})
+  call minpac#add('neovim/nvim-lsp', {'type': 'opt'})
 endfunction
 
 

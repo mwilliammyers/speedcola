@@ -314,69 +314,60 @@ let g:neoformat_toml_prettier = {
       \}
 
 "
-" vim-lsp
+" nvim-lsp
 "
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 
-" let g:lsp_virtual_text_enabled = 0
-" let g:lsp_signs_error = {'text': '✗'}
-" let g:lsp_signs_warning = {'text': '⚠'}
-
-nmap ga <plug>(lsp-code-action)
-" map <plug>(lsp-declaration)
-nmap go <plug>(lsp-document-symbol)
-nmap gS <plug>(lsp-workspace-symbol)
-" map! <plug>(lsp-document-diagnostics)
-map! <C-j> <plug>(lsp-next-error)
-map! <C-k> <plug>(lsp-previous-error)
-nmap gr <plug>lsp-references)
-nmap gR <plug>(lsp-rename)
-nmap gI <plug>(lsp-implementation)
-nmap gm <plug>(lsp-type-definition)
-" map <plug>(lsp-status)
-" nmap <plug>(lsp-document-range-format)
-nmap gf <plug>(lsp-document-format)
+" TODO: do these upstream in rakr/vim-one
+highlight link LspDiagnosticsError Error
+" LspDiagnosticsHint
+" LspDiagnosticsInformation
+highlight link LspUnderline Underline
+" LspDiagnosticsUnderlineError
+" LspDiagnosticsUnderlineHint
+" LspDiagnosticsUnderlineInformation
+" LspDiagnosticsUnderlineWarning
+" LspDiagnosticsWarning
 
 augroup lsp_settings
   autocmd!
+
   " TODO: better way to detect if LSP is enabled?
   autocmd FileType rust,javascript,typescript,python
-        \ setlocal omnifunc=lsp#complete keywordprg=:LspHover
-        \| nmap <buffer> <C-]> <plug>(lsp-definition)
-
-  autocmd FileType *.lsp-hover  nnoremap <buffer><silent> q :pclose<Return>
+        \ setlocal omnifunc=v:lua.vim.lsp.omnifunc
 augroup END
 
-" https://github.com/rust-analyzer/rust-analyzer
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'rust-analyzer',
-      \ 'cmd': {server_info->['ra_lsp_server']},
-      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
-      \ 'whitelist': ['rust'],
-      \ })
+" TODO: figure out why nvim-lsp *has* to be manually loaded...
+packadd nvim-lsp
 
-" npm install -g js-langserver
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'js-langserver',
-      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'js-langserver --stdio']},
-      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-      \ 'whitelist': ['javascript', 'javascript.jsx'],
-      \ })
+lua << EOF
+local nvim_lsp = require'nvim_lsp'
+local configs = require'nvim_lsp/skeleton'
+local util = require 'nvim_lsp/util'
 
-" npm install -g typescript typescript-language-server
-" TODO: use 'ryanolsonx/vim-lsp-javascript'?
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'typescript-language-server',
-      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-      \ 'whitelist': ['typescript', 'typescript.tsx'],
-      \ })
+if not nvim_lsp.js_langserver then
+  configs.js_langserver = {
+    default_config = {
+      cmd = {'js-langserver', '--stdio'};
+      filetypes = {'javascript', 'typescript'};
+      root_dir = util.root_pattern("package.json");
+      log_level = vim.lsp.protocol.MessageType.Warning;
+      settings = {};
+    };
+  }
+end
 
-" pip install python-language-server[all]
-" TODO: use 'ryanolsonx/vim-lsp-python' plugin?
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'pyls',
-      \ 'cmd': {server_info->['pyls']},
-      \ 'whitelist': ['python'],
-      \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
-      \ })
+-- npm i -g js-langserver
+nvim_lsp.js_langserver.setup{}
 
+nvim_lsp.rust_analyzer.setup{}
+
+-- pip install python-language-server[all]
+nvim_lsp.pyls.setup{}
+EOF
