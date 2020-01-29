@@ -369,5 +369,9 @@ nvim_lsp.js_langserver.setup{}
 nvim_lsp.rust_analyzer.setup{}
 
 -- pip install python-language-server[all]
-nvim_lsp.pyls.setup{}
+nvim_lsp.pyls.setup{
+  settings = {
+    pyls = { plugins = { pycodestyle = { maxLineLength = 90 } } }
+  }
+}
 EOF
