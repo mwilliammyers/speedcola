@@ -148,6 +148,9 @@ augroup docs
   autocmd FileType * map <expr> <Leader><Leader>i ':Docs' . &filetype . ' ' . expand('<cword>') . '<Return>'
 augroup END
 
+" highlight link rustAttribute Comment
+" highlight link rustAttributeContents Comment
+" highlight link rustDerive Comment
 
 "
 " package settings
@@ -312,6 +315,14 @@ let g:neoformat_toml_prettier = {
       \ 'args': ['--stdin', '--print-width=100', '--stdin-filepath', '"%:p"'],
       \ 'stdin': 1,
       \}
+
+"
+" vista
+"
+let g:vista_sidebar_position = 'vertical topleft'
+
+nnoremap <silent> <leader>v :Vista!!<Return>
+
 
 "
 " nvim-lsp

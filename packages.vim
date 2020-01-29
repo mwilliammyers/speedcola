@@ -46,6 +46,8 @@ function! PackInit() abort
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('justinmk/vim-sneak')
   call minpac#add('lifepillar/vim-mucomplete')
+  call minpac#add('liuchengxu/vista.vim')
+  call minpac#add('ludovicchabant/vim-gutentags')
   call minpac#add('machakann/vim-sandwich')
   call minpac#add('neovim/nvim-lsp', {'type': 'opt', 'do': function('s:LspHook')})
   call minpac#add('sbdchd/neoformat', {'do':  {-> syspkg#npm_install('prettier')}})
