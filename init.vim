@@ -333,7 +333,7 @@ highlight link LspUnderline Underline
 " LspDiagnosticsUnderlineHint
 " LspDiagnosticsUnderlineInformation
 " LspDiagnosticsUnderlineWarning
-" LspDiagnosticsWarning
+highlight link LspDiagnosticsWarning Todo
 
 augroup lsp_settings
   autocmd!
