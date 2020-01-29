@@ -317,12 +317,20 @@ let g:neoformat_toml_prettier = {
       \}
 
 "
+" gutentags
+"
+if exists("*stdpath")
+  let g:gutentags_cache_dir = stdpath("cache")
+else
+  let g:gutentags_cache_dir = split(&directory, ",")[-1]
+endif
+
+"
 " vista
 "
 let g:vista_sidebar_position = 'vertical topleft'
 
 nnoremap <silent> <leader>v :Vista!!<Return>
-
 
 "
 " nvim-lsp
