@@ -19,8 +19,19 @@ function! s:LspHook(hooktype, name)
 endfunction
 
 
+function! s:InstallMinpacIfNecessary()
+  let l:minpac_dir = split(&packpath, ",")[0] . '/pack/minpac/opt/minpac'
+
+  if !isdirectory(l:minpac_dir)
+    call system('git clone https://github.com/k-takata/minpac.git ' . l:minpac_dir)
+  endif
+endfunction
+
+
 function! PackInit() abort
   if &compatible | set nocompatible | endif
+
+  call s:InstallMinpacIfNecessary()
 
   packadd minpac
 
