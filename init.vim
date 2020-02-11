@@ -294,7 +294,7 @@ augroup END
 "
 " neoformat
 "
-nmap <Leader>n :Neoformat<Return>
+nmap <silent> <Leader>n :Neoformat<Return>
 
 " augroup fmt
 "   autocmd!
