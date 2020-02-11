@@ -1,4 +1,5 @@
-"
+"'/home/wm/.config/nvim/lua/nvim_lsp/js_langserver.lua'
+
 " speedcola (neo)vim configuration
 " https://github.com/mwilliammyers/speedcola
 "
@@ -369,22 +370,8 @@ packadd nvim-lsp
 
 lua << EOF
 local nvim_lsp = require'nvim_lsp'
-local configs = require'nvim_lsp/skeleton'
-local util = require 'nvim_lsp/util'
 
-if not nvim_lsp.js_langserver then
-  configs.js_langserver = {
-    default_config = {
-      cmd = {'js-langserver', '--stdio'};
-      filetypes = {'javascript', 'typescript'};
-      root_dir = util.root_pattern("package.json");
-      log_level = vim.lsp.protocol.MessageType.Warning;
-      settings = {};
-    };
-  }
-end
-
--- npm i -g js-langserver
+-- npm i -g js-langserver; or :LspInstall js_langserver
 nvim_lsp.js_langserver.setup{}
 
 nvim_lsp.rust_analyzer.setup{}
