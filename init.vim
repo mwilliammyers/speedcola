@@ -392,7 +392,7 @@ nvim_lsp.rust_analyzer.setup{}
 -- pip install python-language-server[all]
 nvim_lsp.pyls.setup{
   settings = {
-    pyls = { plugins = { pycodestyle = { maxLineLength = 90 } } }
+    pyls = { plugins = { pycodestyle = { ignore = {"E501"} } } }
   }
 }
 EOF
