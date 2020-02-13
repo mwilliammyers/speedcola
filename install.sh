@@ -138,15 +138,6 @@ git_pull_or_clone \
 		|| die "Downloading speedcola failed"
 
 
-info "\nInstalling minpac--(neo)vim package manager..."
-# TODO: assume packpath lives under runtimepath?
-git_pull_or_clone \
-	"https://github.com/k-takata/minpac.git" \
-	"${config_dir}/pack/minpac/opt/minpac" \
-	"k-takata/minpac" \
-		|| die "Installing minpac failed"
-
-
 info "\nInstalling (neo)vim packages; this may take a while..."
 # XXX: cannot call `+quit` at the end; `PackBootstrap` handles quitting vim...
 if [ "$use_neovim" = true ]; then
