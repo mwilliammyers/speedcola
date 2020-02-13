@@ -81,10 +81,19 @@ try_add_apt_repository() {
 
 git_pull_or_clone() {
 	if git -C "${2}" config --get remote.origin.url 2>/dev/null | grep -q "${3}"; then
-		git -C "${2}" pull --autostash --ff-only --depth=1
+		args="-C ${2} pull --autostash --ff-only --depth=1"
+		if [ -n "${4}" ]; then
+			args="${args} origin ${4}"
+		fi
+
 	else
-		git clone "${1}" "${2}" --depth=1
+		args="clone ${1} ${2} --depth=1"
+		if [ -n "${4}" ]; then
+			args="${args} --branch=${4}"
+		fi
 	fi
+
+	git ${args}
 }
 
 info "Installing prerequisite packages..."
@@ -125,6 +134,7 @@ git_pull_or_clone \
 	"https://github.com/mwilliammyers/speedcola.git" \
 	"${config_dir}" \
 	"mwilliammyers/speedcola" \
+	"${SPEEDCOLA_BRANCH:-master}" \
 		|| die "Downloading speedcola failed"
 
 
