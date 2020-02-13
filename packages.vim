@@ -23,7 +23,7 @@ function! s:InstallMinpacIfNecessary()
   let l:minpac_dir = split(&packpath, ",")[0] . '/pack/minpac/opt/minpac'
 
   if !isdirectory(l:minpac_dir)
-    call system('git clone https://github.com/k-takata/minpac.git ' . l:minpac_dir)
+    call system('git clone --depth=1 https://github.com/k-takata/minpac.git ' . l:minpac_dir)
   endif
 endfunction
 
