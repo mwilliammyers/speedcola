@@ -168,6 +168,9 @@ let g:sql_type_default = 'pgsql'
 
 let g:mundo_close_on_revert = 1
 
+let g:mkdp_auto_start = 1
+let g:mkdp_refresh_slow = 1
+
 "
 " sneak
 "

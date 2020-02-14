@@ -58,6 +58,7 @@ function! PackInit() abort
   call minpac#add('Raimondi/yaifa')
   call minpac#add('prabirshrestha/async.vim')
   call minpac#add('prabirshrestha/vim-lsp', {'do': function('s:LspHook')})
+  call minpac#add('iamcco/markdown-preview.nvim', { 'do': { -> system('cd app && ./install.sh') }})
 endfunction
 
 
