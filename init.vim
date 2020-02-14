@@ -186,7 +186,7 @@ map F <Plug>Sneak_S
 "
 " fzf
 "
-" Run fzf when vim open iff no filepath was specified to vim via CLI
+" Run fzf when vim opens iff no filepath was specified to vim via CLI
 autocmd StdinReadPre * let s:reading_stdin=1
 autocmd VimEnter * nested
       \  if argc() == 0 && !exists("s:reading_stdin")
