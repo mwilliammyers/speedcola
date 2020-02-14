@@ -1,12 +1,13 @@
 function! s:InstallPkg(slug, ...)
   let l:split_slug = split(a:slug, '/')
-  let l:pkg_type = get(a:, 1, 'opt')
+  let l:pkg_dir = get(a:, 1, 'minpac')
+  let l:pkg_type = get(a:, 2, 'opt')
 
-  let l:dir = split(&packpath, ',')[0] . '/pack/' . l:split_slug[0] . '/' . l:pkg_type . '/' . l:split_slug[1]
-  if isdirectory(l:dir)
-    return system('git -C ' . l:dir . ' pull --autostash --ff-only --depth=1')
-  else
+  let l:dir = join([split(&packpath, ',')[0], 'pack', l:pkg_dir, l:pkg_type, l:split_slug[1]], '/')
+  if !isdirectory(l:dir)
     return system('git clone --depth=1 https://github.com/' . a:slug . '.git ' . l:dir)
+  " else
+  "   return system('git -C ' . l:dir . ' pull --autostash --ff-only --depth=1')
   endif
 endfunction
 
