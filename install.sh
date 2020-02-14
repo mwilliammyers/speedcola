@@ -105,7 +105,7 @@ git_pull_or_clone \
 		|| die "Downloading speedcola failed"
 
 
-info "\nInstalling (neo)vim packages; this may take a while..."
+info "Installing (neo)vim packages; this may take a while..."
 # XXX: cannot call `+quit` at the end; `PackBootstrap` handles quitting vim...
 if [ "$use_neovim" = true ]; then
 	command nvim --headless -u NONE +'set cmdheight=99' +'runtime packages.vim' +'PackBootstrap'
