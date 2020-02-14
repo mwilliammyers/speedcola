@@ -80,7 +80,7 @@ if ! [ -x "$(command -v nvim)" ]; then
 fi
 
 
-info "Downloading speedcola..."
+info "\nDownloading speedcola..."
 if [ -x "$(command -v nvim)" ]; then
 	config_dir="$(command nvim --headless --cmd 'echo split(&rtp, ",")[0] | q' 2>&1)"
 else
@@ -95,7 +95,7 @@ git_pull_or_clone \
 		|| die "Downloading speedcola failed"
 
 
-info "Installing (neo)vim packages; this may take a while..."
+info "\nInstalling (neo)vim packages; this may take a while..."
 # XXX: cannot call `+quit` at the end; `PackBootstrap` handles quitting vim...
 command nvim --headless -u NONE +'set cmdheight=99' +'runtime packages.vim' +'PackBootstrap'
 

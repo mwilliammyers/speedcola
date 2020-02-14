@@ -40,7 +40,7 @@ function! PackInit() abort
   call minpac#add('Raimondi/yaifa')
   call minpac#add('airblade/vim-gitgutter')
   call minpac#add('heavenshell/vim-jsdoc', {'type': 'opt'})
-  call minpac#add('iamcco/markdown-preview.nvim', { 'do': { -> system('cd app && ./install.sh') }})
+  call minpac#add('iamcco/markdown-preview.nvim', {'do': {-> system('cd app && ./install.sh')}})
   call minpac#add('jeffkreeftmeijer/vim-numbertoggle')
   call minpac#add('junegunn/fzf', {'do': {-> syspkg#install('ripgrep')}})
   call minpac#add('junegunn/fzf.vim')
