@@ -1,29 +1,21 @@
-" TODO: make this smarter?
-function! s:MaybeSudoSystem(cmd, args)
-  if executable(a:cmd)
-    if executable('apt-get')
-      call system('sudo ' . a:cmd . ' ' . a:args)
-    else
-      call system(a:cmd . ' ' . a:args)
-    endif
+function! s:InstallPkg(slug, ...)
+  let l:split_slug = split(a:slug, '/')
+  let l:pkg_type = get(a:, 1, 'opt')
+
+  let l:dir = split(&packpath, ',')[0] . '/pack/' . l:split_slug[0] . '/' . l:pkg_type . '/' . l:split_slug[1]
+  if isdirectory(l:dir)
+    return system('git -C ' . l:dir . ' pull --autostash --ff-only --depth=1')
+  else
+    return system('git clone --depth=1 https://github.com/' . a:slug . '.git ' . l:dir)
   endif
 endfunction
 
 
 function! s:LspHook(hooktype, name)
-  call s:MaybeSudoSystem('pip3', 'install python-language-server[all] pyls-mypy pyls-isort pyls-black')
-  call s:MaybeSudoSystem('npm', 'i -g js-langserver typescript-language-server typescript')
+  call syspkg#pip3_install('python-language-server[all]', 'pyls-mypy', 'pyls-isort', 'pyls-black')
+  call syspkg#npm_install('js-langserver', 'typescript-language-server', 'typescript')
   if executable('rustup')
     call system('rustup component add rls rust-analysis rust-src clippy rustfmt')
-  endif
-endfunction
-
-
-function! s:InstallMinpacIfNecessary()
-  let l:minpac_dir = split(&packpath, ",")[0] . '/pack/minpac/opt/minpac'
-
-  if !isdirectory(l:minpac_dir)
-    call system('git clone --depth=1 https://github.com/k-takata/minpac.git ' . l:minpac_dir)
   endif
 endfunction
 
@@ -31,17 +23,20 @@ endfunction
 function! PackInit() abort
   if &compatible | set nocompatible | endif
 
-  call s:InstallMinpacIfNecessary()
+  call s:InstallPkg('k-takata/minpac')
+  call s:InstallPkg('mwilliammyers/syspkg')
 
   packadd minpac
+  packadd syspkg 
 
-  " call minpac#init({'dir': stdpath('data') . '/site'})
   call minpac#init()
+
   call minpac#add('k-takata/minpac', {'type': 'opt'})
+  call minpac#add('mwilliammyers/syspkg', {'type': 'opt'})
 
   call minpac#add('rakr/vim-one', {'type': 'opt'})
 
-  call minpac#add('junegunn/fzf')
+  call minpac#add('junegunn/fzf', {'do': {-> syspkg#install('ripgrep')}})
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('justinmk/vim-sneak')
   call minpac#add('sheerun/vim-polyglot')
@@ -57,7 +52,7 @@ function! PackInit() abort
   " call minpac#add('sgur/vim-editorconfig')
   call minpac#add('wincent/loupe')
   call minpac#add('machakann/vim-sandwich')
-  call minpac#add('sbdchd/neoformat', {'do':  {-> s:MaybeSudoSystem('npm', 'i -g prettier')}})
+  call minpac#add('sbdchd/neoformat', {'do':  {-> syspkg#npm_install('prettier')}})
   call minpac#add('heavenshell/vim-jsdoc', {'type': 'opt'})
   call minpac#add('Raimondi/yaifa')
   call minpac#add('prabirshrestha/async.vim')
