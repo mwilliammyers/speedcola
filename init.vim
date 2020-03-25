@@ -379,7 +379,18 @@ nvim_lsp.rust_analyzer.setup{}
 -- pip install python-language-server[all]
 nvim_lsp.pyls.setup{
   settings = {
-    pyls = { plugins = { pycodestyle = { ignore = {"E501"} } } }
+    pyls = { 
+      configurationSources = { "flake8" },
+      plugins = { 
+        autopep8 = { enabled = false },
+        flake8 = { enabled = true },
+        -- enable this in addition to flake8 because it supports live_mode
+        pycodestyle = { enabled = true, ignore = {"E501"} },
+        pydocstyle = { enabled = true },
+        pyls_mypy = { enabled = true, live_mode = true },
+        yapf = { enabled = false },
+      }
+    }
   }
 }
 EOF
