@@ -95,7 +95,8 @@ set belloff+=ctrlg
 set noshowmode
 set number relativenumber
 set splitright splitbelow
-set colorcolumn=80,100,120
+set colorcolumn=80,100
+autocmd FileType python set colorcolumn=79,88
 if exists('+signcolumn') | set signcolumn=yes | endif
 set nowrap
 
@@ -174,6 +175,8 @@ let g:mundo_close_on_revert = 1
 
 let g:mkdp_auto_start = 1
 let g:mkdp_refresh_slow = 1
+
+let g:python_highlight_all = 1
 
 "
 " sneak
@@ -385,7 +388,7 @@ nvim_lsp.pyls.setup{
         autopep8 = { enabled = false },
         flake8 = { enabled = true },
         -- enable this in addition to flake8 because it supports live_mode
-        pycodestyle = { enabled = true, ignore = {"E501"} },
+        pycodestyle = { enabled = false, ignore = {"E501"} },
         pydocstyle = { enabled = true },
         pyls_mypy = { enabled = true, live_mode = true },
         yapf = { enabled = false },
