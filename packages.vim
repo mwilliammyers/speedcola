@@ -35,6 +35,8 @@ function! PackInit() abort
   call minpac#add('k-takata/minpac', {'type': 'opt'})
   call minpac#add('mwilliammyers/syspkg', {'type': 'opt'})
 
+  call minpac#add('neovim/nvim-lspconfig')
+
   call minpac#add('rakr/vim-one', {'type': 'opt'})
 
   call minpac#add('Raimondi/yaifa')
@@ -49,7 +51,6 @@ function! PackInit() abort
   call minpac#add('liuchengxu/vista.vim')
   call minpac#add('ludovicchabant/vim-gutentags')
   call minpac#add('machakann/vim-sandwich')
-  call minpac#add('neovim/nvim-lsp', {'type': 'opt', 'do': function('s:LspHook')})
   call minpac#add('sbdchd/neoformat', {'do':  {-> syspkg#npm_install('prettier')}})
   call minpac#add('sgur/vim-editorconfig')
   call minpac#add('sheerun/vim-polyglot')
