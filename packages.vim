@@ -16,7 +16,7 @@ function! s:LspHook(hooktype, name)
   call syspkg#pip3_install('python-language-server[all]', 'pyls-mypy', 'pyls-isort', 'pyls-black')
   call syspkg#npm_install('js-langserver', 'typescript-language-server', 'typescript')
   if executable('rustup')
-    call system('rustup component add rls rust-analysis rust-src clippy rustfmt')
+    call system('rustup component add rust-analyzer clippy rustfmt')
   endif
 endfunction
 
