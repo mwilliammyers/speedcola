@@ -19,33 +19,33 @@ die() {
 }
 
 install_package() {
-    if [ -x "$(command -v apt-get)" ]; then
-        sudo apt-get install -y "${@}"
-    elif [ -x "$(command -v brew)" ]; then
-        HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_GITHUB_API=1 brew install "${@}"
-    elif [ -x "$(command -v pacman)" ]; then
-        sudo pacman -Syu "${@}"
-    elif [ -x "$(command -v dnf)" ]; then
-        sudo dnf -y "${@}"
-    elif [ -x "$(command -v yum)" ]; then
-        sudo yum -y "${@}"
-    elif [ -x "$(command -v zypper)" ]; then
-        sudo zypper install "${@}"
-    elif [ -x "$(command -v pkg)" ]; then
-        sudo pkg install "${@}"
-    elif [ -x "$(command -v pkg_add)" ]; then
-        pkg_add "${@}"
-    elif [ -x "$(command -v port)" ]; then
-        sudo port install "${@}"
-    elif [ -x "$(command -v emerge)" ]; then
-        emerge "${@}"
-    elif [ -x "$(command -v pkgin)" ]; then
-        pkgin -y install "${@}"
-    elif [ -x "$(command -v nix-env)" ]; then
-        nix-env -i "${@}"
-    else
-        return 1
-    fi
+	if [ -x "$(command -v apt-get)" ]; then
+		sudo apt-get install -y "${@}"
+	elif [ -x "$(command -v brew)" ]; then
+		HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_GITHUB_API=1 brew install "${@}"
+	elif [ -x "$(command -v pacman)" ]; then
+		sudo pacman -Syu "${@}"
+	elif [ -x "$(command -v dnf)" ]; then
+		sudo dnf -y "${@}"
+	elif [ -x "$(command -v yum)" ]; then
+		sudo yum -y "${@}"
+	elif [ -x "$(command -v zypper)" ]; then
+		sudo zypper install "${@}"
+	elif [ -x "$(command -v pkg)" ]; then
+		sudo pkg install "${@}"
+	elif [ -x "$(command -v pkg_add)" ]; then
+		pkg_add "${@}"
+	elif [ -x "$(command -v port)" ]; then
+		sudo port install "${@}"
+	elif [ -x "$(command -v emerge)" ]; then
+		emerge "${@}"
+	elif [ -x "$(command -v pkgin)" ]; then
+		pkgin -y install "${@}"
+	elif [ -x "$(command -v nix-env)" ]; then
+		nix-env -i "${@}"
+	else
+		return 1
+	fi
 }
 
 git_pull_or_clone() {
