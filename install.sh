@@ -18,6 +18,10 @@ die() {
 	exit "${rc}"
 }
 
+download_to_file() {
+	curl -LO "$@" || wget "$@" || die "Downloading $@ failed"
+}
+
 install_package() {
 	if [ -x "$(command -v apt-get)" ]; then
 		sudo apt-get install -y "${@}"
