@@ -118,5 +118,5 @@ git_pull_or_clone \
 
 info "\nInstalling (neo)vim packages; this may take a while..."
 # XXX: cannot call `+quit` at the end; `PackBootstrap` handles quitting vim...
-command nvim --headless -u NONE +'set cmdheight=99' +'runtime packages.vim' +'PackBootstrap'
+command nvim --headless -u NONE +'runtime packages.vim' +'PackBootstrap'
 
