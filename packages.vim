@@ -28,7 +28,7 @@ function! PackInit() abort
   call s:InstallPkg('mwilliammyers/syspkg')
 
   packadd minpac
-  packadd syspkg 
+  packadd syspkg
 
   call minpac#init()
 
@@ -47,7 +47,7 @@ function! PackInit() abort
   call minpac#add('junegunn/fzf', {'do': {-> syspkg#install('ripgrep')}})
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('justinmk/vim-sneak')
-  call minpac#add('lifepillar/vim-mucomplete')
+  call minpac#add('Saghen/blink.cmp', {'rev': 'v1.*'})
   call minpac#add('liuchengxu/vista.vim')
   call minpac#add('ludovicchabant/vim-gutentags')
   call minpac#add('machakann/vim-sandwich')
