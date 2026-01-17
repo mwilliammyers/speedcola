@@ -49,7 +49,7 @@ function! PackInit() abort
   call minpac#add('justinmk/vim-sneak')
   call minpac#add('Saghen/blink.cmp', {'rev': 'v1.*'})
   call minpac#add('liuchengxu/vista.vim')
-  call minpac#add('ludovicchabant/vim-gutentags')
+  call minpac#add('ludovicchabant/vim-gutentags', {'do': {-> syspkg#install('universal-ctags')}})
   call minpac#add('machakann/vim-sandwich')
   call minpac#add('sbdchd/neoformat', {'do':  {-> syspkg#npm_install('prettier')}})
   call minpac#add('sgur/vim-editorconfig')
