@@ -90,7 +90,7 @@ end
 -- Install system dependencies (runs once on first plugin install)
 local function install_system_deps()
   install_sys_pkg('ripgrep', 'fzf', 'tree-sitter-cli')
-  install_python_pkg('pyright', 'ruff')
+  install_python_pkg('ruff', 'ty')
   install_npm_pkg('typescript', 'typescript-language-server')
   if vim.fn.executable('rustup') == 1 then
     vim.fn.system('rustup component add rust-analyzer 2>/dev/null')
@@ -176,7 +176,12 @@ later(function()
 
   local ok, flash = pcall(require, 'flash')
   if ok then
-    flash.setup({ modes = { char = { enabled = true } } })
+    flash.setup({
+      modes = {
+        char = { enabled = false },  -- use vanilla f/t/F/T
+        search = { enabled = true }, -- flash during / search
+      },
+    })
     vim.keymap.set({ 'n', 'x', 'o' }, 's', flash.jump)
     vim.keymap.set({ 'n', 'x', 'o' }, 'S', flash.treesitter)
     vim.keymap.set('o', 'r', flash.remote)
@@ -186,6 +191,21 @@ end)
 now(function()
   add('junegunn/fzf')
   add('junegunn/fzf.vim')
+end)
+
+now(function()
+  add('neovim/nvim-lspconfig')
+
+  local capabilities = {
+    general = { positionEncodings = { 'utf-16' } },
+  }
+  local ok, blink = pcall(require, 'blink.cmp')
+  if ok then
+    capabilities = blink.get_lsp_capabilities(capabilities)
+  end
+  vim.lsp.config('*', { capabilities = capabilities })
+
+  vim.lsp.enable({ 'ruff', 'ty', 'ts_ls', 'rust_analyzer' })
 end)
 
 later(function()
@@ -216,12 +236,14 @@ map('n', '<Leader>xt', ':split term://$SHELL<CR>')
 
 -- FZF
 map('n', '<C-p>', ':Files<CR>', { silent = true })
-map('n', '<Leader>f', ':Rg<CR>', { silent = true })
+map('n', '<C-f>', ':Rg<CR>', { silent = true })
+map('n', '<Leader>rg', ':Rg<CR>', { silent = true })
+map('n', '<Leader>/', ':Rg<CR>', { silent = true })
 map('n', '<Leader>b', ':Buffers<CR>', { silent = true })
 map('n', '<Leader><Enter>', ':Buffers<CR>', { silent = true })
 map('n', '<Leader>l', ':Lines<CR>', { silent = true })
 map('n', '<Leader>h', ':Helptags<CR>', { silent = true })
-map('n', '<Leader>:', ':Commands<CR>', { silent = true })
+map('n', '<Leader>;', ':Commands<CR>', { silent = true })
 map('n', '<Leader>m', ':Maps<CR>', { silent = true })
 map('n', '<Leader>c', ':Commits<CR>', { silent = true })
 map('n', '<Leader>q', ':History<CR>', { silent = true })
@@ -239,11 +261,8 @@ map('n', ']d', vim.diagnostic.goto_next)
 map('n', '<space>q', ':Trouble diagnostics<CR>', { silent = true })
 
 --------------------------------------------------------------------------------
--- LSP
+-- LSP Keymaps
 --------------------------------------------------------------------------------
-local ok, blink = pcall(require, 'blink.cmp')
-local capabilities = ok and blink.get_lsp_capabilities() or {}
-
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local buf = args.buf
@@ -257,25 +276,20 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('n', '<space>rn', vim.lsp.buf.rename, opts)
     map('n', '<space>ca', vim.lsp.buf.code_action, opts)
     map('n', 'gr', vim.lsp.buf.references, opts)
-    map('n', '<space>f', function() vim.lsp.buf.format({ async = true }) end, opts)
+    map('n', '<Leader>f', function()
+      vim.lsp.buf.format({
+        async = true,
+        filter = function(client)
+          -- Use ruff for Python, let others use their default
+          if vim.bo.filetype == 'python' then
+            return client.name == 'ruff'
+          end
+          return true
+        end,
+      })
+    end, opts)
   end,
 })
-
-vim.lsp.config('pyright', {
-  capabilities = capabilities,
-  settings = {
-    pyright = { disableOrganizeImports = true },
-  },
-})
-
-vim.lsp.config('ruff', { capabilities = capabilities })
-vim.lsp.config('ts_ls', { capabilities = capabilities })
-vim.lsp.config('rust_analyzer', {
-  capabilities = capabilities,
-  settings = { ['rust-analyzer'] = {} },
-})
-
-vim.lsp.enable({ 'pyright', 'ruff', 'ts_ls', 'rust_analyzer' })
 
 --------------------------------------------------------------------------------
 -- Autocommands
@@ -299,6 +313,18 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- Format Python on save (via ruff)
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = augroup,
+  pattern = '*.py',
+  callback = function()
+    vim.lsp.buf.format({
+      async = false,
+      filter = function(client) return client.name == 'ruff' end,
+    })
+  end,
+})
+
 -- Open fzf if no file specified
 vim.api.nvim_create_autocmd('VimEnter', {
   group = augroup,
@@ -306,5 +332,14 @@ vim.api.nvim_create_autocmd('VimEnter', {
     if vim.fn.argc() == 0 then
       vim.cmd('Files')
     end
+  end,
+})
+
+-- Esc closes quickfix, help, fzf, trouble windows
+vim.api.nvim_create_autocmd('FileType', {
+  group = augroup,
+  pattern = { 'qf', 'help', 'fzf', 'trouble' },
+  callback = function()
+    vim.keymap.set('n', '<Esc>', ':close<CR>', { buffer = true, silent = true })
   end,
 })
