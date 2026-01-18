@@ -35,25 +35,19 @@ function! PackInit() abort
   call minpac#add('k-takata/minpac', {'type': 'opt'})
   call minpac#add('mwilliammyers/syspkg', {'type': 'opt'})
 
-  call minpac#add('neovim/nvim-lspconfig')
-
   call minpac#add('rakr/vim-one', {'type': 'opt'})
 
-  call minpac#add('Raimondi/yaifa')
   call minpac#add('airblade/vim-gitgutter')
-  call minpac#add('heavenshell/vim-jsdoc', {'type': 'opt'})
-  call minpac#add('iamcco/markdown-preview.nvim', {'do': {-> system('cd app && ./install.sh')}})
+
   call minpac#add('jeffkreeftmeijer/vim-numbertoggle')
   call minpac#add('junegunn/fzf', {'do': {-> syspkg#install('ripgrep')}})
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('justinmk/vim-sneak')
   call minpac#add('Saghen/blink.cmp', {'rev': 'v1.*'})
-  call minpac#add('liuchengxu/vista.vim')
-  call minpac#add('ludovicchabant/vim-gutentags', {'do': {-> syspkg#install('universal-ctags')}})
+
   call minpac#add('machakann/vim-sandwich')
   call minpac#add('sbdchd/neoformat', {'do':  {-> syspkg#npm_install('prettier')}})
   call minpac#add('sgur/vim-editorconfig')
-  call minpac#add('sheerun/vim-polyglot')
   call minpac#add('simnalamburt/vim-mundo')
   call minpac#add('tpope/vim-abolish')
   call minpac#add('tpope/vim-commentary')

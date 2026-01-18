@@ -167,16 +167,11 @@ nnoremap <silent> <Leader>u :MundoToggle<Return>
 
 let g:airline_theme='one'
 
-let g:yaifa_tabstop = 4
-
 let g:sql_type_default = 'pgsql'
 
 let g:mundo_close_on_revert = 1
 
-let g:mkdp_auto_start = 1
-let g:mkdp_refresh_slow = 1
 
-let g:python_highlight_all = 1
 
 "
 " sneak
@@ -268,33 +263,6 @@ nnoremap <silent> <leader>Gw :Gwrite<Return>
 nnoremap <silent> <leader>Ge :Gedit<Return>
 nnoremap <silent> <leader>Gi :Git add -p %<Return>
 
-function! s:ConfigureJavascript()
-  let g:jsx_ext_required = 1
-
-  "
-  " jsdoc
-  "
-  let g:javascript_plugin_jsdoc = 1
-
-  packadd vim-jsdoc
-
-  nmap <silent> <C-l> <Plug>(jsdoc)
-
-  let g:jsdoc_allow_input_prompt = 1
-  let g:jsdoc_input_description = 1
-  let g:jsdoc_access_descriptions = 2
-  let g:jsdoc_enable_es6 = 1
-  let g:jsdoc_tags = {
-        \   'returns': 'return',
-        \ }
-endfunction
-
-" TODO: move this to a ftplugin file
-augroup js
-  autocmd!
-  autocmd FileType javascript call <SID>ConfigureJavascript()
-augroup END
-
 "
 " neoformat
 "
@@ -319,22 +287,6 @@ let g:neoformat_toml_prettier = {
       \ 'args': ['--stdin', '--print-width=100', '--stdin-filepath', '"%:p"'],
       \ 'stdin': 1,
       \}
-
-"
-" gutentags
-"
-if exists("*stdpath")
-  let g:gutentags_cache_dir = stdpath("cache")
-else
-  let g:gutentags_cache_dir = split(&directory, ",")[-1]
-endif
-
-"
-" vista
-"
-let g:vista_sidebar_position = 'vertical topleft'
-
-nnoremap <silent> <leader>v :Vista!!<Return>
 
 "
 " nvim-lsp
