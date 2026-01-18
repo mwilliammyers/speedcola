@@ -6,19 +6,12 @@
 --------------------------------------------------------------------------------
 vim.g.mapleader = ','
 
-vim.opt.modelines = 0
 vim.opt.modeline = false
 vim.opt.undofile = true
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
-vim.opt.wildmode = 'list:longest,full'
-vim.opt.whichwrap = 'b,s,h,l,<,>,[,]'
-vim.opt.wildignore:append { '.git', 'node_modules', '*.pyc', 'target' }
-vim.opt.completeopt = 'menu,menuone,preview,noselect,noinsert'
 vim.opt.shortmess:append 'c'
-
 vim.opt.termguicolors = true
-vim.opt.hidden = true
 vim.opt.mouse = 'a'
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.belloff = 'all'
@@ -30,12 +23,19 @@ vim.opt.splitbelow = true
 vim.opt.colorcolumn = '80,100'
 vim.opt.signcolumn = 'yes'
 vim.opt.wrap = false
-vim.opt.listchars = { tab = '▸-', space = '·', trail = '·' }
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevelstart = 99
-
 vim.g.sql_type_default = 'pgsql'
+vim.opt.wildmode = 'list:longest,full'
+vim.opt.whichwrap = 'b,s,h,l,<,>,[,]'
+vim.opt.wildignore:append {
+  '.git', 'node_modules', 'target',
+  '*.pyc', '__pycache__', '*.egg-info', '.venv', 'venv',
+  '*.o', '*.so', '*.rlib',
+  'dist', 'build', '.next',
+  '.DS_Store',
+}
 
 --------------------------------------------------------------------------------
 -- mini.deps bootstrap
@@ -101,21 +101,20 @@ end
 -- Plugins
 --------------------------------------------------------------------------------
 
--- Colorscheme
 now(function()
   add('navarasu/onedark.nvim')
+
   require('onedark').setup({ style = 'dark' })
   require('onedark').load()
 end)
 
--- Statusline
 now(function()
   add('echasnovski/mini.statusline')
+
   local ok, statusline = pcall(require, 'mini.statusline')
   if ok then statusline.setup() end
 end)
 
--- Treesitter
 now(function()
   add({
     source = 'nvim-treesitter/nvim-treesitter',
@@ -126,6 +125,7 @@ now(function()
       end,
     },
   })
+
   local ok, ts = pcall(require, 'nvim-treesitter.configs')
   if ok then
     ts.setup({
@@ -137,9 +137,9 @@ now(function()
   end
 end)
 
--- Completion
 now(function()
   add({ source = 'saghen/blink.cmp', checkout = 'v1.3.1' })
+
   local ok, blink = pcall(require, 'blink.cmp')
   if ok then
     blink.setup({
@@ -171,9 +171,9 @@ now(function()
   end
 end)
 
--- Motion
 later(function()
   add('folke/flash.nvim')
+
   local ok, flash = pcall(require, 'flash')
   if ok then
     flash.setup({ modes = { char = { enabled = true } } })
@@ -183,28 +183,20 @@ later(function()
   end
 end)
 
--- Fuzzy finder
 now(function()
   add('junegunn/fzf')
   add('junegunn/fzf.vim')
 end)
 
--- Git
 later(function()
   add('lewis6991/gitsigns.nvim')
-  local ok, gitsigns = pcall(require, 'gitsigns')
-  if ok then gitsigns.setup() end
-end)
-
-later(function()
   add('tpope/vim-fugitive')
-end)
-
--- Editing
-later(function()
   add('machakann/vim-sandwich')
   add('simnalamburt/vim-mundo')
   add('tpope/vim-abolish')
+
+  local ok, gitsigns = pcall(require, 'gitsigns')
+  if ok then gitsigns.setup() end
 end)
 
 --------------------------------------------------------------------------------
@@ -216,9 +208,6 @@ local map = vim.keymap.set
 map('t', '<Esc>', '<C-\\><C-n>')
 map('n', '<Leader>vt', ':vsplit term://$SHELL<CR>')
 map('n', '<Leader>xt', ':split term://$SHELL<CR>')
-
--- Y yanks to end of line
-map('n', 'Y', 'y$')
 
 -- Mundo
 map('n', '<Leader>u', ':MundoToggle<CR>', { silent = true })
