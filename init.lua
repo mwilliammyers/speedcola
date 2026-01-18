@@ -191,12 +191,17 @@ end)
 later(function()
   add('lewis6991/gitsigns.nvim')
   add('tpope/vim-fugitive')
-  add('machakann/vim-sandwich')
-  add('simnalamburt/vim-mundo')
-  add('tpope/vim-abolish')
+  add('echasnovski/mini.surround')
+  add('folke/trouble.nvim')
 
   local ok, gitsigns = pcall(require, 'gitsigns')
   if ok then gitsigns.setup() end
+
+  ok, surround = pcall(require, 'mini.surround')
+  if ok then surround.setup() end
+
+  ok, trouble = pcall(require, 'trouble')
+  if ok then trouble.setup() end
 end)
 
 --------------------------------------------------------------------------------
@@ -208,9 +213,6 @@ local map = vim.keymap.set
 map('t', '<Esc>', '<C-\\><C-n>')
 map('n', '<Leader>vt', ':vsplit term://$SHELL<CR>')
 map('n', '<Leader>xt', ':split term://$SHELL<CR>')
-
--- Mundo
-map('n', '<Leader>u', ':MundoToggle<CR>', { silent = true })
 
 -- FZF
 map('n', '<C-p>', ':Files<CR>', { silent = true })
@@ -234,7 +236,7 @@ map('n', '<Leader>Gp', ':Git push<CR>', { silent = true })
 map('n', '<space>e', vim.diagnostic.open_float)
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
-map('n', '<space>q', vim.diagnostic.setloclist)
+map('n', '<space>q', ':Trouble diagnostics<CR>', { silent = true })
 
 --------------------------------------------------------------------------------
 -- LSP
