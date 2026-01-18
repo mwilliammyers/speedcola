@@ -377,6 +377,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- LSP server configurations using vim.lsp.config (Nvim 0.11+)
 vim.lsp.config('pyright', {
   capabilities = capabilities,
+  settings = {
+    pyright = {
+      -- Let ruff handle imports
+      disableOrganizeImports = true,
+    },
+  },
+})
+
+vim.lsp.config('ruff', {
+  capabilities = capabilities,
 })
 
 vim.lsp.config('ts_ls', {
@@ -391,5 +401,5 @@ vim.lsp.config('rust_analyzer', {
 })
 
 -- Enable the configured LSP servers
-vim.lsp.enable({ 'pyright', 'ts_ls', 'rust_analyzer' })
+vim.lsp.enable({ 'pyright', 'ruff', 'ts_ls', 'rust_analyzer' })
 EOF
