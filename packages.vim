@@ -48,10 +48,10 @@ function! PackInit() abort
 
   call minpac#add('machakann/vim-sandwich')
   call minpac#add('sbdchd/neoformat', {'do':  {-> syspkg#npm_install('prettier')}})
-  call minpac#add('sgur/vim-editorconfig')
+
   call minpac#add('simnalamburt/vim-mundo')
   call minpac#add('tpope/vim-abolish')
-  call minpac#add('tpope/vim-commentary')
+
   call minpac#add('tpope/vim-fugitive')
   call minpac#add('vim-airline/vim-airline')
   call minpac#add('vim-airline/vim-airline-themes')
