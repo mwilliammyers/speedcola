@@ -53,8 +53,7 @@ function! PackInit() abort
   call minpac#add('tpope/vim-abolish')
 
   call minpac#add('tpope/vim-fugitive')
-  call minpac#add('vim-airline/vim-airline')
-  call minpac#add('vim-airline/vim-airline-themes')
+  call minpac#add('echasnovski/mini.statusline')
   call minpac#add('wincent/loupe')
 endfunction
 

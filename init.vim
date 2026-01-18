@@ -168,8 +168,6 @@ runtime packages.vim
 nnoremap <silent> <Leader>u :MundoToggle<Return>
 
 
-let g:airline_theme='one'
-
 let g:sql_type_default = 'pgsql'
 
 let g:mundo_close_on_revert = 1
@@ -325,8 +323,14 @@ augroup END
 
 
 lua << EOF
+-- Statusline
+local ok, statusline = pcall(require, 'mini.statusline')
+if ok then
+  statusline.setup()
+end
+
 -- Treesitter
-local ok, ts = pcall(require, 'nvim-treesitter.configs')
+ok, ts = pcall(require, 'nvim-treesitter.configs')
 if ok then
   ts.setup({
     ensure_installed = { 'python', 'rust', 'typescript', 'javascript' },
