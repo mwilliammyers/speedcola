@@ -330,22 +330,32 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
--- blink.cmp setup
+-- blink.cmp setup (VSCode-style completion)
 require('blink.cmp').setup({
   keymap = {
-    preset = 'default',
-    ['<Tab>'] = { 'select_and_accept', 'fallback' },
+    ['<Tab>'] = { 'select_and_accept', 'snippet_forward', 'fallback' },
+    ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+    ['<CR>'] = { 'accept', 'fallback' },
+    ['<C-Space>'] = { 'show' },
   },
-  appearance = {
-    use_nvim_cmp_as_default = true,
-    nerd_font_variant = 'mono',
+  completion = {
+    documentation = { auto_show = true, auto_show_delay_ms = 200 },
+    ghost_text = { enabled = true },
+    accept = { auto_brackets = { enabled = true } },
   },
+  signature = { enabled = true },
   sources = {
-    default = { 'lsp', 'path', 'buffer' },
+    default = { 'lsp', 'snippets', 'path', 'buffer' },
   },
-  fuzzy = {
-    implementation = 'prefer_rust',
+  cmdline = {
+    sources = function()
+      local type = vim.fn.getcmdtype()
+      if type == '/' or type == '?' then return { 'buffer' } end
+      if type == ':' then return { 'cmdline' } end
+      return {}
+    end,
   },
+  fuzzy = { sorts = { 'exact', 'score', 'sort_text' } },
 })
 
 -- Get blink.cmp capabilities for LSP
