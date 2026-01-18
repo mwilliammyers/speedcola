@@ -174,13 +174,7 @@ let g:mundo_close_on_revert = 1
 
 
 
-"
-" sneak
-"
-let g:sneak#label = 1
-" because the sandwhich plugin uses `sa`
-map f <Plug>Sneak_s
-map F <Plug>Sneak_S
+
 
 "
 " fzf
@@ -327,6 +321,15 @@ lua << EOF
 local ok, statusline = pcall(require, 'mini.statusline')
 if ok then
   statusline.setup()
+end
+
+-- Flash (motion)
+local ok, flash = pcall(require, 'flash')
+if ok then
+  flash.setup({ modes = { char = { enabled = true } } })
+  vim.keymap.set({ 'n', 'x', 'o' }, 's', flash.jump)
+  vim.keymap.set({ 'n', 'x', 'o' }, 'S', flash.treesitter)
+  vim.keymap.set('o', 'r', flash.remote)
 end
 
 -- Treesitter
