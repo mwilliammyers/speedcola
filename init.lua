@@ -71,13 +71,15 @@ local function install_sys_pkg(...)
 end
 
 local function install_python_pkg(...)
-  local pkgs = table.concat({ ... }, ' ')
+  local pkgs = { ... }
   if vim.fn.executable('uv') == 1 then
-    vim.fn.system('uv tool install ' .. pkgs .. ' 2>/dev/null')
+    for _, pkg in ipairs(pkgs) do
+      vim.fn.system('uv tool install ' .. pkg .. ' 2>/dev/null')
+    end
   elseif vim.fn.executable('pip') == 1 then
-    vim.fn.system('pip install ' .. pkgs .. ' 2>/dev/null')
+    vim.fn.system('pip install ' .. table.concat(pkgs, ' ') .. ' 2>/dev/null')
   elseif vim.fn.executable('pip3') == 1 then
-    vim.fn.system('pip3 install ' .. pkgs .. ' 2>/dev/null')
+    vim.fn.system('pip3 install ' .. table.concat(pkgs, ' ') .. ' 2>/dev/null')
   end
 end
 
@@ -215,7 +217,23 @@ later(function()
   add('folke/trouble.nvim')
 
   local ok, gitsigns = pcall(require, 'gitsigns')
-  if ok then gitsigns.setup() end
+  if ok then
+    gitsigns.setup({
+      on_attach = function(bufnr)
+        local gs = gitsigns
+        local function m(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+        end
+        m('n', ']h', gs.next_hunk, 'Next hunk')
+        m('n', '[h', gs.prev_hunk, 'Prev hunk')
+        m('n', '<leader>hs', gs.stage_hunk, 'Stage hunk')
+        m('n', '<leader>hr', gs.reset_hunk, 'Reset hunk')
+        m('n', '<leader>hp', gs.preview_hunk, 'Preview hunk')
+        m('n', '<leader>hb', function() gs.blame_line({ full = true }) end, 'Blame line')
+        m('n', '<leader>hd', gs.diffthis, 'Diff this')
+      end,
+    })
+  end
 
   ok, surround = pcall(require, 'mini.surround')
   if ok then surround.setup() end
