@@ -21,7 +21,7 @@ Check out: [init.vim](init.vim).
 ### notable plugins
 
 - Built-in LSP for IDE features (pyright, ruff, ts_ls, rust-analyzer)
-- [One Dark] colorscheme
+- [onedark.nvim] colorscheme with treesitter support
 - [blink.cmp] for autocompletion
 - [fzf] for fuzzy searching all the things
 - [sneak] for jumping around
@@ -42,7 +42,7 @@ From [Normal] mode, type:
 [speed cola]: http://nazizombies.wikia.com/wiki/Speed_Cola
 [`install.sh`]: install.sh
 [`<leader>`]: http://learnvimscriptthehardway.stevelosh.com/chapters/06.html#leader
-[one dark]: https://github.com/rakr/vim-one
+[onedark.nvim]: https://github.com/navarasu/onedark.nvim
 [blink.cmp]: https://github.com/Saghen/blink.cmp
 [fzf]: https://github.com/junegunn/fzf.vim
 [sneak]: https://github.com/justinmk/vim-sneak

@@ -35,8 +35,9 @@ function! PackInit() abort
   call minpac#add('k-takata/minpac', {'type': 'opt'})
   call minpac#add('mwilliammyers/syspkg', {'type': 'opt'})
 
-  call minpac#add('rakr/vim-one', {'type': 'opt'})
+  call minpac#add('navarasu/onedark.nvim')
 
+  call minpac#add('nvim-treesitter/nvim-treesitter', {'do': {-> syspkg#install('tree-sitter-cli') . execute(':TSUpdate')}})
   call minpac#add('airblade/vim-gitgutter')
 
   call minpac#add('jeffkreeftmeijer/vim-numbertoggle')

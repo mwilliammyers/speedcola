@@ -78,11 +78,14 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>?<CR>
 "
 " UI
 "
-packadd vim-one
 if has('termguicolors') | set termguicolors | endif
-set background=dark
-let g:one_allow_italics = 1
-colorscheme one
+lua << THEME
+local ok, onedark = pcall(require, 'onedark')
+if ok then
+  onedark.setup({ style = 'dark' })
+  onedark.load()
+end
+THEME
 
 set hidden
 
@@ -322,6 +325,17 @@ augroup END
 
 
 lua << EOF
+-- Treesitter
+local ok, ts = pcall(require, 'nvim-treesitter.configs')
+if ok then
+  ts.setup({
+    ensure_installed = { 'python', 'rust', 'typescript', 'javascript' },
+    auto_install = true,
+    highlight = { enable = true },
+    indent = { enable = true },
+  })
+end
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
