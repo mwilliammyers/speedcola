@@ -100,34 +100,25 @@ local function install_system_deps()
 end
 
 --------------------------------------------------------------------------------
--- Plugins
+-- Plugins (now = immediate, later = deferred)
 --------------------------------------------------------------------------------
 
 now(function()
   add('navarasu/onedark.nvim')
+  local ok, onedark = pcall(require, 'onedark')
+  if ok then
+    onedark.setup({ style = 'dark' })
+    onedark.load()
+  end
 
-  require('onedark').setup({ style = 'dark' })
-  require('onedark').load()
-end)
-
-now(function()
   add('nvim-mini/mini.statusline')
-
   local ok, statusline = pcall(require, 'mini.statusline')
   if ok then statusline.setup() end
-end)
 
-now(function()
   add({
     source = 'nvim-treesitter/nvim-treesitter',
-    hooks = {
-      post_checkout = function()
-        install_system_deps()
-        vim.cmd('TSUpdate')
-      end,
-    },
+    hooks = { post_checkout = function() install_system_deps(); vim.cmd('TSUpdate') end },
   })
-
   local ok, ts = pcall(require, 'nvim-treesitter.configs')
   if ok then
     ts.setup({
@@ -137,11 +128,9 @@ now(function()
       indent = { enable = true },
     })
   end
-end)
 
-now(function()
+  -- blink.cmp must load before lspconfig (LSP uses blink capabilities)
   add({ source = 'saghen/blink.cmp', checkout = 'v1.3.1' })
-
   local ok, blink = pcall(require, 'blink.cmp')
   if ok then
     blink.setup({
@@ -157,9 +146,7 @@ now(function()
         accept = { auto_brackets = { enabled = true } },
       },
       signature = { enabled = true },
-      sources = {
-        default = { 'lsp', 'snippets', 'path', 'buffer' },
-      },
+      sources = { default = { 'lsp', 'snippets', 'path', 'buffer' } },
       cmdline = {
         sources = function()
           local type = vim.fn.getcmdtype()
@@ -171,68 +158,52 @@ now(function()
       fuzzy = { sorts = { 'exact', 'score', 'sort_text' } },
     })
   end
+
+  add('neovim/nvim-lspconfig')
+  local capabilities = { general = { positionEncodings = { 'utf-16' } } }
+  local ok, blink = pcall(require, 'blink.cmp')
+  if ok then capabilities = blink.get_lsp_capabilities(capabilities) end
+  vim.lsp.config('*', { capabilities = capabilities })
+  vim.lsp.enable({ 'ruff', 'ty', 'ts_ls', 'rust_analyzer' })
+
+  add('junegunn/fzf')
+  add('junegunn/fzf.vim')
 end)
 
 later(function()
   add('folke/flash.nvim')
-
   local ok, flash = pcall(require, 'flash')
   if ok then
     flash.setup({})
     vim.keymap.set({ 'n', 'x', 'o' }, 's', flash.jump)
     vim.keymap.set({ 'n', 'x', 'o' }, 'S', flash.treesitter)
   end
-end)
 
-now(function()
-  add('junegunn/fzf')
-  add('junegunn/fzf.vim')
-end)
-
-now(function()
-  add('neovim/nvim-lspconfig')
-
-  local capabilities = {
-    general = { positionEncodings = { 'utf-16' } },
-  }
-  local ok, blink = pcall(require, 'blink.cmp')
-  if ok then
-    capabilities = blink.get_lsp_capabilities(capabilities)
-  end
-  vim.lsp.config('*', { capabilities = capabilities })
-
-  vim.lsp.enable({ 'ruff', 'ty', 'ts_ls', 'rust_analyzer' })
-end)
-
-later(function()
   add('lewis6991/gitsigns.nvim')
   add('tpope/vim-fugitive')
-  add('nvim-mini/mini.surround')
-  add('folke/trouble.nvim')
-
   local ok, gitsigns = pcall(require, 'gitsigns')
   if ok then
     gitsigns.setup({
-      on_attach = function(bufnr)
+      on_attach = function(buf)
         local gs = gitsigns
-        local function m(mode, l, r, desc)
-          vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
-        end
-        m('n', ']h', gs.next_hunk, 'Next hunk')
-        m('n', '[h', gs.prev_hunk, 'Prev hunk')
-        m('n', '<leader>hs', gs.stage_hunk, 'Stage hunk')
-        m('n', '<leader>hr', gs.reset_hunk, 'Reset hunk')
-        m('n', '<leader>hp', gs.preview_hunk, 'Preview hunk')
-        m('n', '<leader>hb', function() gs.blame_line({ full = true }) end, 'Blame line')
-        m('n', '<leader>hd', gs.diffthis, 'Diff this')
+        local map = function(l, r, desc) vim.keymap.set('n', l, r, { buffer = buf, desc = desc }) end
+        map(']h', gs.next_hunk, 'Next hunk')
+        map('[h', gs.prev_hunk, 'Prev hunk')
+        map('<leader>hs', gs.stage_hunk, 'Stage hunk')
+        map('<leader>hr', gs.reset_hunk, 'Reset hunk')
+        map('<leader>hp', gs.preview_hunk, 'Preview hunk')
+        map('<leader>hb', function() gs.blame_line({ full = true }) end, 'Blame line')
+        map('<leader>hd', gs.diffthis, 'Diff this')
       end,
     })
   end
 
-  ok, surround = pcall(require, 'mini.surround')
+  add('nvim-mini/mini.surround')
+  local ok, surround = pcall(require, 'mini.surround')
   if ok then surround.setup() end
 
-  ok, trouble = pcall(require, 'trouble')
+  add('folke/trouble.nvim')
+  local ok, trouble = pcall(require, 'trouble')
   if ok then trouble.setup() end
 end)
 
