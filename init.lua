@@ -178,15 +178,9 @@ later(function()
 
   local ok, flash = pcall(require, 'flash')
   if ok then
-    flash.setup({
-      modes = {
-        char = { enabled = false },  -- use vanilla f/t/F/T
-        search = { enabled = true }, -- flash during / search
-      },
-    })
+    flash.setup({})
     vim.keymap.set({ 'n', 'x', 'o' }, 's', flash.jump)
     vim.keymap.set({ 'n', 'x', 'o' }, 'S', flash.treesitter)
-    vim.keymap.set('o', 'r', flash.remote)
   end
 end)
 
