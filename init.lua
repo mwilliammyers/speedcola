@@ -111,7 +111,7 @@ now(function()
 end)
 
 now(function()
-  add('echasnovski/mini.statusline')
+  add('nvim-mini/mini.statusline')
 
   local ok, statusline = pcall(require, 'mini.statusline')
   if ok then statusline.setup() end
@@ -213,7 +213,7 @@ end)
 later(function()
   add('lewis6991/gitsigns.nvim')
   add('tpope/vim-fugitive')
-  add('echasnovski/mini.surround')
+  add('nvim-mini/mini.surround')
   add('folke/trouble.nvim')
 
   local ok, gitsigns = pcall(require, 'gitsigns')
