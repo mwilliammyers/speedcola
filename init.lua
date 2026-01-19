@@ -23,6 +23,9 @@ vim.opt.splitbelow = true
 vim.opt.colorcolumn = '80,100'
 vim.opt.signcolumn = 'yes'
 vim.opt.wrap = false
+vim.opt.scrolloff = 8
+vim.opt.inccommand = 'split'
+vim.opt.timeoutlen = 300
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevelstart = 99
@@ -54,7 +57,6 @@ require('mini.deps').setup({ path = { package = path_package } })
 
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
--- OS-agnostic system package installer
 local function install_sys_pkg(...)
   local pkgs = { ... }
   local cmd
@@ -100,7 +102,7 @@ local function install_system_deps()
 end
 
 --------------------------------------------------------------------------------
--- Plugins (now = immediate, later = deferred)
+-- Plugins
 --------------------------------------------------------------------------------
 
 now(function()
@@ -212,6 +214,17 @@ end)
 --------------------------------------------------------------------------------
 local map = vim.keymap.set
 
+-- General
+-- see also the autocommand below
+map('n', '<Esc>', function()
+  vim.cmd('nohlsearch')
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative ~= '' then
+      pcall(vim.api.nvim_win_close, win, false)
+    end
+  end
+end, { silent = true })
+
 -- Terminal
 map('t', '<Esc>', '<C-\\><C-n>')
 map('n', '<Leader>vt', ':vsplit term://$SHELL<CR>')
@@ -219,6 +232,7 @@ map('n', '<Leader>xt', ':split term://$SHELL<CR>')
 
 -- FZF
 map('n', '<C-p>', ':Files<CR>', { silent = true })
+map('n', '<C-S-p>', ':Commands<CR>', { silent = true })
 map('n', '<C-f>', ':Rg<CR>', { silent = true })
 map('n', '<Leader>rg', ':Rg<CR>', { silent = true })
 map('n', '<Leader>/', ':Rg<CR>', { silent = true })
