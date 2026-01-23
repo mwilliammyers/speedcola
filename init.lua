@@ -26,6 +26,7 @@ vim.opt.wrap = false
 vim.opt.scrolloff = 8
 vim.opt.inccommand = 'split'
 vim.opt.timeoutlen = 300
+vim.opt.updatetime = 500
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevelstart = 99
@@ -206,7 +207,7 @@ later(function()
 
   add('folke/trouble.nvim')
   local ok, trouble = pcall(require, 'trouble')
-  if ok then trouble.setup() end
+  if ok then trouble.setup({ open_no_results = true }) end
 end)
 
 --------------------------------------------------------------------------------
@@ -233,7 +234,6 @@ map('n', '<Leader>xt', ':split term://$SHELL<CR>')
 -- FZF
 map('n', '<C-p>', ':Files<CR>', { silent = true })
 map('n', '<C-S-p>', ':Commands<CR>', { silent = true })
-map('n', '<C-f>', ':Rg<CR>', { silent = true })
 map('n', '<Leader>rg', ':Rg<CR>', { silent = true })
 map('n', '<Leader>/', ':Rg<CR>', { silent = true })
 map('n', '<Leader>b', ':Buffers<CR>', { silent = true })
@@ -253,9 +253,10 @@ map('n', '<Leader>Gp', ':Git push<CR>', { silent = true })
 
 -- Diagnostics
 map('n', '<space>e', vim.diagnostic.open_float)
+map('n', '<Leader>e', vim.diagnostic.open_float)
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
-map('n', '<space>q', ':Trouble diagnostics<CR>', { silent = true })
+map('n', '<space>q', '<cmd>Trouble diagnostics toggle<cr>', { silent = true })
 
 --------------------------------------------------------------------------------
 -- LSP Keymaps
@@ -338,5 +339,13 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'qf', 'help', 'fzf', 'trouble' },
   callback = function()
     vim.keymap.set('n', '<Esc>', ':close<CR>', { buffer = true, silent = true })
+  end,
+})
+
+-- Show diagnostics on cursor hold
+vim.api.nvim_create_autocmd('CursorHold', {
+  group = augroup,
+  callback = function()
+    vim.diagnostic.open_float(nil, { focusable = false })
   end,
 })
