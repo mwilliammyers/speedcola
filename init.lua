@@ -94,9 +94,9 @@ end
 
 -- Install system dependencies (runs once on first plugin install)
 local function install_system_deps()
-  install_sys_pkg('ripgrep', 'fzf', 'tree-sitter-cli')
+  install_sys_pkg('ripgrep', 'fzf', 'tree-sitter-cli', 'stylua')
   install_python_pkg('ruff', 'ty')
-  install_npm_pkg('typescript', 'typescript-language-server')
+  install_npm_pkg('typescript', 'typescript-language-server', 'prettier')
   if vim.fn.executable('rustup') == 1 then
     vim.fn.system('rustup component add rust-analyzer 2>/dev/null')
   end
@@ -169,8 +169,21 @@ now(function()
   vim.lsp.config('*', { capabilities = capabilities })
   vim.lsp.enable({ 'ruff', 'ty', 'ts_ls', 'rust_analyzer' })
 
-  add('junegunn/fzf')
-  add('junegunn/fzf.vim')
+  add('ibhagwan/fzf-lua')
+  require('fzf-lua').setup({
+    winopts = {
+      height = 0.85,
+      width = 0.80,
+    },
+    fzf_opts = {
+      ['--no-exact'] = '',  -- Enable fuzzy matching by default
+    },
+    lsp = {
+      symbols = {
+        async_or_timeout = true,  -- Use live query for workspace symbols
+      },
+    },
+  })
 end)
 
 later(function()
@@ -208,6 +221,22 @@ later(function()
   add('folke/trouble.nvim')
   local ok, trouble = pcall(require, 'trouble')
   if ok then trouble.setup({ open_no_results = true }) end
+
+  add('mhartington/formatter.nvim')
+  local ok, formatter = pcall(require, 'formatter')
+  if ok then
+    formatter.setup({
+      filetype = {
+        lua = { require('formatter.filetypes.lua').stylua },
+        python = { require('formatter.filetypes.python').ruff },
+        rust = { require('formatter.filetypes.rust').rustfmt },
+        javascript = { require('formatter.filetypes.javascript').prettier },
+        typescript = { require('formatter.filetypes.typescript').prettier },
+        json = { require('formatter.filetypes.json').prettier },
+        ['*'] = { require('formatter.filetypes.any').remove_trailing_whitespace },
+      },
+    })
+  end
 end)
 
 --------------------------------------------------------------------------------
@@ -231,25 +260,29 @@ map('t', '<Esc>', '<C-\\><C-n>')
 map('n', '<Leader>vt', ':vsplit term://$SHELL<CR>')
 map('n', '<Leader>xt', ':split term://$SHELL<CR>')
 
--- FZF
-map('n', '<C-p>', ':Files<CR>', { silent = true })
-map('n', '<C-S-p>', ':Commands<CR>', { silent = true })
-map('n', '<Leader>rg', ':Rg<CR>', { silent = true })
-map('n', '<Leader>/', ':Rg<CR>', { silent = true })
-map('n', '<Leader>b', ':Buffers<CR>', { silent = true })
-map('n', '<Leader><Enter>', ':Buffers<CR>', { silent = true })
-map('n', '<Leader>l', ':Lines<CR>', { silent = true })
-map('n', '<Leader>h', ':Helptags<CR>', { silent = true })
-map('n', '<Leader>;', ':Commands<CR>', { silent = true })
-map('n', '<Leader>m', ':Maps<CR>', { silent = true })
-map('n', '<Leader>c', ':Commits<CR>', { silent = true })
-map('n', '<Leader>q', ':History<CR>', { silent = true })
+-- FZF-Lua
+local fzf = require('fzf-lua')
+map('n', '<C-p>', fzf.files, { silent = true })
+map('n', '<C-S-p>', fzf.commands, { silent = true })
+map('n', '<Leader>rg', fzf.live_grep, { silent = true })
+map('n', '<Leader>/', fzf.live_grep, { silent = true })
+map('n', '<Leader>b', fzf.buffers, { silent = true })
+map('n', '<Leader><Enter>', fzf.buffers, { silent = true })
+map('n', '<Leader>l', fzf.lines, { silent = true })
+map('n', '<Leader>h', fzf.helptags, { silent = true })
+map('n', '<Leader>;', fzf.commands, { silent = true })
+map('n', '<Leader>m', fzf.keymaps, { silent = true })
+map('n', '<Leader>c', fzf.git_commits, { silent = true })
+map('n', '<Leader>q', fzf.command_history, { silent = true })
 
 -- Fugitive
 map('n', '<Leader>Gs', ':Git<CR>', { silent = true })
 map('n', '<Leader>Gd', ':Gdiff<CR>', { silent = true })
 map('n', '<Leader>Gb', ':Git blame<CR>', { silent = true })
 map('n', '<Leader>Gp', ':Git push<CR>', { silent = true })
+
+-- Format
+map('n', '<Leader>f', ':Format<CR>', { silent = true })
 
 -- Diagnostics
 map('n', '<space>e', vim.diagnostic.open_float)
@@ -274,18 +307,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('n', '<space>rn', vim.lsp.buf.rename, opts)
     map('n', '<space>ca', vim.lsp.buf.code_action, opts)
     map('n', 'gr', vim.lsp.buf.references, opts)
-    map('n', '<Leader>f', function()
-      vim.lsp.buf.format({
-        async = true,
-        filter = function(client)
-          -- Use ruff for Python, let others use their default
-          if vim.bo.filetype == 'python' then
-            return client.name == 'ruff'
-          end
-          return true
-        end,
-      })
-    end, opts)
+    map('n', '<C-t>', fzf.lsp_live_workspace_symbols, opts)
   end,
 })
 
@@ -311,16 +333,11 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- Format Python on save (via ruff)
-vim.api.nvim_create_autocmd('BufWritePre', {
+-- Format Python on save (via formatter.nvim)
+vim.api.nvim_create_autocmd('BufWritePost', {
   group = augroup,
   pattern = '*.py',
-  callback = function()
-    vim.lsp.buf.format({
-      async = false,
-      filter = function(client) return client.name == 'ruff' end,
-    })
-  end,
+  command = 'FormatWrite',
 })
 
 -- Open fzf if no file specified
@@ -328,7 +345,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
   group = augroup,
   callback = function()
     if vim.fn.argc() == 0 then
-      vim.cmd('Files')
+      require('fzf-lua').files()
     end
   end,
 })
