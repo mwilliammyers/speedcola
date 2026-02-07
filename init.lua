@@ -58,6 +58,15 @@ require('mini.deps').setup({ path = { package = path_package } })
 
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
+local function setup(name, opts, callback)
+  local ok, mod = pcall(require, name)
+  if ok then
+    if opts ~= false then mod.setup(opts or {}) end
+    if callback then callback(mod) end
+    return mod
+  end
+end
+
 local function install_sys_pkg(...)
   local pkgs = { ... }
   local cmd
@@ -94,7 +103,7 @@ end
 
 -- Install system dependencies (runs once on first plugin install)
 local function install_system_deps()
-  install_sys_pkg('ripgrep', 'fzf', 'tree-sitter-cli', 'stylua')
+  install_sys_pkg('ripgrep', 'fzf', 'tree-sitter-cli')
   install_python_pkg('ruff', 'ty')
   install_npm_pkg('typescript', 'typescript-language-server', 'prettier')
   if vim.fn.executable('rustup') == 1 then
@@ -108,59 +117,48 @@ end
 
 now(function()
   add('navarasu/onedark.nvim')
-  local ok, onedark = pcall(require, 'onedark')
-  if ok then
-    onedark.setup({ style = 'dark' })
-    onedark.load()
-  end
+  setup('onedark', { style = 'dark' }, function(m) m.load() end)
 
   add('nvim-mini/mini.statusline')
-  local ok, statusline = pcall(require, 'mini.statusline')
-  if ok then statusline.setup() end
+  setup('mini.statusline')
 
   add({
     source = 'nvim-treesitter/nvim-treesitter',
     hooks = { post_checkout = function() install_system_deps(); vim.cmd('TSUpdate') end },
   })
-  local ok, ts = pcall(require, 'nvim-treesitter.configs')
-  if ok then
-    ts.setup({
-      ensure_installed = { 'python', 'rust', 'typescript', 'javascript' },
-      auto_install = true,
-      highlight = { enable = true },
-      indent = { enable = true },
-    })
-  end
+  setup('nvim-treesitter.configs', {
+    ensure_installed = { 'python', 'rust', 'typescript', 'javascript' },
+    auto_install = true,
+    highlight = { enable = true },
+    indent = { enable = true },
+  })
 
   -- blink.cmp must load before lspconfig (LSP uses blink capabilities)
   add({ source = 'saghen/blink.cmp', checkout = 'v1.3.1' })
-  local ok, blink = pcall(require, 'blink.cmp')
-  if ok then
-    blink.setup({
-      keymap = {
-        ['<Tab>'] = { 'select_and_accept', 'snippet_forward', 'fallback' },
-        ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-        ['<CR>'] = { 'accept', 'fallback' },
-        ['<C-Space>'] = { 'show' },
-      },
-      completion = {
-        documentation = { auto_show = true, auto_show_delay_ms = 200 },
-        ghost_text = { enabled = true },
-        accept = { auto_brackets = { enabled = true } },
-      },
-      signature = { enabled = true },
-      sources = { default = { 'lsp', 'snippets', 'path', 'buffer' } },
-      cmdline = {
-        sources = function()
-          local type = vim.fn.getcmdtype()
-          if type == '/' or type == '?' then return { 'buffer' } end
-          if type == ':' then return { 'cmdline' } end
-          return {}
-        end,
-      },
-      fuzzy = { sorts = { 'exact', 'score', 'sort_text' } },
-    })
-  end
+  setup('blink.cmp', {
+    keymap = {
+      ['<Tab>'] = { 'select_and_accept', 'snippet_forward', 'fallback' },
+      ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+      ['<CR>'] = { 'accept', 'fallback' },
+      ['<C-Space>'] = { 'show' },
+    },
+    completion = {
+      documentation = { auto_show = true, auto_show_delay_ms = 200 },
+      ghost_text = { enabled = true },
+      accept = { auto_brackets = { enabled = true } },
+    },
+    signature = { enabled = true },
+    sources = { default = { 'lsp', 'snippets', 'path', 'buffer' } },
+    cmdline = {
+      sources = function()
+        local type = vim.fn.getcmdtype()
+        if type == '/' or type == '?' then return { 'buffer' } end
+        if type == ':' then return { 'cmdline' } end
+        return {}
+      end,
+    },
+    fuzzy = { sorts = { 'exact', 'score', 'sort_text' } },
+  })
 
   add('neovim/nvim-lspconfig')
   local capabilities = { general = { positionEncodings = { 'utf-16' } } }
@@ -188,55 +186,45 @@ end)
 
 later(function()
   add('folke/flash.nvim')
-  local ok, flash = pcall(require, 'flash')
-  if ok then
-    flash.setup({})
+  setup('flash', {}, function(flash)
     vim.keymap.set({ 'n', 'x', 'o' }, 's', flash.jump)
     vim.keymap.set({ 'n', 'x', 'o' }, 'S', flash.treesitter)
-  end
+  end)
 
   add('lewis6991/gitsigns.nvim')
   add('tpope/vim-fugitive')
-  local ok, gitsigns = pcall(require, 'gitsigns')
-  if ok then
-    gitsigns.setup({
-      on_attach = function(buf)
-        local gs = gitsigns
-        local map = function(l, r, desc) vim.keymap.set('n', l, r, { buffer = buf, desc = desc }) end
-        map(']h', gs.next_hunk, 'Next hunk')
-        map('[h', gs.prev_hunk, 'Prev hunk')
-        map('<leader>hs', gs.stage_hunk, 'Stage hunk')
-        map('<leader>hr', gs.reset_hunk, 'Reset hunk')
-        map('<leader>hp', gs.preview_hunk, 'Preview hunk')
-        map('<leader>hb', function() gs.blame_line({ full = true }) end, 'Blame line')
-        map('<leader>hd', gs.diffthis, 'Diff this')
-      end,
-    })
-  end
+  setup('gitsigns', {
+    on_attach = function(buf)
+      local gs = package.loaded.gitsigns
+      local map = function(l, r, desc) vim.keymap.set('n', l, r, { buffer = buf, desc = desc }) end
+      map(']h', gs.next_hunk, 'Next hunk')
+      map('[h', gs.prev_hunk, 'Prev hunk')
+      map('<leader>hs', gs.stage_hunk, 'Stage hunk')
+      map('<leader>hr', gs.reset_hunk, 'Reset hunk')
+      map('<leader>hp', gs.preview_hunk, 'Preview hunk')
+      map('<leader>hb', function() gs.blame_line({ full = true }) end, 'Blame line')
+      map('<leader>hd', gs.diffthis, 'Diff this')
+    end,
+  })
 
   add('nvim-mini/mini.surround')
-  local ok, surround = pcall(require, 'mini.surround')
-  if ok then surround.setup() end
+  setup('mini.surround')
 
   add('folke/trouble.nvim')
-  local ok, trouble = pcall(require, 'trouble')
-  if ok then trouble.setup({ open_no_results = true }) end
+  setup('trouble', { open_no_results = true })
 
   add('mhartington/formatter.nvim')
-  local ok, formatter = pcall(require, 'formatter')
-  if ok then
-    formatter.setup({
-      filetype = {
-        lua = { require('formatter.filetypes.lua').stylua },
-        python = { require('formatter.filetypes.python').ruff },
-        rust = { require('formatter.filetypes.rust').rustfmt },
-        javascript = { require('formatter.filetypes.javascript').prettier },
-        typescript = { require('formatter.filetypes.typescript').prettier },
-        json = { require('formatter.filetypes.json').prettier },
-        ['*'] = { require('formatter.filetypes.any').remove_trailing_whitespace },
-      },
-    })
-  end
+  setup('formatter', {
+    filetype = {
+      lua = { require('formatter.filetypes.lua').stylua },
+      python = { require('formatter.filetypes.python').ruff },
+      rust = { require('formatter.filetypes.rust').rustfmt },
+      javascript = { require('formatter.filetypes.javascript').prettier },
+      typescript = { require('formatter.filetypes.typescript').prettier },
+      json = { require('formatter.filetypes.json').prettier },
+      ['*'] = { require('formatter.filetypes.any').remove_trailing_whitespace },
+    },
+  })
 end)
 
 --------------------------------------------------------------------------------
@@ -285,11 +273,10 @@ map('n', '<Leader>Gp', ':Git push<CR>', { silent = true })
 map('n', '<Leader>f', ':Format<CR>', { silent = true })
 
 -- Diagnostics
-map('n', '<space>e', vim.diagnostic.open_float)
 map('n', '<Leader>e', vim.diagnostic.open_float)
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
-map('n', '<space>q', '<cmd>Trouble diagnostics toggle<cr>', { silent = true })
+map('n', '<Leader>t', '<cmd>Trouble diagnostics toggle<cr>', { silent = true })
 
 --------------------------------------------------------------------------------
 -- LSP Keymaps
@@ -303,9 +290,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('n', 'K', vim.lsp.buf.hover, opts)
     map('n', 'gi', vim.lsp.buf.implementation, opts)
     map('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    map('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    map('n', '<space>rn', vim.lsp.buf.rename, opts)
-    map('n', '<space>ca', vim.lsp.buf.code_action, opts)
+    map('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
+    map('n', '<Leader>rn', vim.lsp.buf.rename, opts)
+    map('n', '<Leader>ca', vim.lsp.buf.code_action, opts)
     map('n', 'gr', vim.lsp.buf.references, opts)
     map('n', '<C-t>', fzf.lsp_live_workspace_symbols, opts)
   end,
