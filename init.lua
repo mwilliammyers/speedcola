@@ -224,6 +224,9 @@ later(function()
       ['*'] = { require('formatter.filetypes.any').remove_trailing_whitespace },
     },
   })
+
+  add('folke/which-key.nvim')
+  setup('which-key')
 end)
 
 --------------------------------------------------------------------------------
@@ -246,6 +249,12 @@ end, { silent = true })
 map('t', '<Esc>', '<C-\\><C-n>')
 map('n', '<Leader>vt', ':vsplit term://$SHELL<CR>')
 map('n', '<Leader>xt', ':split term://$SHELL<CR>')
+
+-- Window navigation
+map('n', '<C-h>', '<C-w>h')
+map('n', '<C-j>', '<C-w>j')
+map('n', '<C-k>', '<C-w>k')
+map('n', '<C-l>', '<C-w>l')
 
 -- FZF-Lua
 local fzf = require('fzf-lua')
@@ -350,5 +359,13 @@ vim.api.nvim_create_autocmd('CursorHold', {
   group = augroup,
   callback = function()
     vim.diagnostic.open_float(nil, { focusable = false })
+  end,
+})
+
+-- Highlight yanked text briefly
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = augroup,
+  callback = function()
+    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 150 })
   end,
 })
