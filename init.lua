@@ -216,7 +216,6 @@ later(function()
   add('mhartington/formatter.nvim')
   setup('formatter', {
     filetype = {
-      lua = { require('formatter.filetypes.lua').stylua },
       python = { require('formatter.filetypes.python').ruff },
       rust = { require('formatter.filetypes.rust').rustfmt },
       javascript = { require('formatter.filetypes.javascript').prettier },
