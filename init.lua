@@ -127,7 +127,6 @@ now(function()
     hooks = { post_checkout = function() install_system_deps(); vim.cmd('TSUpdate') end },
   })
   setup('nvim-treesitter.configs', {
-    ensure_installed = { 'python', 'rust', 'typescript', 'javascript' },
     auto_install = true,
     highlight = { enable = true },
     indent = { enable = true },
@@ -192,7 +191,6 @@ later(function()
   end)
 
   add('lewis6991/gitsigns.nvim')
-  add('tpope/vim-fugitive')
   setup('gitsigns', {
     on_attach = function(buf)
       local gs = package.loaded.gitsigns
@@ -247,8 +245,8 @@ end, { silent = true })
 
 -- Terminal
 map('t', '<Esc>', '<C-\\><C-n>')
-map('n', '<Leader>vt', ':vsplit term://$SHELL<CR>')
-map('n', '<Leader>xt', ':split term://$SHELL<CR>')
+map('n', '<Leader>vt', ':vsplit term://$SHELL<CR>', { desc = 'Vertical terminal' })
+map('n', '<Leader>xt', ':split term://$SHELL<CR>', { desc = 'Horizontal terminal' })
 
 -- Window navigation
 map('n', '<C-h>', '<C-w>h')
@@ -258,33 +256,27 @@ map('n', '<C-l>', '<C-w>l')
 
 -- FZF-Lua
 local fzf = require('fzf-lua')
-map('n', '<C-p>', fzf.files, { silent = true })
-map('n', '<C-S-p>', fzf.commands, { silent = true })
-map('n', '<Leader>rg', fzf.live_grep, { silent = true })
-map('n', '<Leader>/', fzf.live_grep, { silent = true })
-map('n', '<Leader>b', fzf.buffers, { silent = true })
-map('n', '<Leader><Enter>', fzf.buffers, { silent = true })
-map('n', '<Leader>l', fzf.lines, { silent = true })
-map('n', '<Leader>h', fzf.helptags, { silent = true })
-map('n', '<Leader>;', fzf.commands, { silent = true })
-map('n', '<Leader>m', fzf.keymaps, { silent = true })
-map('n', '<Leader>c', fzf.git_commits, { silent = true })
-map('n', '<Leader>q', fzf.command_history, { silent = true })
-
--- Fugitive
-map('n', '<Leader>Gs', ':Git<CR>', { silent = true })
-map('n', '<Leader>Gd', ':Gdiff<CR>', { silent = true })
-map('n', '<Leader>Gb', ':Git blame<CR>', { silent = true })
-map('n', '<Leader>Gp', ':Git push<CR>', { silent = true })
+map('n', '<C-p>', fzf.files, { silent = true, desc = 'Find files' })
+map('n', '<C-S-p>', fzf.commands, { silent = true, desc = 'Commands' })
+map('n', '<Leader>rg', fzf.live_grep, { silent = true, desc = 'Live grep' })
+map('n', '<Leader>/', fzf.live_grep, { silent = true, desc = 'Live grep' })
+map('n', '<Leader>b', fzf.buffers, { silent = true, desc = 'Buffers' })
+map('n', '<Leader><Enter>', fzf.buffers, { silent = true, desc = 'Buffers' })
+map('n', '<Leader>l', fzf.lines, { silent = true, desc = 'Lines' })
+map('n', '<Leader>h', fzf.helptags, { silent = true, desc = 'Help tags' })
+map('n', '<Leader>;', fzf.commands, { silent = true, desc = 'Commands' })
+map('n', '<Leader>m', fzf.keymaps, { silent = true, desc = 'Keymaps' })
+map('n', '<Leader>c', fzf.git_commits, { silent = true, desc = 'Git commits' })
+map('n', '<Leader>q', fzf.command_history, { silent = true, desc = 'Command history' })
 
 -- Format
-map('n', '<Leader>f', ':Format<CR>', { silent = true })
+map('n', '<Leader>f', ':Format<CR>', { silent = true, desc = 'Format' })
 
 -- Diagnostics
-map('n', '<Leader>e', vim.diagnostic.open_float)
+map('n', '<Leader>e', vim.diagnostic.open_float, { desc = 'Diagnostics float' })
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
-map('n', '<Leader>t', '<cmd>Trouble diagnostics toggle<cr>', { silent = true })
+map('n', '<Leader>t', '<cmd>Trouble diagnostics toggle<cr>', { silent = true, desc = 'Toggle trouble' })
 
 --------------------------------------------------------------------------------
 -- LSP Keymaps
@@ -298,9 +290,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('n', 'K', vim.lsp.buf.hover, opts)
     map('n', 'gi', vim.lsp.buf.implementation, opts)
     map('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    map('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
-    map('n', '<Leader>rn', vim.lsp.buf.rename, opts)
-    map('n', '<Leader>ca', vim.lsp.buf.code_action, opts)
+    map('n', '<Leader>D', vim.lsp.buf.type_definition, { buffer = buf, desc = 'Type definition' })
+    map('n', '<Leader>rn', vim.lsp.buf.rename, { buffer = buf, desc = 'Rename' })
+    map('n', '<Leader>ca', vim.lsp.buf.code_action, { buffer = buf, desc = 'Code action' })
     map('n', 'gr', vim.lsp.buf.references, opts)
     map('n', '<C-t>', fzf.lsp_live_workspace_symbols, opts)
   end,
@@ -319,12 +311,11 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   end,
 })
 
--- Python colorcolumn
+-- Colorcolumn
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup,
-  pattern = 'python',
   callback = function()
-    vim.opt_local.colorcolumn = '79,88'
+    vim.opt_local.colorcolumn = '79,99'
   end,
 })
 
