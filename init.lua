@@ -240,6 +240,7 @@ local map = vim.keymap.set
 -- see also the autocommand below
 map('n', '<Esc>', function()
   vim.cmd('nohlsearch')
+  vim.cmd('echo ""') -- Clear command line messages/notifications
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     if vim.api.nvim_win_get_config(win).relative ~= '' then
       pcall(vim.api.nvim_win_close, win, false)
@@ -290,14 +291,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local buf = args.buf
     local opts = { buffer = buf }
     map('n', 'gD', vim.lsp.buf.declaration, opts)
-    map('n', 'gd', vim.lsp.buf.definition, opts)
+    map('n', 'gd', fzf.lsp_definitions, opts)
     map('n', 'K', vim.lsp.buf.hover, opts)
-    map('n', 'gi', vim.lsp.buf.implementation, opts)
+    map('n', 'gi', fzf.lsp_implementations, opts)
     map('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    map('n', '<Leader>D', vim.lsp.buf.type_definition, { buffer = buf, desc = 'Type definition' })
+    map('n', '<Leader>D', fzf.lsp_typedefs, { buffer = buf, desc = 'Type definition' })
     map('n', '<Leader>rn', vim.lsp.buf.rename, { buffer = buf, desc = 'Rename' })
-    map('n', '<Leader>ca', vim.lsp.buf.code_action, { buffer = buf, desc = 'Code action' })
-    map('n', 'gr', vim.lsp.buf.references, opts)
+    map('n', '<Leader>ca', fzf.lsp_code_actions, { buffer = buf, desc = 'Code action' })
+    map('n', 'gr', fzf.lsp_references, opts)
     map('n', '<C-t>', fzf.lsp_live_workspace_symbols, opts)
   end,
 })
