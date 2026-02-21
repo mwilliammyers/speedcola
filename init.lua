@@ -211,15 +211,19 @@ later(function()
   add('folke/trouble.nvim')
   setup('trouble', { open_no_results = true })
 
-  add('mhartington/formatter.nvim')
-  setup('formatter', {
-    filetype = {
-      python = { require('formatter.filetypes.python').ruff },
-      rust = { require('formatter.filetypes.rust').rustfmt },
-      javascript = { require('formatter.filetypes.javascript').prettier },
-      typescript = { require('formatter.filetypes.typescript').prettier },
-      json = { require('formatter.filetypes.json').prettier },
-      ['*'] = { require('formatter.filetypes.any').remove_trailing_whitespace },
+  add('stevearc/conform.nvim')
+  setup('conform', {
+    formatters_by_ft = {
+      python = { 'ruff_format', 'ruff_fix' },
+      rust = { 'rustfmt' },
+      javascript = { 'prettier' },
+      typescript = { 'prettier' },
+      json = { 'prettier' },
+      ['*'] = { 'trim_whitespace' },
+    },
+    format_on_save = {
+      timeout_ms = 500,
+      lsp_fallback = false, -- We only want our explicit formatters
     },
   })
 
@@ -270,7 +274,7 @@ map('n', '<Leader>c', fzf.git_commits, { silent = true, desc = 'Git commits' })
 map('n', '<Leader>q', fzf.command_history, { silent = true, desc = 'Command history' })
 
 -- Format
-map('n', '<Leader>f', ':Format<CR>', { silent = true, desc = 'Format' })
+map('n', '<Leader>f', function() require('conform').format({ lsp_fallback = false }) end, { silent = true, desc = 'Format' })
 
 -- Diagnostics
 map('n', '<Leader>e', vim.diagnostic.open_float, { desc = 'Diagnostics float' })
@@ -317,13 +321,6 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     vim.opt_local.colorcolumn = '79,99'
   end,
-})
-
--- Format Python on save (via formatter.nvim)
-vim.api.nvim_create_autocmd('BufWritePost', {
-  group = augroup,
-  pattern = '*.py',
-  command = 'FormatWrite',
 })
 
 -- Open fzf if no file specified
