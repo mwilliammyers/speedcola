@@ -167,6 +167,28 @@ now(function()
   vim.lsp.enable({ 'ruff', 'ty', 'ts_ls', 'rust_analyzer' })
 
   add('ibhagwan/fzf-lua')
+  local grep_rg_opts = table.concat({
+    '--column',
+    '--line-number',
+    '--no-heading',
+    '--color=always',
+    '--smart-case',
+    '--max-columns=4096',
+    [[--glob '!**/.git/**']],
+    [[--glob '!**/node_modules/**']],
+    [[--glob '!**/target/**']],
+    [[--glob '!**/__pycache__/**']],
+    [[--glob '!**/.venv/**']],
+    [[--glob '!**/venv/**']],
+    [[--glob '!**/.mypy_cache/**']],
+    [[--glob '!**/.pytest_cache/**']],
+    [[--glob '!**/.ruff_cache/**']],
+    [[--glob '!**/.hypothesis/**']],
+    [[--glob '!**/dist/**']],
+    [[--glob '!**/build/**']],
+    [[--glob '!**/.next/**']],
+    '-e',
+  }, ' ')
   require('fzf-lua').setup({
     winopts = {
       height = 0.85,
@@ -179,6 +201,12 @@ now(function()
       symbols = {
         async_or_timeout = true,  -- Use live query for workspace symbols
       },
+    },
+    grep = {
+      -- Search hidden/ignored files by default, but still skip heavy generated dirs.
+      hidden = true,
+      no_ignore = true,
+      rg_opts = grep_rg_opts,
     },
   })
 end)
