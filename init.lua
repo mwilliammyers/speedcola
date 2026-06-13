@@ -309,7 +309,7 @@ map('n', '<Leader>f', function() require('conform').format({ lsp_fallback = fals
 map('n', '<Leader>e', vim.diagnostic.open_float, { desc = 'Diagnostics float' })
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
-map('n', '<Leader>t', '<cmd>Trouble diagnostics toggle<cr>', { silent = true, desc = 'Toggle trouble' })
+map('n', '<Leader>td', '<cmd>Trouble diagnostics toggle<cr>', { silent = true, desc = 'Toggle trouble' })
 
 --------------------------------------------------------------------------------
 -- LSP Keymaps
@@ -327,7 +327,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('n', '<Leader>rn', vim.lsp.buf.rename, { buffer = buf, desc = 'Rename' })
     map('n', '<Leader>ca', fzf.lsp_code_actions, { buffer = buf, desc = 'Code action' })
     map('n', 'gr', fzf.lsp_references, opts)
-    map('n', '<C-t>', fzf.lsp_live_workspace_symbols, opts)
+    map('n', '<Leader>ws', fzf.lsp_live_workspace_symbols, { buffer = buf, desc = 'Live workspace symbols' })
+    map('n', '<Leader>t', fzf.lsp_live_workspace_symbols, { buffer = buf, desc = 'Live workspace symbols' })
   end,
 })
 
